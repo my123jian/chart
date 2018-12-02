@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图表测试页面</title>
+    <script src="lib/ChartView.js"></script>
+    <script src="lib/LogHelper.js"></script>
+    <script src="lib/WebClient.js"></script>
+    <script src="lib/ThreadHelper.js"></script>
+
+
+</head>
+<body>
+<script type="text/javascript">
+   async function init() {
+       var theLog = new LogHelper();
+       var theClient = new WebClient();
+       for (var i = 0; i < 10; i++) {
+           await ThreadHelper.sleep(1000);
+           theLog.log("开始运行了!");
+       }
+       let theData = await theClient.load('lib/LogHelper.js', {});
+       debugger;
+   }
+ init();
+</script>
+</body>
+</html>
