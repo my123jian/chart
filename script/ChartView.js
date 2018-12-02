@@ -1,18 +1,26 @@
 /*
 *创建一个图表视图
 * */
-class ChartView {
-    constructor(width,height){
-        this.width=width;
-        this.height=height;
+class ChartView extends ChartViewBase {
+    constructor(ele) {
+        super();
+        this.chart = echarts.init(document.getElementById(ele));
     }
-    loadData(data){
 
+    loadData(data) {
+        if (this.chart) {
+
+        }
+        else {
+
+        }
     }
-    show(){
 
+    show(data) {
+        console.log(this);
     }
-    refresh(){
 
+    refresh(data) {
+        this.show(data);
     }
 }

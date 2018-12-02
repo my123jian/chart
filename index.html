@@ -15,11 +15,14 @@
    async function init() {
        var theLog = new LogHelper();
        var theClient = new WebClient();
-       for (var i = 0; i < 10; i++) {
+       for (var i = 0; i < 1; i++) {
            await ThreadHelper.sleep(1000);
            theLog.log("开始运行了!");
        }
        let theData = await theClient.load('lib/LogHelper.js', {});
+
+       let theResult=await theData.text();
+       theLog.log((theResult));
        debugger;
    }
  init();
