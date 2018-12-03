@@ -158,13 +158,19 @@ html body {
     background-image: url("img/bg_s.png");
 
 }
-
+.righttop .title{
+    font-size: 20px;
+    color: #ddf3ff;
+    margin-bottom: 16px;
+    margin-top: 22px;
+    margin-left: 40px;
+}
 .righttop .chart:first-child {
     margin-top: 64px;
 }
 
 .righttop .chart {
-    height: 176px;
+    /*height: 176px;*/
 }
 
 .rightbottom {
@@ -268,4 +274,15 @@ html body {
 }
 #date-input:focus{
     border-width:0px ;
+}
+
+#chart1,#chart2,#chart3{
+    width:560px;
+    height: 110px!important;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+#chart4{
+    width: 1194px;
+    height: 246px;
 }

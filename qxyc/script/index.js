@@ -399,12 +399,8 @@ $(function () {
 
     }
 
-    PageViewModel.prototype.initCharts = function () {
-
+    PageViewModel.prototype.loadChart1=function(data){
         this.Chart1 = echarts.init(document.getElementById('chart1'));
-        this.Chart2 = echarts.init(document.getElementById('chart2'));
-        this.Chart3 = echarts.init(document.getElementById('chart3'));
-        this.Chart4 = echarts.init(document.getElementById('chart4'));
         var option = {
             /*title: {
                 text: '折线图堆叠'
@@ -423,8 +419,11 @@ $(function () {
              },*/
             grid: {
                 left: 0,
-                right: 0,
-                bottom: 0,
+                right: 5,
+                top:5,
+                bottom: 5,
+                width:600,
+                height:100,
                 containLabel: true
             },
             /*toolbox: {
@@ -434,6 +433,7 @@ $(function () {
             },*/
             xAxis: {
                 type: 'category',
+                name:'(时点)',
                 boundaryGap: false,
                 axisLine: {
                     lineStyle: {
@@ -496,9 +496,308 @@ $(function () {
             ]
         };
         this.Chart1.setOption(option);
+    }
+    PageViewModel.prototype.loadChart2=function(data){
+        this.Chart2 = echarts.init(document.getElementById('chart2'));
+        var option = {
+            /*title: {
+                text: '折线图堆叠'
+            },*/
+            tooltip: {
+                trigger: 'axis'
+            },
+            /*legend: {
+                data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+            },*/
+            /* grid: {
+                 left: '3%',
+                 right: '4%',
+                 bottom: '3%',
+                 containLabel: true
+             },*/
+            grid: {
+                left: 0,
+                right: 5,
+                top:5,
+                bottom: 5,
+                width:600,
+                height:100,
+                containLabel: true
+            },
+            /*toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },*/
+            xAxis: {
+                type: 'category',
+                name:'(时点)',
+                boundaryGap: false,
+                axisLine: {
+                    lineStyle: {
+                        color: '#557398'
+                    }
+                },
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: {show: false},
+                axisLine: {
+                    lineStyle: {
+                        color: '#557398'
+                    }
+                }
+            },
+            series: [
+
+                {
+                    name: '搜索引擎',
+                    type: 'line',
+                    //stack: '总量',
+                    smooth: true,
+                    data: [820, 932, 901, 934, 1290, 1330],
+                    areaStyle: {
+                        normal: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0, color: 'rgba(88,160,253,1)'
+                                }, {
+                                    offset: 0.5, color: 'rgba(88,160,253,0.7)'
+                                }, {
+                                    offset: 1, color: 'rgba(88,160,253,0)'
+                                }]
+                            }
+                        }
+                    },
+                },
+                {
+                    name: '搜索引擎',
+                    type: 'line',
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                type: 'dotted'  //'dotted'虚线 'solid'实线
+                            }
+                        }
+                    },
+                    smooth: true,
+                    //stack: '总量',
+                    data: [820, 932, 901, 934, 1290, 1330, 1320]
+                }
+            ]
+        };
         this.Chart2.setOption(option);
+    }
+    PageViewModel.prototype.loadChart3=function(data){
+        this.Chart3 = echarts.init(document.getElementById('chart3'));
+        var option = {
+            /*title: {
+                text: '折线图堆叠'
+            },*/
+            tooltip: {
+                trigger: 'axis'
+            },
+            /*legend: {
+                data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+            },*/
+            /* grid: {
+                 left: '3%',
+                 right: '4%',
+                 bottom: '3%',
+                 containLabel: true
+             },*/
+            grid: {
+                left: 0,
+                right: 5,
+                top:5,
+                bottom: 5,
+                width:600,
+                height:100,
+                containLabel: true
+            },
+            /*toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },*/
+            xAxis: {
+                type: 'category',
+                name:'(时点)',
+                boundaryGap: false,
+                axisLine: {
+                    lineStyle: {
+                        color: '#557398'
+                    }
+                },
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: {show: false},
+                axisLine: {
+                    lineStyle: {
+                        color: '#557398'
+                    }
+                }
+            },
+            series: [
+
+                {
+                    name: '搜索引擎',
+                    type: 'line',
+                    //stack: '总量',
+                    smooth: true,
+                    data: [820, 932, 901, 934, 1290, 1330],
+                    areaStyle: {
+                        normal: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0, color: 'rgba(88,160,253,1)'
+                                }, {
+                                    offset: 0.5, color: 'rgba(88,160,253,0.7)'
+                                }, {
+                                    offset: 1, color: 'rgba(88,160,253,0)'
+                                }]
+                            }
+                        }
+                    },
+                },
+                {
+                    name: '搜索引擎',
+                    type: 'line',
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                type: 'dotted'  //'dotted'虚线 'solid'实线
+                            }
+                        }
+                    },
+                    smooth: true,
+                    //stack: '总量',
+                    data: [820, 932, 901, 934, 1290, 1330, 1320]
+                }
+            ]
+        };
         this.Chart3.setOption(option);
+    }
+    PageViewModel.prototype.loadChart4=function(data){
+        this.Chart4 = echarts.init(document.getElementById('chart4'));
+        var option = {
+            /*title: {
+                text: '折线图堆叠'
+            },*/
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend:{},
+            /*legend: {
+                data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+            },*/
+            /* grid: {
+                 left: '3%',
+                 right: '4%',
+                 bottom: '3%',
+                 containLabel: true
+             },*/
+            grid: {
+                left: 0,
+                right: 5,
+                top:5,
+                bottom: 5,
+                width:1194,
+                height:236,
+                containLabel: true
+            },
+            /*toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },*/
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                name:'(时间/点)',
+                axisLine: {
+                    lineStyle: {
+                        color: '#557398'
+                    }
+                },
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: {show: false},
+                axisLine: {
+                    lineStyle: {
+                        color: '#557398'
+                    }
+                }
+            },
+            series: [
+
+                {
+                    name: '搜索引擎',
+                    type: 'line',
+                    //stack: '总量',
+                    smooth: true,
+                    data: [820, 932, 901, 934, 1290, 1330],
+                    areaStyle: {
+                        normal: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0, color: 'rgba(88,160,253,1)'
+                                }, {
+                                    offset: 0.5, color: 'rgba(88,160,253,0.7)'
+                                }, {
+                                    offset: 1, color: 'rgba(88,160,253,0)'
+                                }]
+                            }
+                        }
+                    },
+                },
+                {
+                    name: '搜索引擎',
+                    type: 'line',
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                type: 'dotted'  //'dotted'虚线 'solid'实线
+                            }
+                        }
+                    },
+                    smooth: true,
+                    //stack: '总量',
+                    data: [820, 932, 901, 934, 1290, 1330, 1320]
+                }
+            ]
+        };
         this.Chart4.setOption(option);
+    }
+    PageViewModel.prototype.initCharts = function () {
+        this.loadChart1()
+        this.loadChart2()
+        this.loadChart3()
+        this.loadChart4()
+
     }
 
     window.PageView = new PageViewModel();
