@@ -29,16 +29,16 @@ $(function () {
             if (hasDone) {
                 for (var j = 0; j < 3; j++) {
                     var thePos = i + j;
-                    if(thePos>theNumberStrArray.length){
+                    if (thePos > theNumberStrArray.length) {
                         break;
                     }
-                    else{
-                        theCurrentChar=theNumberStrArray[thePos];
+                    else {
+                        theCurrentChar = theNumberStrArray[thePos];
                         theFormateArray.push(theCurrentChar)
                     }
                 }
-                i=i+3;
-                if(i+1<theNumberStrArray.length){
+                i = i + 3;
+                if (i + 1 < theNumberStrArray.length) {
                     theFormateArray.push(',');
                 }
             }
@@ -46,18 +46,18 @@ $(function () {
                 hasDone = true;
             }
         }
-        theFormateArray=theFormateArray.reverse();
-        var theTemplate="";
-        for(var i=0;i<theFormateArray.length;i++){
-            var theCurrent=theFormateArray[i];
-            if(theCurrent==','||theCurrent=='.'){
-                theTemplate+=theCurrent;
+        theFormateArray = theFormateArray.reverse();
+        var theTemplate = "";
+        for (var i = 0; i < theFormateArray.length; i++) {
+            var theCurrent = theFormateArray[i];
+            if (theCurrent == ',' || theCurrent == '.') {
+                theTemplate += theCurrent;
             }
-            else{
-                theTemplate+="<div>"+theCurrent+"</div>";
+            else {
+                theTemplate += "<div>" + theCurrent + "</div>";
             }
         }
-         theTemplate = theTemplate +"<span class=\"last\">万</span>";
+        theTemplate = theTemplate + "<span class=\"last\">万</span>";
         return theTemplate;
     }
     //显示第2行数据
@@ -434,23 +434,40 @@ $(function () {
                 selectedMode: 'single'
             },*/
             geo: {
-
+                selectedMode: 'single',
                 map: 'gd',
                 top: 82,
                 scaleLimit: {
-                    min: 0.9,
-                    max: 0.9
+                    min: 1,
+                    max: 1
                 },
                 //鼠标移入是否显示省份/城市
                 label: {
+                    show: true,
+                    color: 'white',
                     emphasis: {
-                        show: false
+                        color: 'white',
+                        show: true
                     }
                 },
-                roam: true,
+                roam: false,//鼠标不可移动
                 itemStyle: {
                     normal: {//选取前颜色
-                        areaColor: '#2b7ecc',
+                        areaColor: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: '#2b7ecc00' // 0% 处的颜色
+                            }, {
+                                offset: 1, color: '#2b7ecc' // 100% 处的颜色
+                            }],
+                            globalCoord: false // 缺省为 false
+                        }
+                       // '#2b7ecc'
+                        ,
                         borderColor: '#49ffff'
                     },
                     emphasis: {//选取后颜色
@@ -490,7 +507,10 @@ $(function () {
             },*/
             tooltip: {
                 trigger: 'axis',
-                backgroundColor: 'transparent'
+                backgroundColor: 'transparent',
+                formatter: function (params) {
+                    return params[params.length - 1].data;
+                }
             },
             /*legend: {
                 data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
@@ -596,7 +616,10 @@ $(function () {
             },*/
             tooltip: {
                 trigger: 'axis',
-                backgroundColor: 'transparent'
+                backgroundColor: 'transparent',
+                formatter: function (params) {
+                    return params[params.length - 1].data;
+                }
             },
             /*legend: {
                 data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
@@ -701,7 +724,10 @@ $(function () {
             },*/
             tooltip: {
                 trigger: 'axis',
-                backgroundColor: 'transparent'
+                backgroundColor: 'transparent',
+                formatter: function (params) {
+                    return params[params.length - 1].data;
+                }
             },
             /*legend: {
                 data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
@@ -807,13 +833,30 @@ $(function () {
             },*/
             tooltip: {
                 trigger: 'axis',
-                backgroundColor: 'transparent'
+                //show:true,
+                axisPointer: {
+                    type: 'line',
+                    show: true,
+                    label: {
+                        show: true
+                    }
+                },
+                backgroundColor: 'transparent',
+                formatter: function (params) {
+                    return params[params.length - 1].data;
+                }
             },
+
             legend: {
                 textStyle: {
                     color: '#557398',
-                }
+                },
+                data: ['搜索引擎']
             },
+            /* visualMap:{
+                 show:false,
+                 seriesIndex:1,
+             },*/
             /*legend: {
                 data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
             },*/
@@ -862,6 +905,7 @@ $(function () {
                 {
                     name: '搜索引擎',
                     type: 'line',
+                    z: 1,
                     //stack: '总量',
                     smooth: true,
                     data: [820, 932, 901, 934, 1290, 1330],
@@ -891,6 +935,8 @@ $(function () {
                 },
                 {
                     name: '搜索引擎',
+                    symbol: 'none',
+                    z: 2,
                     type: 'line',
                     itemStyle: {
                         normal: {
@@ -904,7 +950,9 @@ $(function () {
                     smooth: true,
                     //stack: '总量',
                     data: [820, 932, 901, 934, 1290, 1330, 1320]
-                }
+                },
+
+
             ]
         };
         this.Chart4.setOption(option);
