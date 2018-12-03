@@ -33,8 +33,8 @@
         </div>
     </div>
     <div class="numpart">
-        <div>
-            <div class="title">清远市当前人口总量</div>
+        <div id="numpart1">
+            <div class="title" ><span class="cityname">清远市</span>当前人口总量</div>
             <div class="content1">
                 <div>1</div>,<div>1</div>
                 <div>3</div>
@@ -42,14 +42,14 @@
                 <span class="last">万</span>
             </div>
         </div>
-        <div style="margin-top: 40px;">
-            <div class="title">清远市实时迁出人数：</div>
+        <div  id="numpart2" style="margin-top: 40px;">
+            <div class="title"><span class="cityname">清远市</span>实时迁出人数：</div>
             <div class="content2">
                 <span>235.2</span><span class="last">万</span>
             </div>
         </div>
-        <div style="margin-top: 58px">
-            <div class="title">清远市实时迁入人数：</div>
+        <div  id="numpart3" style="margin-top: 58px">
+            <div class="title"><span class="cityname">清远市</span>实时迁入人数：</div>
             <div class="content2">
                 <span>235.2</span><span class="last">万</span>
             </div>
@@ -89,7 +89,8 @@
 </div>
 <script type="text/javascript">
     laydate.render({
-        elem: '#date-input' //指定元素
+        elem: '#date-input', //指定元素
+        trigger: 'click'
     });
 </script>
 

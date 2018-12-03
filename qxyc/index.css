@@ -35,7 +35,7 @@ html body {
     background-image: url("img/非聚焦/btn_nor_Testing.png");
 }
 
-.topbutton.test.active {
+.topbutton.test.active,.topbutton.test.active:hover {
     background-image: url("img/聚焦/btn_pre_Testing.png");
     z-index: 100;
     margin-top: 28px !important;
@@ -44,6 +44,7 @@ html body {
 
 .topbutton.test:hover {
     background-image: url("img/移入/btn_bright_Testing.png");
+    z-index: 1;
 }
 
 .topbutton.bridge {
@@ -51,7 +52,7 @@ html body {
     background-image: url("img/非聚焦/btn_nor_Bridge.png");
 }
 
-.topbutton.bridge.active {
+.topbutton.bridge.active,.topbutton.bridge.active:hover {
     background-image: url("img/聚焦/btn_pre_Bridge.png");
     z-index: 100;
     margin-top: 28px !important;
@@ -60,6 +61,7 @@ html body {
 
 .topbutton.bridge:hover {
     background-image: url("img/移入/btn_brigh_Bridge.png");
+    z-index: 1;
 }
 
 .topbutton.insight {
@@ -67,15 +69,16 @@ html body {
     background-image: url("img/非聚焦/btn_nor_Insight.png");
 }
 
-.topbutton.insight.active {
+.topbutton.insight.active ,.topbutton.insight.active :hover{
     background-image: url("img/聚焦/btn_pre_Insight.png");
     margin-top: 28px !important;
     top: -5px;
+    z-index: 100;
 }
 
 .topbutton.insight:hover {
     background-image: url("img/移入/btn_brigh_Insight.png");
-    z-index: 100;
+    z-index: 1;
 }
 
 .topbutton.strait {
@@ -91,6 +94,7 @@ html body {
 
 .topbutton.strait:hover {
     background-image: url("img/移入/btn_brigh_strait.png");
+    z-index: 1;
 }
 
 .fixdiv {

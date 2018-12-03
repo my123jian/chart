@@ -5,12 +5,95 @@ $(function () {
     var theChar3Id = "chart3";
     var theChar4Id = "chart4";
     var theGdData = GdGeoJson;
+    //当前选择的时间
+    var theCurrentDate = null;
+    //当前的区域名称
+    var theAreaNmae = "";
+
+    //显示第一行数据
+    var ShowNumber1 = function (city, value) {
+        $('#numpart1').find('.cityname').val(city);
+        var theValueStr = value.toFixed(1);
+        var theNumberStrArray = [];
+        for (var i = 0; i < theValueStr.length; i++) {
+            theNumberStrArray.push(theValueStr[i]);
+        }
+        theNumberStrArray = theNumberStrArray.reverse();
+        var theFormateArray = [];
+        var hasDone = false;
+        for (var i = 0; i < theNumberStrArray.length; i++) {
+            var theCurrentChar = theNumberStrArray[i];
+            if (!hasDone) {
+                theFormateArray.push(theCurrentChar);
+            }
+            if (hasDone) {
+                for (var j = 0; j < 3; j++) {
+                    var thePos = i + j;
+                    if(thePos>theNumberStrArray.length){
+                        break;
+                    }
+                    else{
+                        theCurrentChar=theNumberStrArray[thePos];
+                        theFormateArray.push(theCurrentChar)
+                    }
+                }
+                i=i+3;
+                if(i+1<theNumberStrArray.length){
+                    theFormateArray.push(',');
+                }
+            }
+            if (!hasDone && theCurrentChar == '.') {
+                hasDone = true;
+            }
+        }
+        theFormateArray=theFormateArray.reverse();
+        var theTemplate="";
+        for(var i=0;i<theFormateArray.length;i++){
+            var theCurrent=theFormateArray[i];
+            if(theCurrent==','||theCurrent=='.'){
+                theTemplate+=theCurrent;
+            }
+            else{
+                theTemplate+="<div>"+theCurrent+"</div>";
+            }
+        }
+         theTemplate = theTemplate +"<span class=\"last\">万</span>";
+        return theTemplate;
+    }
+    //显示第2行数据
+    var ShowNumber2 = function (city, value) {
+        $('#numpart2').find('.cityname').val(city);
+    }
+    //显示第3行数据
+    var ShowNumber3 = function (city, value) {
+        $('#numpart3').find('.cityname').val(city);
+    }
 
     function PageViewModel() {
+        this.initEvent();
         this.initCharts();
         this.initChartMap();
     }
 
+    PageViewModel.prototype.initEvent = function () {
+        $('.topbutton').click(function () {
+            var theUrl = $(this).data('url');
+            if (theUrl) {
+                console.log("找到对应的URL:" + theUrl);
+                location.href = theUrl;
+            }
+            else {
+                console.log("未找到对应的URL不跳转！");
+            }
+        });
+        $('#date-action').click(function () {
+            //$('#date-input').click();
+            laydate.render({
+                elem: '#date-input', //指定元素
+                show: true
+            });
+        });
+    }
     PageViewModel.prototype.initChartMap = function () {
         echarts.registerMap('gd', theGdData);
         this.ChartMap = echarts.init(document.getElementById(theMapId));
@@ -196,7 +279,7 @@ $(function () {
         };
 
         //var color = ['#a6c84c', '#ffa022', '#46bee9'];
-        var color=['#49ffff'];//
+        var color = ['#49ffff'];//
         var series = [];
 
 // ['北京', BJData], ['上海', SHData],
@@ -323,10 +406,10 @@ $(function () {
 
         });
         //选择目标区域
-       /* PageView.ChartMap.dispatchAction({
-            type: 'geoSelect',
-            name: '广州市'
-        })*/
+        /* PageView.ChartMap.dispatchAction({
+             type: 'geoSelect',
+             name: '广州市'
+         })*/
         option = {
             backgroundColor: '',
             title: {
@@ -353,10 +436,10 @@ $(function () {
             geo: {
 
                 map: 'gd',
-                top:82,
-                scaleLimit:{
-                    min:0.9,
-                    max:0.9
+                top: 82,
+                scaleLimit: {
+                    min: 0.9,
+                    max: 0.9
                 },
                 //鼠标移入是否显示省份/城市
                 label: {
@@ -391,22 +474,23 @@ $(function () {
                 console.log(params);
             });
 
-            this.ChartMap.on('click',function (params) {
-                var theName=params.name;
+            this.ChartMap.on('click', function (params) {
+                var theName = params.name;
                 console.log(params);
             })
         }
 
     }
 
-    PageViewModel.prototype.loadChart1=function(data){
+    PageViewModel.prototype.loadChart1 = function (data) {
         this.Chart1 = echarts.init(document.getElementById('chart1'));
         var option = {
             /*title: {
                 text: '折线图堆叠'
             },*/
             tooltip: {
-                trigger: 'axis'
+                trigger: 'axis',
+                backgroundColor: 'transparent'
             },
             /*legend: {
                 data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
@@ -420,10 +504,10 @@ $(function () {
             grid: {
                 left: 0,
                 right: 5,
-                top:5,
+                top: 5,
                 bottom: 5,
-                width:600,
-                height:100,
+                width: 600,
+                height: 100,
                 containLabel: true
             },
             /*toolbox: {
@@ -433,7 +517,8 @@ $(function () {
             },*/
             xAxis: {
                 type: 'category',
-                name:'(时点)',
+                name: '(时点)',
+                nameLocation: 'end',
                 boundaryGap: false,
                 axisLine: {
                     lineStyle: {
@@ -468,15 +553,20 @@ $(function () {
                                 x2: 0,
                                 y2: 1,
                                 colorStops: [{
-                                    offset: 0, color: 'rgba(88,160,253,1)'
+                                    offset: 0, color: 'rgba(255,220,111,0.3)'
                                 }, {
-                                    offset: 0.5, color: 'rgba(88,160,253,0.7)'
+                                    offset: 0.5, color: 'rgba(255,220,111,0.15)'
                                 }, {
-                                    offset: 1, color: 'rgba(88,160,253,0)'
+                                    offset: 1, color: 'rgba(255,220,111,0)'
                                 }]
                             }
                         }
                     },
+                    lineStyle: {
+                        normal: {
+                            color: '#ffdc6f'
+                        }
+                    }
                 },
                 {
                     name: '搜索引擎',
@@ -485,6 +575,7 @@ $(function () {
                         normal: {
                             lineStyle: {
                                 width: 2,
+                                color: '#ffdc6f',
                                 type: 'dotted'  //'dotted'虚线 'solid'实线
                             }
                         }
@@ -497,14 +588,15 @@ $(function () {
         };
         this.Chart1.setOption(option);
     }
-    PageViewModel.prototype.loadChart2=function(data){
+    PageViewModel.prototype.loadChart2 = function (data) {
         this.Chart2 = echarts.init(document.getElementById('chart2'));
         var option = {
             /*title: {
                 text: '折线图堆叠'
             },*/
             tooltip: {
-                trigger: 'axis'
+                trigger: 'axis',
+                backgroundColor: 'transparent'
             },
             /*legend: {
                 data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
@@ -518,10 +610,10 @@ $(function () {
             grid: {
                 left: 0,
                 right: 5,
-                top:5,
+                top: 5,
                 bottom: 5,
-                width:600,
-                height:100,
+                width: 600,
+                height: 100,
                 containLabel: true
             },
             /*toolbox: {
@@ -531,7 +623,7 @@ $(function () {
             },*/
             xAxis: {
                 type: 'category',
-                name:'(时点)',
+                name: '(时点)',
                 boundaryGap: false,
                 axisLine: {
                     lineStyle: {
@@ -557,6 +649,11 @@ $(function () {
                     //stack: '总量',
                     smooth: true,
                     data: [820, 932, 901, 934, 1290, 1330],
+                    lineStyle: {
+                        normal: {
+                            color: '#4293f2' //rgba(66,147,242
+                        }
+                    },
                     areaStyle: {
                         normal: {
                             color: {
@@ -566,11 +663,11 @@ $(function () {
                                 x2: 0,
                                 y2: 1,
                                 colorStops: [{
-                                    offset: 0, color: 'rgba(88,160,253,1)'
+                                    offset: 0, color: 'rgba(66,147,242,0.3)'
                                 }, {
-                                    offset: 0.5, color: 'rgba(88,160,253,0.7)'
+                                    offset: 0.5, color: 'rgba(66,147,242,0.15)'
                                 }, {
-                                    offset: 1, color: 'rgba(88,160,253,0)'
+                                    offset: 1, color: 'rgba(66,147,242,0)'
                                 }]
                             }
                         }
@@ -583,6 +680,7 @@ $(function () {
                         normal: {
                             lineStyle: {
                                 width: 2,
+                                color: '#4293f2',
                                 type: 'dotted'  //'dotted'虚线 'solid'实线
                             }
                         }
@@ -595,14 +693,15 @@ $(function () {
         };
         this.Chart2.setOption(option);
     }
-    PageViewModel.prototype.loadChart3=function(data){
+    PageViewModel.prototype.loadChart3 = function (data) {
         this.Chart3 = echarts.init(document.getElementById('chart3'));
         var option = {
             /*title: {
                 text: '折线图堆叠'
             },*/
             tooltip: {
-                trigger: 'axis'
+                trigger: 'axis',
+                backgroundColor: 'transparent'
             },
             /*legend: {
                 data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
@@ -616,10 +715,10 @@ $(function () {
             grid: {
                 left: 0,
                 right: 5,
-                top:5,
+                top: 5,
                 bottom: 5,
-                width:600,
-                height:100,
+                width: 600,
+                height: 100,
                 containLabel: true
             },
             /*toolbox: {
@@ -629,7 +728,7 @@ $(function () {
             },*/
             xAxis: {
                 type: 'category',
-                name:'(时点)',
+                name: '(时点)',
                 boundaryGap: false,
                 axisLine: {
                     lineStyle: {
@@ -655,6 +754,12 @@ $(function () {
                     //stack: '总量',
                     smooth: true,
                     data: [820, 932, 901, 934, 1290, 1330],
+                    lineStyle: {
+                        normal: {
+                            color: '#32ff4b'//rgba(50,255,75
+                        }
+                    },
+
                     areaStyle: {
                         normal: {
                             color: {
@@ -664,11 +769,11 @@ $(function () {
                                 x2: 0,
                                 y2: 1,
                                 colorStops: [{
-                                    offset: 0, color: 'rgba(88,160,253,1)'
+                                    offset: 0, color: 'rgba(50,255,75,0.3)'
                                 }, {
-                                    offset: 0.5, color: 'rgba(88,160,253,0.7)'
+                                    offset: 0.5, color: 'rgba(50,255,75,0.15)'
                                 }, {
-                                    offset: 1, color: 'rgba(88,160,253,0)'
+                                    offset: 1, color: 'rgba(50,255,75,0)'
                                 }]
                             }
                         }
@@ -681,6 +786,7 @@ $(function () {
                         normal: {
                             lineStyle: {
                                 width: 2,
+                                color: '#32ff4b',
                                 type: 'dotted'  //'dotted'虚线 'solid'实线
                             }
                         }
@@ -693,16 +799,21 @@ $(function () {
         };
         this.Chart3.setOption(option);
     }
-    PageViewModel.prototype.loadChart4=function(data){
+    PageViewModel.prototype.loadChart4 = function (data) {
         this.Chart4 = echarts.init(document.getElementById('chart4'));
         var option = {
             /*title: {
                 text: '折线图堆叠'
             },*/
             tooltip: {
-                trigger: 'axis'
+                trigger: 'axis',
+                backgroundColor: 'transparent'
             },
-            legend:{},
+            legend: {
+                textStyle: {
+                    color: '#557398',
+                }
+            },
             /*legend: {
                 data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
             },*/
@@ -715,10 +826,10 @@ $(function () {
             grid: {
                 left: 0,
                 right: 5,
-                top:5,
+                top: 5,
                 bottom: 5,
-                width:1194,
-                height:236,
+                width: 1194,
+                height: 236,
                 containLabel: true
             },
             /*toolbox: {
@@ -729,7 +840,7 @@ $(function () {
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                name:'(时间/点)',
+                name: '(时间/点)',
                 axisLine: {
                     lineStyle: {
                         color: '#557398'
@@ -754,6 +865,11 @@ $(function () {
                     //stack: '总量',
                     smooth: true,
                     data: [820, 932, 901, 934, 1290, 1330],
+                    lineStyle: {
+                        normal: {
+                            color: '#32ff4b'//rgba(55,255,75
+                        }
+                    },
                     areaStyle: {
                         normal: {
                             color: {
@@ -763,11 +879,11 @@ $(function () {
                                 x2: 0,
                                 y2: 1,
                                 colorStops: [{
-                                    offset: 0, color: 'rgba(88,160,253,1)'
+                                    offset: 0, color: 'rgba(55,255,75,0.3)'
                                 }, {
-                                    offset: 0.5, color: 'rgba(88,160,253,0.7)'
+                                    offset: 0.5, color: 'rgba(55,255,75,0.15)'
                                 }, {
-                                    offset: 1, color: 'rgba(88,160,253,0)'
+                                    offset: 1, color: 'rgba(55,255,75,0)'
                                 }]
                             }
                         }
@@ -780,6 +896,7 @@ $(function () {
                         normal: {
                             lineStyle: {
                                 width: 2,
+                                color: '#32ff4b',
                                 type: 'dotted'  //'dotted'虚线 'solid'实线
                             }
                         }
@@ -800,5 +917,8 @@ $(function () {
 
     }
 
+    PageViewModel.prototype.Load = function () {
+
+    }
     window.PageView = new PageViewModel();
 })
