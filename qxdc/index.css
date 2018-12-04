@@ -1,0 +1,245 @@
+
+* {
+    color:#ddf3ff;
+    background-repeat: no-repeat;
+    margin: 0px;
+    padding: 0px;
+    font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
+}
+
+html body {
+    margin: 0px;
+    padding: 0px;
+    width: 1920px;
+    height: 1080px;
+    background-image: url("img/bg.png");
+}
+
+.mapbase {
+    width: 1280px;
+    height: 1040px;
+    margin-top: 40px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.topbutton {
+    margin-top: 30px;
+    margin-right: 0px;
+    margin-left: -10px;
+    width: 216px;
+    height: 90px;
+    position: relative;
+}
+
+.topbutton.test {
+
+    background-image: url("img/非聚焦/btn_nor_Testing.png");
+}
+
+.topbutton.test.active, .topbutton.test.active:hover {
+    background-image: url("img/聚焦/btn_pre_Testing.png");
+    z-index: 100;
+    margin-top: 28px !important;
+    top: -5px;
+}
+
+.topbutton.test:hover {
+    background-image: url("img/移入/btn_bright_Testing.png");
+    z-index: 1;
+}
+
+.topbutton.bridge {
+
+    background-image: url("img/非聚焦/btn_nor_Bridge.png");
+}
+
+.topbutton.bridge.active, .topbutton.bridge.active:hover {
+    background-image: url("img/聚焦/btn_pre_Bridge.png");
+    z-index: 100;
+    margin-top: 28px !important;
+    top: -5px;
+}
+
+.topbutton.bridge:hover {
+    background-image: url("img/移入/btn_brigh_Bridge.png");
+    z-index: 1;
+}
+
+.topbutton.insight {
+
+    background-image: url("img/非聚焦/btn_nor_Insight.png");
+}
+
+.topbutton.insight.active, .topbutton.insight.active:hover {
+    background-image: url("img/聚焦/btn_pre_Insight.png");
+    margin-top: 28px !important;
+    top: -5px;
+    z-index: 100;
+}
+
+.topbutton.insight:hover {
+    background-image: url("img/移入/btn_brigh_Insight.png");
+    z-index: 1;
+}
+
+.topbutton.strait {
+
+    background-image: url("img/非聚焦/btn_nor_strait.png");
+}
+
+.topbutton.strait.active, .topbutton.strait.active:hover {
+    background-image: url("img/聚焦/btn_pre_strait.png");
+    background-size: 100% 100%;
+    z-index: 100;
+}
+
+.topbutton.strait:hover {
+    background-image: url("img/移入/btn_brigh_strait.png");
+    z-index: 1;
+}
+
+.fixdiv {
+    position: absolute;
+    pointer-events: none;
+    width: 1920px;
+    height: 1080px;
+}
+
+.fixdiv > div {
+    pointer-events: painted;
+    position: absolute;
+    background-repeat: no-repeat;
+}
+
+.toppart {
+    width: 1920px;
+    line-height: 82px;
+}
+
+.toppart .rightpart div {
+    display: inline-block;
+}
+
+.toppart .rightpart {
+    position: absolute;
+    width: 1236px;
+    left: 664px;
+    top: 0px;
+    border-bottom-color: #356ddc;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    height: 108px;
+    line-height: 108px;
+    right: 20px;
+    /*width: 1920px;*/
+}
+
+.toppart .rightpart .title {
+    width: 194px;
+    line-height: 82px;
+    margin-top: 30px;
+    height: 82px;
+    color: #bccbff;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: top;
+    margin-left: -10px;
+}
+
+.toppart .lefttitle {
+    width: 664px;
+    height: 160px;
+    left: 0px;
+    top: 0px;
+    background-image: url("img/tittle.png");
+}
+
+.fixdiv > .rightpart {
+    position: absolute;
+    width: 900px;
+    height: 902px;
+    top: 140px;
+    right: 22px;
+    background-image: url("img/bg_Y_03.png");
+}
+.fixdiv > .rightpart>.content{
+    width: 857px;
+    height: 826px;
+    margin-top: 50px;
+    margin-left: 21px;
+}
+.fixdiv > .rightpart>.content-img1{
+    background-image: url("img/bg_1.png");
+}
+.fixdiv > .rightpart>.content-img2{
+    background-image: url("img/bg_2.png");
+}
+.fixdiv > .rightpart>.content-img3{
+    background-image: url("img/bg_3.png");
+}
+/*预定义颜色*/
+.tielu_bg {
+    background-color: #faeebe;
+}
+
+.gonglu_bg {
+    background-color: #bcb9e7;
+}
+
+.shuilu_bg {
+    background-color: #20e3df;
+}
+
+.minhang_bg {
+    background-color: #acebd5;
+}
+
+.qita_bg {
+    background-color: #6fc1dc;
+}
+
+.huan_chart_contain {
+    margin-top: 52px;
+}
+
+.huan_chart {
+    width: 108px;
+    height: 100px;
+    margin-left: 49px;
+}
+
+.huan_chart.first {
+    margin-left: 58px;
+}
+
+.numpart{
+    position: absolute;
+    left: 60px;
+    top:204px;
+    font-size: 38px;
+    color: #b5e2fe;
+}
+.numpart>.num{
+    font-size: 40px;
+}
+.table{
+    width: 100%;
+}
+.table .hd1{
+    font-size: 18px;
+    height: 45px;
+    border-bottom: #114e8b 2px solid;
+}
+.table .hd2{
+    font-size: 16px;
+    height: 45px;
+    text-align: center;
+}
+.table tbody tr{
+    text-align: center;
+}
+.tab-main{
+    height: 108px;
+}

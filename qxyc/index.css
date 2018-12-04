@@ -197,8 +197,11 @@ html body {
 .numpart {
     left: 50px;
     top: 160px;
+    pointer-events: none!important;
 }
-
+.numpart *{
+    pointer-events: none!important;
+}
 .numpart .title {
     font-size: 20px;
     color: #b5e2fe;
