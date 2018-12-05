@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="qxdc/index.css">
     <script type="text/javascript" src="lib/echarts.min.js"></script>
     <script src="lib/jquery-1.8.2.min.js"></script>
+    <script src="lib/PageViewBase.js"></script>
     <script src="qxyc/script/guangdong.js"></script>
     <script src="lib/laydate.js"></script>
     <script src="qxdc/script/index.js"></script>
@@ -34,17 +35,16 @@
         <div class="content content-img1">
             <!--表头信息-->
             <div class="tab-main">
-                <div>
-                    <div>迁出洞察</div>
-                    <div>234.23万人</div>
+                <div class="tab-item select">
+                   迁出洞察<br/>234.23万人
                 </div>
-                <div>
-                    <div>迁入洞察</div>
-                    <div>234.23万人</div>
+                <div class="tab-item">
+                    <span>迁入洞察</span><br/>
+                    <span>234.23万人</span>
                 </div>
-                <div>
-                    <div>省内迁徙</div>
-                    <div>234.23万人</div>
+                <div class="tab-item">
+                    <span>省内迁徙</span><br/>
+                    <span>234.23万人</span>
                 </div>
             </div>
             <div class="part1">
@@ -54,7 +54,7 @@
                 <div class="chart-panel">
 
                 </div>
-                <div class="tab">
+                <div class="tab-direction">
                     <div>省外去向</div>
                     <div>港澳台去向</div>
                     <div>境外去向</div>

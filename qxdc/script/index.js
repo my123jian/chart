@@ -22,6 +22,7 @@ $(function () {
         this.start();
     }
 
+    PageViewModel.prototype=new PageViewBase();
     /**
      * 初始化页面事件
      */
@@ -31,7 +32,7 @@ $(function () {
     /**
      * 开始自动查询数据
      */
-    PageViewModel.prototype.start = function () {
+    /*PageViewModel.prototype.start = function () {
         if (isStopRefresh) {
             isStopRefresh = false;
         }
@@ -42,16 +43,16 @@ $(function () {
         theTimer = window.setInterval(function () {
             me.refresh();
         }, theIntervals);
-    }
+    }*/
     /**
      * 停止查询数据
      */
-    PageViewModel.prototype.stop = function () {
+   /* PageViewModel.prototype.stop = function () {
         if (theTimer) {
             window.clearInterval(theTimer);
             theTimer = null;
         }
-    }
+    }*/
     /**
      * 刷新当前的数据
      */

@@ -1,6 +1,6 @@
 
 * {
-    color:#ddf3ff;
+    color: #ddf3ff;
     background-repeat: no-repeat;
     margin: 0px;
     padding: 0px;
@@ -164,21 +164,26 @@ html body {
     right: 22px;
     background-image: url("img/bg_Y_03.png");
 }
-.fixdiv > .rightpart>.content{
+
+.fixdiv > .rightpart > .content {
     width: 857px;
     height: 826px;
     margin-top: 50px;
     margin-left: 21px;
 }
-.fixdiv > .rightpart>.content-img1{
+
+.fixdiv > .rightpart > .content-img1 {
     background-image: url("img/bg_1.png");
 }
-.fixdiv > .rightpart>.content-img2{
+
+.fixdiv > .rightpart > .content-img2 {
     background-image: url("img/bg_2.png");
 }
-.fixdiv > .rightpart>.content-img3{
+
+.fixdiv > .rightpart > .content-img3 {
     background-image: url("img/bg_3.png");
 }
+
 /*预定义颜色*/
 .tielu_bg {
     background-color: #faeebe;
@@ -214,32 +219,70 @@ html body {
     margin-left: 58px;
 }
 
-.numpart{
+.numpart {
     position: absolute;
     left: 60px;
-    top:204px;
+    top: 204px;
     font-size: 38px;
     color: #b5e2fe;
 }
-.numpart>.num{
+
+.numpart > .num {
     font-size: 40px;
 }
-.table{
+
+.table {
     width: 100%;
 }
-.table .hd1{
+
+.table .hd1 {
     font-size: 18px;
     height: 45px;
     border-bottom: #114e8b 2px solid;
 }
-.table .hd2{
+
+.table .hd2 {
     font-size: 16px;
     height: 45px;
     text-align: center;
 }
-.table tbody tr{
+
+.table tbody tr {
     text-align: center;
 }
-.tab-main{
+
+.tab-main {
     height: 108px;
+}
+
+.tab-main > .tab-item {
+    float: left;
+    width: 33.3%;
+    cursor: pointer;
+    text-align: center;
+    height: 110px;
+    line-height: 110px;
+
+    background-image: url("img/bg_4.png");
+}
+
+.tab-main > .tab-item > div {
+    display: inline-block;
+}
+
+.tab-main .tab-item.select {
+    border-bottom: 2px #2e61d1;
+}
+
+.tab-main .tab-item.unselect:first-child {
+    border-right: #122e66 solid 2px;
+}
+
+.tab-direction {
+
+}
+
+.tab-direction > div {
+    float: left;
+    width: 33.3%;
 }
