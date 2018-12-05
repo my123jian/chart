@@ -218,6 +218,9 @@ html body {
     font-size: 32px;
 }
 .numpart .content1 div{
+    display: inline-block;
+}
+.numpart .content1 div>div{
     background-image: url('img/bg_number.png');
     display: inline-block;
     width: 52px;

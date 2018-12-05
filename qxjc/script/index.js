@@ -77,8 +77,7 @@ $(function () {
 
     };
     //显示第一行数据
-    var ShowNumber1 = function (city, value) {
-        $('#numpart1').find('.cityname').val(city);
+    var formateNum1 = function (value) {
         var theValueStr = value.toFixed(1);
         var theNumberStrArray = [];
         for (var i = 0; i < theValueStr.length; i++) {
@@ -123,21 +122,14 @@ $(function () {
                 theTemplate += "<div>" + theCurrent + "</div>";
             }
         }
-        theTemplate = theTemplate + "<span class=\"last\">万</span>";
+        // theTemplate = theTemplate + "<span class=\"last\">万</span>";
         return theTemplate;
-    }
-    //显示第2行数据
-    var ShowNumber2 = function (city, value) {
-        $('#numpart2').find('.cityname').val(city);
-    }
-    //显示第3行数据
-    var ShowNumber3 = function (city, value) {
-        $('#numpart3').find('.cityname').val(city);
     }
 
     function PageViewModel() {
         this.initEvent();
         this.initCharts();
+        this.loadData();
         this.initChartMap();
         this.start();
     }
@@ -185,9 +177,10 @@ $(function () {
         });*/
     }
     PageViewModel.prototype.initChartMap = function () {
-        echarts.registerMap('gd', theGdData);
-        this.ChartMap = echarts.init(document.getElementById(theMapId));
-
+        if (!this.ChartMap) {
+            echarts.registerMap('gd', theGdData);
+            this.ChartMap = echarts.init(document.getElementById(theMapId));
+        }
         option = null;
         var geoCoordMap = {
             '上海': [121.4648, 31.2891],
@@ -375,7 +368,8 @@ $(function () {
 // ['北京', BJData], ['上海', SHData],
         [['广州', GZData], ['深圳', SZData]].forEach(function (item, i) {
             // debugger
-            series.push({
+            series.push(
+                {
                     name: item[0] + ' Top10',
                     type: 'lines',  //静态线
                     zlevel: 1,
@@ -531,6 +525,13 @@ $(function () {
                     min: 1,
                     max: 1
                 },
+                /*regions: [{
+                    name: '广州市',
+                    itemStyle: {
+                        areaColor: 'red',
+                        color: 'red'
+                    }
+                }],*/
                 //鼠标移入是否显示省份/城市
                 label: {
                     show: true,
@@ -543,7 +544,7 @@ $(function () {
                 roam: false,//鼠标不可移动
                 itemStyle: {
                     normal: {//选取前颜色
-                        areaColor: {
+                        /*areaColor: {
                             type: 'linear',
                             x: 0,
                             y: 0,
@@ -555,9 +556,8 @@ $(function () {
                                 offset: 1, color: '#2b7ecc' // 100% 处的颜色
                             }],
                             globalCoord: false // 缺省为 false
-                        }
-                        // '#2b7ecc'
-                        ,
+                        }*/
+                        areaColor: '#2b7ecc',
                         borderColor: '#49ffff'
                     },
                     emphasis: {//选取后颜色
@@ -589,7 +589,7 @@ $(function () {
 
     }
 
-    PageViewModel.prototype.loadChart1 = function (data) {
+    PageViewModel.prototype.loadChart1 = function (xData, data1,data2) {
         if (!this.Chart1) {
             this.Chart1 = echarts.init(document.getElementById('chart1'));
         }
@@ -602,11 +602,11 @@ $(function () {
         theCurrentOption.series = [
 
             {
-                name: '搜索引擎',
+                //name: '搜索引擎',
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: [820, 932, 901, 934, 1290, 1330],
+                data: [820, 932, 901, 934, 1290, 1330] || data1,
                 areaStyle: {
                     normal: {
                         color: {
@@ -632,7 +632,7 @@ $(function () {
                 }
             },
             {
-                name: '搜索引擎',
+                //name: '搜索引擎',
                 type: 'line',
                 itemStyle: {
                     normal: {
@@ -645,13 +645,12 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: [820, 932, 901, 934, 1290, 1330, 1320]
+                data: [820, 932, 901, 934, 1290, 1330, 1320] || data2
             }
         ]
-
         this.Chart1.setOption(theCurrentOption);
     }
-    PageViewModel.prototype.loadChart2 = function (data) {
+    PageViewModel.prototype.loadChart2 = function (xData, data1,data2) {
         if (!this.Chart2) {
             this.Chart2 = echarts.init(document.getElementById('chart2'));
         }
@@ -660,11 +659,11 @@ $(function () {
         theCurrentOption.series = [
 
             {
-                name: '搜索引擎',
+                // name: '搜索引擎',
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: [820, 932, 901, 934, 1290, 1330],
+                data: [820, 932, 901, 934, 1290, 1330] || data1,
                 lineStyle: {
                     normal: {
                         color: '#4293f2' //rgba(66,147,242
@@ -690,7 +689,7 @@ $(function () {
                 },
             },
             {
-                name: '搜索引擎',
+                //  name: '搜索引擎',
                 type: 'line',
                 itemStyle: {
                     normal: {
@@ -703,27 +702,26 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: [820, 932, 901, 934, 1290, 1330, 1320]
+                data: [820, 932, 901, 934, 1290, 1330, 1320] || data2
             }
         ];
 
         this.Chart2.setOption(theCurrentOption);
 
     }
-    PageViewModel.prototype.loadChart3 = function (data) {
+    PageViewModel.prototype.loadChart3 = function (xData, data1,data2) {
         if (!this.Chart3) {
             this.Chart3 = echarts.init(document.getElementById('chart3'));
         }
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
         theCurrentOption.series = [
-
             {
-                name: '搜索引擎',
+                // name: '搜索引擎',
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: [820, 932, 901, 934, 1290, 1330],
+                data: [820, 932, 901, 934, 1290, 1330] || data1,
                 lineStyle: {
                     normal: {
                         color: '#32ff4b'//rgba(50,255,75
@@ -750,7 +748,7 @@ $(function () {
                 },
             },
             {
-                name: '搜索引擎',
+                //name: '搜索引擎',
                 type: 'line',
                 itemStyle: {
                     normal: {
@@ -763,12 +761,12 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: [820, 932, 901, 934, 1290, 1330, 1320]
+                data: [820, 932, 901, 934, 1290, 1330, 1320] || data2
             }
         ];
         this.Chart3.setOption(theCurrentOption);
     }
-    PageViewModel.prototype.loadChart4 = function (data) {
+    PageViewModel.prototype.loadChart4 = function (theXData, dataPopulationGd1, dataMigIn1, dataMigOut1,dataPopulationGd2, dataMigIn2, dataMigOut2) {
         if (!this.Chart4) {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
         }
@@ -850,20 +848,20 @@ $(function () {
                         color: '#557398'
                     }
                 },
-                axisPointer:{
-                    label:{
+                axisPointer: {
+                    label: {
 
-                        color:'#05cffa',
-                        formatter:function (arg) {
-                           // debugger;
-                            var theDate= new Date();
+                        color: '#05cffa',
+                        formatter: function (arg) {
+                            // debugger;
+                            var theDate = new Date();
                             theDate.setTime(arg.value);
-                            return theDate.getMonth()+1+"月"+theDate.getDate()+"日";
+                            return theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
                         }
                     },
-                    lineStyle:{
-                        color:'#05cffa',
-                        shadowBlur:{
+                    lineStyle: {
+                        color: '#05cffa',
+                        shadowBlur: {
                             shadowColor: '#05cffa',
                             shadowBlur: 10
                         }
@@ -876,7 +874,7 @@ $(function () {
                         theDate.setTime(parseInt(value));
                         console.log(theDate);
                         if (idx % 4 == 0) {
-                            return theDate.getMonth()+1 + '月' + theDate.getDate() + "日";
+                            return theDate.getMonth() + 1 + '月' + theDate.getDate() + "日";
                         }
                         else {
                             return "";
@@ -910,7 +908,7 @@ $(function () {
                             return [point[0], '10%'];
                         }*/
                     },
-                    data: [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100],
+                    data: [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100]||dataPopulationGd1,
                     areaStyle: {
                         normal: {
                             color: {
@@ -949,7 +947,7 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100, 800]
+                    data: [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100, 800]||dataPopulationGd2
                 },
 
 
@@ -958,7 +956,7 @@ $(function () {
                     type: 'line',
                     //stack: '总量',
                     smooth: true,
-                    data: [820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200],
+                    data: [820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200]||dataMigIn1,
                     lineStyle: {
                         normal: {
                             color: '#4293f2' //rgba(66,147,242
@@ -997,7 +995,7 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: [820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200, 900],
+                    data: [820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200, 900]||dataMigIn2,
                 },
 
 
@@ -1007,7 +1005,7 @@ $(function () {
                     z: 1,
                     //stack: '总量',
                     smooth: true,
-                    data: [820, 932, 901, 934, 1290, 1330],
+                    data: [820, 932, 901, 934, 1290, 1330]||dataMigOut1,
                     lineStyle: {
                         normal: {
                             color: '#32ff4b'//rgba(55,255,75
@@ -1048,7 +1046,7 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: [820, 932, 901, 934, 1290, 1330, 1320]
+                    data: [820, 932, 901, 934, 1290, 1330, 1320]||dataMigOut2
                 },
             ]
         };
@@ -1062,8 +1060,115 @@ $(function () {
 
     }
 
-    PageViewModel.prototype.Load = function () {
+    PageViewModel.prototype.loadData = function () {
+        this.loadCurrent();
+        this.loadHistoricalTrend();
+        this.loadPredict();
+    }
+    /***
+     * 迁徙实时人流接口
+     */
+    PageViewModel.prototype.loadCurrent = function () {
+        var theCallUrl = "migrant/current.do";
+        var theCallAreaName = theAreaNmae;
+        var theCallAreaId = this.getAreaCode(theCallAreaName);
+        var theCallArgument = {cityCode: theCallAreaId};
+        var me = this;
+        // debugger;
+        this.load(theCallUrl, theCallArgument, function (data) {
 
+            if (data && data.isSuccess) {
+                var theResultDatas = data.data;
+                var theViewData = {};
+                if (theResultDatas && theResultDatas.length > 0) {
+                    var theResultData = theResultDatas[0];
+                    $.extend(theViewData, theResultData);
+                    theViewData.populationGd = theViewData.populationGd / 10000;
+                    theViewData.populationIn = theViewData.populationIn / 10000;
+                    theViewData.populationOut = theViewData.populationOut / 10000;
+                    theViewData['populationGd'] = formateNum1(theViewData.populationGd);
+                }
+                me.bind('.numpart', theViewData);
+            }
+            else {
+                console.log("loadCurrent错误:" + data);
+            }
+        });
+    }
+    /**
+     * 历史趋势接口
+     */
+    PageViewModel.prototype.loadHistoricalTrend = function () {
+        var theCallUrl = "migrant/historicalTrend.do ";
+        var theCallAreaName = theAreaNmae;
+        var theCallAreaId = this.getAreaCode(theCallAreaName);
+        var theCallArgument = {};
+        var me = this;
+        this.load(theCallUrl, theCallArgument, function (data) {
+            if (data && data.isSuccess) {
+                var theResultDatas = data.data;//数据长度设置
+                var dataMigOut = [];
+                var dataMigIn = [];
+                var dataPopulationGd = [];
+                var data4 = [];
+                var theXData = [];
+                for (var i = 0; i < theResultDatas.length; i++) {
+                    var theDataItem = theResultDatas[i];
+                    dataMigOut.push(theDataItem.migOut);
+                    dataMigIn.push(theDataItem.migIn);
+                    dataPopulationGd.push(theDataItem.populationGd);
+                }
+                me.loadChart4(theXData, dataPopulationGd, dataMigIn, dataMigOut);
+                //this.bind('.numpart', theViewData);
+            }
+            else {
+                console.log("loadCurrent错误:" + data);
+            }
+        });
+    }
+    /**
+     * 迁徙预测接口
+     */
+    PageViewModel.prototype.loadPredict = function () {
+        var theCallUrl = "migrant/predict.do ";
+        var theCallAreaName = theAreaNmae;
+        var theCallAreaId = this.getAreaCode(theCallAreaName);
+        var theCallArgument = {};
+        var me = this;
+        this.load(theCallUrl, theCallArgument, function (data) {
+            if (data && data.isSuccess) {
+                var theResultDatas = data.data;//数据长度
+                var dataMigOut1 = [];
+                var dataMigIn1 = [];
+                var dataPopulationGd1 = [];
+                var dataMigOut2 = [];
+                var dataMigIn2 = [];
+                var dataPopulationGd2 = [];
+                var theXData = [];
+                var data4 = [];
+                var theCurrentDate = new Date();
+                for (var i = 0; i < theResultDatas.length; i++) {
+                    var theDataItem = theResultDatas[i];
+                    var tehDataDate = theDataItem['statDate'];
+                    var theDate = me.parserDate(tehDataDate);
+
+                    if (theDate.getTime() <= theCurrentDate.getTime()) {
+                        dataMigOut1.push(theDataItem.migOut);
+                        dataMigIn1.push(theDataItem.migIn);
+                        dataPopulationGd1.push(theDataItem.populationGd);
+                    }
+                    dataMigOut2.push(theDataItem.migOut);
+                    dataMigIn2.push(theDataItem.migIn);
+                    dataPopulationGd2.push(theDataItem.populationGd);
+                }
+                me.loadChart1(theXData, dataPopulationGd1,dataPopulationGd2);
+                me.loadChart2(theXData, dataMigIn1,dataMigIn2);
+                me.loadChart3(theXData, dataMigOut1,dataMigOut2);
+            }
+            else {
+                console.log("loadCurrent错误:" + data);
+            }
+        });
     }
     window.PageView = new PageViewModel();
 })

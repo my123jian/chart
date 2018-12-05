@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>迁徙预测</title>
-    <link rel="stylesheet" href="qxyc/index.css">
+    <title>迁徙监测</title>
+    <link rel="stylesheet" href="qxjc/index.css">
     <script type="text/javascript" src="lib/echarts.min.js"></script>
     <script src="lib/jquery-1.8.2.min.js"></script>
     <script src="lib/PageViewBase.js"></script>
-    <script src="qxyc/script/guangdong.js"></script>
+
+    <script src="qxjc/script/guangdong.js"></script>
     <script src="lib/laydate.js"></script>
-    <script src="qxyc/script/index.js"></script>
+    <script src="qxjc/script/index.js"></script>
+
 
 
 </head>
@@ -35,28 +37,31 @@
     </div>
     <div class="numpart">
         <div id="numpart1">
-            <div class="title"><span class="cityname">清远市</span>当前人口总量</div>
+            <div class="title"><span class="cityname field" data-field="cityName">广东省</span>当前人口总量</div>
             <div class="content1">
-                <div>1</div>
-                ,
-                <div>1</div>
-                <div>3</div>
-                <div>2</div>
-                .
-                <div>2</div>
+                <div class="field" data-field="populationGd">
+                    <div>1</div>
+                    ,
+                    <div>1</div>
+                    <div>3</div>
+                    <div>2</div>
+                    .
+                    <div>2</div>
+                </div>
+
                 <span class="last">万</span>
             </div>
         </div>
         <div id="numpart2" style="margin-top: 40px;">
-            <div class="title"><span class="cityname">清远市</span>实时迁出人数：</div>
+            <div class="title"><span class="cityname field" data-field="cityName">广东省</span>实时迁出人数：</div>
             <div class="content2">
-                <span>235.2</span><span class="last">万</span>
+                <span class="field" data-field="populationOut">235.2</span><span class="last">万</span>
             </div>
         </div>
         <div id="numpart3" style="margin-top: 58px">
-            <div class="title"><span class="cityname">清远市</span>实时迁入人数：</div>
+            <div class="title"><span class="cityname field" data-field="cityName">广东省</span>实时迁入人数：</div>
             <div class="content2">
-                <span>235.2</span><span class="last">万</span>
+                <span class="field" data-field="populationIn">235.2</span><span class="last">万</span>
             </div>
         </div>
     </div>

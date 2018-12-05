@@ -261,11 +261,13 @@ html body {
     cursor: pointer;
     text-align: center;
     height: 110px;
-    line-height: 110px;
+ /*   line-height: 110px;*/
 
     background-image: url("img/bg_4.png");
 }
-
+.tab-main:after{
+    clear: both;
+}
 .tab-main > .tab-item > div {
     display: inline-block;
 }
@@ -286,3 +288,9 @@ html body {
     float: left;
     width: 33.3%;
 }
+.round-div{
+    border-radius:10px;
+    height: 16px;
+    display: inline-block;
+}
+
