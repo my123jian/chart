@@ -22,12 +22,29 @@ $(function () {
         this.start();
     }
 
-    PageViewModel.prototype=new PageViewBase();
+    PageViewModel.prototype = new PageViewBase();
     /**
      * 初始化页面事件
      */
     PageViewModel.prototype.initEvent = function () {
-
+        //debugger;
+        var theParentContent = $('.tab-main').closest('.content');
+        $('.tab-main .tab-item').click(function () {
+            var theIndex = $(this).data('index');
+            $('.tab-main .tab-item').removeClass('select');
+            $('.tab-main .tab-item').addClass('select');
+            $(theParentContent).removeClass('content-img1');
+            $(theParentContent).removeClass('content-img2');
+            $(theParentContent).removeClass('content-img3');
+            $(theParentContent).addClass('content-img' + theIndex);
+            $(theParentContent).find('.part1').hide();
+            $(theParentContent).find('.part2').hide();
+            $(theParentContent).find('.part-'+theIndex).show();
+        });
+        $('.tab-direction div').click(function () {
+            $('.tab-direction div').removeClass('select');
+            $(this).addClass('select');
+        });
     }
     /**
      * 开始自动查询数据
@@ -47,12 +64,12 @@ $(function () {
     /**
      * 停止查询数据
      */
-   /* PageViewModel.prototype.stop = function () {
-        if (theTimer) {
-            window.clearInterval(theTimer);
-            theTimer = null;
-        }
-    }*/
+    /* PageViewModel.prototype.stop = function () {
+         if (theTimer) {
+             window.clearInterval(theTimer);
+             theTimer = null;
+         }
+     }*/
     /**
      * 刷新当前的数据
      */

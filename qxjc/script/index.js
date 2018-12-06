@@ -94,7 +94,7 @@ $(function () {
             if (hasDone) {
                 for (var j = 0; j < 3; j++) {
                     var thePos = i + j;
-                    if (thePos > theNumberStrArray.length) {
+                    if (thePos >= theNumberStrArray.length) {
                         break;
                     }
                     else {
@@ -102,8 +102,8 @@ $(function () {
                         theFormateArray.push(theCurrentChar)
                     }
                 }
-                i = i + 3;
-                if (i + 1 < theNumberStrArray.length) {
+                i = i + 2;
+                if (i + 1 <= theNumberStrArray.length) {
                     theFormateArray.push(',');
                 }
             }
@@ -578,13 +578,24 @@ $(function () {
             /*series: series,*/
 
         };
+        var me=this;
         if (option && typeof option === "object") {
             this.ChartMap.setOption(option, true);
             this.ChartMap.on('geoselectchanged', function (params) {
+                //debugger;
+                if(params.batch.length>0){
+                    var theAreaSelected=params.batch[0];
+                    var theName = params.name;
+                    if (theAreaNmae != theName) {
+                        theAreaNmae = theName;
+                        me.loadData();
+                    }
+                }
                 //console.log("111",params);
             });
             this.ChartMap.on('mapselectchanged', function (params) {
                 var theName = params.name;
+                //debugger;
                 if (theAreaNmae != theName) {
                     theAreaNmae = theName;
                     me.loadData();
@@ -593,8 +604,8 @@ $(function () {
             });
 
             this.ChartMap.on('click', function (params) {
-                var theName = params.name;
-                console.log(params);
+               // var theName = params.name;
+               // console.log(params);
             })
         }
 
@@ -617,7 +628,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: [820, 932, 901, 934, 1290, 1330] || data1,
+                data: data1||[820, 932, 901, 934, 1290, 1330],
                 areaStyle: {
                     normal: {
                         color: {
@@ -656,7 +667,7 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: [820, 932, 901, 934, 1290, 1330, 1320] || data2
+                data:data2|| [820, 932, 901, 934, 1290, 1330, 1320]
             }
         ]
         this.Chart1.setOption(theCurrentOption);
@@ -674,7 +685,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: [820, 932, 901, 934, 1290, 1330] || data1,
+                data:data1|| [820, 932, 901, 934, 1290, 1330] ,
                 lineStyle: {
                     normal: {
                         color: '#4293f2' //rgba(66,147,242
@@ -713,7 +724,7 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: [820, 932, 901, 934, 1290, 1330, 1320] || data2
+                data: data2||[820, 932, 901, 934, 1290, 1330, 1320]
             }
         ];
 
@@ -732,7 +743,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: [820, 932, 901, 934, 1290, 1330] || data1,
+                data: data1||[820, 932, 901, 934, 1290, 1330] ,
                 lineStyle: {
                     normal: {
                         color: '#32ff4b'//rgba(50,255,75
@@ -772,7 +783,7 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: [820, 932, 901, 934, 1290, 1330, 1320] || data2
+                data: data2||[820, 932, 901, 934, 1290, 1330, 1320]
             }
         ];
         this.Chart3.setOption(theCurrentOption);
@@ -919,7 +930,7 @@ $(function () {
                             return [point[0], '10%'];
                         }*/
                     },
-                    data: [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100] || dataPopulationGd1,
+                    data: dataPopulationGd1||[820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100] ,
                     areaStyle: {
                         normal: {
                             color: {
@@ -958,7 +969,7 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100, 800] || dataPopulationGd2
+                    data:dataPopulationGd2|| [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100, 800]
                 },
 
 
@@ -967,7 +978,7 @@ $(function () {
                     type: 'line',
                     //stack: '总量',
                     smooth: true,
-                    data: [820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200] || dataMigIn1,
+                    data: dataMigIn1||[820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200] ,
                     lineStyle: {
                         normal: {
                             color: '#4293f2' //rgba(66,147,242
@@ -1006,7 +1017,7 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: [820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200, 900] || dataMigIn2,
+                    data: dataMigIn2||[820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200, 900] ,
                 },
 
 
@@ -1016,7 +1027,7 @@ $(function () {
                     z: 1,
                     //stack: '总量',
                     smooth: true,
-                    data: [820, 932, 901, 934, 1290, 1330] || dataMigOut1,
+                    data:dataMigOut1|| [820, 932, 901, 934, 1290, 1330] ,
                     lineStyle: {
                         normal: {
                             color: '#32ff4b'//rgba(55,255,75
@@ -1057,7 +1068,7 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: [820, 932, 901, 934, 1290, 1330, 1320] || dataMigOut2
+                    data: dataMigOut2||[820, 932, 901, 934, 1290, 1330, 1320]
                 },
             ]
         };
@@ -1072,6 +1083,7 @@ $(function () {
     }
 
     PageViewModel.prototype.loadData = function () {
+        //debugger;
         this.loadCurrent();
         this.loadHistoricalTrend();
         this.loadPredict();
@@ -1113,23 +1125,36 @@ $(function () {
         var theCallUrl = "migrant/historicalTrend.do ";
         var theCallAreaName = theAreaNmae;
         var theCallAreaId = this.getAreaCode(theCallAreaName);
-        var theCallArgument = {};
+        var theCallArgument = {
+            cityCode:theCallAreaId
+        };
         var me = this;
         this.load(theCallUrl, theCallArgument, function (data) {
             if (data && data.isSuccess) {
                 var theResultDatas = data.data;//数据长度设置
-                var dataMigOut = [];
-                var dataMigIn = [];
-                var dataPopulationGd = [];
+                var dataMigOut1 = [];
+                var dataMigIn1 = [];
+                var dataPopulationGd1 = [];
+                var dataMigOut2 = [];
+                var dataMigIn2 = [];
+                var dataPopulationGd2 = [];
                 var data4 = [];
                 var theXData = [];
                 for (var i = 0; i < theResultDatas.length; i++) {
                     var theDataItem = theResultDatas[i];
-                    dataMigOut.push(theDataItem.migOut);
-                    dataMigIn.push(theDataItem.migIn);
-                    dataPopulationGd.push(theDataItem.populationGd);
+                    var tehDataDate = theDataItem['statDate'];
+                    var theDate = me.parserDate(tehDataDate);
+
+                    if (theDate.getTime() <= new Date().getTime()) {
+                        dataMigOut1.push(theDataItem.migOut);
+                        dataMigIn1.push(theDataItem.migIn);
+                        dataPopulationGd1.push(theDataItem.populationGd);
+                    }
+                    dataMigOut2.push(theDataItem.migOut);
+                    dataMigIn2.push(theDataItem.migIn);
+                    dataPopulationGd2.push(theDataItem.populationGd);
                 }
-                me.loadChart4(theXData, dataPopulationGd, dataMigIn, dataMigOut);
+                me.loadChart4(theXData, dataPopulationGd1, dataMigIn1, dataMigOut1,dataPopulationGd2, dataMigIn2, dataMigOut2);
                 //this.bind('.numpart', theViewData);
             }
             else {
@@ -1144,9 +1169,18 @@ $(function () {
         var theCallUrl = "migrant/predict.do ";
         var theCallAreaName = theAreaNmae;
         var theCallAreaId = this.getAreaCode(theCallAreaName);
-        var theCallArgument = {};
+
+        var theCallArgument = {
+            cityCode:theCallAreaId,
+            date:''
+        };
+        if(theCurrentDate){
+            theCallArgument.date=theCurrentDate.year+'-'+theCurrentDate.month+'-'+theCurrentDate.date;//  'YYYY-mm-dd'
+        }
+
         var me = this;
         this.load(theCallUrl, theCallArgument, function (data) {
+            //debugger;
             if (data && data.isSuccess) {
                 var theResultDatas = data.data;//数据长度
                 var dataMigOut1 = [];
@@ -1164,14 +1198,15 @@ $(function () {
                     var theDate = me.parserDate(tehDataDate);
 
                     if (theDate.getTime() <= theCurrentDate.getTime()) {
-                        dataMigOut1.push(theDataItem.migOut);
-                        dataMigIn1.push(theDataItem.migIn);
-                        dataPopulationGd1.push(theDataItem.populationGd);
+                        dataMigOut1.push(theDataItem.outNum);
+                        dataMigIn1.push(theDataItem.inNum);
+                        dataPopulationGd1.push(theDataItem.countNum);
                     }
-                    dataMigOut2.push(theDataItem.migOut);
-                    dataMigIn2.push(theDataItem.migIn);
-                    dataPopulationGd2.push(theDataItem.populationGd);
+                    dataMigOut2.push(theDataItem.outNum);
+                    dataMigIn2.push(theDataItem.inNum);
+                    dataPopulationGd2.push(theDataItem.countNum);
                 }
+                //debugger;
                 me.loadChart1(theXData, dataPopulationGd1, dataPopulationGd2);
                 me.loadChart2(theXData, dataMigIn1, dataMigIn2);
                 me.loadChart3(theXData, dataMigOut1, dataMigOut2);

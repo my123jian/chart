@@ -35,22 +35,226 @@
         <div class="content content-img3">
             <!--表头信息-->
             <div class="tab-main">
-                <div class="tab-item ">
+                <div class="tab-item " data-index="1">
                     <span class="firstline">迁出洞察</span> <br/><span class="secondline">234.23万人</span>
                 </div>
-                <div class="tab-item">
+                <div class="tab-item"  data-index="2">
                     <span class="firstline">迁入洞察</span><br/>
                     <span class="secondline">234.23万人</span>
                 </div>
-                <div class="tab-item select">
+                <div class="tab-item select"  data-index="3">
                     <span class="firstline">省内迁徙</span><br/>
                     <span class="secondline">234.23万人</span>
                 </div>
             </div>
-            <div class="part1" style="display: none">
+            <div class="part1 part-1" style="display: none">
                 <div class="chart-div">
                     <div class="title">
                         迁出渠道
+                    </div>
+                    <div class="chart-panel">
+                        <div class="chart-item">
+                            <div class="huan-chart-text">
+                                <div>铁路</div>
+                                <div>80%</div>
+                            </div>
+                            <svg style="z-index: 100" xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="108">
+                                <defs>
+                                    <!-- arrowhead marker definition -->
+                                    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5"
+                                            markerWidth="6" markerHeight="6"
+                                            orient="auto-start-reverse">
+                                        <path d="M 0 0 L 10 5 L 0 10 z" />
+                                    </marker>
+
+                                    <!-- simple dot marker definition -->
+                                    <marker id="dot" viewBox="0 0 10 10" refX="5" refY="5"
+                                            markerWidth="5" markerHeight="5">
+                                        <circle cx="5" cy="5" r="1" fill="red" />
+                                    </marker>
+                                </defs>
+
+                                <path d="M 26.5 88.97 A 45 45 1 1 1 76.5 88.97" stroke="#3964a5"
+                                      stroke-linecap="round"
+                                      stroke-width="10" fill="none" />
+
+                                <path d="M 26.5 88.97 A 45 45 1 1 1 76.5 88.97" stroke="red"
+                                      marker-start="url(#dot)"
+                                      stroke-width="10" fill="none" />
+
+                            </svg>
+
+                        </div>
+                        <div class="chart-item"></div>
+                        <div class="chart-item"></div>
+                        <div class="chart-item"></div>
+                        <div class="chart-item"></div>
+                    </div>
+                </div>
+                <div class="tab-direction">
+                    <div class="select">省外去向</div>
+                    <div>港澳台去向</div>
+                    <div>境外去向</div>
+                </div>
+                <div class="table-div">
+                    <table class="table">
+                        <thead>
+                        <tr class="hd1">
+                            <th>
+                                目的地
+                            </th>
+                            <th>
+                                迁出人数
+                            </th>
+                            <th colspan="5">
+                                迁出渠道及占比
+                            </th>
+                        </tr>
+                        <tr class="hd2">
+                            <th>省份</th>
+                            <th>个数</th>
+                            <th>铁路</th>
+                            <th>公路</th>
+                            <th>水路</th>
+                            <th>民航</th>
+                            <th>其他</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>22</td>
+                            <td>222</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                222
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>222</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                222
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>222</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                222
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>222</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                222
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>222</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                222
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="page">
+                    <div class="page-item-1 page-item"></div>
+                    <div class="page-item-2 page-item"></div>
+                </div>
+            </div>
+            <div class="part1 part-2" style="display: none">
+                <div class="chart-div">
+                    <div class="title">
+                        迁入渠道
                     </div>
                     <div class="chart-panel">
                         <div class="chart-item"></div>
@@ -220,7 +424,7 @@
                     <div class="page-item-2 page-item"></div>
                 </div>
             </div>
-            <div class="part2">
+            <div class="part2 part-3">
                 <div class="title">
                     迁出渠道
                 </div>
@@ -238,15 +442,19 @@
                     </div>
 
                     <div class="row row2">
-                        <select class="btn-city">
-                            <option value="广州">广州</option>
-                        </select>
+                        <div class="btn-city">
+                            <select>
+                                <option value="广州">广州</option>
+                            </select>
+                        </div>
                         <div>----------</div>
                         <div>222222</div>
                         <div>----------></div>
-                        <select class="btn-city">
-                            <option value="广州">广州</option>
-                        </select>
+                        <div class="btn-city">
+                            <select>
+                                <option value="广州">广州</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="chart-div">

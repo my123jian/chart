@@ -204,7 +204,15 @@ html body {
 .qita_bg {
     background-color: #6fc1dc;
 }
-
+.huan-chart-text{
+    height: 100px;
+    width: 108px;
+    z-index: -1;
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    padding-top: 32px;
+}
 .huan_chart_contain {
     margin-top: 52px;
 }
@@ -297,7 +305,7 @@ html body {
 }
 
 .tab-main .tab-item.select {
-    border-bottom: 2px #2e61d1 solid;
+    /*border-bottom: 2px #2e61d1 solid;*/
     background-image: none;
     box-sizing: border-box;
 }
@@ -322,6 +330,7 @@ html body {
     line-height: 45px;
     text-align: center;
     background-image: url("img/btn_2.png");
+    cursor: pointer;
 }
 
 .tab-direction > div.select {
@@ -351,7 +360,8 @@ html body {
     height: 100px;
     margin-left: 49px;
     float: left;
-    background-color: red;
+    border: red solid 1px;
+    /*background-color: red;*/
 }
 .chart-panel .chart-item:first-child{
     /*margin-left: 0px!important;*/
@@ -436,8 +446,28 @@ html body {
 .btn-city{
     width: 118px;
     height: 40px;
-    border: 0px;
-    padding-left: 24px;
-    background: transparent;
+
     background-image: url("img/btn_city.png");
 }
+.btn-city select{
+    width: 118px;
+    height: 40px;
+    border: 0px;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    outline: none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    padding-left: 24px;
+    background: transparent;
+
+    background: url("img/icon_1.png") no-repeat  transparent;/*scroll right center*/
+    background-position-x: 86px;
+    background-position-y: 18px;
+    background-size: 14px 8px;
+    font-size: 24px;
+}
+.btn-city select>option{
+    font-size: 12px;
+}
+
