@@ -169,6 +169,11 @@ $(function () {
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
                 console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
                 console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                if (theCurrentDate != date) {
+                    theCurrentDate = date;
+                    me.loadPredict();
+                }
+
             }
         });
         /*$('#date-input').change(function(){
@@ -494,6 +499,7 @@ $(function () {
              type: 'geoSelect',
              name: '广州市'
          })*/
+        var me = this;
         option = {
             backgroundColor: '',
             title: {
@@ -575,10 +581,15 @@ $(function () {
         if (option && typeof option === "object") {
             this.ChartMap.setOption(option, true);
             this.ChartMap.on('geoselectchanged', function (params) {
-                console.log(params);
+                //console.log("111",params);
             });
             this.ChartMap.on('mapselectchanged', function (params) {
-                console.log(params);
+                var theName = params.name;
+                if (theAreaNmae != theName) {
+                    theAreaNmae = theName;
+                    me.loadData();
+                }
+                //console.log(params);
             });
 
             this.ChartMap.on('click', function (params) {
@@ -589,7 +600,7 @@ $(function () {
 
     }
 
-    PageViewModel.prototype.loadChart1 = function (xData, data1,data2) {
+    PageViewModel.prototype.loadChart1 = function (xData, data1, data2) {
         if (!this.Chart1) {
             this.Chart1 = echarts.init(document.getElementById('chart1'));
         }
@@ -650,7 +661,7 @@ $(function () {
         ]
         this.Chart1.setOption(theCurrentOption);
     }
-    PageViewModel.prototype.loadChart2 = function (xData, data1,data2) {
+    PageViewModel.prototype.loadChart2 = function (xData, data1, data2) {
         if (!this.Chart2) {
             this.Chart2 = echarts.init(document.getElementById('chart2'));
         }
@@ -709,7 +720,7 @@ $(function () {
         this.Chart2.setOption(theCurrentOption);
 
     }
-    PageViewModel.prototype.loadChart3 = function (xData, data1,data2) {
+    PageViewModel.prototype.loadChart3 = function (xData, data1, data2) {
         if (!this.Chart3) {
             this.Chart3 = echarts.init(document.getElementById('chart3'));
         }
@@ -766,7 +777,7 @@ $(function () {
         ];
         this.Chart3.setOption(theCurrentOption);
     }
-    PageViewModel.prototype.loadChart4 = function (theXData, dataPopulationGd1, dataMigIn1, dataMigOut1,dataPopulationGd2, dataMigIn2, dataMigOut2) {
+    PageViewModel.prototype.loadChart4 = function (theXData, dataPopulationGd1, dataMigIn1, dataMigOut1, dataPopulationGd2, dataMigIn2, dataMigOut2) {
         if (!this.Chart4) {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
         }
@@ -908,7 +919,7 @@ $(function () {
                             return [point[0], '10%'];
                         }*/
                     },
-                    data: [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100]||dataPopulationGd1,
+                    data: [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100] || dataPopulationGd1,
                     areaStyle: {
                         normal: {
                             color: {
@@ -947,7 +958,7 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100, 800]||dataPopulationGd2
+                    data: [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100, 800] || dataPopulationGd2
                 },
 
 
@@ -956,7 +967,7 @@ $(function () {
                     type: 'line',
                     //stack: '总量',
                     smooth: true,
-                    data: [820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200]||dataMigIn1,
+                    data: [820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200] || dataMigIn1,
                     lineStyle: {
                         normal: {
                             color: '#4293f2' //rgba(66,147,242
@@ -995,7 +1006,7 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: [820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200, 900]||dataMigIn2,
+                    data: [820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200, 900] || dataMigIn2,
                 },
 
 
@@ -1005,7 +1016,7 @@ $(function () {
                     z: 1,
                     //stack: '总量',
                     smooth: true,
-                    data: [820, 932, 901, 934, 1290, 1330]||dataMigOut1,
+                    data: [820, 932, 901, 934, 1290, 1330] || dataMigOut1,
                     lineStyle: {
                         normal: {
                             color: '#32ff4b'//rgba(55,255,75
@@ -1046,7 +1057,7 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: [820, 932, 901, 934, 1290, 1330, 1320]||dataMigOut2
+                    data: [820, 932, 901, 934, 1290, 1330, 1320] || dataMigOut2
                 },
             ]
         };
@@ -1161,9 +1172,9 @@ $(function () {
                     dataMigIn2.push(theDataItem.migIn);
                     dataPopulationGd2.push(theDataItem.populationGd);
                 }
-                me.loadChart1(theXData, dataPopulationGd1,dataPopulationGd2);
-                me.loadChart2(theXData, dataMigIn1,dataMigIn2);
-                me.loadChart3(theXData, dataMigOut1,dataMigOut2);
+                me.loadChart1(theXData, dataPopulationGd1, dataPopulationGd2);
+                me.loadChart2(theXData, dataMigIn1, dataMigIn2);
+                me.loadChart3(theXData, dataMigOut1, dataMigOut2);
             }
             else {
                 console.log("loadCurrent错误:" + data);
