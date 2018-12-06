@@ -360,7 +360,7 @@ html body {
     height: 100px;
     margin-left: 49px;
     float: left;
-    border: red solid 1px;
+   /* border: red solid 1px;*/
     /*background-color: red;*/
 }
 .chart-panel .chart-item:first-child{
@@ -471,3 +471,51 @@ html body {
     font-size: 12px;
 }
 
+.datediv{
+    position: absolute;
+    width: 640px;
+    height: 32px;
+    top: 0px;
+    left: 200px;
+    line-height: 32px;
+}
+#date-input{
+    /*position: absolute;*/
+    float: right;
+    background: transparent;
+    color: white;
+    width: 130px;
+    /*border: none;*/
+    border-width:0px ;
+    font-size: 18px;
+    color: #ddf3ff;
+    height: 32px;
+    line-height: 32px;
+    padding-right: 32px;
+    right: 0px;
+    text-align: center;
+    vertical-align: middle;
+    outline: none;
+
+}
+#date-icon{
+    float: right;
+    /*position: absolute;*/
+    background-image: url("img/icon1.png");
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    margin-top: 5px;
+}
+#date-action{
+    float: right;
+    background-size: auto 32px;
+    /*position: absolute;*/
+    background-image: url("img/icon3.png");
+    width: 56px;
+    height: 54px;
+    right: 0px;
+}
+#date-input:focus{
+    border-width:0px ;
+}

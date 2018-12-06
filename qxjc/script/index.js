@@ -585,11 +585,16 @@ $(function () {
                 //debugger;
                 if(params.batch.length>0){
                     var theAreaSelected=params.batch[0];
-                    var theName = params.name;
+                    var theName = theAreaSelected.name;
                     if (theAreaNmae != theName) {
                         theAreaNmae = theName;
+                        console.log('选择区域变化，切换到区域'+theAreaNmae);
                         me.loadData();
+
                     }
+                }
+                else{
+                    console.log('选择区域变化，未找到值');
                 }
                 //console.log("111",params);
             });
