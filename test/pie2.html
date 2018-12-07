@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="400" width="450">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100" width="100">
     <defs>
         <!-- arrowhead marker definition -->
         <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5"
@@ -18,14 +18,48 @@
         </marker>
     </defs>
 
-    <path d="M 100 350 a 100 100 0 0 1 200 0" stroke="blue"
+    <path id="base-path" d="M 100 350 a 100 100 0 0 1 200 0" stroke="blue"
           stroke-linecap="round"
-          stroke-width="20" fill="none" />
-    <path d="M 100 350 a 100 100 0 0 1 100 -100" stroke="red"
+          stroke-width="10" fill="none" />
+    <path id="pie-path" d="M 100 350 a 100 100 0 0 1 100 -100" stroke="red"
           marker-start="url(#dot)"
-          stroke-width="20" fill="none" />
+          stroke-width="10" fill="none" />
 
 </svg>
+<script type="text/javascript">
+    function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+        var angleInRadians = (angleInDegrees+120) * Math.PI / 180.0;
 
+        return {
+            x: centerX + (radius * Math.cos(angleInRadians)),
+            y: centerY + (radius * Math.sin(angleInRadians))
+        };
+    }
+
+    function describeArc(x, y, radius, startAngle, endAngle){
+
+        var start = polarToCartesian(x, y, radius, endAngle);
+        var end = polarToCartesian(x, y, radius, startAngle);
+
+        var largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+        var d = [
+            "M", start.x, start.y,
+            "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
+        ].join(" ");
+
+        return d;
+    }
+
+    var thePie=document.getElementById('pie-path');
+    var theBase=document.getElementById('base-path');
+    theBase.setAttribute('d',describeArc(50,50,45,0,360-60)) ;
+
+    var theValue=1;
+    setInterval(function () {
+        thePie.setAttribute('d',describeArc(50,50,45,0,theValue*3)) ;
+        theValue=(theValue+1)%100;
+    },50);
+</script>
 </body>
 </html>

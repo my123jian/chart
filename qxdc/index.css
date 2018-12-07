@@ -1,6 +1,5 @@
 
 * {
-    color: #ddf3ff;
     background-repeat: no-repeat;
     margin: 0px;
     padding: 0px;
@@ -105,6 +104,11 @@ html body {
     pointer-events: none;
     width: 1920px;
     height: 1080px;
+
+}
+
+.fixdiv * {
+    color: #ddf3ff;
 }
 
 .fixdiv > div {
@@ -204,7 +208,8 @@ html body {
 .qita_bg {
     background-color: #6fc1dc;
 }
-.huan-chart-text{
+
+.huan-chart-text {
     height: 100px;
     width: 108px;
     z-index: -1;
@@ -213,6 +218,7 @@ html body {
     text-align: center;
     padding-top: 32px;
 }
+
 .huan_chart_contain {
     margin-top: 52px;
 }
@@ -319,9 +325,11 @@ html body {
     height: 45px;
     margin-top: 66px;
 }
-.tab-direction:after{
+
+.tab-direction:after {
     clear: both;
 }
+
 .tab-direction > div {
     float: left;
     width: 33.3%;
@@ -343,150 +351,172 @@ html body {
     display: inline-block;
 }
 
-.part1 .chart-div{
+.part1 .chart-div {
     padding-top: 42px;
 }
-.part1 .chart-div .title{
+
+.part1 .chart-div .title {
     font-size: 22px;
     margin-left: 16px;
 }
-.chart-div>.chart-panel{
+
+.chart-div > .chart-panel {
     margin-top: 52px;
     height: 100px;
     margin-right: 58px;
 }
-.chart-panel .chart-item{
+
+.chart-panel .chart-item {
     width: 108px;
     height: 100px;
     margin-left: 49px;
     float: left;
-   /* border: red solid 1px;*/
+    /* border: red solid 1px;*/
     /*background-color: red;*/
 }
-.chart-panel .chart-item:first-child{
+
+.chart-panel .chart-item:first-child {
     /*margin-left: 0px!important;*/
 }
-.page{
+
+.page {
     height: 20px;
     text-align: center;
     padding-top: 10px;
 }
-.page .page-item{
+
+.page .page-item {
     height: 20px;
     width: 20px;
     display: inline-block;
 }
 
-.page-item-1{
+.page-item-1 {
     background-image: url("img/btn_5.png");
 }
-.page-item-1.select{
+
+.page-item-1.select {
     background-image: url("img/btn_3.png");
 }
 
-.page-item-2{
+.page-item-2 {
     background-image: url("img/btn_4.png");
     margin-left: 10px;
 }
-.page-item-2.select{
+
+.page-item-2.select {
     background-image: url("img/btn_6.png");
 }
 
-.part2 .chart-div{
+.part2 .chart-div {
     /*padding-top: 42px;*/
 }
-.part2 .chart-div>.chart-panel
-{
+
+.part2 .chart-div > .chart-panel {
     margin-top: 30px;
 }
-.part2>.title{
+
+.part2 > .title {
     font-size: 22px;
     margin-top: 30px;
     margin-left: 18px;
 }
-.part2 .table-div{
+
+.part2 .table-div {
     margin-top: 24px;
 }
-.part2 .chart-div .title{
+
+.part2 .chart-div .title {
     font-size: 22px;
     margin-left: 16px;
 }
-.part2 .table-title{
+
+.part2 .table-title {
     font-size: 22px;
     margin-top: 34px;
     margin-left: 18px;
 }
-.select-div{
+
+.select-div {
     width: 100%;
     height: 75px;
     margin-top: 16px;
 }
 
-.row{
+.row {
     width: 100%;
 }
-.row>*{
+
+.row > * {
     display: inline-block;
 
 }
-.row.row1>*{
+
+.row.row1 > * {
     margin-left: 194px;
 }
-.row.row1>*:first-child{
+
+.row.row1 > *:first-child {
     margin-left: 118px;
 }
-.row.row2>*{
+
+.row.row2 > * {
     margin-top: 24px;
     width: 118px;
     text-align: center;
 }
-.row.row2>*:first-child{
+
+.row.row2 > *:first-child {
     margin-left: 98px;
 }
-.btn-city{
+
+.btn-city {
     width: 118px;
     height: 40px;
 
     background-image: url("img/btn_city.png");
 }
-.btn-city select{
+
+.btn-city select {
     width: 118px;
     height: 40px;
     border: 0px;
-    appearance:none;
-    -moz-appearance:none;
-    -webkit-appearance:none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
     outline: none;
-    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     padding-left: 24px;
     background: transparent;
 
-    background: url("img/icon_1.png") no-repeat  transparent;/*scroll right center*/
+    background: url("img/icon_1.png") no-repeat transparent; /*scroll right center*/
     background-position-x: 86px;
     background-position-y: 18px;
     background-size: 14px 8px;
     font-size: 24px;
 }
-.btn-city select>option{
+
+.btn-city select > option {
     font-size: 12px;
 }
 
-.datediv{
+.datediv {
     position: absolute;
     width: 640px;
     height: 32px;
     top: 0px;
-    left: 200px;
+    left: 264px;
     line-height: 32px;
 }
-#date-input{
+
+#date-input {
     /*position: absolute;*/
     float: right;
     background: transparent;
     color: white;
     width: 130px;
     /*border: none;*/
-    border-width:0px ;
+    border-width: 0px;
     font-size: 18px;
     color: #ddf3ff;
     height: 32px;
@@ -498,7 +528,8 @@ html body {
     outline: none;
 
 }
-#date-icon{
+
+#date-icon {
     float: right;
     /*position: absolute;*/
     background-image: url("img/icon1.png");
@@ -507,7 +538,8 @@ html body {
     margin-right: 12px;
     margin-top: 5px;
 }
-#date-action{
+
+#date-action {
     float: right;
     background-size: auto 32px;
     /*position: absolute;*/
@@ -516,6 +548,21 @@ html body {
     height: 54px;
     right: 0px;
 }
-#date-input:focus{
-    border-width:0px ;
+
+#date-input:focus {
+    border-width: 0px;
+}
+
+.baseView, baseView > div {
+    position: absolute;
+
+}
+
+iframe {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 1920px;
+    height: 1080px;
+    border: none;
 }
