@@ -24,6 +24,7 @@
 
 <script type="text/javascript">
     var theChart = null;
+
     function getEcharts() {
         // Step:3 conifg ECharts's path, link to echarts.js from current page.
         // Step:3 为模块加载器配置echarts的路径，从当前页面链接到echarts.js，定义所需图表路径
@@ -53,7 +54,7 @@
      * @param data
      */
     function refresh(data) {
-      var   theData =  [
+        var theData = [
             {name: '上海', value: 95},
             {name: '广州', value: 90},
             {name: '大连', value: 80},
@@ -89,6 +90,14 @@
                     scaleLimit: {
                         min: 1
                     },
+                    label: {
+                        normal: {
+                            show: true,
+                            textStyle: {
+                                color: 'white',
+                            }
+                        }
+                    },
                     itemStyle: {
                         normal: {
                             borderColor: 'rgba(100,149,237,1)',
@@ -118,7 +127,7 @@
                                 }
                             }
                         },
-                        data:  [
+                        data: [
                             [{name: '上海'}, {name: '北京', value: 95}],
                             [{name: '广州'}, {name: '北京', value: 90}],
                             [{name: '大连'}, {name: '北京', value: 80}],
