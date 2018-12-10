@@ -57,15 +57,15 @@
             <!--表头信息-->
             <div class="tab-main">
                 <div class="tab-item " data-index="1">
-                    <span class="firstline">迁出洞察</span> <br/><span class="secondline">234.23万人</span>
+                    <span class="firstline">迁出洞察</span> <br/><span class="secondline"><span id="num1">234.23</span>万人</span>
                 </div>
                 <div class="tab-item" data-index="2">
                     <span class="firstline">迁入洞察</span><br/>
-                    <span class="secondline">234.23万人</span>
+                    <span class="secondline"><span  id="num2">234.23</span>万人</span>
                 </div>
                 <div class="tab-item select" data-index="3">
                     <span class="firstline">省内迁徙</span><br/>
-                    <span class="secondline">234.23万人</span>
+                    <span class="secondline"><span  id="num3">234.23</span>万人</span>
                 </div>
             </div>
             <div class="part1 part-1" style="display: none">
@@ -75,18 +75,18 @@
                         迁出渠道
                     </div>
                     <div class="chart-panel">
-                        <div class="chart-item" data-name="铁路" data-color="#faeebe" data-value="10">
+                        <div class="chart-item" data-name="铁路" data-id="4" data-color="#faeebe" data-value="20">
                         </div>
-                        <div class="chart-item" data-name="公路" data-color="#bcb9e7" data-value="20"></div>
-                        <div class="chart-item" data-name="水路" data-color="#20e3df" data-value="30"></div>
-                        <div class="chart-item" data-name="民航" data-color="#acebd5" data-value="40"></div>
-                        <div class="chart-item" data-name="其他" data-color="#6fc1dc" data-value="50"></div>
+                        <div class="chart-item" data-name="公路" data-id="1" data-color="#bcb9e7" data-value="40"></div>
+                        <div class="chart-item" data-name="水路" data-id="3" data-color="#20e3df" data-value="60"></div>
+                        <div class="chart-item" data-name="民航" data-id="2" data-color="#acebd5" data-value="80"></div>
+                        <div class="chart-item" data-name="其他" data-id="5" data-color="#6fc1dc" data-value="100"></div>
                     </div>
                 </div>
                 <div class="tab-direction">
-                    <div class="select">省外去向</div>
-                    <div>港澳台去向</div>
-                    <div>境外去向</div>
+                    <div class="select" data-name="省外" data-type="3">省外去向</div>
+                    <div  data-name="港澳台" data-type="1">港澳台去向</div>
+                    <div  data-name="境外" data-type="2">境外去向</div>
                 </div>
                 <div class="table-div">
                     <table class="table">
@@ -249,18 +249,18 @@
                         迁入渠道
                     </div>
                     <div class="chart-panel">
-                        <div class="chart-item" data-name="铁路" data-color="#faeebe" data-value="60">
+                        <div class="chart-item" data-name="铁路" data-id="4" data-color="#faeebe" data-value="20">
                         </div>
-                        <div class="chart-item" data-name="公路" data-color="#bcb9e7" data-value="70"></div>
-                        <div class="chart-item" data-name="水路" data-color="#20e3df" data-value="80"></div>
-                        <div class="chart-item" data-name="民航" data-color="#acebd5" data-value="90"></div>
-                        <div class="chart-item" data-name="其他" data-color="#6fc1dc" data-value="100"></div>
+                        <div class="chart-item" data-name="公路" data-id="1" data-color="#bcb9e7" data-value="40"></div>
+                        <div class="chart-item" data-name="水路" data-id="3" data-color="#20e3df" data-value="60"></div>
+                        <div class="chart-item" data-name="民航" data-id="2" data-color="#acebd5" data-value="80"></div>
+                        <div class="chart-item" data-name="其他" data-id="5" data-color="#6fc1dc" data-value="100"></div>
                     </div>
                 </div>
                 <div class="tab-direction">
-                    <div class="select">省外去向</div>
-                    <div>港澳台去向</div>
-                    <div>境外去向</div>
+                    <div class="select" data-name="省外" data-type="3">省外去向</div>
+                    <div  data-name="港澳台" data-type="1">港澳台去向</div>
+                    <div  data-name="境外" data-type="2">境外去向</div>
                 </div>
                 <div class="table-div">
                     <table class="table">
@@ -436,15 +436,15 @@
 
                     <div class="row row2">
                         <div class="btn-city">
-                            <select>
+                            <select id="from-city">
                                 <option value="广州">广州</option>
                             </select>
                         </div>
                         <div>----------</div>
                         <div>222222</div>
-                        <div>----------></div>
+                        <div style="margin-right: 29px;">----------></div>
                         <div class="btn-city">
-                            <select>
+                            <select id="to-city">
                                 <option value="广州">广州</option>
                             </select>
                         </div>
@@ -453,12 +453,12 @@
                 <div class="chart-div">
 
                     <div class="chart-panel">
-                        <div class="chart-item" data-name="铁路" data-color="#faeebe" data-value="20">
+                        <div class="chart-item" data-name="铁路" data-id="4" data-color="#faeebe" data-value="20">
                         </div>
-                        <div class="chart-item" data-name="公路" data-color="#bcb9e7" data-value="40"></div>
-                        <div class="chart-item" data-name="水路" data-color="#20e3df" data-value="60"></div>
-                        <div class="chart-item" data-name="民航" data-color="#acebd5" data-value="80"></div>
-                        <div class="chart-item" data-name="其他" data-color="#6fc1dc" data-value="100"></div>
+                        <div class="chart-item" data-name="公路" data-id="1" data-color="#bcb9e7" data-value="40"></div>
+                        <div class="chart-item" data-name="水路" data-id="3" data-color="#20e3df" data-value="60"></div>
+                        <div class="chart-item" data-name="民航" data-id="2" data-color="#acebd5" data-value="80"></div>
+                        <div class="chart-item" data-name="其他" data-id="5" data-color="#6fc1dc" data-value="100"></div>
                     </div>
                 </div>
 
@@ -471,7 +471,7 @@
                         <thead>
                         <tr class="hd1">
                             <th>
-                                目的地
+                                路线
                             </th>
                             <th>
                                 迁出人数
@@ -481,7 +481,7 @@
                             </th>
                         </tr>
                         <tr class="hd2">
-                            <th>省份</th>
+                            <th>城市</th>
                             <th>个数</th>
                             <th>铁路</th>
                             <th>公路</th>
@@ -492,7 +492,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>22</td>
+                            <td><div class="index"><span>广州</span>----<span>深圳</span></div></td>
                             <td>222</td>
                             <td>
                                 <div class="round-div tielu_bg" style="width: 30px"></div>

@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table id="sample-table-2" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th class="center">
+            <label>
+                <input type="checkbox" class="ace"/>
+                <span class="lbl"></span>
+            </label>
+        </th>
+        <th>订单ID</th>
+        <th>下单/接单时间</th>
+        <th>药店名称</th>
+        <th>总金额</th>
+        <th>处理情况</th>
+        <th>收货信息</th>
+        <th>订单下载次数</th>
+    </tr>
+    </thead>
+
+    <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+    <tr id="div_9539312" processStatus="1" class="no-req">
+        <td style="width:4%" class="center">
+            <label>
+                <input type="checkbox" class="ace" name="9539312"/>                            <span class="lbl"></span>
+            </label>                </td>
+        <td style="width:10.5%;">
+            <p class='order-id'>9539312</p>2181210539251-2                    <br />
+            【商家直供】
+            <div class="action-buttons">
+                <!-- 其他系统生成订单-->
+                <a class="orange" href="javascript:exportOrder(9539312,42);" title="生成供应商系统订单文件">
+                    <i class="icon-signin bigger-130"></i>
+                </a>                            <a class="" href="javascript:orderPrint('9539312','吴舒敏','15918676902','')" title="打印订单"><i class="icon-print bigger-130"></i></a>
+            </div>                                                        </td>
+        <td style="width:9%">
+            2018-12-10 13:59:01<br/><br/>/2018-12-10 13:59:42                </td>
+        <td                     style="width: 18%">
+            <span class='store-full-name'>广州市天河区居健堂药房</span>
+            <p>
+                药店编码:<i class="icon-" id="code_1700280">XS09266</i>
+                <a class="orange" href="javascript:changeCode(1700280);" title="编辑内码">
+                    <i class="icon-pencil bigger-130"></i>
+                </a>                        </p>
+
+
+            <br />
+            <a class="green" onclick="look('1700280')" style="cursor:pointer;" title="">
+                查看证件
+            </a>
+            <br/><a href="javascript:;" class="ysbContact" title="吴舒敏 15918676902" uname="吴舒敏" phone="15918676902" >药师帮业务员</a>
+
+        </td>
+
+        <td style="width:14%">
+            1552.3                        <br/>(含商家优惠15.52元)
+            <span class="help-button coupon-pay-prov-help" id="coupon_pay_prov_help_9539312" data-coupon-id="124218225"
+                  data-coupon-title="99">?</span>
+        </td>
+
+        <td style="width:18%">
+            状态：待处理                                                <br>
+            备注：<span id="newremark9539312"></span>
+            <br/>
+            <span class="p_mtime"></span>
+            <br/>
+            <a class="green" onclick="noteLog(9539312);" style="cursor:pointer;" title="历史备注">
+                <i class="icon-eye-open bigger-130 orange"></i>
+            </a>
+            <br/>
+
+            <!-- 开户邮寄信息-->
+        </td>
+        <td
+                style="width: 20%"                >陈德亮<br />13533934501<br />广东省广州市:<br />广州市天河区岑村圣堂大街1号1楼 <br/>
+            <a class="invoice-info orange no-margin-left" data-invoice-type="3" data-invoice-type-name="" data-tax-no="" data-invoice-pic=""
+               data-bank-name="" data-bankcard-no="" data-pic-address="" data-pic-name="" data-pic-phone="" data-address="广州市天河区岑村圣堂大街1号1楼" data-store-name="广州市天河区居健堂药房" data-phone=""
+               href="javascript:void(0);"><span  >【】</span>查看开票信息</a>                </td>
+
+        <td                     style="width: 6%"                ><span id="downCount_9539312">0</span>
+            <!--                    <button id="resetOrder_9539312" class="btn btn-primary btn-sm"  onclick="resetOrder(9539312)">重传</button>-->
+            <br/><a id="resetOrder_9539312" style="cursor:pointer;" onclick="resetOrder(9539312)">重传</a>                    <br />
+            <br /><br />
+            <div class="btn-group search-button pull-right">
+                <div class="toggle_table" style="cursor:pointer">
+                    <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_less.png' style="width:74;height:16px">
+                </div>
+            </div>                </td>
+
+
+    </tr>
+    <tr class="tr-requirement" style="display:none"  >
+        <!-- <td style="padding: 0;cursor:pointer;height:20px !important;" class="toggle_table">
+        <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/less.png' style="display: block; margin:0 auto;height:20px !important;width:15px" >
+        </td> -->
+        <td style="width:4%;"></td>
+        <td colspan="17" style="padding:0 0 10px 0;height:20px !important;">
+        </td>
+    </tr>
+    <tr hidden="true" class="dropDown">
+        <td colspan="18" style="padding: 0;">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="tr-grey">
+                    <td style="width:4%;"><div class="panel-arrow"></div></td>
+                    <td>序号</td>
+                    <td>商品编码</td>
+                    <td>商品信息</td>
+                    <td>规格/包装</td>
+                    <td>厂家</td>
+                    <td>数量</td>
+                    <td>单价</td>
+                    <td>金额</td>
+                    <td>退款数量</td>
+                    <td>退款金额</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tr-grey-2">
+                    <td></td>
+                    <td>1</td>
+                    <td><i id="drugCode_1870637" >13072</i>
+                        <a class="orange" href="javascript:changeDrugCode(1870637);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        三金片72片                                			                                                            </td>
+                    <td>72片</td>
+                    <td>桂林三金药业股份有限公司</td>
+                    <td>5</td>
+                    <td>28.70</td>
+                    <td>143.5</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>2</td>
+                    <td><i id="drugCode_1870655" >1344</i>
+                        <a class="orange" href="javascript:changeDrugCode(1870655);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        小儿热速清颗粒6袋                                			                                                            </td>
+                    <td>6袋</td>
+                    <td>哈尔滨圣泰生物制药有限公司</td>
+                    <td>20</td>
+                    <td>5.97</td>
+                    <td>119.4</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey-2">
+                    <td></td>
+                    <td>3</td>
+                    <td><i id="drugCode_41267" >13502</i>
+                        <a class="orange" href="javascript:changeDrugCode(41267);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        思密达蒙脱石散(草莓口味)3g*10袋                                			                                                            </td>
+                    <td>3g*10袋</td>
+                    <td>博福-益普生(天津)制药有限公司</td>
+                    <td>5</td>
+                    <td>19.80</td>
+                    <td>99</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>4</td>
+                    <td><i id="drugCode_938203" >13731</i>
+                        <a class="orange" href="javascript:changeDrugCode(938203);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        天麻头痛片 0.3g*24片                                			                                                            </td>
+                    <td>0.3g*24片</td>
+                    <td>辽宁朝花药业有限公司</td>
+                    <td>30</td>
+                    <td>4.00</td>
+                    <td>120</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey-2">
+                    <td></td>
+                    <td>5</td>
+                    <td><i id="drugCode_41934" >13811</i>
+                        <a class="orange" href="javascript:changeDrugCode(41934);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        复方苦参水杨酸散(足光散)40g*3袋                                			                                                            </td>
+                    <td>40g*3袋</td>
+                    <td>上海运佳黄浦制药有限公司</td>
+                    <td>10</td>
+                    <td>5.88</td>
+                    <td>58.8</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>6</td>
+                    <td><i id="drugCode_2570493" >14053</i>
+                        <a class="orange" href="javascript:changeDrugCode(2570493);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        弘飞康 盐酸二甲双胍缓释片 0.5g*20片                                			                                                            </td>
+                    <td>0.5g*20片</td>
+                    <td>南昌市飞弘药业有限公司</td>
+                    <td>10</td>
+                    <td>5.30</td>
+                    <td>53</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey-2">
+                    <td></td>
+                    <td>7</td>
+                    <td><i id="drugCode_3867916" >18271</i>
+                        <a class="orange" href="javascript:changeDrugCode(3867916);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        思密达 蒙脱石散 3g(桔子口味)3g*10袋(桔子味)                                			                                                            </td>
+                    <td>3g*10袋(桔子味)</td>
+                    <td>博福-益普生(天津)制药有限公司</td>
+                    <td>5</td>
+                    <td>19.50</td>
+                    <td>97.5</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>8</td>
+                    <td><i id="drugCode_31518" >2094</i>
+                        <a class="orange" href="javascript:changeDrugCode(31518);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        亚宝 葡萄糖酸锌口服溶液 10ml*10支                                			                                                            </td>
+                    <td>10ml*10支</td>
+                    <td>亚宝药业四川制药有限公司</td>
+                    <td>10</td>
+                    <td>7.80</td>
+                    <td>78</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey-2">
+                    <td></td>
+                    <td>9</td>
+                    <td><i id="drugCode_39493" >2395</i>
+                        <a class="orange" href="javascript:changeDrugCode(39493);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        氨溴特罗口服溶液(易坦静)60ml                                			                                                            </td>
+                    <td>60ml</td>
+                    <td>北京韩美药品有限公司</td>
+                    <td>10</td>
+                    <td>22.80</td>
+                    <td>228</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>10</td>
+                    <td><i id="drugCode_14696" >485</i>
+                        <a class="orange" href="javascript:changeDrugCode(14696);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        药信蒲地蓝消炎片 48片                                			                                                            </td>
+                    <td>48片</td>
+                    <td>安徽济人药业有限公司</td>
+                    <td>20</td>
+                    <td>4.60</td>
+                    <td>92</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey-2">
+                    <td></td>
+                    <td>11</td>
+                    <td><i id="drugCode_32696" >752</i>
+                        <a class="orange" href="javascript:changeDrugCode(32696);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        蒲地蓝消炎片（普林松）48片                                			                                                            </td>
+                    <td>48片</td>
+                    <td>吉林道君药业股份有限公司</td>
+                    <td>20</td>
+                    <td>3.70</td>
+                    <td>74</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>12</td>
+                    <td><i id="drugCode_1399293" >8803031</i>
+                        <a class="orange" href="javascript:changeDrugCode(1399293);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        千金 益母颗粒 14g*10袋                                			                                                            </td>
+                    <td>14g*10袋</td>
+                    <td>株洲千金药业股份有限公司</td>
+                    <td>20</td>
+                    <td>13.00</td>
+                    <td>260</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey-2">
+                    <td></td>
+                    <td>13</td>
+                    <td><i id="drugCode_41574" >889686</i>
+                        <a class="orange" href="javascript:changeDrugCode(41574);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        成人善存(多维元素片29)60片                                			                                                            </td>
+                    <td>60片</td>
+                    <td>惠氏制药有限公司</td>
+                    <td>2</td>
+                    <td>64.55</td>
+                    <td>129.1</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>1552.3</td>
+                    <td></td>
+                    <td>0</td>
+                </tr>
+                <tr style="height:20px !important;" >
+                    <td colspan="18" style="padding: 0;height:20px !important;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </if><tr id="div_9529824" processStatus="1" class="no-req">
+        <td style="width:4%" class="center">
+            <label>
+                <input type="checkbox" class="ace" name="9529824"/>                            <span class="lbl"></span>
+            </label>                </td>
+        <td style="width:10.5%;">
+            <p class='order-id'>9529824</p>2181210529824                    <br />
+            【商家直供】
+            <div class="action-buttons">
+                <!-- 其他系统生成订单-->
+                <a class="orange" href="javascript:exportOrder(9529824,42);" title="生成供应商系统订单文件">
+                    <i class="icon-signin bigger-130"></i>
+                </a>                            <a class="" href="javascript:orderPrint('9529824','张利皇','17688113356','')" title="打印订单"><i class="icon-print bigger-130"></i></a>
+            </div>                                                        </td>
+        <td style="width:9%">
+            2018-12-10 11:08:37<br/><br/>/2018-12-10 11:09:52                </td>
+        <td                     style="width: 18%">
+            <span class='store-full-name'>中山市石岐区为群药店</span>
+            <p>
+                药店编码:<i class="icon-" id="code_1870367">未设置</i>
+                <a class="orange" href="javascript:changeCode(1870367);" title="编辑内码">
+                    <i class="icon-pencil bigger-130"></i>
+                </a>                        </p>
+            <!-- <span style="color:red">【普票】</span><br /> -->
+
+            <br />
+            <a class="green" onclick="look('1870367')" style="cursor:pointer;" title="">
+                查看证件
+            </a>
+            <br/><a href="javascript:;" class="ysbContact" title="张利皇 17688113356" uname="张利皇" phone="17688113356" >药师帮业务员</a>
+
+        </td>
+
+        <td style="width:14%">
+            799.85
+        </td>
+
+        <td style="width:18%">
+            状态：待处理                                                <br>
+            备注：<span id="newremark9529824"></span>
+            <br/>
+            <span class="p_mtime"></span>
+            <br/>
+            <a class="green" onclick="noteLog(9529824);" style="cursor:pointer;" title="历史备注">
+                <i class="icon-eye-open bigger-130 orange"></i>
+            </a>
+            <br/>
+
+            <!-- 开户邮寄信息-->
+        </td>
+        <td
+                style="width: 20%"                >黄雪玲<br />13790745402<br />广东省中山市:<br />中山市石岐区张溪头围街一巷一号之一（首层） <br/>
+            <a class="invoice-info orange no-margin-left" data-invoice-type="1" data-invoice-type-name="普票" data-tax-no="" data-invoice-pic=""
+               data-bank-name="" data-bankcard-no="" data-pic-address="" data-pic-name="" data-pic-phone="" data-address="中山市石岐区张溪头围街一巷一号之一（首层）" data-store-name="中山市石岐区为群药店" data-phone=""
+               href="javascript:void(0);"><span  >【普票】</span>查看开票信息</a>                </td>
+
+        <td                     style="width: 6%"                ><span id="downCount_9529824">0</span>
+            <!--                    <button id="resetOrder_9529824" class="btn btn-primary btn-sm"  onclick="resetOrder(9529824)">重传</button>-->
+            <br/><a id="resetOrder_9529824" style="cursor:pointer;" onclick="resetOrder(9529824)">重传</a>                    <br />
+            <br /><br />
+            <div class="btn-group search-button pull-right">
+                <div class="toggle_table" style="cursor:pointer">
+                    <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_less.png' style="width:74;height:16px">
+                </div>
+            </div>                </td>
+
+
+    </tr>
+    <tr class="tr-requirement" style="display:none"  >
+        <!-- <td style="padding: 0;cursor:pointer;height:20px !important;" class="toggle_table">
+        <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/less.png' style="display: block; margin:0 auto;height:20px !important;width:15px" >
+        </td> -->
+        <td style="width:4%;"></td>
+        <td colspan="17" style="padding:0 0 10px 0;height:20px !important;">
+        </td>
+    </tr>            <tr hidden="true" class="dropDown">
+        <td colspan="18" style="padding: 0;">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="tr-grey">
+                    <td style="width:4%;"><div class="panel-arrow"></div></td>
+                    <td>序号</td>
+                    <td>商品编码</td>
+                    <td>商品信息</td>
+                    <td>规格/包装</td>
+                    <td>厂家</td>
+                    <td>数量</td>
+                    <td>单价</td>
+                    <td>金额</td>
+                    <td>退款数量</td>
+                    <td>退款金额</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tr-grey-2">
+                    <td></td>
+                    <td>1</td>
+                    <td><i id="drugCode_31741" >2766</i>
+                        <a class="orange" href="javascript:changeDrugCode(31741);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        兰索拉唑片 15mgx12片                                			                                                            </td>
+                    <td>15mgx12片</td>
+                    <td>江苏康缘药业股份有限公司</td>
+                    <td>5</td>
+                    <td>3.85</td>
+                    <td>19.25</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>2</td>
+                    <td><i id="drugCode_5886070" >8800366</i>
+                        <a class="orange" href="javascript:changeDrugCode(5886070);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        别嘌醇片 100片*0.1g                                			                                                            </td>
+                    <td>100片*0.1g</td>
+                    <td>广东彼迪药业有限公司</td>
+                    <td>5</td>
+                    <td>151.00</td>
+                    <td>755</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey-2">
+                    <td></td>
+                    <td>3</td>
+                    <td><i id="drugCode_598353" >8801155</i>
+                        <a class="orange" href="javascript:changeDrugCode(598353);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        痛风定胶囊 0.4g*24粒                                			                                                            </td>
+                    <td>0.4g*24粒</td>
+                    <td>四川升和药业股份有限公司</td>
+                    <td>2</td>
+                    <td>12.80</td>
+                    <td>25.6</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>799.85</td>
+                    <td></td>
+                    <td>0</td>
+                </tr>
+                <tr style="height:20px !important;" >
+                    <td colspan="18" style="padding: 0;height:20px !important;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </if><tr id="div_9346573" processStatus="1" class="no-req">
+        <td style="width:4%" class="center">
+            <label>
+                <input type="checkbox" class="ace" name="9346573"/>                            <span class="lbl"></span>
+            </label>                </td>
+        <td style="width:10.5%;">
+            <p class='order-id'>9346573</p>2181203346573                    <br />
+            【商家直供】                                                                        <span style="color:red;display: block;">电汇支付</span>
+            <div class="action-buttons">
+                <!-- 其他系统生成订单-->
+                <a class="orange" href="javascript:exportOrder(9346573,42);" title="生成供应商系统订单文件">
+                    <i class="icon-signin bigger-130"></i>
+                </a>                            <a class="" href="javascript:orderPrint('9346573','高文','15099968742','')" title="打印订单"><i class="icon-print bigger-130"></i></a>
+            </div>                                                        </td>
+        <td style="width:9%">
+            2018-12-03 17:39:14<br/><br/>/2018-12-05 10:03:47                </td>
+        <td                     style="width: 18%">
+            <a style="color:#f00;">(连锁)</a><span class='store-full-name'>广东济和堂药业连锁有限公司</span>
+            <p>
+                药店编码:<i class="icon-" id="code_2046755">未设置</i>
+                <a class="orange" href="javascript:changeCode(2046755);" title="编辑内码">
+                    <i class="icon-pencil bigger-130"></i>
+                </a>                        </p>
+            <!-- <span style="color:red">【专票】</span><br /> -->
+
+            <br />
+            <a class="green" onclick="look('2046755')" style="cursor:pointer;" title="">
+                查看证件
+            </a>
+            <br/><a href="javascript:;" class="ysbContact" title="高文 15099968742" uname="高文" phone="15099968742" >药师帮业务员</a>
+
+        </td>
+
+        <td style="width:14%">
+            760.42                        <br/>(含商家优惠7.6元)
+            <span class="help-button coupon-pay-prov-help" id="coupon_pay_prov_help_9346573" data-coupon-id="122417218"
+                  data-coupon-title="99折">?</span>                                                                        <br/><span style="color:red">未配送订单共￥22812.6</span>
+            <br/>其他订单:
+            <br/><span style="color:red">待处理:22052.18</span>
+        </td>
+
+        <td style="width:18%">
+            状态：待处理                                                <br>
+            备注：<span id="newremark9346573"></span>
+            <br/>
+            <span class="p_mtime"></span>
+            <br/>
+            <a class="green" onclick="noteLog(9346573);" style="cursor:pointer;" title="历史备注">
+                <i class="icon-eye-open bigger-130 orange"></i>
+            </a>
+            <br/>
+
+            <!-- 开户邮寄信息-->
+        </td>
+        <td
+                style="width: 20%"                >郑少坚<br />13570990948<br />广东省广州市:<br />广州市白云区广州大道北梅宾路梅宾东街2号二楼 <br/>
+            <a class="invoice-info orange no-margin-left" data-invoice-type="2" data-invoice-type-name="专票" data-tax-no="" data-invoice-pic=""
+               data-bank-name="" data-bankcard-no="" data-pic-address="" data-pic-name="" data-pic-phone="" data-address="广东省广州市白云区广州大道北梅宾路梅宾东街2号二楼" data-store-name="广东济和堂药业连锁有限公司" data-phone=""
+               href="javascript:void(0);"><span style="color:red;font-weight:bold;font-size:18px;" >【专票】</span>查看开票信息</a>                </td>
+
+        <td                     style="width: 6%"                ><span id="downCount_9346573">0</span>
+            <!--                    <button id="resetOrder_9346573" class="btn btn-primary btn-sm"  onclick="resetOrder(9346573)">重传</button>-->
+            <br/><a id="resetOrder_9346573" style="cursor:pointer;" onclick="resetOrder(9346573)">重传</a>                    <br />
+            <br /><br />
+            <div class="btn-group search-button pull-right">
+                <div class="toggle_table" style="cursor:pointer">
+                    <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_less.png' style="width:74;height:16px">
+                </div>
+            </div>                </td>
+
+
+    </tr>
+    <tr class="tr-requirement" style="display:none"  >
+        <!-- <td style="padding: 0;cursor:pointer;height:20px !important;" class="toggle_table">
+        <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/less.png' style="display: block; margin:0 auto;height:20px !important;width:15px" >
+        </td> -->
+        <td style="width:4%;"></td>
+        <td colspan="17" style="padding:0 0 10px 0;height:20px !important;">
+        </td>
+    </tr>            <tr hidden="true" class="dropDown">
+        <td colspan="18" style="padding: 0;">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="tr-grey">
+                    <td style="width:4%;"><div class="panel-arrow"></div></td>
+                    <td>序号</td>
+                    <td>商品编码</td>
+                    <td>商品信息</td>
+                    <td>规格/包装</td>
+                    <td>厂家</td>
+                    <td>数量</td>
+                    <td>单价</td>
+                    <td>金额</td>
+                    <td>退款数量</td>
+                    <td>退款金额</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tr-grey-2">
+                    <td></td>
+                    <td>1</td>
+                    <td><i id="drugCode_4924045" >0059</i>
+                        <a class="orange" href="javascript:changeDrugCode(4924045);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        福牌 阿胶（铁盒） 250g                                			                                                            </td>
+                    <td>250g</td>
+                    <td>山东福胶集团东阿镇阿胶有限公司</td>
+                    <td>2</td>
+                    <td>380.21</td>
+                    <td>760.42</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>760.42</td>
+                    <td></td>
+                    <td>0</td>
+                </tr>
+                <tr style="height:20px !important;" >
+                    <td colspan="18" style="padding: 0;height:20px !important;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </if><tr id="div_9346518" processStatus="1" class="no-req">
+        <td style="width:4%" class="center">
+            <label>
+                <input type="checkbox" class="ace" name="9346518"/>                            <span class="lbl"></span>
+            </label>                </td>
+        <td style="width:10.5%;">
+            <p class='order-id'>9346518</p>2181203346518                    <br />
+            【商家直供】                                                                        <span style="color:red;display: block;">电汇支付</span>
+            <div class="action-buttons">
+                <!-- 其他系统生成订单-->
+                <a class="orange" href="javascript:exportOrder(9346518,42);" title="生成供应商系统订单文件">
+                    <i class="icon-signin bigger-130"></i>
+                </a>                            <a class="" href="javascript:orderPrint('9346518','高文','15099968742','')" title="打印订单"><i class="icon-print bigger-130"></i></a>
+            </div>                                                        </td>
+        <td style="width:9%">
+            2018-12-03 17:38:24<br/><br/>/2018-12-05 10:03:38                </td>
+        <td                     style="width: 18%">
+            <a style="color:#f00;">(连锁)</a><span class='store-full-name'>广东济和堂药业连锁有限公司</span>
+            <p>
+                药店编码:<i class="icon-" id="code_2046755">未设置</i>
+                <a class="orange" href="javascript:changeCode(2046755);" title="编辑内码">
+                    <i class="icon-pencil bigger-130"></i>
+                </a>                        </p>
+            <!-- <span style="color:red">【专票】</span><br /> -->
+
+            <br />
+            <a class="green" onclick="look('2046755')" style="cursor:pointer;" title="">
+                查看证件
+            </a>
+            <br/><a href="javascript:;" class="ysbContact" title="高文 15099968742" uname="高文" phone="15099968742" >药师帮业务员</a>
+
+        </td>
+
+        <td style="width:14%">
+            1140.63                        <br/>(含商家优惠22.81元)
+            <span class="help-button coupon-pay-prov-help" id="coupon_pay_prov_help_9346518" data-coupon-id="122417208"
+                  data-coupon-title="98">?</span>                                                                        <br/><span style="color:red">未配送订单共￥22812.6</span>
+            <br/>其他订单:
+            <br/><span style="color:red">待处理:21671.97</span>
+        </td>
+
+        <td style="width:18%">
+            状态：待处理                                                <br>
+            备注：<span id="newremark9346518">Q    这家是委托配送的，只能以广东济和堂药业有限公司的名义来向我们报货，请跟客户说一下</span>
+            <br/>
+            <span class="p_mtime">2018-12-05 14:55:51</span>
+            <br/>
+            <a class="green" onclick="noteLog(9346518);" style="cursor:pointer;" title="历史备注">
+                <i class="icon-eye-open bigger-130 orange"></i>
+            </a>
+            <br/>
+
+            <!-- 开户邮寄信息-->
+        </td>
+        <td
+                style="width: 20%"                >郑少坚<br />13570990948<br />广东省广州市:<br />广州市白云区广州大道北梅宾路梅宾东街2号二楼 <br/>
+            <a class="invoice-info orange no-margin-left" data-invoice-type="2" data-invoice-type-name="专票" data-tax-no="" data-invoice-pic=""
+               data-bank-name="" data-bankcard-no="" data-pic-address="" data-pic-name="" data-pic-phone="" data-address="广东省广州市白云区广州大道北梅宾路梅宾东街2号二楼" data-store-name="广东济和堂药业连锁有限公司" data-phone=""
+               href="javascript:void(0);"><span style="color:red;font-weight:bold;font-size:18px;" >【专票】</span>查看开票信息</a>                </td>
+
+        <td                     style="width: 6%"                ><span id="downCount_9346518">0</span>
+            <!--                    <button id="resetOrder_9346518" class="btn btn-primary btn-sm"  onclick="resetOrder(9346518)">重传</button>-->
+            <br/><a id="resetOrder_9346518" style="cursor:pointer;" onclick="resetOrder(9346518)">重传</a>                    <br />
+            <br /><br />
+            <div class="btn-group search-button pull-right">
+                <div class="toggle_table" style="cursor:pointer">
+                    <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_less.png' style="width:74;height:16px">
+                </div>
+            </div>                </td>
+
+
+    </tr>
+    <tr class="tr-requirement" style="display:none"  >
+        <!-- <td style="padding: 0;cursor:pointer;height:20px !important;" class="toggle_table">
+        <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/less.png' style="display: block; margin:0 auto;height:20px !important;width:15px" >
+        </td> -->
+        <td style="width:4%;"></td>
+        <td colspan="17" style="padding:0 0 10px 0;height:20px !important;">
+        </td>
+    </tr>            <tr hidden="true" class="dropDown">
+        <td colspan="18" style="padding: 0;">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="tr-grey">
+                    <td style="width:4%;"><div class="panel-arrow"></div></td>
+                    <td>序号</td>
+                    <td>商品编码</td>
+                    <td>商品信息</td>
+                    <td>规格/包装</td>
+                    <td>厂家</td>
+                    <td>数量</td>
+                    <td>单价</td>
+                    <td>金额</td>
+                    <td>退款数量</td>
+                    <td>退款金额</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tr-grey-2">
+                    <td></td>
+                    <td>1</td>
+                    <td><i id="drugCode_4924045" >0059</i>
+                        <a class="orange" href="javascript:changeDrugCode(4924045);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        福牌 阿胶（铁盒） 250g                                			                                                            </td>
+                    <td>250g</td>
+                    <td>山东福胶集团东阿镇阿胶有限公司</td>
+                    <td>3</td>
+                    <td>380.21</td>
+                    <td>1140.63</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>1140.63</td>
+                    <td></td>
+                    <td>0</td>
+                </tr>
+                <tr style="height:20px !important;" >
+                    <td colspan="18" style="padding: 0;height:20px !important;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </if><tr id="div_9346253" processStatus="1" class="no-req">
+        <td style="width:4%" class="center">
+            <label>
+                <input type="checkbox" class="ace" name="9346253"/>                            <span class="lbl"></span>
+            </label>                </td>
+        <td style="width:10.5%;">
+            <p class='order-id'>9346253</p>2181203346253                    <br />
+            【商家直供】                                                                        <span style="color:red;display: block;">电汇支付</span>
+            <div class="action-buttons">
+                <!-- 其他系统生成订单-->
+                <a class="orange" href="javascript:exportOrder(9346253,42);" title="生成供应商系统订单文件">
+                    <i class="icon-signin bigger-130"></i>
+                </a>                            <a class="" href="javascript:orderPrint('9346253','高文','15099968742','')" title="打印订单"><i class="icon-print bigger-130"></i></a>
+            </div>                                                        </td>
+        <td style="width:9%">
+            2018-12-03 17:33:21<br/><br/>/2018-12-05 10:03:29                </td>
+        <td                     style="width: 18%">
+            <a style="color:#f00;">(连锁)</a><span class='store-full-name'>广东济和堂药业连锁有限公司</span>
+            <p>
+                药店编码:<i class="icon-" id="code_2046755">未设置</i>
+                <a class="orange" href="javascript:changeCode(2046755);" title="编辑内码">
+                    <i class="icon-pencil bigger-130"></i>
+                </a>                        </p>
+            <!-- <span style="color:red">【专票】</span><br /> -->
+
+            <br />
+            <a class="green" onclick="look('2046755')" style="cursor:pointer;" title="">
+                查看证件
+            </a>
+            <br/><a href="javascript:;" class="ysbContact" title="高文 15099968742" uname="高文" phone="15099968742" >药师帮业务员</a>
+
+        </td>
+
+        <td style="width:14%">
+            10265.67                        <br/>(含商家优惠615.94元)
+            <span class="help-button coupon-pay-prov-help" id="coupon_pay_prov_help_9346253" data-coupon-id="122415494"
+                  data-coupon-title="94">?</span>                                                                        <br/><span style="color:red">未配送订单共￥22812.6</span>
+            <br/>其他订单:
+            <br/><span style="color:red">待处理:12546.93</span>
+        </td>
+
+        <td style="width:18%">
+            状态：待处理                                                <br>
+            备注：<span id="newremark9346253"></span>
+            <br/>
+            <span class="p_mtime"></span>
+            <br/>
+            <a class="green" onclick="noteLog(9346253);" style="cursor:pointer;" title="历史备注">
+                <i class="icon-eye-open bigger-130 orange"></i>
+            </a>
+            <br/>
+
+            <!-- 开户邮寄信息-->
+        </td>
+        <td
+                style="width: 20%"                >郑少坚<br />13570990948<br />广东省广州市:<br />广州市白云区广州大道北梅宾路梅宾东街2号二楼 <br/>
+            <a class="invoice-info orange no-margin-left" data-invoice-type="2" data-invoice-type-name="专票" data-tax-no="" data-invoice-pic=""
+               data-bank-name="" data-bankcard-no="" data-pic-address="" data-pic-name="" data-pic-phone="" data-address="广东省广州市白云区广州大道北梅宾路梅宾东街2号二楼" data-store-name="广东济和堂药业连锁有限公司" data-phone=""
+               href="javascript:void(0);"><span style="color:red;font-weight:bold;font-size:18px;" >【专票】</span>查看开票信息</a>                </td>
+
+        <td                     style="width: 6%"                ><span id="downCount_9346253">0</span>
+            <!--                    <button id="resetOrder_9346253" class="btn btn-primary btn-sm"  onclick="resetOrder(9346253)">重传</button>-->
+            <br/><a id="resetOrder_9346253" style="cursor:pointer;" onclick="resetOrder(9346253)">重传</a>                    <br />
+            <br /><br />
+            <div class="btn-group search-button pull-right">
+                <div class="toggle_table" style="cursor:pointer">
+                    <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_less.png' style="width:74;height:16px">
+                </div>
+            </div>                </td>
+
+
+    </tr>
+    <tr class="tr-requirement" style="display:none"  >
+        <!-- <td style="padding: 0;cursor:pointer;height:20px !important;" class="toggle_table">
+        <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/less.png' style="display: block; margin:0 auto;height:20px !important;width:15px" >
+        </td> -->
+        <td style="width:4%;"></td>
+        <td colspan="17" style="padding:0 0 10px 0;height:20px !important;">
+        </td>
+    </tr>            <tr hidden="true" class="dropDown">
+        <td colspan="18" style="padding: 0;">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="tr-grey">
+                    <td style="width:4%;"><div class="panel-arrow"></div></td>
+                    <td>序号</td>
+                    <td>商品编码</td>
+                    <td>商品信息</td>
+                    <td>规格/包装</td>
+                    <td>厂家</td>
+                    <td>数量</td>
+                    <td>单价</td>
+                    <td>金额</td>
+                    <td>退款数量</td>
+                    <td>退款金额</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tr-grey-2">
+                    <td></td>
+                    <td>1</td>
+                    <td><i id="drugCode_4924045" >0059</i>
+                        <a class="orange" href="javascript:changeDrugCode(4924045);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        福牌 阿胶（铁盒） 250g                                			                                                            </td>
+                    <td>250g</td>
+                    <td>山东福胶集团东阿镇阿胶有限公司</td>
+                    <td>27</td>
+                    <td>380.21</td>
+                    <td>10265.67</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>10265.67</td>
+                    <td></td>
+                    <td>0</td>
+                </tr>
+                <tr style="height:20px !important;" >
+                    <td colspan="18" style="padding: 0;height:20px !important;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </if><tr id="div_9346348" processStatus="1" class="no-req">
+        <td style="width:4%" class="center">
+            <label>
+                <input type="checkbox" class="ace" name="9346348"/>                            <span class="lbl"></span>
+            </label>                </td>
+        <td style="width:10.5%;">
+            <p class='order-id'>9346348</p>2181203346348                    <br />
+            【商家直供】                                                                        <span style="color:red;display: block;">电汇支付</span>
+            <div class="action-buttons">
+                <!-- 其他系统生成订单-->
+                <a class="orange" href="javascript:exportOrder(9346348,42);" title="生成供应商系统订单文件">
+                    <i class="icon-signin bigger-130"></i>
+                </a>                            <a class="" href="javascript:orderPrint('9346348','高文','15099968742','')" title="打印订单"><i class="icon-print bigger-130"></i></a>
+            </div>                                                        </td>
+        <td style="width:9%">
+            2018-12-03 17:35:07<br/><br/>/2018-12-05 10:03:18                </td>
+        <td                     style="width: 18%">
+            <a style="color:#f00;">(连锁)</a><span class='store-full-name'>广东济和堂药业连锁有限公司</span>
+            <p>
+                药店编码:<i class="icon-" id="code_2046755">未设置</i>
+                <a class="orange" href="javascript:changeCode(2046755);" title="编辑内码">
+                    <i class="icon-pencil bigger-130"></i>
+                </a>                        </p>
+            <!-- <span style="color:red">【专票】</span><br /> -->
+
+            <br />
+            <a class="green" onclick="look('2046755')" style="cursor:pointer;" title="">
+                查看证件
+            </a>
+            <br/><a href="javascript:;" class="ysbContact" title="高文 15099968742" uname="高文" phone="15099968742" >药师帮业务员</a>
+
+        </td>
+
+        <td style="width:14%">
+            5322.94                        <br/>(含商家优惠319.37元)
+            <span class="help-button coupon-pay-prov-help" id="coupon_pay_prov_help_9346348" data-coupon-id="122417093"
+                  data-coupon-title="94">?</span>                                                                        <br/><span style="color:red">未配送订单共￥22812.6</span>
+            <br/>其他订单:
+            <br/><span style="color:red">待处理:17489.66</span>
+        </td>
+
+        <td style="width:18%">
+            状态：待处理                                                <br>
+            备注：<span id="newremark9346348"></span>
+            <br/>
+            <span class="p_mtime"></span>
+            <br/>
+            <a class="green" onclick="noteLog(9346348);" style="cursor:pointer;" title="历史备注">
+                <i class="icon-eye-open bigger-130 orange"></i>
+            </a>
+            <br/>
+
+            <!-- 开户邮寄信息-->
+        </td>
+        <td
+                style="width: 20%"                >郑少坚<br />13570990948<br />广东省广州市:<br />广州市白云区广州大道北梅宾路梅宾东街2号二楼 <br/>
+            <a class="invoice-info orange no-margin-left" data-invoice-type="2" data-invoice-type-name="专票" data-tax-no="" data-invoice-pic=""
+               data-bank-name="" data-bankcard-no="" data-pic-address="" data-pic-name="" data-pic-phone="" data-address="广东省广州市白云区广州大道北梅宾路梅宾东街2号二楼" data-store-name="广东济和堂药业连锁有限公司" data-phone=""
+               href="javascript:void(0);"><span style="color:red;font-weight:bold;font-size:18px;" >【专票】</span>查看开票信息</a>                </td>
+
+        <td                     style="width: 6%"                ><span id="downCount_9346348">0</span>
+            <!--                    <button id="resetOrder_9346348" class="btn btn-primary btn-sm"  onclick="resetOrder(9346348)">重传</button>-->
+            <br/><a id="resetOrder_9346348" style="cursor:pointer;" onclick="resetOrder(9346348)">重传</a>                    <br />
+            <br /><br />
+            <div class="btn-group search-button pull-right">
+                <div class="toggle_table" style="cursor:pointer">
+                    <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_less.png' style="width:74;height:16px">
+                </div>
+            </div>                </td>
+
+
+    </tr>
+    <tr class="tr-requirement" style="display:none"  >
+        <!-- <td style="padding: 0;cursor:pointer;height:20px !important;" class="toggle_table">
+        <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/less.png' style="display: block; margin:0 auto;height:20px !important;width:15px" >
+        </td> -->
+        <td style="width:4%;"></td>
+        <td colspan="17" style="padding:0 0 10px 0;height:20px !important;">
+        </td>
+    </tr>            <tr hidden="true" class="dropDown">
+        <td colspan="18" style="padding: 0;">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="tr-grey">
+                    <td style="width:4%;"><div class="panel-arrow"></div></td>
+                    <td>序号</td>
+                    <td>商品编码</td>
+                    <td>商品信息</td>
+                    <td>规格/包装</td>
+                    <td>厂家</td>
+                    <td>数量</td>
+                    <td>单价</td>
+                    <td>金额</td>
+                    <td>退款数量</td>
+                    <td>退款金额</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tr-grey-2">
+                    <td></td>
+                    <td>1</td>
+                    <td><i id="drugCode_4924045" >0059</i>
+                        <a class="orange" href="javascript:changeDrugCode(4924045);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        福牌 阿胶（铁盒） 250g                                			                                                            </td>
+                    <td>250g</td>
+                    <td>山东福胶集团东阿镇阿胶有限公司</td>
+                    <td>14</td>
+                    <td>380.21</td>
+                    <td>5322.94</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>5322.94</td>
+                    <td></td>
+                    <td>0</td>
+                </tr>
+                <tr style="height:20px !important;" >
+                    <td colspan="18" style="padding: 0;height:20px !important;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </if><tr id="div_9346401" processStatus="1" class="no-req">
+        <td style="width:4%" class="center">
+            <label>
+                <input type="checkbox" class="ace" name="9346401"/>                            <span class="lbl"></span>
+            </label>                </td>
+        <td style="width:10.5%;">
+            <p class='order-id'>9346401</p>2181203346401                    <br />
+            【商家直供】                                                                        <span style="color:red;display: block;">电汇支付</span>
+            <div class="action-buttons">
+                <!-- 其他系统生成订单-->
+                <a class="orange" href="javascript:exportOrder(9346401,42);" title="生成供应商系统订单文件">
+                    <i class="icon-signin bigger-130"></i>
+                </a>                            <a class="" href="javascript:orderPrint('9346401','高文','15099968742','')" title="打印订单"><i class="icon-print bigger-130"></i></a>
+            </div>                                                        </td>
+        <td style="width:9%">
+            2018-12-03 17:36:01<br/><br/>/2018-12-05 10:03:08                </td>
+        <td                     style="width: 18%">
+            <a style="color:#f00;">(连锁)</a><span class='store-full-name'>广东济和堂药业连锁有限公司</span>
+            <p>
+                药店编码:<i class="icon-" id="code_2046755">未设置</i>
+                <a class="orange" href="javascript:changeCode(2046755);" title="编辑内码">
+                    <i class="icon-pencil bigger-130"></i>
+                </a>                        </p>
+            <!-- <span style="color:red">【专票】</span><br /> -->
+
+            <br />
+            <a class="green" onclick="look('2046755')" style="cursor:pointer;" title="">
+                查看证件
+            </a>
+            <br/><a href="javascript:;" class="ysbContact" title="高文 15099968742" uname="高文" phone="15099968742" >药师帮业务员</a>
+
+        </td>
+
+        <td style="width:14%">
+            3041.68                        <br/>(含商家优惠121.66元)
+            <span class="help-button coupon-pay-prov-help" id="coupon_pay_prov_help_9346401" data-coupon-id="122415544"
+                  data-coupon-title="96">?</span>                                                                        <br/><span style="color:red">未配送订单共￥22812.6</span>
+            <br/>其他订单:
+            <br/><span style="color:red">待处理:19770.92</span>
+        </td>
+
+        <td style="width:18%">
+            状态：待处理                                                <br>
+            备注：<span id="newremark9346401"></span>
+            <br/>
+            <span class="p_mtime"></span>
+            <br/>
+            <a class="green" onclick="noteLog(9346401);" style="cursor:pointer;" title="历史备注">
+                <i class="icon-eye-open bigger-130 orange"></i>
+            </a>
+            <br/>
+
+            <!-- 开户邮寄信息-->
+        </td>
+        <td
+                style="width: 20%"                >郑少坚<br />13570990948<br />广东省广州市:<br />广州市白云区广州大道北梅宾路梅宾东街2号二楼 <br/>
+            <a class="invoice-info orange no-margin-left" data-invoice-type="2" data-invoice-type-name="专票" data-tax-no="" data-invoice-pic=""
+               data-bank-name="" data-bankcard-no="" data-pic-address="" data-pic-name="" data-pic-phone="" data-address="广东省广州市白云区广州大道北梅宾路梅宾东街2号二楼" data-store-name="广东济和堂药业连锁有限公司" data-phone=""
+               href="javascript:void(0);"><span style="color:red;font-weight:bold;font-size:18px;" >【专票】</span>查看开票信息</a>                </td>
+
+        <td                     style="width: 6%"                ><span id="downCount_9346401">0</span>
+            <!--                    <button id="resetOrder_9346401" class="btn btn-primary btn-sm"  onclick="resetOrder(9346401)">重传</button>-->
+            <br/><a id="resetOrder_9346401" style="cursor:pointer;" onclick="resetOrder(9346401)">重传</a>                    <br />
+            <br /><br />
+            <div class="btn-group search-button pull-right">
+                <div class="toggle_table" style="cursor:pointer">
+                    <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_less.png' style="width:74;height:16px">
+                </div>
+            </div>                </td>
+
+
+    </tr>
+    <tr class="tr-requirement" style="display:none"  >
+        <!-- <td style="padding: 0;cursor:pointer;height:20px !important;" class="toggle_table">
+        <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/less.png' style="display: block; margin:0 auto;height:20px !important;width:15px" >
+        </td> -->
+        <td style="width:4%;"></td>
+        <td colspan="17" style="padding:0 0 10px 0;height:20px !important;">
+        </td>
+    </tr>            <tr hidden="true" class="dropDown">
+        <td colspan="18" style="padding: 0;">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="tr-grey">
+                    <td style="width:4%;"><div class="panel-arrow"></div></td>
+                    <td>序号</td>
+                    <td>商品编码</td>
+                    <td>商品信息</td>
+                    <td>规格/包装</td>
+                    <td>厂家</td>
+                    <td>数量</td>
+                    <td>单价</td>
+                    <td>金额</td>
+                    <td>退款数量</td>
+                    <td>退款金额</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tr-grey-2">
+                    <td></td>
+                    <td>1</td>
+                    <td><i id="drugCode_4924045" >0059</i>
+                        <a class="orange" href="javascript:changeDrugCode(4924045);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        福牌 阿胶（铁盒） 250g                                			                                                            </td>
+                    <td>250g</td>
+                    <td>山东福胶集团东阿镇阿胶有限公司</td>
+                    <td>8</td>
+                    <td>380.21</td>
+                    <td>3041.68</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>3041.68</td>
+                    <td></td>
+                    <td>0</td>
+                </tr>
+                <tr style="height:20px !important;" >
+                    <td colspan="18" style="padding: 0;height:20px !important;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </if><tr id="div_9346485" processStatus="1" class="no-req">
+        <td style="width:4%" class="center">
+            <label>
+                <input type="checkbox" class="ace" name="9346485"/>                            <span class="lbl"></span>
+            </label>                </td>
+        <td style="width:10.5%;">
+            <p class='order-id'>9346485</p>2181203346485                    <br />
+            【商家直供】                                                                        <span style="color:red;display: block;">电汇支付</span>
+            <div class="action-buttons">
+                <!-- 其他系统生成订单-->
+                <a class="orange" href="javascript:exportOrder(9346485,42);" title="生成供应商系统订单文件">
+                    <i class="icon-signin bigger-130"></i>
+                </a>                            <a class="" href="javascript:orderPrint('9346485','高文','15099968742','')" title="打印订单"><i class="icon-print bigger-130"></i></a>
+            </div>                                                        </td>
+        <td style="width:9%">
+            2018-12-03 17:37:48<br/><br/>/2018-12-05 10:03:02                </td>
+        <td                     style="width: 18%">
+            <a style="color:#f00;">(连锁)</a><span class='store-full-name'>广东济和堂药业连锁有限公司</span>
+            <p>
+                药店编码:<i class="icon-" id="code_2046755">未设置</i>
+                <a class="orange" href="javascript:changeCode(2046755);" title="编辑内码">
+                    <i class="icon-pencil bigger-130"></i>
+                </a>                        </p>
+            <!-- <span style="color:red">【专票】</span><br /> -->
+
+            <br />
+            <a class="green" onclick="look('2046755')" style="cursor:pointer;" title="">
+                查看证件
+            </a>
+            <br/><a href="javascript:;" class="ysbContact" title="高文 15099968742" uname="高文" phone="15099968742" >药师帮业务员</a>
+
+        </td>
+
+        <td style="width:14%">
+            2281.26                        <br/>(含商家优惠68.43元)
+            <span class="help-button coupon-pay-prov-help" id="coupon_pay_prov_help_9346485" data-coupon-id="122415561"
+                  data-coupon-title="97">?</span>                                                                        <br/><span style="color:red">未配送订单共￥22812.6</span>
+            <br/>其他订单:
+            <br/><span style="color:red">待处理:20531.34</span>
+        </td>
+
+        <td style="width:18%">
+            状态：待处理                                                <br>
+            备注：<span id="newremark9346485"></span>
+            <br/>
+            <span class="p_mtime"></span>
+            <br/>
+            <a class="green" onclick="noteLog(9346485);" style="cursor:pointer;" title="历史备注">
+                <i class="icon-eye-open bigger-130 orange"></i>
+            </a>
+            <br/>
+
+            <!-- 开户邮寄信息-->
+        </td>
+        <td
+                style="width: 20%"                >郑少坚<br />13570990948<br />广东省广州市:<br />广州市白云区广州大道北梅宾路梅宾东街2号二楼 <br/>
+            <a class="invoice-info orange no-margin-left" data-invoice-type="2" data-invoice-type-name="专票" data-tax-no="" data-invoice-pic=""
+               data-bank-name="" data-bankcard-no="" data-pic-address="" data-pic-name="" data-pic-phone="" data-address="广东省广州市白云区广州大道北梅宾路梅宾东街2号二楼" data-store-name="广东济和堂药业连锁有限公司" data-phone=""
+               href="javascript:void(0);"><span style="color:red;font-weight:bold;font-size:18px;" >【专票】</span>查看开票信息</a>                </td>
+
+        <td                     style="width: 6%"                ><span id="downCount_9346485">0</span>
+            <!--                    <button id="resetOrder_9346485" class="btn btn-primary btn-sm"  onclick="resetOrder(9346485)">重传</button>-->
+            <br/><a id="resetOrder_9346485" style="cursor:pointer;" onclick="resetOrder(9346485)">重传</a>                    <br />
+            <br /><br />
+            <div class="btn-group search-button pull-right">
+                <div class="toggle_table" style="cursor:pointer">
+                    <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_less.png' style="width:74;height:16px">
+                </div>
+            </div>                </td>
+
+
+    </tr>
+    <tr class="tr-requirement" style="display:none"  >
+        <!-- <td style="padding: 0;cursor:pointer;height:20px !important;" class="toggle_table">
+        <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/less.png' style="display: block; margin:0 auto;height:20px !important;width:15px" >
+        </td> -->
+        <td style="width:4%;"></td>
+        <td colspan="17" style="padding:0 0 10px 0;height:20px !important;">
+        </td>
+    </tr>            <tr hidden="true" class="dropDown">
+        <td colspan="18" style="padding: 0;">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="tr-grey">
+                    <td style="width:4%;"><div class="panel-arrow"></div></td>
+                    <td>序号</td>
+                    <td>商品编码</td>
+                    <td>商品信息</td>
+                    <td>规格/包装</td>
+                    <td>厂家</td>
+                    <td>数量</td>
+                    <td>单价</td>
+                    <td>金额</td>
+                    <td>退款数量</td>
+                    <td>退款金额</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tr-grey-2">
+                    <td></td>
+                    <td>1</td>
+                    <td><i id="drugCode_4924045" >0059</i>
+                        <a class="orange" href="javascript:changeDrugCode(4924045);" title="编辑内码">
+                            <i class="icon-pencil bigger-130"></i>
+                        </a>                                </td>
+                    <td>
+                        福牌 阿胶（铁盒） 250g                                			                                                            </td>
+                    <td>250g</td>
+                    <td>山东福胶集团东阿镇阿胶有限公司</td>
+                    <td>6</td>
+                    <td>380.21</td>
+                    <td>2281.26</td>
+                    <td>0.00</td>
+                    <td>0</td>
+                </tr>                            <tr class="tr-grey">
+                    <td></td>
+                    <td>合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>2281.26</td>
+                    <td></td>
+                    <td>0</td>
+                </tr>
+                <tr style="height:20px !important;" >
+                    <td colspan="18" style="padding: 0;height:20px !important;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </if><tr id="div_合计" processStatus="1" class="no-req">
+        <td style="width:4%" class="center">
+        </td>
+        <td style="width:10.5%;">
+            <p class='order-id'>合计</p>                                                                            </td>
+        <td style="width:9%">
+        </td>
+        <td                     style="width: 18%">
+            <span class='store-full-name'></span>
+
+
+
+
+
+        </td>
+
+        <td style="width:14%">
+            25164.75                </td>
+
+        <td style="width:18%">
+        </td>
+        <td
+                style="width: 20%"                > <br/>
+        </td>
+
+        <td                     style="width: 6%"                ><span id="downCount_合计"></span>
+        </td>
+
+
+    </tr>
+    <tr hidden="true" class="dropDown">
+        <td colspan="18" style="padding: 0;">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr class="tr-grey">
+                    <td style="width:4%;"><div class="panel-arrow"></div></td>
+                    <td>序号</td>
+                    <td>商品编码</td>
+                    <td>商品信息</td>
+                    <td>规格/包装</td>
+                    <td>厂家</td>
+                    <td>数量</td>
+                    <td>单价</td>
+                    <td>金额</td>
+                    <td>退款数量</td>
+                    <td>退款金额</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tr-grey">
+                    <td></td>
+                    <td>合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>0</td>
+                    <td></td>
+                    <td>0</td>
+                </tr>
+                <tr style="height:20px !important;" >
+                    <td colspan="18" style="padding: 0;height:20px !important;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </if>    </tbody>
+</table>
+<div class="row" id="pageNav"></div>	    <script type="text/javascript">
+    $(function(){
+        noKeydown = "true";
+        cengp_Page(1,1);
+        $("input[name='']").focus();
+        if (!noKeydown) {
+            $(document).keydown(function(e){
+                if(e.keyCode == 13) {
+                    e.preventDefault();
+                    cengp_Page(1);
+                }
+            });
+        }
+    })
+    function cengp_Page(curPage, innt ,pagesizeKey){
+        if(pagesizeKey){
+            pagesize = pagesizeKey;
+        }else{
+            pagesize = $("#pagesize option:selected").val();
+        }
+        if(innt != 1){
+            title = "";autoOther = "true";
+            if (autoOther) {
+                //分页参数自动生成
+                var data = $("form").serialize();
+                data += '&page=' + curPage + '&pagesize=' + pagesize;
+                if(title) data += '&' + "" + '=' + title;
+            } else {
+                if(title){
+                    data = {"page":curPage,"pagesize":pagesize,"":title,};
+                }else{
+                    data = {"page":curPage,"pagesize":pagesize,};
+                }
+            }
+
+            $.post("/provider.php/Admin/Sale/providerOrderNew", data,
+                function(data){
+                    $("#list").html(data.info);
+                    supage('pageNav','cengp_Page','',curPage, data.url, pagesize);
+                    if(pagesizeKey){
+                        $(".Hoption").each(function(){
+                            if($(this).val() == pagesizeKey){
+                                $(this).attr("selected","selected");
+                            }
+                        })
+                    }
+                },'json');
+        }else{
+            supage('pageNav','cengp_Page','',curPage, 8, pagesize);
+        }
+    }
+
+</script><input type="hidden" id="searchOrderNum" value="8"/>
+<!-- 各列表订单数量 start-->
+<input type="hidden" id="status_1_ordernum" value="8"/><input type="hidden" id="status_2_ordernum" value="18"/><input type="hidden" id="status_3_ordernum" value="5"/><input type="hidden" id="status_4_ordernum" value="226"/><input type="hidden" id="status_5_ordernum" value="10"/><input type="hidden" id="status_6_ordernum" value="457"/><input type="hidden" id="status_8_ordernum" value="15293"/><input type="hidden" id="status_9_ordernum" value="205"/><!-- 各列表订单数量 end-->
+<!-- 显示发票信息 start -->
+<style>
+    .clipboard-content {width: 100%;position: relative;margin-right: 30px;}
+    .clipboard-line {width: 95%;}
+    .clipboard-line span {word-break: break-all;}
+    .clipboard {margin-left: 5px;position: absolute; top: 0px; right: -10px;}
+    .layui-layer-tips {width: 400px !important;}
+    .btn-div{
+        position: absolute;
+        bottom: 12px;
+        width: 160px;
+        height: 28px;
+        text-align: center;
+        z-index: 999;
+        left:120px;
+    }
+    .btn-div a{
+        line-height: 28px;
+        text-decoration: none;
+        background-color: rgba(0, 0, 0, .5);
+        border-radius: 50%;
+        cursor: pointer;
+        float: left;
+        height: 28px;
+        overflow: hidden;
+        -webkit-transition: background-color .15s;
+        transition: background-color .15s;
+        width: 28px;
+        margin: 4px;
+    }
+    .btn-div i {
+        color:#fff;
+    }
+</style>
+<script type="text/javascript" src="https://scm.ysbang.cn/static/admin/zoom/zoom.js?v=20180516"></script>
+<script type="text/javascript">
+    $(function() {
+        $('.invoice-info').mouseover(function () {
+            layer.closeAll();
+            var invoiceType = $(this).data('invoice-type');
+            var invociePic = $(this).data('invoice-pic') ? $(this).data('invoice-pic') : 0;
+            if(invoiceType == 2 && invociePic != ''){
+                var invoiceInfo = "<div class='in_text' style='width: 370px;display:none;'><a href='javascript:void(0);' onclick='see_pic();'><h5>查看图片信息</h5></a><p style='color:red;text-shadow: white 0.02em 0.02em 0.04em;'>注意：文字信息由店员编辑，可能存在编辑错误的风险，请仔细核对，建议以开票资料图片为准。</p>";
+                var invoicePicInfo = "<div class='in_pic' ><a href='javascript:void(0);' onclick='see_info();'><h5>查看文字信息</h5></a><div style='width: 100%;height:500px; overflow: hidden;position: relative;'><div class='dragAble' id='block1' onMouseOver='dragObj=block1; drag=1;' style='z-index: 10;left: 0px; width: 380px; position: absolute; top: 0; height: 500px;' onMouseOut='' drag='0'><img id='target'  onmousewheel='return onWheelZoom(this)' style='zoom: 0;width:380px;height:500px;' src='"+invociePic+"' border='0' name='images1'></div><div class='btn-div'><a href='javascript:void(0)' onclick='turnLeft()'><i class='icon-mail-reply bigger-110'></i></a><a href='javascript:void(0)' onclick='turnRight()'><i class='icon-mail-forward  bigger-110'></i></a><a href='javascript:void(0)' onclick='Yturn()'><i class='icon-resize-horizontal bigger-110'></i></a><a href='javascript:void(0)' onclick='Xturn()'><i class='icon-resize-vertical bigger-110'></i></a></div></div></div>";
+            }else{
+                var invoiceInfo = "<div style='width: 370px;'>";
+            }
+            var commonTip = "尚未登记";
+            var invoiceTypeName = (invoiceType == 0) ? '' :  $(this).data('invoice-type-name');
+            var taxNo = $(this).data('tax-no');
+            var bankName = $(this).data('bank-name');
+            var bankcardNo = $(this).data('bankcard-no');
+            if(invoiceType == 2){
+                var storeName = $(this).data('pic-name');
+                var address = $(this).data('pic-address');
+                var phone = $(this).data('pic-phone');
+            }else{
+                var storeName = $(this).data('store-name');
+                var address = $(this).data('address');
+                var phone = $(this).data('phone');
+            }
+
+            if (!taxNo) taxNo = commonTip;
+            invoiceInfo += getClipboardLine("发票类型", invoiceTypeName, 'invoiceType', 0);
+            invoiceInfo += getClipboardLine("税号", taxNo, 'taxNo', 1);
+            invoiceInfo += getClipboardLine("开户银行", bankName, 'bankName', 1);
+            invoiceInfo += getClipboardLine("开户账号", bankcardNo, 'bankcardNo', 1);
+            invoiceInfo += getClipboardLine("公司名称", storeName, 'storeName', 1);
+            invoiceInfo += getClipboardLine("公司地址", address, 'address', 1);
+            invoiceInfo += getClipboardLine("联系电话", phone, 'phone', 1);
+            if(invoiceType == 2 && invociePic != ''){
+                invoiceInfo += '</div>';
+                invoiceInfo += invoicePicInfo;
+            }
+            layer.tips(invoiceInfo, $(this),{
+                tips: [1, 'rgb(49, 49, 49)'],
+                time: 400000
+            });
+            new Clipboard('.clipboard');
+        });
+
+        function getClipboardLine(label, info, idSuffix, copy) {
+            if (!info) {
+                info = "尚未登记";
+                copy = 0;
+            }
+            var id = 'invoice-' + idSuffix;
+            var clipboardLine = '<div class="clipboard-content"><div class="clipboard-line">' + label + '：<span id="' + id + '">';
+            clipboardLine += info +'</span></div>';
+            if (copy) clipboardLine += '<a href="javascript:void(0);" class="clipboard white" data-clipboard-target="#' + id + '">复制</a>';
+            clipboardLine += '</div>';
+            return clipboardLine;
+        }
+        $('body *:not(.clipboard)').click(function () {
+            layer.closeAll('tips');
+        });
+    })
+</script>
+<!-- 显示发票信息 end -->
+<script type="text/javascript">
+    $('[data-rel=tooltip]').tooltip();
+
+    var height = new Array();
+    $('.detail-box').each(function () {
+        var detail_height = $(this).height();
+        var sequance = $(this).attr('sequance');
+        var parent = $(this).parents('tr');
+        var self = $(this);
+        parent.find('.factory-box-ext').each(function () {
+
+            if ($(this).attr('sequance') == sequance) {
+                var factory_height = $(this).height();
+                if(factory_height>=detail_height){
+                    height[sequance] = factory_height;
+                }else{
+                    height[sequance] = detail_height;
+                }
+                $(this).height(height[sequance]);
+                self.height(height[sequance]);//一定得加这个，因为jquery对于很多东西的理解跟人类太不一样
+            }
+        });
+        parent.find('.detail-box-ext').each(function () {
+            if ($(this).attr('sequance') == sequance) {
+                $(this).height(height[sequance]);
+                self.height(height[sequance]);//一定得加这个，因为jquery对于很多东西的理解跟人类太不一样
+            }
+        })
+    });
+    //全选或取消
+    $('table th input:checkbox').on('click', function () {
+        var that = this;
+        $(this).closest('table').find('tr > td:first-child input:checkbox')
+            .each(function () {
+                this.checked = that.checked;
+                $(this).closest('tr').toggleClass('selected');
+            });
+        if ($("#sample-table-2 tbody input:checked").length > 0) {
+            $("#operation button").removeClass("disabled");
+        } else {
+            $("#operation button").addClass("disabled");
+        }
+    });
+    $(document).ready(function () {
+        //搜索时按当前条件修改所有tab的订单数量
+        for (i = 1; i <= 9; i++) {
+            $('#status_' + i).text($('#status_' + i + '_ordernum').val());
+        }
+        //搜索时修改当前tab的订单数量
+        var orderNum = $('#searchOrderNum').val();
+        $('#inbox-tabs .active .badge').html(orderNum);
+
+        // 显示优惠券信息
+        $('.coupon-pay-prov-help').mouseover(function () {
+            var message = "名称：" + $(this).data('coupon-title');
+            help_show($(this).attr("id"), message);
+        });
+
+        $('.coupon-pay-prov-help').mouseleave(function () {
+            layer.closeAll();
+        });
+
+        $('.has-req').mouseover(function(){
+            $(this).next('.tr-requirement').css('background-color','#f5f5f5');
+        });
+        $('.has-req').mouseleave(function(){
+            $(this).next('.tr-requirement').css('background-color','white');
+        });
+        $('.tr-requirement').mouseover(function(){
+            $(this).prev('.has-req').css('background-color','#f5f5f5');
+        });
+        $('.tr-requirement').mouseleave(function(){
+            $(this).prev('.has-req').css('background-color','white');
+        });
+
+    });
+
+    $(".toggle_table").click(function(){
+        var nextTr = $(this).parent().parent().parent().next().next('.dropDown');
+        var hidden = nextTr.prop('hidden') ? false : true;
+        nextTr.prop('hidden',hidden);
+        var action_to_be = hidden ? 'more' : 'less';
+        $(this).children('img').attr('src',$(this).children('img').attr(action_to_be));
+    })
+
+    $('#btn_show_all_detail').html('全部展开 <i class="icon-angle-down"></i>').data('status',0);
+
+    function see_pic()
+    {
+        $('.in_pic').show();
+        $('.in_text').hide();
+    }
+
+    function see_info()
+    {
+        $('.in_pic').hide();
+        $('.in_text').show();
+    }
+
+    function show_doc_require(id,pid)
+    {
+        layer.open({
+            title:'资质需求',
+            type: 2,
+            area: ['400px', '300px'],
+            closeBtn:2,
+            skin: 'layui-layer-rim', //加上边框
+            shadeClose: true, //点击遮罩关闭层
+            content: "/provider.php/Admin/Sale/getOrderNote?order_id=" + id + '&provider_id=' +pid
+        })
+    }
+</script>
+</body>
+</html>
+
+
+<tr id="div_8535327" processstatus="2" class="no-req">
+    <td style="width:4%" class="center">
+        <label>
+            <input type="checkbox" class="ace" name="8535327">                            <span class="lbl"></span>
+        </label>                </td>
+    <td style="width:10.5%;">
+        <p class='order-id'>8535327</p>2181102535182-3                    <br>
+        【商家直供】
+        <div class="action-buttons">
+            <!-- 其他系统生成订单-->
+            <a class="orange" href="javascript:exportOrder(8535327,42);" title="生成供应商系统订单文件">
+                <i class="icon-signin bigger-130"></i>
+            </a>                            <a class="" href="javascript:orderPrint('8535327','梁世宝','13719293879','')" title="打印订单"><i class="icon-print bigger-130"></i></a>
+        </div>                                                        </td>
+    <td style="width:9%">
+        2018-11-02 11:15:17<br><br>/2018-11-02 11:17:38                </td>
+    <td style="width: 18%">
+        <span class='store-full-name'>广州市花都区润泽大药房</span>
+        <p>
+            药店编码:<i class="icon-" id="code_1315231">XS011394</i>
+            <a class="orange" href="javascript:changeCode(1315231);" title="编辑内码">
+                <i class="icon-pencil bigger-130"></i>
+            </a>                        </p>
+        <!-- <span style="color:red">【普票】</span><br /> -->
+
+        <br>
+        <a class="green" onclick="look('1315231')" style="cursor:pointer;" title="">
+            查看证件
+        </a>
+        <br><a href="javascript:;" class="ysbContact" title="梁世宝 13719293879" uname="梁世宝" phone="13719293879">药师帮业务员</a>
+
+    </td>
+
+    <td style="width:14%">
+        72.6
+    </td>
+
+    <td style="width:18%">
+        状态：订单已接受                                                <br>
+        备注：<span id="newremark8535327"></span>
+        <br>
+        <span class="p_mtime">2018-11-02 11:19:18</span>
+        <br>
+        <a class="green" onclick="noteLog(8535327);" style="cursor:pointer;" title="历史备注">
+            <i class="icon-eye-open bigger-130 orange"></i>
+        </a>
+        <br>
+
+        <!-- 开户邮寄信息-->
+    </td>
+    <td style="width: 20%">曾韵仪<br>13318775550<br>广东省广州市:<br>广州市花都区狮岭镇龙泉西路6号之二十二铺 <br>
+        <a class="invoice-info orange no-margin-left" data-invoice-type="1" data-invoice-type-name="普票" data-tax-no="" data-invoice-pic="" data-bank-name="" data-bankcard-no="" data-pic-address="" data-pic-name="" data-pic-phone="" data-address="广州市花都区狮岭镇龙泉西路6号之二十二铺" data-store-name="广州市花都区润泽大药房" data-phone="" href="javascript:void(0);"><span>【普票】</span>查看开票信息</a>                </td>
+
+    <td style="width: 6%"><span id="downCount_8535327">1</span>
+        <br>
+        <br><br>
+        <div class="btn-group search-button pull-right">
+            <div class="toggle_table" style="cursor:pointer">
+                <img src='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' more='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_more.png' less='https://scm.ysbang.cn/static/admin/img/wholesale_drug/table_less.png' style="width:74;height:16px">
+            </div>
+        </div>                </td>
+
+
+</tr>
