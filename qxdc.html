@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="baseView" id="baseView">
-    <iframe id="page_div"  src="qxdc_province.html"></iframe>
+    <iframe id="page_div" src="qxdc_country.html"></iframe>
     <!--<div class="map-country">
 
     </div>
@@ -56,19 +56,20 @@
             </div>
             <!--表头信息-->
             <div class="tab-main">
-                <div class="tab-item " data-index="1">
-                    <span class="firstline">迁出洞察</span> <br/><span class="secondline"><span id="num1">234.23</span>万人</span>
+                <div class="tab-item select" data-index="2">
+                    <span class="firstline">迁出洞察</span> <br/><span class="secondline"><span
+                        id="num2">234.23</span>万人</span>
                 </div>
-                <div class="tab-item" data-index="2">
+                <div class="tab-item" data-index="1">
                     <span class="firstline">迁入洞察</span><br/>
-                    <span class="secondline"><span  id="num2">234.23</span>万人</span>
+                    <span class="secondline"><span id="num1">234.23</span>万人</span>
                 </div>
-                <div class="tab-item select" data-index="3">
+                <div class="tab-item " data-index="3">
                     <span class="firstline">省内迁徙</span><br/>
-                    <span class="secondline"><span  id="num3">234.23</span>万人</span>
+                    <span class="secondline"><span id="num3">234.23</span>万人</span>
                 </div>
             </div>
-            <div class="part1 part-1" style="display: none">
+            <div class="part1 part-1" >
 
                 <div class="chart-div">
                     <div class="title">
@@ -85,11 +86,11 @@
                 </div>
                 <div class="tab-direction">
                     <div class="select" data-name="省外" data-type="3">省外去向</div>
-                    <div  data-name="港澳台" data-type="1">港澳台去向</div>
-                    <div  data-name="境外" data-type="2">境外去向</div>
+                    <div data-name="港澳台" data-type="2">港澳台去向</div>
+                    <div data-name="境外" data-type="1">境外去向</div>
                 </div>
                 <div class="table-div">
-                    <table class="table">
+                    <table class="table" id="table-1">
                         <thead>
                         <tr class="hd1">
                             <th>
@@ -103,7 +104,7 @@
                             </th>
                         </tr>
                         <tr class="hd2">
-                            <th>省份</th>
+                            <th class="hd-first">省份</th>
                             <th>个数</th>
                             <th>铁路</th>
                             <th>公路</th>
@@ -112,13 +113,13 @@
                             <th>其他</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="template" style="display: none;">
                         <tr>
-                            <td>22</td>
-                            <td>222</td>
+                            <td>${data.outArea}</td>
+                            <td>${data.outNum}</td>
                             <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
+                                <div class="round-div tielu_bg" style="width: ${data.outPercentage}px"></div>
+                                ${data.outPercentage}%
                             </td>
                             <td>
                                 <div class="round-div gonglu_bg" style="width: 30px"></div>
@@ -137,104 +138,8 @@
                                 22
                             </td>
                         </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
-                            </td>
-                            <td>
-                                <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
-                            </td>
-                            <td>
-                                <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
-                            </td>
-                            <td>
-                                <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
-                            </td>
-                            <td>
-                                <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                        </tr>
-
-
+                        </tbody>
+                        <tbody class="data">
                         </tbody>
                     </table>
                 </div>
@@ -259,11 +164,11 @@
                 </div>
                 <div class="tab-direction">
                     <div class="select" data-name="省外" data-type="3">省外去向</div>
-                    <div  data-name="港澳台" data-type="1">港澳台去向</div>
-                    <div  data-name="境外" data-type="2">境外去向</div>
+                    <div data-name="港澳台" data-type="2">港澳台去向</div>
+                    <div data-name="境外" data-type="1">境外去向</div>
                 </div>
                 <div class="table-div">
-                    <table class="table">
+                    <table class="table" id="table-2">
                         <thead>
                         <tr class="hd1">
                             <th>
@@ -277,7 +182,7 @@
                             </th>
                         </tr>
                         <tr class="hd2">
-                            <th>省份</th>
+                            <th class="hd-first">省份</th>
                             <th>个数</th>
                             <th>铁路</th>
                             <th>公路</th>
@@ -286,13 +191,13 @@
                             <th>其他</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="template" style="display: none">
                         <tr>
-                            <td>22</td>
-                            <td>222</td>
+                            <td>${data.inProvince||data.inArea}</td>
+                            <td>${data.inNum}</td>
                             <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
+                                <div class="round-div tielu_bg" style="width: ${data.inPercentage}px"></div>
+                                ${data.inPercentage}%
                             </td>
                             <td>
                                 <div class="round-div gonglu_bg" style="width: 30px"></div>
@@ -311,104 +216,8 @@
                                 22
                             </td>
                         </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
-                            </td>
-                            <td>
-                                <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
-                            </td>
-                            <td>
-                                <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
-                            </td>
-                            <td>
-                                <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
-                            </td>
-                            <td>
-                                <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                        </tr>
-
-
+                        </tbody>
+                        <tbody class="data">
                         </tbody>
                     </table>
                 </div>
@@ -417,7 +226,7 @@
                     <div class="page-item-2 page-item"></div>
                 </div>
             </div>
-            <div class="part2 part-3">
+            <div class="part2 part-3" style="display: none">
                 <div class="title">
                     迁出渠道
                 </div>
@@ -467,7 +276,7 @@
                 </div>
                 <div class="table-div">
 
-                    <table class="table">
+                    <table class="table" id="table-3">
                         <thead>
                         <tr class="hd1">
                             <th>
@@ -490,127 +299,36 @@
                             <th>其他</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="template" style="display: none;">
                         <tr>
-                            <td><div class="index"><span>广州</span>----<span>深圳</span></div></td>
-                            <td>222</td>
+                            <td>
+                                <div class="index index${index+1}"><span>${data.from}</span>----<span>${data.to}</span>
+                                </div>
+                            </td>
+                            <td>${data.num}</td>
                             <td>
                                 <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
+                                ${data.tielu}
                             </td>
                             <td>
                                 <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
+                                ${data.gonglu}
                             </td>
                             <td>
                                 <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
+                                ${data.shuilu}
                             </td>
                             <td>
                                 <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
+                                ${data.minhang}
                             </td>
                             <td>
                                 <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
+                                ${data.qita}
                             </td>
                         </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
-                            </td>
-                            <td>
-                                <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
-                            </td>
-                            <td>
-                                <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
-                            </td>
-                            <td>
-                                <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>222</td>
-                            <td>
-                                <div class="round-div tielu_bg" style="width: 30px"></div>
-                                222
-                            </td>
-                            <td>
-                                <div class="round-div gonglu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div shuilu_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div minhang_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                            <td>
-                                <div class="round-div qita_bg" style="width: 30px"></div>
-                                22
-                            </td>
-                        </tr>
+                        </tbody>
+                        <tbody class="data">
 
 
                         </tbody>

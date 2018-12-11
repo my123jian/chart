@@ -16,10 +16,10 @@ html body {
 .mapbase {
     width: 1280px;
     height: 1040px;
-    margin-top:40px;
+    margin-top: 40px;
     position: absolute;
     left: 0px;
-    top:0px;
+    top: 0px;
 }
 
 .topbutton {
@@ -36,7 +36,7 @@ html body {
     background-image: url("img/非聚焦/btn_nor_Testing.png");
 }
 
-.topbutton.test.active,.topbutton.test.active:hover {
+.topbutton.test.active, .topbutton.test.active:hover {
     background-image: url("img/聚焦/btn_pre_Testing.png");
     z-index: 100;
     margin-top: 28px !important;
@@ -53,7 +53,7 @@ html body {
     background-image: url("img/非聚焦/btn_nor_Bridge.png");
 }
 
-.topbutton.bridge.active,.topbutton.bridge.active:hover {
+.topbutton.bridge.active, .topbutton.bridge.active:hover {
     background-image: url("img/聚焦/btn_pre_Bridge.png");
     z-index: 100;
     margin-top: 28px !important;
@@ -70,7 +70,7 @@ html body {
     background-image: url("img/非聚焦/btn_nor_Insight.png");
 }
 
-.topbutton.insight.active ,.topbutton.insight.active :hover{
+.topbutton.insight.active, .topbutton.insight.active :hover {
     background-image: url("img/聚焦/btn_pre_Insight.png");
     margin-top: 28px !important;
     top: -5px;
@@ -106,7 +106,7 @@ html body {
 }
 
 .fixdiv > div {
-    pointer-events:painted;
+    pointer-events: painted;
     position: absolute;
     background-repeat: no-repeat;
 }
@@ -163,13 +163,15 @@ html body {
     background-image: url("img/bg_s.png");
 
 }
-.righttop .title{
+
+.righttop .title {
     font-size: 20px;
     color: #ddf3ff;
     margin-bottom: 16px;
     margin-top: 22px;
     margin-left: 40px;
 }
+
 .righttop .chart:first-child {
     margin-top: 64px;
 }
@@ -197,15 +199,18 @@ html body {
 .numpart {
     left: 50px;
     top: 160px;
-    pointer-events: none!important;
+    pointer-events: none !important;
 }
-.numpart *{
-    pointer-events: none!important;
+
+.numpart * {
+    pointer-events: none !important;
 }
+
 .numpart .title {
     font-size: 20px;
     color: #b5e2fe;
 }
+
 .numpart .content1 {
     font-size: 64px;
     line-height: 64px;
@@ -214,58 +219,68 @@ html body {
     color: #27d2f5;
 
 }
-.numpart .content1 .last{
+
+.numpart .content1 .last {
     font-size: 32px;
 }
-.numpart .content1 div{
+
+.numpart .content1 div {
     display: inline-block;
 }
-.numpart .content1 div>div{
+
+.numpart .content1 div > div {
     background-image: url('img/bg_number.png');
     display: inline-block;
     width: 52px;
-    margin-right:4px ;
-    margin-left:4px ;
-    height:69px;
+    margin-right: 4px;
+    margin-left: 4px;
+    height: 69px;
 }
+
 .numpart .content2 {
     font-size: 40px;
-    //margin-top: 12px;
+/ / margin-top: 12 px;
     color: #b5e2fe;
 }
-.numpart .content2 .last{
+
+.numpart .content2 .last {
     font-size: 24px;
 }
+
 .numpart .text2 {
     font-size: 20px;
     color: #b5e2fe;
 }
-.datediv{
+
+.datediv {
     position: absolute;
     width: 640px;
     height: 32px;
     line-height: 32px;
 }
-#date-input{
-    /*position: absolute;*/
+
+#date-input {
+    /*position: absolute; */
     float: right;
     background: transparent;
     color: white;
     width: 130px;
-    /*border: none;*/
-    border-width:0px ;
+    /* border: none; */
+    border-width: 0px;
     font-size: 18px;
     color: #ddf3ff;
     height: 32px;
     line-height: 32px;
-    padding-right: 32px;
+    /* padding-right: 32px; */
     right: 0px;
     text-align: center;
     vertical-align: middle;
     outline: none;
+    margin-left: 29px;
 
 }
-#date-icon{
+
+#date-icon {
     float: right;
     /*position: absolute;*/
     background-image: url("img/icon1.png");
@@ -274,7 +289,8 @@ html body {
     margin-right: 12px;
     margin-top: 5px;
 }
-#date-action{
+
+#date-action {
     float: right;
     background-size: auto 32px;
     /*position: absolute;*/
@@ -283,17 +299,19 @@ html body {
     height: 54px;
     right: 0px;
 }
-#date-input:focus{
-    border-width:0px ;
+
+#date-input:focus {
+    border-width: 0px;
 }
 
-#chart1,#chart2,#chart3{
-    width:560px;
-    height: 110px!important;
+#chart1, #chart2, #chart3 {
+    width: 560px;
+    height: 110px !important;
     margin-left: 20px;
     margin-right: 20px;
 }
-#chart4{
+
+#chart4 {
     width: 1194px;
     height: 246px;
 }

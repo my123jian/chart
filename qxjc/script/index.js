@@ -156,13 +156,15 @@ $(function () {
             //$('#date-input').click();
             laydate.render({
                 elem: '#date-input', //指定元素
-                show: true
+                show: true,
+                format:'yyyy年MM月dd日',
             });
         });
         var me = this;
         laydate.render({
             elem: '#date-input', //指定元素
             trigger: 'click',
+            format:'yyyy年MM月dd日',
             value: new Date(),
             done: function (value, date, endDate) {
                 //debugger;

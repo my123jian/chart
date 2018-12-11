@@ -26,9 +26,9 @@ $(function () {
     };
     //视图类型
     var ViewType = {
-        OUT: "2",//迁出洞察
-        IN: "1",//迁入洞察
-        PROVINCE: "3"//省内迁徙
+        OUT: 2,//迁出洞察
+        IN: 1,//迁入洞察
+        PROVINCE: 3//省内迁徙
     };
     //迁徙方向
     var DirectionType = {
@@ -42,8 +42,8 @@ $(function () {
         "GAT": "qxdc_video.html",
         "JINGWAI": "qxdc_video.html",
     }
-    var theCurrentView = "";
-    var theDirection = "";
+    var theCurrentView = 2;
+    var theDirection = DirectionType.SHENG;
     var isStopRefresh = true;
     var theTimer = null;
     var theCurrentDate = null;
@@ -62,6 +62,8 @@ $(function () {
     function PageViewModel() {
         this.initEvent();
         this.start();
+        // debugger;
+        this.refresh();
     }
 
     PageViewModel.prototype = new PageViewBase();
@@ -71,33 +73,43 @@ $(function () {
     PageViewModel.prototype.initEvent = function () {
         //debugger;
         var me = this;
+        var tabNames = {'3': "省份", '2': "地区", '1': "国家"};
         var theParentContent = $('.tab-main').closest('.content');
         $('.tab-main .tab-item').click(function () {
             var theIndex = $(this).data('index');
+            var theType = $(this).data('type');
             $('.tab-main .tab-item').removeClass('select');
             $('.tab-main .tab-item').addClass('select');
             $(theParentContent).removeClass('content-img1');
             $(theParentContent).removeClass('content-img2');
             $(theParentContent).removeClass('content-img3');
-            $(theParentContent).addClass('content-img' + theIndex);
+
             $(theParentContent).find('.part1').hide();
             $(theParentContent).find('.part2').hide();
-            $(theParentContent).find('.part-' + theIndex).show();
+
 
             if (theIndex == 3) {
                 //debugger;
                 me.loadPage(PageNameDic.SHENG);
+                $(theParentContent).find('.part-' + theIndex).show();
+                $(theParentContent).addClass('content-img' + theIndex);
                 me.switchView(ViewType.PROVINCE);
+
             }
             else {
                 //debugger;
                 me.loadPage(PageNameDic.COUNTRY);
                 //debugger;
-                if (theIndex == 1) {
+                if (theIndex == 2) {
+                   // debugger;
                     me.switchView(ViewType.OUT);
+                    $(theParentContent).addClass('content-img' + 1);
+                    $(theParentContent).find('.part-1').show();
                 }
                 else {
                     me.switchView(ViewType.IN);
+                    $(theParentContent).addClass('content-img' + 2);
+                    $(theParentContent).find('.part-2').show();
                 }
 
             }
@@ -106,18 +118,22 @@ $(function () {
         $('.tab-direction div').click(function () {
             $(this).closest('.tab-direction').find('div').removeClass('select');
             $(this).addClass('select');
-            var theDirType=$(this).data('type');
+            var theDirType = $(this).data('type');
+            var theName = tabNames[theDirType];
+            //debugger;
+            $(this).closest('.part1').find('.hd-first').text(theName);
             if (theCurrentView == ViewType.IN) {
-                //1,迁出 2.迁入
+                //2,迁出 1.迁入
                 //1.境外 2.港澳台 3省外
-                me.loadMigrantDirectType(2,theDirType,formateDate());
+                me.loadMigrantDirectType(ViewType.IN, theDirType, formateDate());
                 //me.loadInView(theCurrentView);
             }
-            else if (theCurrentView== ViewType.OUT){
-                me.loadMigrantDirectType(1,theDirType,formateDate());
+            else if (theCurrentView == ViewType.OUT) {
+                me.loadMigrantDirectType(ViewType.OUT, theDirType, formateDate());
             }
             else {
                 //me.loadOutView(theCurrentView);
+                me.loadMigrantDirectType(theCurrentView, null, formateDate());
             }
         });
         var theChartIndex = 0;
@@ -136,6 +152,7 @@ $(function () {
             laydate.render({
                 elem: '#date-input', //指定元素
                 show: true,
+                format: 'yyyy年MM月dd日',
 
             });
         });
@@ -143,6 +160,7 @@ $(function () {
         laydate.render({
             elem: '#date-input', //指定元素
             trigger: 'click',
+            format: 'yyyy年MM月dd日',
             //range: true,//范围选择
             value: new Date(),
             done: function (value, date, endDate) {
@@ -153,6 +171,7 @@ $(function () {
                 if (theCurrentDate != date) {
                     theCurrentDate = date;
                     // me.loadPredict();
+                    me.refresh();
                 }
 
             }
@@ -196,7 +215,7 @@ $(function () {
      * 刷新当前的数据
      */
     PageViewModel.prototype.refresh = function () {
-
+        this.switchView(theCurrentView, true);
     }
     /***
      * 切换方向
@@ -209,8 +228,8 @@ $(function () {
      * 切换视图
      * @param viewName
      */
-    PageViewModel.prototype.switchView = function (viewName) {
-        if (theCurrentView == viewName) {
+    PageViewModel.prototype.switchView = function (viewName, isrefresh) {
+        if (theCurrentView == viewName && !isrefresh) {
             console.log("视图类型未改变" + viewName);
             return;
         }
@@ -250,6 +269,7 @@ $(function () {
         var theTitle = theSelectData.name + theSubString;
         this.loadMigrantOutType(formateDate());
         this.updateNum(theTitle, "");
+        this.loadMigrantDirectType(theCurrentView, theSelectData.type, formateDate());
     }
     /**
      * 加载迁入数据
@@ -258,10 +278,11 @@ $(function () {
         var theDate = theCurrentDate;
         var theSelectDiv = $('.part-2');
         var theSubString = "迁入人数";
-       this.loadMigrantFromSourceType(formateDate());
+        this.loadMigrantFromSourceType(formateDate());
         var theSelectData = $(theSelectDiv).find('.tab-direction .select').data();
         var theTitle = theSelectData.name + theSubString;
         this.updateNum(theTitle, "");
+        this.loadMigrantDirectType(theCurrentView, theSelectData.type, formateDate());
     }
     /**
      * 加载省内数据
@@ -270,8 +291,8 @@ $(function () {
         var theDate = theCurrentDate;
         var theSelectDiv = $('.part-3');
         var theTitle = "省内迁徙人数";
-        var theData = 111111111;
-        this.updateNum(theTitle, theData);
+        //var theData = 111111111;
+        //this.updateNum(theTitle, theData);
         var theCharts = {};
         $(theSelectDiv).find('.chart-item').each(function () {
             var theName = $(this).data('name');
@@ -281,6 +302,7 @@ $(function () {
         for (var key in theCharts) {
             theCharts[key].refresh('', (Math.random() * 100).toFixed(1))
         }
+        this.loadMigrantDirectType(ViewType.SHENG, '', formateDate());
     }
 
     PageViewModel.prototype.updateNum = function (name, value) {
@@ -293,6 +315,16 @@ $(function () {
      * @param type 迁徙类别 1、迁入；2、迁出；3、省内迁徙
      */
     PageViewModel.prototype.loadMigrantType = function (date, migrantType) {
+        this.loadMigrantTypeItem(date, 1);
+        this.loadMigrantTypeItem(date, 2);
+        this.loadMigrantTypeItem(date, 3);
+    }
+    /***
+     *迁徙类别分布人数
+     * @param date 日期 yyyy-MM-dd
+     * @param type 迁徙类别 1、迁入；2、迁出；3、省内迁徙
+     */
+    PageViewModel.prototype.loadMigrantTypeItem = function (date, migrantType) {
         var theUrl = "migrant/migrantType.do";
         var theData = {
             date: date,
@@ -305,8 +337,13 @@ $(function () {
             if (res && res.isSuccess) {
                 //debugger;
                 var theData = res.data;//{"id":1,"migType":"1","num":"10000000","percentage":10,"statDate":"2018-12-10"}
+                if (!theData) {
+                    console.log("迁徙类别分布人数数据为空!");
+                    return;
+                }
                 $('#num' + theData.migType).text((theData.num / 10000).toFixed(2));
-                if (theCurrentView == theData.migrantType) {
+                //debugger;
+                if (theCurrentView == theData.migType) {
                     $('.numpart .num').text((theData.num / 10000).toFixed(2) + "万");
 
                 }
@@ -343,8 +380,8 @@ $(function () {
                 if (theData && theData.length > 0) {
                     for (var i = 0; i < theData.length; i++) {
                         var theItem = theData[i];
-                        if(theCharts[theItem.inType]){
-                            theCharts[theItem.inType].refresh('',theItem.inPercentage);
+                        if (theCharts[theItem.inType]) {
+                            theCharts[theItem.inType].refresh('', theItem.inPercentage);
                         }
                     }
                 }
@@ -379,17 +416,17 @@ $(function () {
         this.load(theUrl, theData, function (res) {
             console.log("结束获取迁出渠道人数比", res);
             if (res && res.isSuccess) {
-               // debugger;
+                // debugger;
                 var theData = res.data;//{"isSuccess":true,"msg":"success","data":[{"id":1,"outNum":"1000000","outPercentage":10,"outType":1,"statDate":"2018-12-10"},{"id":2,"outNum":"5000000","outPercentage":50,"outType":2,"statDate":"2018-12-10"},{"id":3,"outNum":"1000000","outPercentage":10,"outType":3,"statDate":"2018-12-10"},{"id":4,"outNum":"1000000","outPercentage":10,"outType":4,"statDate":"2018-12-10"},{"id":5,"outNum":"1000000","outPercentage":10,"outType":5,"statDate":"2018-12-10"}]}
-                if(theData&&theData.length>0){
+                if (theData && theData.length > 0) {
                     for (var i = 0; i < theData.length; i++) {
                         var theItem = theData[i];
-                        if(theCharts[theItem.outType]){
-                            theCharts[theItem.outType].refresh('',theItem.outPercentage);
+                        if (theCharts[theItem.outType]) {
+                            theCharts[theItem.outType].refresh('', theItem.outPercentage);
                         }
                     }
                 }
-                else{
+                else {
                     console.log("返回结果为空!");
                 }
 
@@ -399,13 +436,15 @@ $(function () {
 
     /***
      * 迁徙洞察模块 去向或者来源查询
-     * @param seeType 洞察类型 :1,迁出 2.迁入
+     * @param seeType 洞察类型 :2,迁出 1.迁入 3.省内
      * @param sourceType 离开或者来源类型:1省外, 2.港澳台 3.境外
      * @param date
      */
     PageViewModel.prototype.loadMigrantDirectType = function (seeType, sourceType, date) {
         var theUrl = "migrant/migrantDirectType.do";
         var theData = {
+            seeType: seeType,
+            sourceType: sourceType,
             date: date
         };
         var me = this;
@@ -413,9 +452,28 @@ $(function () {
         this.load(theUrl, theData, function (res) {
             console.log("结束获取迁出渠道人数比", res);
             if (res && res.isSuccess) {
-                debugger;
+                //debugger;
+                /*
+                * id: 1
+ inChannel: 1
+ inNum: "1000000"
+ inPercentage: 10
+ inProvince: "广东"
+ statDate: "2018-12-10"
+                * */
                 var theData = res.data;//{"data":[{"id":1,"inNum":"5000000","inPercentage":50,"inType":"1","statDate":"2018-12-10"},{"id":2,"inNum":"1000000","inPercentage":10,"inType":"2","statDate":"2018-12-10"},{"id":3,"inNum":"1000000","inPercentage":10,"inType":"3","statDate":"2018-12-10"},{"id":4,"inNum":"1000000","inPercentage":10,"inType":"4","statDate":"2018-12-10"},{"id":5,"inNum":"1000000","inPercentage":10,"inType":"5","statDate":"2018-12-10"}],"isSuccess":true,"msg":"success"}
                 console.log(theData);
+                theData = theData || [];
+
+                var theIndex = seeType;
+                if (theIndex == ViewType.OUT) {
+                    theIndex = 1;
+                }
+                else if (theIndex == ViewType.IN) {
+                    theIndex = 2;
+                }
+                //debugger;
+                me.loadTemplateTable('table-' + theIndex, theData);
             }
         })
     }
