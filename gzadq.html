@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>港珠澳大桥</title>
+    <link rel="stylesheet" href="gzadq/index.css">
+    <script type="text/javascript" src="lib/echarts.min.js"></script>
+    <script src="lib/jquery-1.8.2.min.js"></script>
+    <script src="lib/PageViewBase.js"></script>
+    <script src="qxjc/script/guangdong.js"></script>
+    <script src="lib/laydate.js"></script>
+    <script src="lib/chart-huan.js"></script>
+    <!--<script src="qxdc/script/index.js"></script>-->
+    <script src="gzadq/script/index.js"></script>
+
+</head>
+<body>
+<!--<div id="container" class="container">-->
+<!--</div>-->
+
+<!--<div id="DivButton" style="position:fixed;top:0px;right:0px;">-->
+</div>
+<div class="baseView" id="baseView">
+    <iframe id="page_div"  src="map.html"></iframe>
+    <!--<iframe id="page_div"  src="qxdc_province.html"></iframe>-->
+    <!--<div class="map-country">
+
+    </div>
+    <div class="map-gd">
+
+    </div>
+    <div class="map-video">
+        <video></video>
+    </div>-->
+</div>
+
+<div class="fixdiv">
+    <div class="toppart">
+        <div class="lefttitle">
+        </div>
+        <div class="rightpart">
+            <div class="title" style="margin-left: 10px;">
+                <span>迁徙概况</span></div>
+            <div class="topbutton test "></div>
+            <div class="topbutton insight "></div>
+            <div class="title">
+                <span>专题分析</span>
+            </div>
+            <div class="topbutton bridge active"></div>
+            <div class="topbutton strait"></div>
+        </div>
+    </div>
+    <div class="leftpart">
+        <div class="left-weather">
+            <div class="weather-1">
+                <span class="firstline">天气分析</span>
+                <span class="secondline">2018年12月28日</span>
+            </div>
+            <div class="weather-2">
+                    <img src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>
+                    <div class="w2-right">
+                        <span class="weather-litop">温度</span>
+                        <span class="weather-libottom">25℃</span>
+                    </div>
+            </div>
+            <div class="weather-2">
+                <img src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>
+                <div class="w2-right">
+                    <span class="weather-litop">风力</span>
+                    <span class="weather-libottom">东风2级</span>
+                </div>
+            </div>
+            <div class="weather-2">
+                <img src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>
+                <div class="w2-right">
+                    <span class="weather-litop">可见度</span>
+                    <span class="weather-libottom">12公里</span>
+                </div>
+            </div>
+            <div class="weather-2">
+                <img src="./gzadq/img/icon_rain.png" class="weather-icon" alt=""/>
+                <div class="w2-right">
+                    <span class="weather-litop">降水</span>
+                    <span class="weather-libottom">0毫米</span>
+                </div>
+            </div>
+            <div class="weather-2">
+
+                <div class="weather-7day">
+                    <span class="weather-litop">未来七天情况</span>
+                    <img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>
+                </div>
+            </div>
+        </div>
+
+        <div class="left-w-left">
+            <div class="newcome">
+                <p class="newcome-text">实时进入人数</p>
+                <p class="newcome-num"><span class="newcome-people">5.5</span>万</p>
+            </div>
+            <div class="newcome">
+                <p class="newcome-text">实时进入人数</p>
+                <p class="newcome-num"><span class="newcome-people">5.5</span>万</p>
+            </div>
+            <div class="newcome">
+                <p class="newcome-text">实时进入人数</p>
+                <p class="newcome-num"><span class="newcome-people">5.5</span>万</p>
+            </div>
+
+        </div>
+
+        <div class="form_tab_box tab_active ">
+
+            <div class="newtime">
+                <p class="newtime-text">实时驻留时长</p>
+                <p class="newtime-num">(小时)</p>
+            </div>
+            <div id="form_1" ></div>
+
+        </div>
+
+
+
+
+
+    </div>
+    <div class="rightpart">
+        <div class="content content-img2">
+
+            <!--表头信息-->
+            <div class="tab-main">
+                <div class="tab-item " data-index="1">
+                    <span class="firstline">客流洞察</span> </span><span style="float: left">|</span>
+                    <div class="datediv" >
+                        <div class="date-icon" id="date-icon">
+
+                        </div>
+
+                        <input type="text" id="date-input">
+
+                        <div class="date-action" id="date-action">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-item select_a" data-index="2">
+                    <span class="firstline">客流趋势</span>
+                    <!--<span class="secondline">234.23万人</span>-->
+                </div>
+
+            </div>
+            <div class="part1 part-1" >
+
+                <div class="chart-div">
+                    <div class="title">
+                        人工岛客流分析
+                    </div>
+                    <div class="chart-panel">
+                        <div class="chart-item" data-name="观光" data-color="#80ddfe" data-value="10"></div>
+                        <div class="chart-item" data-name="上桥" data-color="#80ddfe" data-value="20"></div>
+                        <div class="chart-item" data-name="下桥" data-color="#80ddfe" data-value="30"></div>
+
+                    </div>
+                </div>
+                <div class="chart-div" >
+                    <div class="title">
+                        时点通关时长
+                    </div>
+
+                    <div class="chart" id="chart1">
+
+                    </div>
+                </div>
+                <div class="chart-div">
+                    <div class="title" >
+                        归属分析
+                    </div>
+                    <div class="tab-direction tab-imgage1">
+
+                        <div class="tab-left select" data-index="1">香港>>>珠海澳门</div>
+                        <div class="tab-right " data-index="2">港澳台去向</div>
+                        <div class="guishu">
+                            <div class="tab-item active" data-index="1">
+                                <span class="firstline">归属国家</span>
+                                <span class="secondline">(35%)</span>
+                            </div>
+                            <div class="tab-item" data-index="2">
+                                <span class="firstline">归属省份</span>
+                                <span class="secondline">(27%)</span>
+                            </div>
+                            <div class="tab-item" data-index="3">
+                                <span class="firstline">归属城市</span>
+                                <span class="secondline">(38%)</span>
+                            </div>
+                            <div class="guishu-content">
+                                <ul>
+                                    <li>
+                                        <span class="guishu-icon">1</span>
+                                        <span class="guishu-cuntry">美国</span>
+                                        <span class="guishu-line"></span>
+                                        <span class="guishu-num">12,253</span>人
+                                    </li>
+                                    <li>
+                                        <span class="guishu-icon">4</span>
+                                        <span class="guishu-cuntry">法国</span>
+                                        <span class="guishu-line"></span>
+                                        <span class="guishu-num">12,253</span>人
+                                    </li>
+                                    <li>
+                                        <span class="guishu-icon">2</span>
+                                        <span class="guishu-cuntry">加拿大</span>
+                                        <span class="guishu-line"></span>
+                                        <span class="guishu-num">12,253</span>人
+                                    </li>
+                                    <li>
+                                        <span class="guishu-icon">5</span>
+                                        <span class="guishu-cuntry">意大利</span>
+                                        <span class="guishu-line"></span>
+                                        <span class="guishu-num">12,253</span>人
+                                    </li>
+                                    <li>
+                                        <span class="guishu-icon">3</span>
+                                        <span class="guishu-cuntry">英国</span>
+                                        <span class="guishu-line"></span>
+                                        <span class="guishu-num">12,253</span>人
+                                    </li>
+                                    <li>
+                                        <span class="guishu-icon">6</span>
+                                        <span class="guishu-cuntry">德国</span>
+                                        <span class="guishu-line"></span>
+                                        <span class="guishu-num">12,253</span>人
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="page">
+                        <div class="page-item-1 page-item"></div>
+                        <div class="page-item-2 page-item"></div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="part1 part-2" style="display: none">
+                <div class="chart-div">
+                    <div class="title">
+                        迁入渠道
+                    </div>
+                    <div class="chart-panel">
+                        <div class="chart-item" data-name="铁路" data-color="#faeebe" data-value="60">
+                        </div>
+                        <div class="chart-item" data-name="公路" data-color="#bcb9e7" data-value="70"></div>
+                        <div class="chart-item" data-name="水路" data-color="#20e3df" data-value="80"></div>
+                        <div class="chart-item" data-name="民航" data-color="#acebd5" data-value="90"></div>
+                        <div class="chart-item" data-name="其他" data-color="#6fc1dc" data-value="100"></div>
+                    </div>
+                </div>
+                <div class="tab-direction">
+                    <div class="select">省外去向</div>
+                    <div>港澳台去向</div>
+                    <div>境外去向</div>
+                </div>
+                <div class="table-div">
+                    <table class="table">
+                        <thead>
+                        <tr class="hd1">
+                            <th>
+                                目的地
+                            </th>
+                            <th>
+                                迁出人数
+                            </th>
+                            <th colspan="5">
+                                迁出渠道及占比
+                            </th>
+                        </tr>
+                        <tr class="hd2">
+                            <th>省份</th>
+                            <th>个数</th>
+                            <th>铁路</th>
+                            <th>公路</th>
+                            <th>水路</th>
+                            <th>民航</th>
+                            <th>其他</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>22</td>
+                            <td>222</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                222
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>222</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                222
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>222</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                222
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>222</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                222
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>222</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                222
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="page">
+                    <div class="page-item-1 page-item"></div>
+                    <div class="page-item-2 page-item"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    $('.tab-direction .tab-left,.tab-direction .tab-right').click(function () {
+        var theIndex = $(this).data('index');
+        $('.tab-direction div').removeClass('select');
+        $('.tab-direction').removeClass('tab-imgage1');
+        $('.tab-direction').removeClass('tab-imgage2');
+        $('.tab-direction').addClass('tab-imgage' + theIndex);
+        $(this).addClass('select');
+    });
+    $('.guishu .tab-item').click(function () {
+        var theIndex = $(this).data('index');
+        $('.tab-item').removeClass('active');
+
+        $(this).addClass('active');
+    });
+    var myChart = echarts.init(document.getElementById('form_1'));
+    var option = {
+
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : [
+            {
+//                        type : 'category',
+                data : ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-24',],
+                "axisTick":{       //y轴刻度线
+                    "show":false
+                },
+                "splitLine": {     //网格线
+                    "show": false
+                },
+                axisLine:{
+                    show:false,
+                    lineStyle:{
+                        color:'#d9f1ff',
+
+                    }
+
+                }
+            }
+        ],
+        yAxis : [
+
+            {
+                type : 'value',
+                min:'0',
+                max:'10',
+                "show" : false,
+                "axisTick":{       //y轴刻度线
+                    "show":false
+                },
+                "splitLine": {     //网格线
+                    "show": false
+                }
+            }
+        ],
+        series : [
+
+            {
+                //设置柱形条是否显示数据
+                            label : {
+                            normal: {
+                                    show: true,
+                                    'position':'top'
+                                }
+                        },
+                name:'累积',
+                type:'bar',
+//                        barWidth:'33.3%',
+                data:[4,5,6,3,4.2,3.5
+                ],
+                itemStyle:{
+                    normal:{
+                        color:'#80ddfe'
+                    }
+                }
+            },
+
+        ]
+    };
+    myChart.setOption(option);
+</script>
+
+</body>
+</html>
