@@ -64,11 +64,12 @@ $(function () {
             });
         });
         var me = this;
+        //debugger;
         laydate.render({
             elem: '#date-input', //指定元素
             trigger: 'click',
-            //range: true,//范围选择
-            value: new Date(),
+            range:true,//范围选择
+            //value: new Date(),
             done: function (value, date, endDate) {
                 //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
