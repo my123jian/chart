@@ -103,7 +103,8 @@ $(function () {
                     }
                 }
                 i = i + 2;
-                if (i + 1 <= theNumberStrArray.length) {
+                //debugger;
+                if (i + 1 < theNumberStrArray.length) {
                     theFormateArray.push(',');
                 }
             }

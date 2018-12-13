@@ -186,16 +186,17 @@ $(function () {
             }
         });
         $('#' + theFromCityId + ",#" + theToCityId).change(function () {
-           var theFromCityValue=  $('#' + theFromCityId);
-            var theToCityValue=  $("#" + theToCityId);
-            if(!theFromCityValue&&!theToCityValue){
+           var theFromCityValue=  $('#' + theFromCityId).val();
+            var theToCityValue=  $("#" + theToCityId).val();
+            if($.isEmptyObject(theFromCityValue)||$.isEmptyObject(theToCityValue)){
                 return;
             }
-            if(theFromCityValue){
+
+            if($.isEmptyObject(theFromCityValue)){
                alert("请选择来源城市!");
                 return;
             }
-            if(theToCityValue){
+            if($.isEmptyObject(theToCityValue)){
                 alert("请选择目标城市!");
                 return;
             }
@@ -535,6 +536,7 @@ $(function () {
                     var theDataList = theData;
                     if (seeType == 3) {
                         theDataList = theData && theData.length > 0 ? theData[0].list : [];
+                        $('#direction-num').text(theData.countNum||0);
                         //debugger;
                     }
                     for (var i = 0; i < theDataList.length; i++) {
