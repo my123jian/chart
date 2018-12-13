@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>港珠澳大桥</title>
-    <link rel="stylesheet" href="gzadq/index.css">
+    <title>琼州海峡</title>
+    <link rel="stylesheet" href="qzhx/index.css">
     <script type="text/javascript" src="lib/echarts.min.js"></script>
     <script src="lib/jquery-1.8.2.min.js"></script>
     <script src="lib/PageViewBase.js"></script>
     <script src="lib/laydate.js"></script>
     <script src="lib/chart-huan.js"></script>
-    <script src="gzadq/script/index.js"></script>
+    <script src="qzhx/script/index.js"></script>
     <script src="https://webapi.amap.com/maps?v=1.4.11&key=e78eb14a0b3399d1733b27fb6835e460"></script>
     <!--<script src='https://webapi.amap.com/maps?v=1.4.11&key=e78eb14a0b3399d1733b27fb6835e460'></script>-->
     <script src="https://webapi.amap.com/loca?v=1.2.0&key=e78eb14a0b3399d1733b27fb6835e460"></script>
@@ -24,15 +24,14 @@
 
 <!--<div id="DivButton" style="position:fixed;top:0px;right:0px;">-->
 </div>
-<div class="baseView" id="baseView" style="width: 1920px;height: 1080px;z-index: 1;">
+<div class="baseView" id="baseView" style="width: 1920px;height: 1080px z-index: 1;">
 
-    <div id="container" class="container"  style="width: 1920px;height: 1080px;">
+    <div id="container" class="container"  style="width: 1920px;height: 1080px">
     </div>
 </div>
-
 <div class="map-box"></div>
-<div class="fixdiv" style="z-index: 10">
 
+<div class="fixdiv" style="z-index: 10">
     <div class="toppart">
         <div class="lefttitle">
         </div>
@@ -44,41 +43,29 @@
             <div class="title">
                 <span>专题分析</span>
             </div>
-            <div class="topbutton bridge active"></div>
-            <div class="topbutton strait"></div>
+            <div class="topbutton bridge "></div>
+            <div class="topbutton strait active"></div>
         </div>
     </div>
     <div class="leftpart">
 
 
         <div class="left-w-left">
-            <div class="newcome">
-                <p class="newcome-text">实时进入人数</p>
-                <p class="newcome-num"><span class="newcome-people">5.5</span>万</p>
+            <div class="newcome newcome1">
+                <p class="newcome-text">累计离港人数</p>
+                <p class="newcome-num"><span class="newcome-people">2225.5</span>万</p>
             </div>
-            <div class="newcome">
-                <p class="newcome-text">实时进入人数</p>
-                <p class="newcome-num"><span class="newcome-people">5.5</span>万</p>
+            <div class="newcome newcome2">
+                <p class="newcome-text">累计到港人数</p>
+                <p class="newcome-num"><span class="newcome-people">125.5</span>万</p>
             </div>
-            <div class="newcome">
-                <p class="newcome-text">实时进入人数</p>
-                <p class="newcome-num"><span class="newcome-people">5.5</span>万</p>
+            <div class="newcome newcome3">
+                <p class="newcome-text">累计净离港人数</p>
+                <p class="newcome-num"><span class="newcome-people">120</span>万</p>
             </div>
 
         </div>
 
-
-
-
-        <div class="form_tab_box tab_active ">
-
-            <div class="newtime">
-                <p class="newtime-text">实时驻留时长</p>
-                <p class="newtime-num">(小时)</p>
-            </div>
-            <div id="form_1" ></div>
-
-        </div>
 
         <div class="left-weather">
             <div class="weather-1">
@@ -200,10 +187,10 @@
                     </div>
                     <!--<div class="weather-2">-->
 
-                        <!--<div class="weather-7day">-->
-                            <!--<span class="weather-litop">未来七天情况</span>-->
-                            <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
-                        <!--</div>-->
+                    <!--<div class="weather-7day">-->
+                    <!--<span class="weather-litop">未来七天情况</span>-->
+                    <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </li>
                 <li>
@@ -280,10 +267,10 @@
                     </div>
                     <!--<div class="weather-2">-->
 
-                        <!--<div class="weather-7day">-->
-                            <!--<span class="weather-litop">未来七天情况</span>-->
-                            <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
-                        <!--</div>-->
+                    <!--<div class="weather-7day">-->
+                    <!--<span class="weather-litop">未来七天情况</span>-->
+                    <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </li>
                 <li>
@@ -320,10 +307,10 @@
                     </div>
                     <!--<div class="weather-2">-->
 
-                        <!--<div class="weather-7day">-->
-                            <!--<span class="weather-litop">未来七天情况</span>-->
-                            <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
-                        <!--</div>-->
+                    <!--<div class="weather-7day">-->
+                    <!--<span class="weather-litop">未来七天情况</span>-->
+                    <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </li>
                 <li>
@@ -360,10 +347,10 @@
                     </div>
                     <!--<div class="weather-2">-->
 
-                        <!--<div class="weather-7day">-->
-                            <!--<span class="weather-litop">未来七天情况</span>-->
-                            <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
-                        <!--</div>-->
+                    <!--<div class="weather-7day">-->
+                    <!--<span class="weather-litop">未来七天情况</span>-->
+                    <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </li>
                 <li>
@@ -439,7 +426,7 @@
                 <div class="tab-item tab-item-right select_a" data-index="2">
                     <span class="firstline">客流趋势</span>
                     <span style="float: left" class="dateline1">|</span>
-                    <div class="datediv1" >
+                    <div class="datediv1"  style="display: none">
                         <div class="date-icon" id="date-icon1">
 
                         </div>
@@ -458,32 +445,124 @@
 
                 <div class="chart-div">
                     <div class="title">
-                        人工岛客流分析
+                        驻留时长洞察
                     </div>
-                    <div class="chart-panel">
-                        <div class="chart-item" data-name="观光" data-color="#80ddfe" data-value="10"></div>
-                        <div class="chart-item" data-name="上桥" data-color="#80ddfe" data-value="20"></div>
-                        <div class="chart-item" data-name="下桥" data-color="#80ddfe" data-value="30"></div>
+                    <div id="form_1" ></div>
 
-                    </div>
+
                 </div>
-                <div class="chart-div" >
+                <div class="chart-div" style="padding-top: 0;padding-bottom:20px;">
                     <div class="title">
-                        时点通关时长
+                        实时客流趋势
                     </div>
 
                     <div class="chart" id="chart1">
 
                     </div>
                 </div>
-                <div class="chart-div">
+
+
+                <div class="table-div" style="overflow: hidden">
+                    <div class="chart-div" style="padding-top: 0">
+                        <div class="sex">
+                            <div class="title">
+                                性别占比
+                            </div>
+                            <div class="sex-boy">
+                                <span>男</span> <span class="sex-boy-num">57%</span>
+                            </div>
+                            <div class="sex-girl">
+                                <span>女</span> <span class="sex-girl-num">43%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr class="hd1">
+
+                            <th colspan="5">
+                                年龄占比
+                            </th>
+                        </tr>
+                        <tr class="hd2 hd3">
+                            <th>6-11岁</th>
+                            <th>12-15岁</th>
+                            <th>16-18岁</th>
+                            <th>19-22岁</th>
+                            <th>23-25岁</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+
+
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                222
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+                        <tr class="hd2">
+                            <th>26岁-35岁</th>
+                            <th>36岁-45岁</th>
+                            <th>46岁-55岁</th>
+                            <th>56岁-60岁</th>
+                            <th>60岁以上</th>
+                        </tr>
+                        <tr>
+
+
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                222
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="chart-div" style="padding-top: 10px;">
                     <div class="title" >
                         归属分析
                     </div>
                     <div class="tab-direction tab-imgage1">
 
-                        <div class="tab-left select" data-index="1">香港>>>珠海澳门</div>
-                        <div class="tab-right " data-index="2">珠海澳门>>>香港</div>
+
                         <div class="guishu">
                             <div class="tab-item active" data-index="1">
                                 <span class="firstline">归属国家</span>
@@ -550,9 +629,9 @@
 
             </div>
             <div class="part1 part-2" style="display: none">
-                <div class="chart-div" >
+                <div class="chart-div" style="padding-top: 46px">
                     <div class="title">
-                        大桥客流趋势
+                        每周客流趋势
                     </div>
 
                     <div class="chart" id="chart2" >
@@ -561,7 +640,7 @@
                 </div>
                 <div class="chart-div" >
                     <div class="title">
-                        人工岛客流趋势
+                        每周到港人数趋势
                     </div>
 
                     <div class="chart" id="chart3" >
@@ -570,7 +649,7 @@
                 </div>
                 <div class="chart-div" >
                     <div class="title">
-                        过桥游客每日平均通关时长
+                        每周离港人数趋势
                     </div>
 
                     <div class="chart" id="chart4" >
@@ -589,7 +668,7 @@
 </div>
 
 <script type="text/javascript">
-//右边tab栏点击切换
+    //右边tab栏点击切换
     var theParentContent = $('.tab-main').closest('.content');
     $('.tab-main .tab-item-left').click(function () {
         var theIndex = $(this).data('index');
@@ -632,7 +711,7 @@
         $(this).addClass('active');
     });
     $('#weather-open').click(function () {
-       $('.left-weather').hide();
+        $('.left-weather').hide();
         $('.weather-content').show()
     });
     $('#weather-close').click(function () {
@@ -645,26 +724,29 @@
     var option = {
 
         grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
+            left:92,
+            right: 5,
+            top: 30,
+            bottom: 5,
+            width: 560,
+            height: 110,
             containLabel: true
         },
         xAxis : [
             {
 //                        type : 'category',
                 data : ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-24',],
-                "axisTick":{       //y轴刻度线
+                "axisTick":{       //X轴刻度线
                     "show":false
                 },
+                name: '(小时)',
                 "splitLine": {     //网格线
                     "show": false
                 },
                 axisLine:{
-                    show:false,
+//                    show:false,
                     lineStyle:{
-                        color:'#d9f1ff',
-
+                        color: '#557398'
                     }
 
                 }
@@ -675,10 +757,21 @@
             {
                 type : 'value',
                 min:'0',
-                max:'10',
-                "show" : false,
-                "axisTick":{       //y轴刻度线
-                    "show":false
+                max:'30',
+                splitLine:'3',
+                name: '(百分比)',
+                nameLocation: 'end',
+//                "show" : false,
+//                "axisTick":{       //y轴刻度线
+//                    "show":false
+//                },
+                axisLine:{
+//                    show:false,
+                    lineStyle:{
+                        color: '#557398'
+
+                    }
+
                 },
                 "splitLine": {     //网格线
                     "show": false
@@ -689,16 +782,17 @@
 
             {
                 //设置柱形条是否显示数据
-                            label : {
-                            normal: {
-                                    show: true,
-                                    'position':'top'
-                                }
-                        },
+                label : {
+                    normal: {
+                        show: true,
+                        'position':'top'
+                    }
+                },
+
                 name:'累积',
                 type:'bar',
-//                        barWidth:'33.3%',
-                data:[4,5,6,3,4.2,3.5
+                barWidth:'50%',
+                data:[4,5,6,13,14,11,8.5,11,12
                 ],
                 itemStyle:{
                     normal:{

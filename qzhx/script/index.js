@@ -28,7 +28,7 @@ $(function () {
 
         this.initEvent();
         this.start();
-        this.initMap(1);
+        this.initMap(2);
     }
 
     PageViewModel.prototype = new PageViewBase();
@@ -139,7 +139,7 @@ $(function () {
             right: 5,
             top: 30,
             bottom: 5,
-            width: 620,
+            width: 560,
             height: 130,
             containLabel: true
         },
@@ -152,7 +152,7 @@ $(function () {
             axisTick: {show: false},
             axisLabel: {
                 interval:0,
-                rotate:40,
+                //rotate:40,
 
             },
             boundaryGap: false,
@@ -162,12 +162,14 @@ $(function () {
                     color: '#557398'
                 }
             },
-            data : ['0','6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00']
+            data : ['0','12-28','12-29','12-30','1-01','1-02','1-03','1-04']
             //data: theXData
         },
         yAxis: {
+            min:'0',
+            max:'30',
             type: 'value',
-            name: '(时长/分钟)',
+            name: '(人数/万)',
             nameLocation: 'end',
             splitLine: {show: false},
 
@@ -299,16 +301,24 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
-
+        theCurrentOption.legend= {
+            data:[{name:'每日客流',textStyle:{color:"#85a8b8"}},{name:'香港>>珠海澳门',textStyle:{color:"#85a8b8"}}],
+            x:'right',
+            y:'top'
+        },
 
         theCurrentOption.series = [
 
             {
                 //name: '搜索引擎',
                 type: 'line',
+                name:'每日客流',
+                itemStyle:{
+                    color:'#d1b96b'
+                },
                 //stack: '总量',
                 smooth: true,
-                data: data1||[52, 55, 56, 67, 54, 62],
+                data: data1||[11, 14, 22, 15, 7, 8],
                 areaStyle: {
                     normal: {
                         color: {
@@ -336,18 +346,21 @@ $(function () {
             {
                 //name: '搜索引擎',
                 type: 'line',
+                name:'香港>>珠海澳门',
+
                 itemStyle: {
                     normal: {
+                        color:'#357acb',
                         lineStyle: {
                             width: 2,
-                            color: '#ffdc6f',
-                            type: 'dotted'  //'dotted'虚线 'solid'实线
+                            color: '#357acb',
+                            type: 'solid'  //'dotted'虚线 'solid'实线
                         }
                     }
                 },
                 smooth: true,
                 //stack: '总量',
-                data:data2|| [52, 55, 56, 67, 54, 62]
+                data:data2|| [5, 6, 7, 8, 11, 12]
             }
         ]
         this.Chart1.setOption(theCurrentOption);
@@ -358,12 +371,6 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
-        theCurrentOption.legend= {
-            data:[{name:'每日客流',textStyle:{color:"#85a8b8"}},{name:'香港>>珠海澳门',textStyle:{color:"#85a8b8"}},{name:'珠海澳门>>香港',textStyle:{color:"#85a8b8"}}
-            // x:'left',
-            //padding:50,
-        ]
-        },
             theCurrentOption.yAxis=[{
                 name:'（人数/万）',
                 type: 'value',
@@ -377,25 +384,67 @@ $(function () {
                 }
             }]
         theCurrentOption.series = [
-
             {
                 // name: '搜索引擎',
+                //symbol: "none", //去掉圆点
                 type: 'line',
-                //stack: '总量',
-                name:'每日客流',
                 itemStyle:{
                     color:'#d1b96b'
                 },
-                //tooltip:{
-                //    backgroundColor: 'red',
-                //},
                 smooth: true,
-                data:data1|| [820, 932, 901, 934, 1290, 1330] ,
+                data:data1|| [11, 14, 22, 15, 7, 8] ,
                 lineStyle: {
                     normal: {
                         color: '#d1b96b' //rgba(66,147,242
                     }
                 },
+                areaStyle: {
+                    normal: {
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: 'rgba(50,255,75,0.3)'
+                            }, {
+                                offset: 0.5, color: 'rgba(50,255,75,0.15)'
+                            }, {
+                                offset: 1, color: 'rgba(50,255,75,0)'
+                            }]
+
+                        }
+                    }
+                },
+            },
+        ];
+
+        this.Chart2.setOption(theCurrentOption);
+
+    },
+
+    PageViewModel.prototype.loadChart3 = function (xData, data1, data2) {
+        if (!this.Chart3) {
+            this.Chart3 = echarts.init(document.getElementById('chart3'));
+        }
+        var theCurrentOption = {};
+        $.extend(theCurrentOption, option1);
+        theCurrentOption.series = [
+            {
+                // name: '搜索引擎',
+                type: 'line',
+                //stack: '总量',
+                name:'每日客流',
+                smooth: true,
+                data: data1||[11, 14, 22, 15, 7, 8] ,
+                itemStyle:{color: '#d1b96b'},
+                lineStyle: {
+                    normal: {
+                        color: '#357acb'//rgba(50,255,75
+                    }
+                },
+
                 areaStyle: {
                     normal: {
                         color: {
@@ -415,120 +464,10 @@ $(function () {
                     }
                 },
             },
-            {
-                //  name: '搜索引擎',
-                type: 'line',
-                name:'香港>>珠海澳门',
-
-                itemStyle: {
-
-                    normal: {
-                        color:'#357acb',
-                        lineStyle: {
-
-                            width: 2,
-                            color: '#357acb',
-                            type: 'solid'  //'dotted'虚线 'solid'实线
-                        }
-                    }
-                },
-                smooth: true,
-                //stack: '总量',
-                data: data2||[420, 532, 601,534, 890, 930, 1320]
-            },
-            {
-                //  name: '搜索引擎',
-                type: 'line',
-                name:'珠海澳门>>香港',
-                itemStyle: {
-                    normal: {
-                        color:'#219553',
-                        lineStyle: {
-
-                            width: 2,
-                            color: '#219553',
-                            type: 'solid'  //'dotted'虚线 'solid'实线
-                        }
-                    }
-                },
-                smooth: true,
-                //stack: '总量',
-                data: data2||[150, 232, 251,124, 110, 220, 320]
-            }
-        ];
-
-        this.Chart2.setOption(theCurrentOption);
-
-    }
-
-    PageViewModel.prototype.loadChart3 = function (xData, data1, data2) {
-        if (!this.Chart3) {
-            this.Chart3 = echarts.init(document.getElementById('chart3'));
-        }
-        var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
-        theCurrentOption.legend= {
-            data:[{name:'每日客流',textStyle:{color:"#85a8b8"}},{name:'观光客流',textStyle:{color:"#85a8b8"}}]
-        },
-        theCurrentOption.series = [
-            {
-                // name: '搜索引擎',
-                type: 'line',
-                //stack: '总量',
-                name:'每日客流',
-                smooth: true,
-                data: data1||[820, 932, 901, 934, 1290, 1330] ,
-                itemStyle:{color: '#d1b96b'},
-                lineStyle: {
-                    normal: {
-                        color: '#d1b96b'//rgba(50,255,75
-                    }
-                },
-
-                areaStyle: {
-                    normal: {
-                        color: {
-                            type: 'linear',
-                            x: 0,
-                            y: 0,
-                            x2: 0,
-                            y2: 1,
-                            colorStops: [{
-                                offset: 0, color: 'rgba(50,255,75,0.3)'
-                            }, {
-                                offset: 0.5, color: 'rgba(50,255,75,0.15)'
-                            }, {
-                                offset: 1, color: 'rgba(50,255,75,0)'
-                            }]
-                        }
-                    }
-                },
-            },
-            {
-                //  name: '搜索引擎',
-                type: 'line',
-                name:'观光客流',
-
-                itemStyle: {
-
-                    normal: {
-                        color:'#357acb',
-                        lineStyle: {
-
-                            width: 2,
-                            color: '#357acb',
-                            type: 'solid'  //'dotted'虚线 'solid'实线
-                        }
-                    }
-                },
-                smooth: true,
-                //stack: '总量',
-                data: data2||[420, 532, 601,534, 890, 930, 1320]
-            }
 
         ];
         this.Chart3.setOption(theCurrentOption);
-    }
+    },
     PageViewModel.prototype.loadChart4 = function (xData, data1, data2) {
         if (!this.Chart4) {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
@@ -541,7 +480,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: data1||[820, 932, 901, 934, 1290, 1330] ,
+                data: data1||[11, 14, 22, 15, 7, 8] ,
                 lineStyle: {
                     normal: {
                         color: '#32ff4b'//rgba(50,255,75
@@ -580,12 +519,12 @@ $(function () {
 
     }
 
-    PageViewModel.prototype.loadData = function () {
-        //debugger;
-        //this.loadCurrent();
-        this.loadHistoricalTrend();
-        this.loadPredict();
-    }
+    //PageViewModel.prototype.loadData = function () {
+    //    //debugger;
+    //    //this.loadCurrent();
+    //    //this.loadHistoricalTrend();
+    //    //this.loadPredict();
+    //}
 
     window.PageView = new PageViewModel();
 })

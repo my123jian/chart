@@ -170,29 +170,33 @@ html body {
     top: 0px;
     background-image: url("img/tittle.png");
 }
-#form_1{
-    width:458px;height:150px;
-    position: absolute;
-    top: 206px;
-    left: 620px;
-}
+
 .left-w-left{
     position: absolute;
-    width: 450px;
+    width: 1040px;
     height: 150px;
-    top: 294px;
-    left: 58px;
+    top: 267px;
+    left: 52px;
     font-size: 16px;
 }
 .newcome{
     float: left;
-    margin-right: 40px;
+    margin-right: 108px;
 }
+
+.newcome3{
+    margin-right: 0;
+
+}
+.newcome p{display: inline-block}
 .newcome .newcome-text{
-    font-size: 16px;
+    font-size: 22px;
 }
 .newcome .newcome-people{
-
+    display: inline-block;
+    line-height: 34px;
+    min-width: 50px;
+    padding: 0 5px;
     font-size: 34px;
 }
 .newcome .newcome-num{
@@ -379,10 +383,10 @@ html body {
 .guishu {
     float: left;
     width: 660px;
-    height: 180px;
+    /*height: 180px;*/
     margin-left: 38px;
     /*padding-right: 8px;*/
-    margin-top: 24px;
+    margin-top: 20px;
 }
 .guishu .tab-item{
     float: left;
@@ -411,7 +415,7 @@ html body {
     height: 20px;
     float: left;
     list-style:none;
-    margin-top: 30px;
+    margin-top: 14px;
 }
 .guishu .guishu-cuntry{
     width: 60px;
@@ -443,33 +447,61 @@ html body {
     margin-right:10px;
 
 }
-.table {
-    width: 100%;
+.table-div .table {
+    float: left;
+    width: 516px;
     border-collapse: collapse;
 
 }
-
-.table .hd1 {
-    font-size: 18px;
-    height: 45px;
-    border-bottom: #114e8b 2px solid;
+.table-div .sex{
+    float: left;
+    width: 190px;
+}
+.sex .sex-boy,.sex .sex-girl{
+    margin-top: 28px;
+    margin-left: 60px;
+}
+.sex .sex-boy span,.sex .sex-girl span{
+    margin-right: 20px;
+    font-size: 20px;
+    font-family: AdobeHeitiStd-Regular;
+    color: #80ddfe;
+}
+.sex .sex-boy .sex-boy-num,.sex .sex-girl .sex-girl-num{
+    color: #ddf3ff;
 }
 
+.hd2 th,.hd1 th{
+    font-weight: normal;
+    color: #80ddfe;
+}
+
+.table .hd1 th{
+    font-size: 20px;
+    color: #ddf3ff;
+}
 .table .hd2 {
     font-size: 16px;
-    height: 45px;
+    height: 36px;
     text-align: center;
 }
 
 .table tbody tr {
     text-align: center;
-    height: 44px;
+    /*height: 44px;*/
 }
-
+.table .table-box1,.table .table-box2{
+    height:40px;
+}
 .tab-main {
     height: 60px;
 }
-
+.table .hd2 th{
+    padding: 30px 0 10px 0;
+}
+.table .hd3 th{
+    padding: 20px 0 10px 0;
+}
 .tab-main > .tab-item {
     position: relative;
     float: left;
@@ -551,28 +583,24 @@ html body {
 }
 .tab-direction {
     width: 740px;
-    height: 308px;
-    margin-top: 26px;
+    /*height: 308px;*/
+
     margin-left: 20px;
 
 }
-.tab-imgage1{
-    background-image: url("./img/bg_3.png");
-}
-.tab-imgage2{
-    background-image: url("./img/bg_5.png");
-}
+
 
 .part1 .chart-div {
-    padding-top: 26px;
+    padding-top: 24px;
 }
-.part2 .chart-div {
-    padding-top: 46px;
+.part-2 .chart-div {
+    padding-top: 60px;
 }
 
 .part1 .chart-div .title {
-    font-size: 22px;
-    margin-left:32px;
+    font-size: 20px;
+    line-height: 20px;
+    margin-left:40px;
 }
 
 .chart-div > .chart-panel {
@@ -785,13 +813,13 @@ iframe {
     height: 1080px;
     border: none;
 }
-#chart1,#chart2,#chart3,#form_2,#chart4{
-    width:780px;
+#chart1,#chart2,#chart3,#form_1,#chart4{
+    width:700px;
     height: 160px !important;
-    margin-top:16px;
+    margin-top:14px;
     /*margin-left: 92px;*/
     /*margin-right: 20px;*/
 }
-#chart3,#form_2,#chart4{
-    margin-top:56px;
+#chart3,#form_2,#chart4,#chart2{
+    margin-top:24px;
 }
