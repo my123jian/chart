@@ -180,9 +180,30 @@ $(function () {
 
         $('#' + theFromCityId + ",#" + theToCityId).each(function () {
             $(this).empty();
+            $(this).append('<option value="">' + '请选择' + '</option>')
             for (var theCityName in theCitys) {
                 $(this).append('<option value="' + theCityName + '">' + theCityName + '</option>')
             }
+        });
+        $('#' + theFromCityId + ",#" + theToCityId).change(function () {
+           var theFromCityValue=  $('#' + theFromCityId);
+            var theToCityValue=  $("#" + theToCityId);
+            if(!theFromCityValue&&!theToCityValue){
+                return;
+            }
+            if(theFromCityValue){
+               alert("请选择来源城市!");
+                return;
+            }
+            if(theToCityValue){
+                alert("请选择目标城市!");
+                return;
+            }
+            if(theFromCityValue==theToCityValue){
+                alert("来源城市和目标城市不能相同!");
+                return;
+            }
+            me.loadMigrantChannelType(theCurrentView,formateDate(),theFromCityValue,theToCityValue);
         });
     }
 
@@ -229,6 +250,7 @@ $(function () {
             console.log("视图类型未改变" + viewName);
             return;
         }
+        //debugger;
         switch (viewName) {
             case ViewType.IN:
                 theDirection = DirectionType.SHENG;//设置为港澳台
@@ -265,7 +287,7 @@ $(function () {
         var theSubString = "迁出人数";
         var theSelectData = $(theSelectDiv).find('.tab-direction .select').data();
         var theTitle = theSelectData.name + theSubString;
-        this.loadMigrantOutType(formateDate());
+       // this.loadMigrantOutType(formateDate());
         this.updateNum(theTitle, "");
         var me = this;
         this.loadMigrantDirectType(theCurrentView, theSelectData.type, formateDate());
@@ -280,7 +302,7 @@ $(function () {
         var theDate = theCurrentDate;
         var theSelectDiv = $('.part-1');
         var theSubString = "迁入人数";
-        this.loadMigrantFromSourceType(formateDate());
+        //this.loadMigrantFromSourceType(formateDate());
         var theSelectData = $(theSelectDiv).find('.tab-direction .select').data();
         var theTitle = theSelectData.name + theSubString;
         this.updateNum(theTitle, "");
@@ -308,7 +330,7 @@ $(function () {
         for (var key in theCharts) {
             theCharts[key].refresh('', (Math.random() * 100).toFixed(1))
         }
-        this.loadMigrantDirectType(ViewType.SHENG, '', formateDate());
+        this.loadMigrantDirectType(ViewType.PROVINCE, '', formateDate());
     }
 
     PageViewModel.prototype.updateNum = function (name, value) {
@@ -576,6 +598,7 @@ $(function () {
             sourceType: sourceType,
             date: date
         };
+        this.currentTable=[];
         // debugger;
         var me = this;
         console.log("开始获取迁出渠道人数比", theData);
@@ -602,24 +625,44 @@ $(function () {
                         "shuilu": 0,
                         "tielu": 0,
                         "qita": 0,
-                        "from": "",
-                        "to": "",
+                        "from": seeType==ViewType.OUT?"广州": "",
+                        "to":  seeType==ViewType.IN?"广州": "",
                         'type': seeType,
                         "sourceType": sourceType,
                         "value": 0
                     };
                     theRow['area'] = theDataItem.area;
+                    if(seeType==ViewType.OUT){
+                        theRow['to']=me.getProvinceCity(theDataItem.area);
+                    }
+                    else if(seeType==ViewType.IN){
+                        theRow['from']=me.getProvinceCity(theDataItem.area);
+                    }
+                    else{
+                        var theCitys=theDataItem.area.split('-');
+                        theRow['from']=theCitys[0];
+                        theRow['to']=theCitys[1];
+                    }
+                    /*
+                    * fromCity: "广州"
+id: 1
+migChannel: "1"
+migNum: 10000000
+oPercentage: "81"
+statDate: "2018-12-10"
+toCity: "深圳"
+                    * */
                     theRow['num'] = theDataItem.countNum;
 
                     for (var j = 0; j < theDataItem.list.length; j++) {
                         var theCellItem = theDataItem.list[j];
-                        theRow[theChannelMap[theCellItem.outChannel || theCellItem.inChannel]] = (theCellItem.outPercentage || theCellItem.inPercentage);
+                        theRow[theChannelMap[theCellItem.outChannel || theCellItem.inChannel||theCellItem.migChannel]] = (theCellItem.outPercentage || theCellItem.inPercentage||theCellItem.oPercentage);
                     }
                     theTableList.push(theRow);
                 }
                 var theIndex = seeType;
-                this.currentTable = theTableList;
-                this.refreshPage(this.currentTable)
+                me.currentTable = theTableList;
+                me.refreshPage(me.currentTable)
                 me.loadTemplateTable('table-' + theIndex, theTableList);
             }
         })

@@ -29,8 +29,9 @@
             echarts.registerMap('gd', theGdData);
             theChartMap = echarts.init(document.getElementById(theMapId));
         }
-        if(parent&&parent.PageView&&parent.currentTable){
-            refresh(parent.currentTable);
+        //debugger;
+        if(parent&&parent.PageView&&parent.PageView.currentTable){
+            refresh(parent.PageView.currentTable);
         }
         else{
             refresh([]);
@@ -45,7 +46,7 @@
     function refresh(data) {
         option = null;
         var geoCoordMap = theCitys;
-        var theSourceData=data;
+        var theSourceData=data||[];
         data=[];
             /*data|| [
             [{name: "广州"}, {name: "东莞", value: 95}],

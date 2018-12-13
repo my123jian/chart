@@ -46,8 +46,8 @@
                 // --- 地图 ---
                 var myChart2 = ec.init(document.getElementById('mainMap'));
                 theChart = myChart2;
-                if(parent&&parent.PageView&&parent.currentTable){
-                    refresh(parent.currentTable);
+                if(parent&&parent.PageView&&parent.PageView.currentTable){
+                    refresh(parent.PageView.currentTable);
                 }
                 else{
                     refresh([]);
@@ -74,6 +74,7 @@
             {name: '常州', value: 10}*/
             ];
         var theLineData=[];
+        data=data||[];
         for(var i=0;i<data.length;i++){
             var theItem=data[i];
             theData.push({name: theItem.to, value: theItem.value||0});
