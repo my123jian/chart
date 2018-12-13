@@ -3,7 +3,7 @@
     background-repeat: no-repeat;
     margin: 0px;
     padding: 0px;
-    font-family: "Î¢ÈíÑÅºÚ", "Microsoft YaHei", Tahoma, Verdana;
+    font-family: "Î¢ï¿½ï¿½ï¿½Åºï¿½", "Microsoft YaHei", Tahoma, Verdana;
 }
 li{
     list-style:none;
@@ -310,7 +310,7 @@ html body {
     /*background-image: url("img/bg_3.png");*/
 /*}*/
 
-/*Ô¤¶¨ÒåÑÕÉ«*/
+/*Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«*/
 .tielu_bg {
     background-color: #faeebe;
 }
@@ -783,4 +783,10 @@ iframe {
 #chart4{
     width: 1194px;
     height: 246px;
+}
+.map-master{
+    position: absolute;
+    width: 1980px;
+    height: 1080px;
+    background-image: url("img/mapbg.png");
 }

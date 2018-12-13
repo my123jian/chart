@@ -177,11 +177,11 @@ html body {
 }
 
 .fixdiv > .rightpart > .content-img1 {
-    background-image: url("img/bg_1.png");
+    background-image: url("img/bg_2.png");
 }
 
 .fixdiv > .rightpart > .content-img2 {
-    background-image: url("img/bg_2.png");
+    background-image: url("img/bg_1.png");
 }
 
 .fixdiv > .rightpart > .content-img3 {
