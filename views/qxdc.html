@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>迁徙洞察</title>
+    <link rel="stylesheet" href="qxdc/index.css">
+    <script type="text/javascript" src="lib/echarts.min.js"></script>
+    <script src="lib/jquery-1.8.2.min.js"></script>
+    <script src="lib/PageViewBase.js"></script>
+    <script src="qxjc/script/guangdong.js"></script>
+    <script src="lib/laydate.js"></script>
+    <script src="lib/chart-huan.js"></script>
+    <script src="qxdc/script/index.js"></script>
+</head>
+<body>
+<div class="baseView" id="baseView">
+    <iframe id="page_div" src="qxdc_country.html"></iframe>
+    <!--<div class="map-country">
+
+    </div>
+    <div class="map-gd">
+
+    </div>
+    <div class="map-video">
+        <video></video>
+    </div>-->
+</div>
+<div class="fixdiv">
+    <div class="toppart">
+        <div class="lefttitle">
+        </div>
+        <div class="rightpart">
+            <div class="title" style="margin-left: 10px;">
+                <span>迁徙概况</span></div>
+            <div class="topbutton test "></div>
+            <div class="topbutton insight active"></div>
+            <div class="title">
+                <span>专题分析</span>
+            </div>
+            <div class="topbutton bridge"></div>
+            <div class="topbutton strait"></div>
+        </div>
+    </div>
+    <div class="rightpart">
+        <div class="content content-img3">
+            <div class="datediv" style="position:absolute;">
+
+                <div class="date-action" id="date-action">
+
+                </div>
+                <input type="text" id="date-input">
+                <div class="date-icon" id="date-icon">
+
+                </div>
+
+            </div>
+            <!--表头信息-->
+            <div class="tab-main">
+                <div class="tab-item select" data-index="2">
+                    <span class="firstline">迁出洞察</span> <br/><span class="secondline"><span
+                        id="num2">234.23</span>万人</span>
+                </div>
+                <div class="tab-item" data-index="1">
+                    <span class="firstline">迁入洞察</span><br/>
+                    <span class="secondline"><span id="num1">234.23</span>万人</span>
+                </div>
+                <div class="tab-item " data-index="3">
+                    <span class="firstline">省内迁徙</span><br/>
+                    <span class="secondline"><span id="num3">234.23</span>万人</span>
+                </div>
+            </div>
+            <div class="part1 part-1" >
+
+                <div class="chart-div">
+                    <div class="title">
+                        迁出渠道
+                    </div>
+                    <div class="chart-panel">
+                        <div class="chart-item" data-name="铁路" data-id="4" data-color="#faeebe" data-value="20">
+                        </div>
+                        <div class="chart-item" data-name="公路" data-id="1" data-color="#bcb9e7" data-value="40"></div>
+                        <div class="chart-item" data-name="水路" data-id="3" data-color="#20e3df" data-value="60"></div>
+                        <div class="chart-item" data-name="民航" data-id="2" data-color="#acebd5" data-value="80"></div>
+                        <div class="chart-item" data-name="其他" data-id="5" data-color="#6fc1dc" data-value="100"></div>
+                    </div>
+                </div>
+                <div class="tab-direction">
+                    <div class="select" data-name="省外" data-type="3">省外去向</div>
+                    <div data-name="港澳台" data-type="2">港澳台去向</div>
+                    <div data-name="境外" data-type="1">境外去向</div>
+                </div>
+                <div class="table-div">
+                    <table class="table" id="table-1">
+                        <thead>
+                        <tr class="hd1">
+                            <th>
+                                目的地
+                            </th>
+                            <th>
+                                迁出人数
+                            </th>
+                            <th colspan="5">
+                                迁出渠道及占比
+                            </th>
+                        </tr>
+                        <tr class="hd2">
+                            <th class="hd-first">省份</th>
+                            <th>个数</th>
+                            <th>铁路</th>
+                            <th>公路</th>
+                            <th>水路</th>
+                            <th>民航</th>
+                            <th>其他</th>
+                        </tr>
+                        </thead>
+                        <tbody class="template" style="display: none;">
+                        <tr>
+                            <td>${data.outArea}</td>
+                            <td>${data.outNum}</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: ${data.outPercentage}px"></div>
+                                ${data.outPercentage}%
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tbody class="data">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="page">
+                    <div class="page-item-1 page-item"></div>
+                    <div class="page-item-2 page-item"></div>
+                </div>
+            </div>
+            <div class="part1 part-2" style="display: none">
+                <div class="chart-div">
+                    <div class="title">
+                        迁入渠道
+                    </div>
+                    <div class="chart-panel">
+                        <div class="chart-item" data-name="铁路" data-id="4" data-color="#faeebe" data-value="20">
+                        </div>
+                        <div class="chart-item" data-name="公路" data-id="1" data-color="#bcb9e7" data-value="40"></div>
+                        <div class="chart-item" data-name="水路" data-id="3" data-color="#20e3df" data-value="60"></div>
+                        <div class="chart-item" data-name="民航" data-id="2" data-color="#acebd5" data-value="80"></div>
+                        <div class="chart-item" data-name="其他" data-id="5" data-color="#6fc1dc" data-value="100"></div>
+                    </div>
+                </div>
+                <div class="tab-direction">
+                    <div class="select" data-name="省外" data-type="3">省外去向</div>
+                    <div data-name="港澳台" data-type="2">港澳台去向</div>
+                    <div data-name="境外" data-type="1">境外去向</div>
+                </div>
+                <div class="table-div">
+                    <table class="table" id="table-2">
+                        <thead>
+                        <tr class="hd1">
+                            <th>
+                                目的地
+                            </th>
+                            <th>
+                                迁出人数
+                            </th>
+                            <th colspan="5">
+                                迁出渠道及占比
+                            </th>
+                        </tr>
+                        <tr class="hd2">
+                            <th class="hd-first">省份</th>
+                            <th>个数</th>
+                            <th>铁路</th>
+                            <th>公路</th>
+                            <th>水路</th>
+                            <th>民航</th>
+                            <th>其他</th>
+                        </tr>
+                        </thead>
+                        <tbody class="template" style="display: none">
+                        <tr>
+                            <td>${data.inProvince||data.inArea}</td>
+                            <td>${data.inNum}</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: ${data.inPercentage}px"></div>
+                                ${data.inPercentage}%
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                22
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tbody class="data">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="page">
+                    <div class="page-item-1 page-item"></div>
+                    <div class="page-item-2 page-item"></div>
+                </div>
+            </div>
+            <div class="part2 part-3" style="display: none">
+                <div class="title">
+                    迁出渠道
+                </div>
+                <div class="select-div">
+                    <div class="row row1">
+                        <div>
+                            出发城市
+                        </div>
+                        <div>
+                            迁徙人数
+                        </div>
+                        <div>
+                            到达城市
+                        </div>
+                    </div>
+
+                    <div class="row row2">
+                        <div class="btn-city">
+                            <select id="from-city">
+                                <option value="广州">广州</option>
+                            </select>
+                        </div>
+                        <div>----------</div>
+                        <div>222222</div>
+                        <div style="margin-right: 29px;">----------></div>
+                        <div class="btn-city">
+                            <select id="to-city">
+                                <option value="广州">广州</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-div">
+
+                    <div class="chart-panel">
+                        <div class="chart-item" data-name="铁路" data-id="4" data-color="#faeebe" data-value="20">
+                        </div>
+                        <div class="chart-item" data-name="公路" data-id="1" data-color="#bcb9e7" data-value="40"></div>
+                        <div class="chart-item" data-name="水路" data-id="3" data-color="#20e3df" data-value="60"></div>
+                        <div class="chart-item" data-name="民航" data-id="2" data-color="#acebd5" data-value="80"></div>
+                        <div class="chart-item" data-name="其他" data-id="5" data-color="#6fc1dc" data-value="100"></div>
+                    </div>
+                </div>
+
+                <div class="table-title">
+                    热门迁徙路线top10
+                </div>
+                <div class="table-div">
+
+                    <table class="table" id="table-3">
+                        <thead>
+                        <tr class="hd1">
+                            <th>
+                                路线
+                            </th>
+                            <th>
+                                迁出人数
+                            </th>
+                            <th colspan="5">
+                                迁出渠道及占比
+                            </th>
+                        </tr>
+                        <tr class="hd2">
+                            <th>城市</th>
+                            <th>个数</th>
+                            <th>铁路</th>
+                            <th>公路</th>
+                            <th>水路</th>
+                            <th>民航</th>
+                            <th>其他</th>
+                        </tr>
+                        </thead>
+                        <tbody class="template" style="display: none;">
+                        <tr>
+                            <td>
+                                <div class="index index${index+1}"><span>${data.from}</span>----<span>${data.to}</span>
+                                </div>
+                            </td>
+                            <td>${data.num}</td>
+                            <td>
+                                <div class="round-div tielu_bg" style="width: 30px"></div>
+                                ${data.tielu}
+                            </td>
+                            <td>
+                                <div class="round-div gonglu_bg" style="width: 30px"></div>
+                                ${data.gonglu}
+                            </td>
+                            <td>
+                                <div class="round-div shuilu_bg" style="width: 30px"></div>
+                                ${data.shuilu}
+                            </td>
+                            <td>
+                                <div class="round-div minhang_bg" style="width: 30px"></div>
+                                ${data.minhang}
+                            </td>
+                            <td>
+                                <div class="round-div qita_bg" style="width: 30px"></div>
+                                ${data.qita}
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tbody class="data">
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="page">
+                    <div class="page-item-1 page-item"></div>
+                    <div class="page-item-2 page-item"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="numpart">
+        <span class="title">省外迁出人数</span><br/><span class="num">235.2万</span>
+    </div>
+</div>
+<script type="text/javascript">
+
+</script>
+
+</body>
+</html>

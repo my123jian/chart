@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>地图</title>
+    <style>
+        html,
+        body,
+        #container {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #DivButton {
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+
+        #DivButton button {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="container" class="container">
+</div>
+
+<div id="DivButton" style="position:fixed;top:0px;right:0px;">
+</div>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://webapi.amap.com/maps?v=1.4.11&key=e78eb14a0b3399d1733b27fb6835e460"></script>
+<!--<script src='https://webapi.amap.com/maps?v=1.4.11&key=e78eb14a0b3399d1733b27fb6835e460'></script>-->
+<script src="https://webapi.amap.com/loca?v=1.2.0&key=e78eb14a0b3399d1733b27fb6835e460"></script>
+<!--<script src="https://a.amap.com/jsapi_demos/static/citys.js"></script>-->
+<!-- UI组件库 1.0 -->
+<script src="https://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+<!--热力图-->
+<script type="text/javascript">
+    //最大的缩放程度
+    var theMaxZoom = 18;
+    //现在的缩放程度
+    var theCurrentZoom = 1;
+    //
+    var theMakerLayer = null;
+    //室内地图层
+    var theInnerLayer = null;
+    //热力图地图层
+    var theHeartLayer = null;
+    //创建地图实例
+    var theMap = new AMap.Map('container', {
+        pitch: 0,
+        mapStyle:'amap://styles/9f47a75c5a80f716945988ccbc61aeb7',
+        //mapStyle: 'amap://styles/c6b6ea6de59432d8973e27caa9b04355',
+        //mapStyle: 'amap://styles/grey',//'amap://styles/blue',
+        viewMode: '3D',// 地图模式
+        //lat: 22.251472
+        //lng: 113.766128
+        center:[113.766128,22.251472],//港珠澳大桥
+
+        //center:[110.322391,20.146053 ],//琼州海峡 //lat: 20.146053  lng: 110.322391
+
+        //center: [113.275824, 22.994826],
+        features:['bg', 'building','point','road'],//['all'],// ['bg', 'building','point'],
+        zoom: 12,
+        keyboardEnable: false,
+        layers: [
+            //satellite,
+            // building,
+            //roadNet
+        ]
+    });
+
+    //地图加载完成事件
+    theMap.on('complete', function () {
+        console.log("地图加载完成!");
+    });
+    //监听放大缩小事件
+    theMap.on('zoom', function (arg) {
+        var theZoom = theMap.getZoom();
+        if (theZoom >= 12) {
+            console.log("显示点");
+            theMap.setFeatures(['bg','road', 'building', 'point']);
+            theInnerLayer&&theInnerLayer.setzIndex(1000);
+            //theMap.add(satellite);
+            //theMap.setMapStyle("normal");
+
+        }
+        else {
+            console.log("隐藏点");
+            //theHeartLayer && theHeartLayer.setMap(null);
+            //theHeartLayer && theHeartLayer.remove() ;
+            //theHeartLayer = null;
+            //theMap.setMapStyle("amap://styles/grey");
+        }
+
+    });
+    function CreateHeartLayer() {
+        if (!theHeartLayer) {
+            var map = Loca.create(theMap);
+            theHeartLayer = Loca.visualLayer({
+                container: map,
+                type: 'heatmap',
+                // 基本热力图
+                shape: 'normal'
+            });
+        }
+    }
+
+    function TestRli2(lng, lat) {
+        //var map = Loca.create(theMap);
+        //var layer = Loca.visualLayer({
+        //    container: map,
+        //    type: 'heatmap',
+        //    // 基本热力图
+        //    shape: 'normal'
+        //});
+        var theCenter=theMap.getCenter();
+        CreateHeartLayer();
+        lng = lng || theCenter.lng;
+        lat = lat || theCenter.lat;
+        var theValue = Math.floor((Math.random() * 10));
+        layer = theHeartLayer;
+        var list = [];
+        var i = -1, length = 4000;
+        while (++i < length) {
+            //var item = heatmapData[i + theValue];
+            //i = i + theValue;
+
+            list.push({
+                coordinate: [lng + Math.random() , lat + Math.random()],
+                count: Math.floor((Math.random() * 1000))
+            })
+        }
+
+        layer.setData(list, {
+            lnglat: 'coordinate',
+            value: 'count'
+        });
+
+        layer.setOptions({
+            style: {
+                radius: 30,
+                color: {
+                    0.5: '#2c7bb6',
+                    0.65: '#abd9e9',
+                    0.7: '#ffffbf',
+                    0.9: '#fde468',
+                    1.0: '#d7191c'
+                }
+            }
+        });
+
+        layer.render();
+    }
+
+</script>
+</body>
+</html>

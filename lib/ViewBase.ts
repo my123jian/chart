@@ -1,5 +1,6 @@
 class ViewBase {
-    constructor() {
+     constructor() {
         console.log(Math.random());
     }
+
 }

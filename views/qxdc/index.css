@@ -1,0 +1,595 @@
+
+* {
+    background-repeat: no-repeat;
+    margin: 0px;
+    padding: 0px;
+    font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
+}
+
+html body {
+    margin: 0px;
+    padding: 0px;
+    width: 1920px;
+    height: 1080px;
+    background-image: url("img/bg.png");
+}
+
+.mapbase {
+    width: 1280px;
+    height: 1040px;
+    margin-top: 40px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.topbutton {
+    margin-top: 30px;
+    margin-right: 0px;
+    margin-left: -10px;
+    width: 216px;
+    height: 90px;
+    position: relative;
+}
+
+.topbutton.test {
+
+    background-image: url("img/非聚焦/btn_nor_Testing.png");
+}
+
+.topbutton.test.active, .topbutton.test.active:hover {
+    background-image: url("img/聚焦/btn_pre_Testing.png");
+    z-index: 100;
+    margin-top: 28px !important;
+    top: -5px;
+}
+
+.topbutton.test:hover {
+    background-image: url("img/移入/btn_bright_Testing.png");
+    z-index: 1;
+}
+
+.topbutton.bridge {
+
+    background-image: url("img/非聚焦/btn_nor_Bridge.png");
+}
+
+.topbutton.bridge.active, .topbutton.bridge.active:hover {
+    background-image: url("img/聚焦/btn_pre_Bridge.png");
+    z-index: 100;
+    margin-top: 28px !important;
+    top: -5px;
+}
+
+.topbutton.bridge:hover {
+    background-image: url("img/移入/btn_brigh_Bridge.png");
+    z-index: 1;
+}
+
+.topbutton.insight {
+
+    background-image: url("img/非聚焦/btn_nor_Insight.png");
+}
+
+.topbutton.insight.active, .topbutton.insight.active:hover {
+    background-image: url("img/聚焦/btn_pre_Insight.png");
+    margin-top: 28px !important;
+    top: -5px;
+    z-index: 100;
+}
+
+.topbutton.insight:hover {
+    background-image: url("img/移入/btn_brigh_Insight.png");
+    z-index: 1;
+}
+
+.topbutton.strait {
+
+    background-image: url("img/非聚焦/btn_nor_strait.png");
+}
+
+.topbutton.strait.active, .topbutton.strait.active:hover {
+    background-image: url("img/聚焦/btn_pre_strait.png");
+    background-size: 100% 100%;
+    z-index: 100;
+}
+
+.topbutton.strait:hover {
+    background-image: url("img/移入/btn_brigh_strait.png");
+    z-index: 1;
+}
+
+.fixdiv {
+    position: absolute;
+    pointer-events: none;
+    width: 1920px;
+    height: 1080px;
+
+}
+
+.fixdiv * {
+    color: #ddf3ff;
+}
+
+.fixdiv > div {
+    pointer-events: painted;
+    position: absolute;
+    background-repeat: no-repeat;
+}
+
+.toppart {
+    width: 1920px;
+    line-height: 82px;
+}
+
+.toppart .rightpart div {
+    display: inline-block;
+}
+
+.toppart .rightpart {
+    position: absolute;
+    width: 1236px;
+    left: 664px;
+    top: 0px;
+    border-bottom-color: #356ddc;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    height: 108px;
+    line-height: 108px;
+    right: 20px;
+    /*width: 1920px;*/
+}
+
+.toppart .rightpart .title {
+    width: 194px;
+    line-height: 82px;
+    margin-top: 30px;
+    height: 82px;
+    color: #bccbff;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: top;
+    margin-left: -10px;
+}
+
+.toppart .lefttitle {
+    width: 664px;
+    height: 160px;
+    left: 0px;
+    top: 0px;
+    background-image: url("img/tittle.png");
+}
+
+.fixdiv > .rightpart {
+    position: absolute;
+    width: 900px;
+    height: 902px;
+    top: 140px;
+    right: 22px;
+    background-image: url("img/bg_Y_03.png");
+}
+
+.fixdiv > .rightpart > .content {
+    width: 857px;
+    height: 826px;
+    margin-top: 50px;
+    margin-left: 21px;
+}
+
+.fixdiv > .rightpart > .content-img1 {
+    background-image: url("img/bg_1.png");
+}
+
+.fixdiv > .rightpart > .content-img2 {
+    background-image: url("img/bg_2.png");
+}
+
+.fixdiv > .rightpart > .content-img3 {
+    background-image: url("img/bg_3.png");
+}
+
+/*预定义颜色*/
+.tielu_bg {
+    background-color: #faeebe;
+}
+
+.gonglu_bg {
+    background-color: #bcb9e7;
+}
+
+.shuilu_bg {
+    background-color: #20e3df;
+}
+
+.minhang_bg {
+    background-color: #acebd5;
+}
+
+.qita_bg {
+    background-color: #6fc1dc;
+}
+
+.huan-chart-text {
+    height: 100px;
+    width: 108px;
+    z-index: -1;
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    padding-top: 32px;
+}
+
+.huan_chart_contain {
+    margin-top: 52px;
+}
+
+.huan_chart {
+    width: 108px;
+    height: 100px;
+    margin-left: 49px;
+}
+
+.huan_chart.first {
+    margin-left: 58px;
+}
+
+.numpart {
+    position: absolute;
+    left: 60px;
+    top: 204px;
+    font-size: 38px;
+    color: #b5e2fe;
+}
+
+.numpart > .num {
+    font-size: 40px;
+}
+
+.table-div {
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 30px;
+    height: 310px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.table .hd1 {
+    font-size: 18px;
+    height: 45px;
+    border-bottom: #114e8b 2px solid;
+}
+
+.table .hd2 {
+    font-size: 16px;
+    height: 45px;
+    text-align: center;
+}
+
+.table tbody tr {
+    text-align: center;
+    height: 44px;
+}
+
+.tab-main {
+    height: 108px;
+}
+
+.tab-main > .tab-item {
+    float: left;
+    width: 33.3%;
+    cursor: pointer;
+    text-align: center;
+    height: 110px;
+
+    /*   line-height: 110px;*/
+
+    background-image: url("img/bg_4.png");
+}
+
+.tab-main > .tab-item .firstline {
+    margin-top: 20px;
+    display: inline-block;
+    font-size: 24px;
+}
+
+.tab-main > .tab-item .secondline {
+    margin-top: 10px;
+    display: inline-block;
+    font-size: 24px;
+}
+
+.tab-main:after {
+    clear: both;
+}
+
+.tab-main > .tab-item > div {
+    display: inline-block;
+}
+
+.tab-main .tab-item.select {
+    /*border-bottom: 2px #2e61d1 solid;*/
+    background-image: none;
+    box-sizing: border-box;
+}
+
+.tab-main .tab-item.unselect:first-child {
+    border-right: #122e66 solid 2px;
+}
+
+.tab-direction {
+    padding-left: 8px;
+    height: 45px;
+    margin-top: 66px;
+}
+
+.tab-direction:after {
+    clear: both;
+}
+
+.tab-direction > div {
+    float: left;
+    width: 33.3%;
+    height: 45px;
+    width: 280px;
+    line-height: 45px;
+    text-align: center;
+    background-image: url("img/btn_2.png");
+    cursor: pointer;
+}
+
+.tab-direction > div.select {
+    background-image: url("img/btn_1.png");
+}
+
+.round-div {
+    border-radius: 10px;
+    height: 16px;
+    display: inline-block;
+}
+
+.part1 .chart-div {
+    padding-top: 42px;
+}
+
+.part1 .chart-div .title {
+    font-size: 22px;
+    margin-left: 16px;
+}
+
+.chart-div > .chart-panel {
+    margin-top: 52px;
+    height: 100px;
+    margin-right: 58px;
+}
+
+.chart-panel .chart-item {
+    width: 108px;
+    height: 100px;
+    margin-left: 49px;
+    float: left;
+    /* border: red solid 1px;*/
+    /*background-color: red;*/
+}
+
+.chart-panel .chart-item:first-child {
+    /*margin-left: 0px!important;*/
+}
+
+.page {
+    height: 20px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.page .page-item {
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.page-item-1 {
+    background-image: url("img/btn_5.png");
+}
+
+.page-item-1.select {
+    background-image: url("img/btn_3.png");
+}
+
+.page-item-2 {
+    background-image: url("img/btn_4.png");
+    margin-left: 10px;
+}
+
+.page-item-2.select {
+    background-image: url("img/btn_6.png");
+}
+
+.part2 .chart-div {
+    /*padding-top: 42px;*/
+}
+
+.part2 .chart-div > .chart-panel {
+    margin-top: 30px;
+}
+
+.part2 > .title {
+    font-size: 22px;
+    margin-top: 30px;
+    margin-left: 18px;
+}
+
+.part2 .table-div {
+    margin-top: 24px;
+    height: 310px;
+}
+
+.part2 .chart-div .title {
+    font-size: 22px;
+    margin-left: 16px;
+}
+
+.part2 .table-title {
+    font-size: 22px;
+    margin-top: 34px;
+    margin-left: 18px;
+}
+
+.select-div {
+    width: 100%;
+    height: 75px;
+    margin-top: 16px;
+}
+
+.row {
+    width: 100%;
+}
+
+.row > * {
+    display: inline-block;
+
+}
+
+.row.row1 > * {
+    margin-left: 194px;
+}
+
+.row.row1 > *:first-child {
+    margin-left: 118px;
+}
+
+.row.row2 > * {
+    margin-top: 24px;
+    width: 118px;
+    text-align: center;
+}
+
+.row.row2 > *:first-child {
+    margin-left: 98px;
+}
+
+.btn-city {
+    width: 118px;
+    height: 40px;
+
+    background-image: url("img/btn_city.png");
+}
+
+.btn-city select {
+    width: 118px;
+    height: 40px;
+    border: 0px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    padding-left: 24px;
+    background: transparent;
+
+    background: url("img/icon_1.png") no-repeat transparent; /*scroll right center*/
+    background-position-x: 97px;
+    background-position-y: 18px;
+    background-size: 14px 8px;
+    font-size: 24px;
+}
+
+.btn-city select > option {
+    font-size: 12px;
+    background: #0f265c;
+}
+
+.datediv {
+    position: absolute;
+    width: 640px;
+    height: 32px;
+    top: 0px;
+    left: 264px;
+    line-height: 32px;
+}
+
+#date-input {
+    /*position: absolute;*/
+    float: right;
+    background: transparent;
+    color: white;
+    width: 140px;
+    /* border: none; */
+    border-width: 0px;
+    font-size: 18px;
+    color: #ddf3ff;
+    height: 32px;
+    line-height: 32px;
+    /* padding-right: 31px; */
+    right: 0px;
+    text-align: center;
+    vertical-align: middle;
+    outline: none;
+    margin-left: 22px;
+
+}
+
+#date-icon {
+    float: right;
+    /*position: absolute;*/
+    background-image: url("img/icon1.png");
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    margin-top: 5px;
+}
+
+#date-action {
+    float: right;
+    background-size: auto 32px;
+    /*position: absolute;*/
+    background-image: url("img/icon3.png");
+    width: 56px;
+    height: 54px;
+    right: 0px;
+}
+
+#date-input:focus {
+    border-width: 0px;
+}
+
+.baseView, baseView > div {
+    position: absolute;
+
+}
+
+iframe {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 1920px;
+    height: 1080px;
+    border: none;
+}
+.index{
+    background-size: 20px 20px;
+    /* background-position: left center; */
+    background-repeat: no-repeat;
+    background-position-x: 10px;
+}
+.index1{
+    background-image: url("img/1.png");
+}
+.index2{
+    background-image: url("img/2.png");
+}
+
+.index3{
+    background-image: url("img/3.png");
+}
+.index4{
+    background-image: url("img/4.png");
+}
+.index5{
+    background-image: url("img/5.png");
+}

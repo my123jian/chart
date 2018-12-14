@@ -1,0 +1,317 @@
+
+* {
+    background-repeat: no-repeat;
+    margin: 0px;
+    padding: 0px;
+}
+
+html body {
+    margin: 0px;
+    padding: 0px;
+    width: 1920px;
+    height: 1080px;
+    background-image: url("img/bg.png");
+}
+
+.mapbase {
+    width: 1280px;
+    height: 1040px;
+    margin-top: 40px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.topbutton {
+    margin-top: 30px;
+    margin-right: 0px;
+    margin-left: -10px;
+    width: 216px;
+    height: 90px;
+    position: relative;
+}
+
+.topbutton.test {
+
+    background-image: url("img/非聚焦/btn_nor_Testing.png");
+}
+
+.topbutton.test.active, .topbutton.test.active:hover {
+    background-image: url("img/聚焦/btn_pre_Testing.png");
+    z-index: 100;
+    margin-top: 28px !important;
+    top: -5px;
+}
+
+.topbutton.test:hover {
+    background-image: url("img/移入/btn_bright_Testing.png");
+    z-index: 1;
+}
+
+.topbutton.bridge {
+
+    background-image: url("img/非聚焦/btn_nor_Bridge.png");
+}
+
+.topbutton.bridge.active, .topbutton.bridge.active:hover {
+    background-image: url("img/聚焦/btn_pre_Bridge.png");
+    z-index: 100;
+    margin-top: 28px !important;
+    top: -5px;
+}
+
+.topbutton.bridge:hover {
+    background-image: url("img/移入/btn_brigh_Bridge.png");
+    z-index: 1;
+}
+
+.topbutton.insight {
+
+    background-image: url("img/非聚焦/btn_nor_Insight.png");
+}
+
+.topbutton.insight.active, .topbutton.insight.active :hover {
+    background-image: url("img/聚焦/btn_pre_Insight.png");
+    margin-top: 28px !important;
+    top: -5px;
+    z-index: 100;
+}
+
+.topbutton.insight:hover {
+    background-image: url("img/移入/btn_brigh_Insight.png");
+    z-index: 1;
+}
+
+.topbutton.strait {
+
+    background-image: url("img/非聚焦/btn_nor_strait.png");
+}
+
+.topbutton.strait.active {
+    background-image: url("img/聚焦/btn_pre_strait.png");
+    background-size: 100% 100%;
+    z-index: 100;
+}
+
+.topbutton.strait:hover {
+    background-image: url("img/移入/btn_brigh_strait.png");
+    z-index: 1;
+}
+
+.fixdiv {
+    position: absolute;
+    pointer-events: none;
+    width: 1920px;
+    height: 1080px;
+}
+
+.fixdiv > div {
+    pointer-events: painted;
+    position: absolute;
+    background-repeat: no-repeat;
+}
+
+.toppart {
+    width: 1920px;
+    line-height: 82px;
+}
+
+.toppart .rightpart div {
+    display: inline-block;
+}
+
+.toppart .rightpart {
+    position: absolute;
+    width: 1236px;
+    left: 664px;
+    top: 0px;
+    border-bottom-color: #356ddc;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    height: 108px;
+    line-height: 108px;
+    right: 20px;
+    /*width: 1920px;*/
+}
+
+.toppart .rightpart .title {
+    width: 194px;
+    line-height: 82px;
+    margin-top: 30px;
+    height: 82px;
+    color: #bccbff;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: top;
+    margin-left: -10px;
+}
+
+.toppart .lefttitle {
+    width: 664px;
+    height: 160px;
+    left: 0px;
+    top: 0px;
+    background-image: url("img/tittle.png");
+}
+
+.righttop {
+    top: 140px;
+    right: 50px;
+    width: 640px;
+    height: 592px;
+
+    background-image: url("img/bg_s.png");
+
+}
+
+.righttop .title {
+    font-size: 20px;
+    color: #ddf3ff;
+    margin-bottom: 16px;
+    margin-top: 22px;
+    margin-left: 40px;
+}
+
+.righttop .chart:first-child {
+    margin-top: 64px;
+}
+
+.righttop .chart {
+    /*height: 176px;*/
+}
+
+.rightbottom {
+    bottom: 24px;
+    right: 50px;
+    height: 321px;
+    width: 1256px;
+    background-image: url("img/bg_c.png");
+}
+
+.rightbottom .chart {
+    margin-top: 54px;
+    margin-left: 24px;
+    height: 267px;
+
+    width: 1208px;
+}
+
+.numpart {
+    left: 50px;
+    top: 160px;
+    pointer-events: none !important;
+}
+
+.numpart * {
+    pointer-events: none !important;
+}
+
+.numpart .title {
+    font-size: 20px;
+    color: #b5e2fe;
+}
+
+.numpart .content1 {
+    font-size: 64px;
+    line-height: 64px;
+    text-align: center;
+    margin-top: 10px;
+    color: #27d2f5;
+
+}
+
+.numpart .content1 .last {
+    font-size: 32px;
+}
+
+.numpart .content1 div {
+    display: inline-block;
+}
+
+.numpart .content1 div > div {
+    background-image: url('img/bg_number.png');
+    display: inline-block;
+    width: 52px;
+    margin-right: 4px;
+    margin-left: 4px;
+    height: 69px;
+}
+
+.numpart .content2 {
+    font-size: 40px;
+/ / margin-top: 12 px;
+    color: #b5e2fe;
+}
+
+.numpart .content2 .last {
+    font-size: 24px;
+}
+
+.numpart .text2 {
+    font-size: 20px;
+    color: #b5e2fe;
+}
+
+.datediv {
+    position: absolute;
+    width: 640px;
+    height: 32px;
+    line-height: 32px;
+}
+
+#date-input {
+    /*position: absolute; */
+    float: right;
+    background: transparent;
+    color: white;
+    width: 130px;
+    /* border: none; */
+    border-width: 0px;
+    font-size: 18px;
+    color: #ddf3ff;
+    height: 32px;
+    line-height: 32px;
+    /* padding-right: 32px; */
+    right: 0px;
+    text-align: center;
+    vertical-align: middle;
+    outline: none;
+    margin-left: 29px;
+
+}
+
+#date-icon {
+    float: right;
+    /*position: absolute;*/
+    background-image: url("img/icon1.png");
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    margin-top: 5px;
+}
+
+#date-action {
+    float: right;
+    background-size: auto 32px;
+    /*position: absolute;*/
+    background-image: url("img/icon3.png");
+    width: 56px;
+    height: 54px;
+    right: 0px;
+}
+
+#date-input:focus {
+    border-width: 0px;
+}
+
+#chart1, #chart2, #chart3 {
+    width: 560px;
+    height: 110px !important;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#chart4 {
+    width: 1194px;
+    height: 246px;
+}
