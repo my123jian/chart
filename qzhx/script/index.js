@@ -660,7 +660,7 @@ $(function () {
         $('.sex-boy-num').text(data.man + '%');
         $('.sex-girl-num').text(data.woman + '%');
         for (var i = 1; i <= 10; i++) {
-            $('#age' + i).siblings('span').text((data['age' + i]||0) + "%");
+            $('#age' + i).siblings('span').text((data['age' + i] || 0) + "%");
             $('#age' + i).css('width', data['age' + i] + 'px');
         }
     }
@@ -859,6 +859,36 @@ $(function () {
     }
 
     /**
+     * 查询最新一条数据
+     */
+    PageViewModel.prototype.loadSelectNewOne = function () {
+        var theCallUrl = "qz/selectNewOne.do";
+        var theParamter = {};
+
+        this.load(theCallUrl, theParamter, function (res) {
+           // var theData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+           /* res = {
+                "data": {
+                    "allPeople": 40000,
+                    "id": 5,
+                    "inPeople": 200000,
+                    "outPeople": 200000,
+                    "postionName": "淮安两港",
+                    "postionType": "琼州海峡",
+                    "statDate": "2018-12-17"
+                }, "isSuccess": true, "msg": "success"
+            };*/
+
+        var theData={};
+            if (res && res.isSuccess) {
+                theData=res.data;
+            }
+            $('.newcome-people.all').text(theData['allPeople']||0);
+            $('.newcome-people.in').text(theData['inPeople']||0);
+            $('.newcome-people.out').text(theData['outPeople']||0);
+        });
+    }
+    /**
      * 归属类型分析 ok
      */
     PageViewModel.prototype.loadzQzBelongType = function (belongType) {
@@ -933,6 +963,7 @@ $(function () {
     PageViewModel.prototype.loadPart1 = function () {
         this.loadzQzBelongType();
         this.loadQzBelongArea();
+        this.loadSelectNewOne();
         this.loadQzRatio();
         this.loadQzStay();
         this.loadzFlow();

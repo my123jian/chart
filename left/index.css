@@ -1,0 +1,170 @@
+
+* {
+    background-repeat: no-repeat;
+    margin: 0px;
+    padding: 0px;
+    font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
+}
+
+html body {
+    margin: 0px;
+    padding: 0px;
+    width: 1920px;
+    height: 1080px;
+    background-image: url("img/bg.png");
+}
+
+.inner-page {
+    width: 1920px;
+    height: 1080px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.topbutton {
+    margin-top: 30px;
+    margin-right: 0px;
+    margin-left: -10px;
+    width: 216px;
+    height: 90px;
+    position: relative;
+}
+
+.topbutton.test {
+
+    background-image: url("img/非聚焦/btn_nor_Testing.png");
+}
+
+.topbutton.test.active, .topbutton.test.active:hover {
+    background-image: url("img/聚焦/btn_pre_Testing.png");
+    z-index: 100;
+    margin-top: 28px !important;
+    top: -5px;
+}
+
+.topbutton.test:hover {
+    background-image: url("img/移入/btn_bright_Testing.png");
+    z-index: 1;
+}
+
+.topbutton.bridge {
+
+    background-image: url("img/非聚焦/btn_nor_Bridge.png");
+}
+
+.topbutton.bridge.active, .topbutton.bridge.active:hover {
+    background-image: url("img/聚焦/btn_pre_Bridge.png");
+    z-index: 100;
+    margin-top: 28px !important;
+    top: -5px;
+}
+
+.topbutton.bridge:hover {
+    background-image: url("img/移入/btn_brigh_Bridge.png");
+    z-index: 1;
+}
+
+.topbutton.insight {
+
+    background-image: url("img/非聚焦/btn_nor_Insight.png");
+}
+
+.topbutton.insight.active, .topbutton.insight.active:hover {
+    background-image: url("img/聚焦/btn_pre_Insight.png");
+    margin-top: 28px !important;
+    top: -5px;
+    z-index: 100;
+}
+
+.topbutton.insight:hover {
+    background-image: url("img/移入/btn_brigh_Insight.png");
+    z-index: 1;
+}
+
+.topbutton.strait {
+
+    background-image: url("img/非聚焦/btn_nor_strait.png");
+}
+
+.topbutton.strait.active, .topbutton.strait.active:hover {
+    background-image: url("img/聚焦/btn_pre_strait.png");
+    background-size: 100% 100%;
+    z-index: 100;
+}
+
+.topbutton.strait:hover {
+    background-image: url("img/移入/btn_brigh_strait.png");
+    z-index: 1;
+}
+
+.fixdiv {
+    position: absolute;
+    pointer-events: none;
+    width: 1920px;
+    height: 1080px;
+
+}
+
+.fixdiv * {
+    color: #ddf3ff;
+}
+
+.fixdiv > div {
+    pointer-events: painted;
+    position: absolute;
+    background-repeat: no-repeat;
+}
+
+.toppart {
+    width: 1920px;
+    line-height: 82px;
+}
+
+.toppart .rightpart div {
+    display: inline-block;
+}
+
+.toppart .rightpart {
+    position: absolute;
+    width: 1236px;
+    left: 664px;
+    top: 0px;
+    border-bottom-color: #356ddc;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    height: 108px;
+    line-height: 108px;
+    right: 20px;
+    /*width: 1920px;*/
+}
+
+.toppart .rightpart .title {
+    width: 194px;
+    line-height: 82px;
+    margin-top: 30px;
+    height: 82px;
+    color: #bccbff;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: top;
+    margin-left: -10px;
+}
+
+.toppart .lefttitle {
+    width: 664px;
+    height: 160px;
+    left: 0px;
+    top: 0px;
+    background-image: url("img/tittle.png");
+}
+
+.switch-btn{
+    background-color: red;
+    width: 57px;
+    height: 50px;
+    opacity: 0.50;
+    position: absolute;
+    left: 49px;
+    top: 50px;
+}
