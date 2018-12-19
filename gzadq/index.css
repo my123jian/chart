@@ -493,7 +493,7 @@ html body {
 }
 .tab-main > .tab-item .firstline {
     margin-right: 10px;
-    margin-left: 86px;
+    margin-left: 60px;
     float: left;
     display: inline-block;
     font-size: 24px;
@@ -742,7 +742,7 @@ html body {
     width: 230px;
     /*border: none;*/
     border-width: 0px;
-    font-size: 14px;
+    font-size: 18px;
     color: #ddf3ff;
     height: 32px;
     line-height: 32px;

@@ -201,10 +201,10 @@
                     </div>
                     <!--<div class="weather-2">-->
 
-                        <!--<div class="weather-7day">-->
-                            <!--<span class="weather-litop">未来七天情况</span>-->
-                            <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
-                        <!--</div>-->
+                    <!--<div class="weather-7day">-->
+                    <!--<span class="weather-litop">未来七天情况</span>-->
+                    <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </li>
                 <li>
@@ -281,10 +281,10 @@
                     </div>
                     <!--<div class="weather-2">-->
 
-                        <!--<div class="weather-7day">-->
-                            <!--<span class="weather-litop">未来七天情况</span>-->
-                            <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
-                        <!--</div>-->
+                    <!--<div class="weather-7day">-->
+                    <!--<span class="weather-litop">未来七天情况</span>-->
+                    <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </li>
                 <li>
@@ -321,10 +321,10 @@
                     </div>
                     <!--<div class="weather-2">-->
 
-                        <!--<div class="weather-7day">-->
-                            <!--<span class="weather-litop">未来七天情况</span>-->
-                            <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
-                        <!--</div>-->
+                    <!--<div class="weather-7day">-->
+                    <!--<span class="weather-litop">未来七天情况</span>-->
+                    <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </li>
                 <li>
@@ -361,10 +361,10 @@
                     </div>
                     <!--<div class="weather-2">-->
 
-                        <!--<div class="weather-7day">-->
-                            <!--<span class="weather-litop">未来七天情况</span>-->
-                            <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
-                        <!--</div>-->
+                    <!--<div class="weather-7day">-->
+                    <!--<span class="weather-litop">未来七天情况</span>-->
+                    <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </li>
                 <li>
@@ -579,8 +579,8 @@
                     </div>
                 </div>
                 <!--<div class="page">-->
-                    <!--<div class="page-item-1 page-item"></div>-->
-                    <!--<div class="page-item-2 page-item"></div>-->
+                <!--<div class="page-item-1 page-item"></div>-->
+                <!--<div class="page-item-2 page-item"></div>-->
                 <!--</div>-->
             </div>
 
@@ -590,50 +590,9 @@
 </div>
 
 <script type="text/javascript">
-//客流tab栏点击切换
-    var theParentContent = $('.tab-main').closest('.content');
-    $('.tab-main .tab-item-left').click(function () {
-        var theIndex = $(this).data('index');
-        $('.tab-main .tab-item-right').addClass('select_a');
-        $('.tab-main .tab-item-left').removeClass('select_a');
-        $('.datediv,.dateline').show();
-        $('.datediv1,.dateline1').hide();
-
-
-        $(theParentContent).find('.part1').hide();
-        $(theParentContent).find('.part2').hide();
-        $(theParentContent).find('.part-' + theIndex).show();
-
-    });
-    $('.tab-main .tab-item-right').click(function () {
-        var theIndex = $(this).data('index');
-        $('.tab-main .tab-item-left').addClass('select_a');
-        $('.tab-main .tab-item-right').removeClass('select_a');
-        $('.datediv,.dateline').hide();
-        $('.datediv1,.dateline1').show();
-
-
-        $(theParentContent).find('.part1').hide();
-        $(theParentContent).find('.part2').hide();
-        $(theParentContent).find('.part-' + theIndex).show();
-
-    });
-//归属分析香港-珠海澳门点击切换
-
-    $('.tab-direction .tab-left,.tab-direction .tab-right').click(function () {
-        var theIndex = $(this).data('index');
-        $('.tab-direction div').removeClass('select');
-        $('.tab-direction').removeClass('tab-imgage1');
-        $('.tab-direction').removeClass('tab-imgage2');
-        $('.tab-direction').addClass('tab-imgage' + theIndex);
-        $(this).addClass('select');
-    });
-
-;
-
-//天气分析
+    //天气分析
     $('#weather-open').click(function () {
-       $('.left-weather').hide();
+        $('.left-weather').hide();
         $('.weather-content').show()
     });
     $('#weather-close').click(function () {

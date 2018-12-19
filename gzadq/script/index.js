@@ -23,15 +23,13 @@ $(function () {
     var isStopRefresh = true;
     var theTimer = null;
     var theCurrentDate = null;
-
+    var datebegin=null;
+    var dateend=null;
 
     function PageViewModel() {
         this.initEvent();
         this.initCharts();
         this.loadData();
-        //this.initChartMap();
-        //this.refresh();
-        this.start();
         this.initMap(1);
     }
 
@@ -43,8 +41,10 @@ $(function () {
     var theChar3Id = "chart3";
     var theChar4Id = "chart4";
     //var theGdData = GdGeoJson;
+    var theViewType = 1;
     //当前选择的时间
     var theCurrentDate = null;
+    var theCurrentDate1 = null;
     //当前的区域名称
     var theAreaNmae = "";
 
@@ -54,13 +54,32 @@ $(function () {
     }
     //获取当前的日期数据
     var formateDate = function () {
-
         if (!theCurrentDate) {
             var theDate = new Date();
-            return theDate.getFullYear() + "-" + (theDate.getMonth() + 1) + "-" + theDate.getDate();
+            var theBeginDay=theDate.getDay();
+            var theBeginDate=theDate.addDays(theBeginDay);
+            var theEndDate=theBeginDate.addDays(6);
+            return theBeginDate.getFullYear() + "-" + (theBeginDate.getMonth() + 1) + "-" + theBeginDate.getDate()+" - "+
+                theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
         }
-        return theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
+        return theCurrentDate;//theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
     }
+    var formateDate1 = function () {
+        //debugger;
+        if (!theCurrentDate1) {
+            var theDate1 = new Date();
+            var theBeginDay1=theDate1.getDay();
+            var theBeginDate1=theDate1.addDays(theBeginDay1);
+            var theEndDate1=theBeginDate1.addDays(6);
+            datebegin=theBeginDate1.getFullYear() + "-" + (theBeginDate1.getMonth() + 1) + "-" + theBeginDate1.getDate();
+            dateend=theEndDate1.getFullYear() + "-" + (theEndDate1.getMonth() + 1) + "-" + theEndDate1.getDate();
+            return theBeginDate1.getFullYear() + "-" + (theBeginDate1.getMonth() + 1) + "-" + theBeginDate1.getDate()+" - "+
+                theEndDate1.getFullYear() + "-" + (theEndDate1.getMonth() + 1) + "-" + theEndDate1.getDate();
+        }
+        return theCurrentDate1;//theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
+    }
+
+
     var formateNum = function (num) {
         var theNumString = num + "";
         var theStringArrays = [];
@@ -203,6 +222,7 @@ $(function () {
     PageViewModel.prototype.onTimer = function () {
 
     }
+
     PageViewModel.prototype.initEvent = function () {
         var theChartIndex = 0;
         $('.chart-item').each(function () {
@@ -239,24 +259,74 @@ $(function () {
                 //format:'yyyy年MM月dd日',
             });
         });
-        var personDirect=1;
-        var affiliationType=1;
-        $('.tab-left').click(function(){
-            personDirect=1;
-        })
-        $('.tab-right').click(function(){
-            personDirect=2;
-        })
+        //var personDirect=1;
+        //var affiliationType=1;
+        //$('.tab-left').click(function(){
+        //    personDirect=1;
+        //})
+        //$('.tab-right').click(function(){
+        //    personDirect=2;
+        //})
 
 
         var me = this;
+        var guishutype=1
+        //客流tab栏点击切换
+        var theParentContent = $('.tab-main').closest('.content');
+        $('.tab-main .tab-item-left').click(function () {
+            var theIndex = $(this).data('index');
+            $('.tab-main .tab-item-right').addClass('select_a');
+            $('.tab-main .tab-item-left').removeClass('select_a');
+            $('.datediv,.dateline').show();
+            $('.datediv1,.dateline1').hide();
+            theViewType = theIndex;
+            $(theParentContent).find('.part1').hide();
+            $(theParentContent).find('.part2').hide();
+            $(theParentContent).find('.part-' + theIndex).show();
+
+
+        });
+        $('.tab-main .tab-item-right').click(function () {
+            var theIndex = $(this).data('index');
+            $('.tab-main .tab-item-left').addClass('select_a');
+            $('.tab-main .tab-item-right').removeClass('select_a');
+            $('.datediv,.dateline').hide();
+            $('.datediv1,.dateline1').show();
+
+
+            $(theParentContent).find('.part1').hide();
+            $(theParentContent).find('.part2').hide();
+            $(theParentContent).find('.part-' + theIndex).show();
+            if(theIndex==2){
+                me.loadPart2();
+            }
+            else{
+                me.loadPart1();
+            }
+        });
+        //归属分析香港-珠海澳门点击切换
+
+        $('.tab-direction .tab-left,.tab-direction .tab-right').click(function () {
+            var theIndex = $(this).data('index');
+            $('.tab-direction div').removeClass('select');
+            $('.tab-direction').removeClass('tab-imgage1');
+            $('.tab-direction').removeClass('tab-imgage2');
+            $('.tab-direction').addClass('tab-imgage' + theIndex);
+            $(this).addClass('select');
+            var personDirect=theIndex;
+            guishutype=theIndex;
+            me.loadBridgeAttributionType(personDirect)
+        });
         //归属类型切换
         $('.guishu .tab-item').click(function () {
             var theIndex = $(this).data('index');
             affiliationType=theIndex
             $('.tab-item').removeClass('active');
             $(this).addClass('active');
-            me.loadBridgeAttributionArea();
+
+            me.loadBridgeAttributionArea(guishutype,affiliationType);
+
+
 
 
         });
@@ -266,24 +336,25 @@ $(function () {
             trigger: 'click',
             range: true,//范围选择
             //format:'yyyy年MM月dd日',
-            value:'2018-12-12 - 2018-12-15',
+            value:formateDate(),
             done: function (value, date, endDate) {
-                debugger;
+                //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
                 console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
                 console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
                 if (theCurrentDate != date) {
                     theCurrentDate = date;
-                    me.loadData();
+                    me.loadPart1();
                 }
 
             }
         });
+
         laydate.render({
             elem: '#date-input1', //指定元素
             trigger: 'click',
             range: true,//范围选择
-            value:'2018-12-12 - 2018-12-15',
+            value:formateDate1(),
             done: function (value, date, endDate) {
                 //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
@@ -292,7 +363,7 @@ $(function () {
                 if (theCurrentDate != date) {
                     theCurrentDate = date;
                     // me.loadPredict();
-                    me.loadData2();
+                    me.loadPart2();
 
                 }
 
@@ -303,7 +374,17 @@ $(function () {
             console.log('日期变化:'+theCurrentDate);
         });*/
     }
-
+    /**
+     * 开始加载数据
+     */
+    PageViewModel.prototype.loadData = function () {
+        if (theViewType == 1) {
+            this.loadPart1();
+        }
+        else {
+            this.loadPart2();
+        }
+    }
 
     PageViewModel.prototype.loadChart1 = function (data) {
         if (!this.Chart1) {
@@ -597,18 +678,18 @@ $(function () {
 
     }
 
-    PageViewModel.prototype.loadData = function () {
+    PageViewModel.prototype.loadPart1 = function () {
         //debugger;
-        this.loadBridgeIslandsRatio(formateDate());
-        this.loadBridgeInsightPassTime(formateDate());
+        this.loadBridgeIslandsRatio();
+        this.loadBridgeInsightPassTime();
         this.loadBridgeAttributionType();
         this.loadBridgeFlow();
         this.loadBridgeAttributionArea();
 
     },
-        PageViewModel.prototype.loadData2 = function () {
+        PageViewModel.prototype.loadPart2 = function () {
         //debugger;
-            this.loadBridgeFlowDirection(formateDate());
+            this.loadBridgeFlowDirection();
             this.loadBridgeIslandsTrend();
             this.loadBridgeTrendDayPassTime();
 
@@ -619,11 +700,11 @@ $(function () {
      * 人工客流岛分析接口
      * @param date
      */
-    PageViewModel.prototype.loadBridgeIslandsRatio = function (date) {
+    PageViewModel.prototype.loadBridgeIslandsRatio = function () {
 
         var theCallUrl = "bridge/bridgeIslandsRatio.do";
         var theData = {
-            date: date
+            date: formateDate()
         };
         var me = this;
         var theCharts = {};
@@ -673,18 +754,18 @@ $(function () {
      * 时点通过时长接口  完成
      * @param date
      */
-    PageViewModel.prototype.loadBridgeInsightPassTime = function (date) {
+    PageViewModel.prototype.loadBridgeInsightPassTime = function () {
         var theCallUrl = "bridge/bridgeInsightPassTime.do";
         var theData = {
-            date: date
+            date: formateDate()
         };
         var me = this;
-         debugger;
+         //debugger;
         this.load(theCallUrl, theData, function (data) {
             var chart1Data=[]
             if (data && data.isSuccess) {
                 var theResultDatas = data.data;//{"isSuccess":true,"msg":"success","data":[{"id":1,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","tTime":"6:00","tTimePass":15}]}
-                debugger
+                //debugger
                 for (var i = 0; i < theResultDatas.length; i++) {
                     var theItem = theResultDatas[i];
                     var theStayTime = theItem.tTimePass;
@@ -702,11 +783,12 @@ $(function () {
      * 归属类型分析接口 完成
      * @param personDirect,date
      */
-    PageViewModel.prototype.loadBridgeAttributionType = function (personDirect, date) {
+    PageViewModel.prototype.loadBridgeAttributionType = function (personDirect) {
+        //debugger
         var theCallUrl = "bridge/bridgeAttributionType.do";
         var theParamter = {
-            personDirect: personDirect,
-            date: date
+            personDirect: 1||personDirect,
+            date: formateDate()
         };
         var me = this;
         // debugger;
@@ -735,12 +817,12 @@ $(function () {
      * 归属地市分析接口 完成
      * @param personDirect,date,affiliationType
      */
-    PageViewModel.prototype.loadBridgeAttributionArea = function (personDirect,affiliationType, date) {
+    PageViewModel.prototype.loadBridgeAttributionArea = function (personDirect,affiliationType) {
         var theCallUrl = "/bridge/bridgeAttributionArea.do";
         var theData = {
-            personDirect: personDirect,
-            affiliationType:affiliationType,
-            date: date
+            personDirect: 1||personDirect,
+            affiliationType:1||affiliationType,
+            date: formateDate()
         };
         var me = this;
         // debugger;
@@ -788,13 +870,15 @@ $(function () {
 
 //客流趋势接口
     /***
-     * 大桥客流趋势接口 date ,endDate  OK
+     * 大桥客流趋势接口 startDate ,endDate  OK
      */
-    PageViewModel.prototype.loadBridgeFlowDirection = function (date,endDate) {
+    PageViewModel.prototype.loadBridgeFlowDirection = function () {
+        debugger
         var theCallUrl = "bridge/bridgeFlowDirection.do";
+
         var theCallArgument = {
-            startDate: date,
-            endDate:endDate,
+            startDate: datebegin,
+            endDate:dateend,
 
         };
         var me = this;
@@ -831,11 +915,11 @@ $(function () {
     /***
      * 人工岛客流趋势接口  OK
      */
-    PageViewModel.prototype.loadBridgeIslandsTrend = function (date,endDate) {
+    PageViewModel.prototype.loadBridgeIslandsTrend = function () {
         var theCallUrl = "/bridge/bridgeIslandsTrend.do";
         var theCallArgument = {
-            startDate:date,
-            endDate:endDate
+            startDate:datebegin,
+            endDate:dateend
         }
 
         var me = this;
@@ -872,11 +956,11 @@ $(function () {
     /***
      * 每日平均通关时长接口 OK
      */
-    PageViewModel.prototype.loadBridgeTrendDayPassTime= function (date,endDate) {
+    PageViewModel.prototype.loadBridgeTrendDayPassTime= function () {
         var theCallUrl = "/bridge/bridgeTrendDayPassTime.do";
         var theCallArgument = {
-            startDate:date,
-            endDate:endDate
+            startDate:datebegin,
+            endDate:dateend
         }
         var me = this;
         // debugger;
