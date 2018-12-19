@@ -823,3 +823,15 @@ iframe {
 #chart3,#form_2,#chart4,#chart2{
     margin-top:24px;
 }
+
+.tab-item-right.select_a>.firstline{
+    margin-left: 86px!important;
+}
+
+.datediv2{
+    width: 340px!important;
+}
+
+.datediv2 #date-input1{
+    width:230px;
+}

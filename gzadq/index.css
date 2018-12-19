@@ -16,6 +16,9 @@ html body {
     background-image: url("img/bg.png");
 
 }
+.toppart{
+    display: none;
+}
 .map-box{
     background-image: url('img/bg-index.png');
     width: 1920px;
@@ -489,7 +492,7 @@ html body {
 
 }
 .tab-main > .tab-item .firstline {
-    margin-right: 20px;
+    margin-right: 10px;
     margin-left: 86px;
     float: left;
     display: inline-block;
@@ -718,9 +721,9 @@ html body {
 .datediv,.datediv1 {
     /*position: absolute;*/
     margin-top: 14px;
-    margin-left:20px;
+    margin-left:10px;
     float: left;
-    width: 254px;
+    width: 308px;
     height: 26px;
     top: 0px;
     left: 264px;
@@ -730,17 +733,20 @@ html body {
 
 #date-input ,#date-input1{
     /*position: absolute;*/
+    /*padding:0 70px;*/
+    /*padding-right: 70px;*/
+
     float: left;
     background: transparent;
     color: white;
-    width: 130px;
+    width: 230px;
     /*border: none;*/
     border-width: 0px;
-    font-size: 18px;
+    font-size: 14px;
     color: #ddf3ff;
     height: 32px;
     line-height: 32px;
-    padding-right: 14px;
+    /*padding-right: 14px;*/
     right: 0px;
     text-align: center;
     vertical-align: middle;
@@ -759,11 +765,11 @@ html body {
 }
 
 #date-action,#date-action1 {
-    float: left;
+    float: right;
     background-size: auto 32px;
     /*position: absolute;*/
     background-image: url("img/icon3.png");
-    width: 56px;
+    width: 36px;
     height: 54px;
     right: 0px;
 }

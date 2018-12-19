@@ -57,11 +57,11 @@
                 <p class="newcome-num"><span class="newcome-people">5.5</span>万</p>
             </div>
             <div class="newcome">
-                <p class="newcome-text">实时进入人数</p>
+                <p class="newcome-text">实时离开人数</p>
                 <p class="newcome-num"><span class="newcome-people">5.5</span>万</p>
             </div>
             <div class="newcome">
-                <p class="newcome-text">实时进入人数</p>
+                <p class="newcome-text">小时新增人数</p>
                 <p class="newcome-num"><span class="newcome-people">5.5</span>万</p>
             </div>
 
@@ -429,7 +429,7 @@
 
                         </div>
 
-                        <input type="text" id="date-input">
+                        <input type="text" id="date-input" class="input-width">
 
                         <div class="date-action" id="date-action">
 
@@ -439,12 +439,12 @@
                 <div class="tab-item tab-item-right select_a" data-index="2">
                     <span class="firstline">客流趋势</span>
                     <span style="float: left" class="dateline1">|</span>
-                    <div class="datediv1" >
+                    <div class="datediv1" style="display: none">
                         <div class="date-icon" id="date-icon1">
 
                         </div>
 
-                        <input type="text" id="date-input1" class="date-input">
+                        <input type="text" id="date-input1" class="date-input input-width">
 
                         <div class="date-action" id="date-action1">
 
@@ -461,9 +461,9 @@
                         人工岛客流分析
                     </div>
                     <div class="chart-panel">
-                        <div class="chart-item" data-name="观光" data-color="#80ddfe" data-value="10"></div>
-                        <div class="chart-item" data-name="上桥" data-color="#80ddfe" data-value="20"></div>
-                        <div class="chart-item" data-name="下桥" data-color="#80ddfe" data-value="30"></div>
+                        <div class="chart-item" data-name="观光" data-color="#80ddfe" data-id="3" data-value="10" id="chart-item1"></div>
+                        <div class="chart-item" data-name="上桥" data-color="#80ddfe" data-id="1" data-value="20" id="chart-item2"></div>
+                        <div class="chart-item" data-name="下桥" data-color="#80ddfe" data-id="2" data-value="30" id="chart-item3"></div>
 
                     </div>
                 </div>
@@ -487,15 +487,15 @@
                         <div class="guishu">
                             <div class="tab-item active" data-index="1">
                                 <span class="firstline">归属国家</span>
-                                <span class="secondline">(35%)</span>
+                                <span class="secondline" id="gzabelong1">(35%)</span>
                             </div>
                             <div class="tab-item" data-index="2">
                                 <span class="firstline">归属省份</span>
-                                <span class="secondline">(27%)</span>
+                                <span class="secondline" id="gzabelong2">(27%)</span>
                             </div>
                             <div class="tab-item" data-index="3">
                                 <span class="firstline">归属城市</span>
-                                <span class="secondline">(38%)</span>
+                                <span class="secondline" id="gzabelong3">(38%)</span>
                             </div>
                             <div class="guishu-content">
                                 <ul>
@@ -577,10 +577,10 @@
 
                     </div>
                 </div>
-                <div class="page">
-                    <div class="page-item-1 page-item"></div>
-                    <div class="page-item-2 page-item"></div>
-                </div>
+                <!--<div class="page">-->
+                    <!--<div class="page-item-1 page-item"></div>-->
+                    <!--<div class="page-item-2 page-item"></div>-->
+                <!--</div>-->
             </div>
 
         </div>
@@ -589,7 +589,7 @@
 </div>
 
 <script type="text/javascript">
-//右边tab栏点击切换
+//客流tab栏点击切换
     var theParentContent = $('.tab-main').closest('.content');
     $('.tab-main .tab-item-left').click(function () {
         var theIndex = $(this).data('index');
@@ -617,6 +617,8 @@
         $(theParentContent).find('.part-' + theIndex).show();
 
     });
+//归属分析香港-珠海澳门点击切换
+
     $('.tab-direction .tab-left,.tab-direction .tab-right').click(function () {
         var theIndex = $(this).data('index');
         $('.tab-direction div').removeClass('select');
@@ -625,12 +627,10 @@
         $('.tab-direction').addClass('tab-imgage' + theIndex);
         $(this).addClass('select');
     });
-    $('.guishu .tab-item').click(function () {
-        var theIndex = $(this).data('index');
-        $('.tab-item').removeClass('active');
 
-        $(this).addClass('active');
-    });
+;
+
+//天气分析
     $('#weather-open').click(function () {
        $('.left-weather').hide();
         $('.weather-content').show()
@@ -639,79 +639,6 @@
         $('.weather-content').hide();
         $('.left-weather').show()
     });
-
-
-    var myChart = echarts.init(document.getElementById('form_1'));
-    var option = {
-
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis : [
-            {
-//                        type : 'category',
-                data : ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-24',],
-                "axisTick":{       //y轴刻度线
-                    "show":false
-                },
-                "splitLine": {     //网格线
-                    "show": false
-                },
-                axisLine:{
-                    show:false,
-                    lineStyle:{
-                        color:'#d9f1ff',
-
-                    }
-
-                }
-            }
-        ],
-        yAxis : [
-
-            {
-                type : 'value',
-                min:'0',
-                max:'10',
-                "show" : false,
-                "axisTick":{       //y轴刻度线
-                    "show":false
-                },
-                "splitLine": {     //网格线
-                    "show": false
-                }
-            }
-        ],
-        series : [
-
-            {
-                //设置柱形条是否显示数据
-                            label : {
-                            normal: {
-                                    show: true,
-                                    'position':'top'
-                                }
-                        },
-                name:'累积',
-                type:'bar',
-//                        barWidth:'33.3%',
-                data:[4,5,6,3,4.2,3.5
-                ],
-                itemStyle:{
-                    normal:{
-                        color:'#80ddfe'
-                    }
-                }
-            },
-
-        ]
-    };
-
-    myChart.setOption(option);
-
 </script>
 
 </body>

@@ -103,12 +103,16 @@ $(function () {
         return theResultArrays.reverse().join('');
     }
     var formateDate1 = function () {
-        debugger;
+        //debugger;
         if (!theCurrentDate1) {
             var theDate = new Date();
-            return theDate.getFullYear() + "-" + (theDate.getMonth() + 1) + "-" + theDate.getDate();
+            var theBeginDay=theDate.getDay();
+            var theBeginDate=theDate.addDays(theBeginDay);
+            var theEndDate=theBeginDate.addDays(6);
+            return theBeginDate.getFullYear() + "-" + (theBeginDate.getMonth() + 1) + "-" + theBeginDate.getDate()+" - "+
+                theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
         }
-        return theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
+        return theCurrentDate1;//theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
     }
 
     function PageViewModel() {
@@ -148,14 +152,16 @@ $(function () {
         laydate.render({
             elem: '#date-input1', //指定元素
             trigger: 'click',
-            value: new Date(),
+            range: true,//范围选择
+            value: formateDate1(),
             done: function (value, date, endDate) {
                 //debugger;
+                //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
-                console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-                console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
-                if (theCurrentDate1 != date) {
-                    theCurrentDate1 = date;
+                console.log(value); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                //console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                if (theCurrentDate1 != value) {
+                    theCurrentDate1 = value;
                     me.loadPart2();
                 }
 
@@ -229,12 +235,10 @@ $(function () {
         if (!this.Chart1) {
             this.Chart1 = echarts.init(document.getElementById('chart1'));
         }
-        var theXData = [];
-        for (var i = 0; i <= 17; i++) {
-            theXData.push(i);
-        }
+
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
+        theCurrentOption.xAxis.data=xData||theCurrentOption.xAxis.data;
         theCurrentOption.legend = {
             data: [{name: '每日客流', textStyle: {color: "#85a8b8"}}, {name: '香港>>珠海澳门', textStyle: {color: "#85a8b8"}}],
             x: 'right',
@@ -252,7 +256,7 @@ $(function () {
                 },
                 //stack: '总量',
                 smooth: true,
-                data: data1 || [11, 14, 22, 15, 7, 8],
+                data: data1 ,//|| [11, 14, 22, 15, 7, 8],
                 areaStyle: {
                     normal: {
                         color: {
@@ -294,7 +298,7 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: data2 || [5, 6, 7, 8, 11, 12]
+                data: data2 //|| [5, 6, 7, 8, 11, 12]
             }
         ];
         this.Chart1.setOption(theCurrentOption);
@@ -305,6 +309,7 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
+        theCurrentOption.xAxis.data=xData||theCurrentOption.xAxis.data;
         theCurrentOption.yAxis = [{
             name: '（人数/万）',
             type: 'value',
@@ -364,6 +369,7 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
+        theCurrentOption.xAxis.data=xData||theCurrentOption.xAxis.data;
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -408,6 +414,7 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
+        theCurrentOption.xAxis.data=xData||theCurrentOption.xAxis.data;
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -734,6 +741,7 @@ $(function () {
      */
     PageViewModel.prototype.loadQzFlowHistory = function () {
         var theCallUrl = "qz/qzFlowHistory.do";
+        var theDate=formateDate1();
         var theParamter = {};
         var me = this;
         this.load(theCallUrl, theParamter, function (res) {
@@ -783,7 +791,7 @@ $(function () {
     PageViewModel.prototype.loadzFlow = function () {
         var theCallUrl = "qz/qzFlow.do";
         var theParamter = {};
-        Q
+
         this.load(theCallUrl, theParamter, function (res) {
             var theData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
             res = {
