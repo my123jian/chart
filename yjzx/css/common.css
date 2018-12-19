@@ -1,0 +1,92 @@
+@charset "UTF-8";
+body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, li, a, p, h1, h2, h3, h4, h5, h6, i, b, textarea, button, input, select, figure, figcaption {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-style: normal;
+  text-decoration: none;
+  border: none;
+  font-weight: normal;
+  font-family: "Microsoft Yahei", Arial, sans-serif;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased; }
+  body:hover, div:hover, span:hover, header:hover, footer:hover, nav:hover, section:hover, aside:hover, article:hover, ul:hover, dl:hover, dt:hover, dd:hover, li:hover, a:hover, p:hover, h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover, i:hover, b:hover, textarea:hover, button:hover, input:hover, select:hover, figure:hover, figcaption:hover {
+    outline: none; }
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+input[type="button"], input[type="submit"], input[type="search"], input[type="reset"] {
+  -webkit-appearance: none; }
+
+textarea {
+  -webkit-appearance: none; }
+
+html, body {
+  height: 1080px;
+  width: 1920px; }
+
+.oh {
+  overflow: hidden; }
+
+.clear:after {
+  content: '';
+  display: block;
+  clear: both; }
+
+.clear {
+  zoom: 1; }
+
+.back_img {
+  background-repeat: no-repeat;
+  background-size: 100% 100%; }
+
+.margin {
+  margin: 0 auto; }
+
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
+.hide {
+  display: none; }
+
+.show {
+  display: block; }
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+
+@-webkit-keyframes backOpacity {
+  0% {
+    opacity: 1; }
+  25% {
+    opacity: .5; }
+  50% {
+    opacity: 1; }
+  75% {
+    opacity: .5; }
+  100% {
+    opacity: 1; } }
+
+@keyframes backOpacity {
+  0% {
+    opacity: 1; }
+  25% {
+    opacity: .5; }
+  50% {
+    opacity: 1; }
+  75% {
+    opacity: .5; }
+  100% {
+    opacity: 1; } }
+
+.animation_opactiy {
+  -webkit-animation: backOpacity 2s ease-in-out infinite;
+          animation: backOpacity 2s ease-in-out infinite; }
+
+/*# sourceMappingURL=common.css.map */

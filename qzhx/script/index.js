@@ -194,6 +194,13 @@ $(function () {
             $(theParentContent).find('.part1').hide();
             $(theParentContent).find('.part2').hide();
             $(theParentContent).find('.part-' + theIndex).show();
+            if(theIndex==2){
+                me.loadPart2();
+            }
+            else{
+                me.loadPart1();
+            }
+            //debugger;
 
         });
         $('.tab-direction .tab-left,.tab-direction .tab-right').click(function () {
