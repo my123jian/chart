@@ -116,28 +116,32 @@
                     },
                     itemStyle: {
                         normal: {
-                            borderColor: 'rgba(100,149,237,1)',
+                            //areaColor: '#0040a3',
+                            //borderColor: '#49ffff'
+                            borderColor: '#49ffff',
                             borderWidth: 1,
                             areaStyle: {
-                                color: '#2b7ecc'
+                                color: 'rgba(31,70,143,0.8)',//#1f468f'
                             }
                         }
                     },
                     data: [],
                     markLine: {
                         smooth: true,
+                        symbol:'none',
                         effect: {
                             show: true,
                             scaleSize: 1,
                             period: 30,
-                            color: '#fff',
+                            color: '#00c7ff',
                             shadowBlur: 10
                         },
                         itemStyle: {
                             normal: {
                                 label: {show: false},
-                                borderWidth: 1,
+                                borderWidth: 2,
                                 lineStyle: {
+                                    color: '#00c7ff',
                                     type: 'solid',
                                     shadowBlur: 10
                                 }
@@ -170,6 +174,7 @@
                         },
                         itemStyle: {
                             normal: {
+                                color:'#1dd9ff',
                                 label: {show: false}
                             },
                             emphasis: {

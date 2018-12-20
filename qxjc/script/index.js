@@ -553,24 +553,36 @@ $(function () {
                 roam: false,//鼠标不可移动
                 itemStyle: {
                     normal: {//选取前颜色
-                        /*areaColor: {
+                       /* areaColor: {
                             type: 'linear',
                             x: 0,
                             y: 0,
                             x2: 0,
                             y2: 1,
                             colorStops: [{
-                                offset: 0, color: '#2b7ecc00' // 0% 处的颜色
+                                offset: 0, color: '#0033a0'//'#2b7ecc00' // 0% 处的颜色
                             }, {
-                                offset: 1, color: '#2b7ecc' // 100% 处的颜色
+                                offset: 1, color: '#006dac'//'#2b7ecc' // 100% 处的颜色
                             }],
                             globalCoord: false // 缺省为 false
-                        }*/
-                        areaColor: '#2b7ecc',
+                        },*/
+                       areaColor: '#0040a3',
                         borderColor: '#49ffff'
                     },
                     emphasis: {//选取后颜色
-                        areaColor: '#24b1e5'
+                        areaColor: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 1, color: '#2b7fcd'//'#2b7ecc00' // 0% 处的颜色
+                            }, {
+                                offset: 0, color: '#1ee6ff'//'#2b7ecc' // 100% 处的颜色
+                            }],
+                            globalCoord: false // 缺省为 false
+                        },//'#24b1e5'
                     }
                 },
                 // center: [113.5107, 23.2196],
