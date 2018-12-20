@@ -41,7 +41,7 @@ $(function () {
         "SHENG": "qxdc_province.html",
         "COUNTRY": "qxdc_country.html",
         "GAT": "qxdc_video.html",
-        "JINGWAI": "qxdc_video.html",
+        "JINGWAI": "qxdc_earth.html",
     }
     var theCurrentView = 2;
     var theDirection = DirectionType.SHENG;
@@ -113,11 +113,24 @@ $(function () {
             var theDirType = $(this).data('type');
             var theName = tabNames[theDirType];
             //debugger;
+            if (theCurrentView != ViewType.PROVINCE) {
+                if (theDirection != theDirType) {
+                    theDirection = theDirType;
+                    if (theDirType == DirectionType.JW) {
+                        me.loadPage(PageNameDic.JINGWAI);
+                    }
+                    else {
+                        me.loadPage(PageNameDic.COUNTRY);
+                    }
+                }
+            }
+
             $(this).closest('.part1').find('.hd-first').text(theName);
             if (theCurrentView == ViewType.IN) {
                 //2,迁出 1.迁入
                 //1.境外 2.港澳台 3省外
                 //me.loadMigrantDirectType(ViewType.IN, theDirType, formateDate());
+
                 me.loadInView(theCurrentView);
             }
             else if (theCurrentView == ViewType.OUT) {
@@ -186,25 +199,25 @@ $(function () {
             }
         });
         $('#' + theFromCityId + ",#" + theToCityId).change(function () {
-           var theFromCityValue=  $('#' + theFromCityId).val();
-            var theToCityValue=  $("#" + theToCityId).val();
-            if($.isEmptyObject(theFromCityValue)||$.isEmptyObject(theToCityValue)){
+            var theFromCityValue = $('#' + theFromCityId).val();
+            var theToCityValue = $("#" + theToCityId).val();
+            if ($.isEmptyObject(theFromCityValue) || $.isEmptyObject(theToCityValue)) {
                 return;
             }
 
-            if($.isEmptyObject(theFromCityValue)){
-               alert("请选择来源城市!");
+            if ($.isEmptyObject(theFromCityValue)) {
+                alert("请选择来源城市!");
                 return;
             }
-            if($.isEmptyObject(theToCityValue)){
+            if ($.isEmptyObject(theToCityValue)) {
                 alert("请选择目标城市!");
                 return;
             }
-            if(theFromCityValue==theToCityValue){
+            if (theFromCityValue == theToCityValue) {
                 alert("来源城市和目标城市不能相同!");
                 return;
             }
-            me.loadMigrantChannelType(theCurrentView,formateDate(),theFromCityValue,theToCityValue);
+            me.loadMigrantChannelType(theCurrentView, formateDate(), theFromCityValue, theToCityValue);
         });
     }
 
@@ -256,6 +269,7 @@ $(function () {
             case ViewType.IN:
                 theDirection = DirectionType.SHENG;//设置为港澳台
                 theCurrentView = viewName;
+
                 this.loadInView(viewName);
                 break;
             case  ViewType.OUT:
@@ -288,7 +302,7 @@ $(function () {
         var theSubString = "迁出人数";
         var theSelectData = $(theSelectDiv).find('.tab-direction .select').data();
         var theTitle = theSelectData.name + theSubString;
-       // this.loadMigrantOutType(formateDate());
+        // this.loadMigrantOutType(formateDate());
         this.updateNum(theTitle, "");
         var me = this;
         this.loadMigrantDirectType(theCurrentView, theSelectData.type, formateDate());
@@ -536,7 +550,7 @@ $(function () {
                     var theDataList = theData;
                     if (seeType == 3) {
                         theDataList = theData && theData.length > 0 ? theData[0].list : [];
-                        $('#direction-num').text(theData.countNum||0);
+                        $('#direction-num').text(theData.countNum || 0);
                         //debugger;
                     }
                     for (var i = 0; i < theDataList.length; i++) {
@@ -600,7 +614,7 @@ $(function () {
             sourceType: sourceType,
             date: date
         };
-        this.currentTable=[];
+        this.currentTable = [];
         // debugger;
         var me = this;
         console.log("开始获取迁出渠道人数比", theData);
@@ -627,23 +641,23 @@ $(function () {
                         "shuilu": 0,
                         "tielu": 0,
                         "qita": 0,
-                        "from": seeType==ViewType.OUT?"广州": "",
-                        "to":  seeType==ViewType.IN?"广州": "",
+                        "from": seeType == ViewType.OUT ? "广州" : "",
+                        "to": seeType == ViewType.IN ? "广州" : "",
                         'type': seeType,
                         "sourceType": sourceType,
                         "value": 0
                     };
                     theRow['area'] = theDataItem.area;
-                    if(seeType==ViewType.OUT){
-                        theRow['to']=me.getProvinceCity(theDataItem.area);
+                    if (seeType == ViewType.OUT) {
+                        theRow['to'] = me.getProvinceCity(theDataItem.area);
                     }
-                    else if(seeType==ViewType.IN){
-                        theRow['from']=me.getProvinceCity(theDataItem.area);
+                    else if (seeType == ViewType.IN) {
+                        theRow['from'] = me.getProvinceCity(theDataItem.area);
                     }
-                    else{
-                        var theCitys=theDataItem.area.split('-');
-                        theRow['from']=theCitys[0];
-                        theRow['to']=theCitys[1];
+                    else {
+                        var theCitys = theDataItem.area.split('-');
+                        theRow['from'] = theCitys[0];
+                        theRow['to'] = theCitys[1];
                     }
                     /*
                     * fromCity: "广州"
@@ -658,7 +672,7 @@ toCity: "深圳"
 
                     for (var j = 0; j < theDataItem.list.length; j++) {
                         var theCellItem = theDataItem.list[j];
-                        theRow[theChannelMap[theCellItem.outChannel || theCellItem.inChannel||theCellItem.migChannel]] = (theCellItem.outPercentage || theCellItem.inPercentage||theCellItem.oPercentage);
+                        theRow[theChannelMap[theCellItem.outChannel || theCellItem.inChannel || theCellItem.migChannel]] = (theCellItem.outPercentage || theCellItem.inPercentage || theCellItem.oPercentage);
                     }
                     theTableList.push(theRow);
                 }
