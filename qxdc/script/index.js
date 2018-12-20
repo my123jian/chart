@@ -225,7 +225,13 @@ $(function () {
         $('#page_div').attr('src', name);
     }
     PageViewModel.prototype.refreshPage = function (data) {
-        $('#page_div')[0].contentWindow.refresh(data);
+        try {
+            $('#page_div')[0].contentWindow.refresh(data);
+        }
+        catch (e) {
+            console.log(e);
+        }
+
     }
     /**
      * 初始化视频地图
@@ -335,7 +341,7 @@ $(function () {
         var theSelectDiv = $('.part-3');
         var theTitle = "省内迁徙人数";
         //var theData = 111111111;
-        //this.updateNum(theTitle, theData);
+        this.updateNum(theTitle, "");
         var theCharts = {};
         $(theSelectDiv).find('.chart-item').each(function () {
             var theName = $(this).data('name');
@@ -375,6 +381,7 @@ $(function () {
                     console.log("迁徙类别分布人数数据为空!");
                     return;
                 }
+
                 $('#num' + theData.migType).text((theData.num / 10000).toFixed(2));
                 //debugger;
                 if (theCurrentView == theData.migType) {
@@ -457,8 +464,9 @@ $(function () {
                 }
                 for (var i = 0; i < theDatas.length; i++) {
                     var theData = theDatas[i];
-                    theDefaultData[theData.migType] = (theData.num / 10000).toFixed(2);
+                    theDefaultData[theData.migType] = theData.num ;//.toFixed(2);
                 }
+                //debugger;
                 for (var key in theDefaultData) {
                     $('#num' + key).text((theDefaultData[key] / 10000).toFixed(2));
                     //debugger;
@@ -655,6 +663,7 @@ $(function () {
                         theRow['from'] = me.getProvinceCity(theDataItem.area);
                     }
                     else {
+                        //debugger;
                         var theCitys = theDataItem.area.split('-');
                         theRow['from'] = theCitys[0];
                         theRow['to'] = theCitys[1];
