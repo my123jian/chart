@@ -134,6 +134,7 @@
             left: 0,
             right: 0,
             bottom: 0,
+            hoverable: false,//点击不反应
             itemStyle: {
                 normal: {
                     //areaColor: '#0040a3',
@@ -145,9 +146,38 @@
                     borderWidth: 1,
                     areaStyle: {
                         color: '#2b7ecc'
+                    },
+                    label:{
+                        show:true,
+                        color:'white'
                     }
                 },
 
+            },
+            emphasis:{
+                label:{
+                    textStyle:{
+                        color:'white',
+                    }
+                },
+                itemStyle:{
+                    normal: {
+                        //areaColor: '#0040a3',
+                        //borderColor: '#49ffff'
+                        //areaColor: '#0040a3',
+                        //borderColor: '#49ffff'
+                        borderColor:'#49ffff',// 'rgba(100,149,237,1)',
+                        areaColor: '#3997d3',//'#2b7ecc',
+                        borderWidth: 1,
+                        areaStyle: {
+                            color: '#2b7ecc'
+                        },
+                        label:{
+                            show:true,
+                            color:'white'
+                        }
+                    },
+                },
             },
             boundingCoords: [
                 [-180, 90],
@@ -173,6 +203,9 @@
         globe: {
             baseTexture: mapChart,
             shading:'color',
+            label:{
+                show:true,
+            },
             // shading: 'lambert',
             light: { // 光照阴影
                 main: {
@@ -186,6 +219,16 @@
                 ambient: {
                     intensity: 0.5
                 }
+            },
+            emphasis:{
+                label:{
+                    textStyle:{
+                        color:'white',
+                    }
+                },
+                itemStyle:{
+                    color:'#3997d3'
+                },
             },
             viewControl: {
                 alpha: 30,
