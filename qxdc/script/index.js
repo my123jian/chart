@@ -45,6 +45,8 @@ $(function () {
     }
     var theCurrentView = 2;
     var theDirection = DirectionType.SHENG;
+    var theDirection1 = DirectionType.SHENG;
+    var theDirection2 = DirectionType.SHENG;
     var isStopRefresh = true;
     var theTimer = null;
     var theCurrentDate = null;
@@ -99,7 +101,25 @@ $(function () {
             }
             else {
                 //debugger;
-                me.loadPage(PageNameDic.COUNTRY);
+                if(theIndex==ViewType.IN){
+                    if(theDirection1==DirectionType.JW){
+                        me.loadPage(PageNameDic.JINGWAI);
+                    }
+                    else{
+                        me.loadPage(PageNameDic.COUNTRY);
+                    }
+
+                }
+                if(theIndex==ViewType.OUT)
+                {
+                    if(theDirection2==DirectionType.JW){
+                        me.loadPage(PageNameDic.JINGWAI);
+                    }
+                    else{
+                        me.loadPage(PageNameDic.COUNTRY);
+                    }
+                }
+
                 me.switchView(theIndex);
                 $(theParentContent).addClass('content-img' + theIndex);
                 $(theParentContent).find('.part-' + theIndex).show();
@@ -113,16 +133,31 @@ $(function () {
             var theDirType = $(this).data('type');
             var theName = tabNames[theDirType];
             //debugger;
+
             if (theCurrentView != ViewType.PROVINCE) {
-                if (theDirection != theDirType) {
-                    theDirection = theDirType;
-                    if (theDirType == DirectionType.JW) {
-                        me.loadPage(PageNameDic.JINGWAI);
-                    }
-                    else {
-                        me.loadPage(PageNameDic.COUNTRY);
+                if(theCurrentView==ViewType.IN){
+                    if (theDirection1 != theDirType) {
+                        theDirection1 = theDirType;
+                        if (theDirType == DirectionType.JW) {
+                            me.loadPage(PageNameDic.JINGWAI);
+                        }
+                        else {
+                            me.loadPage(PageNameDic.COUNTRY);
+                        }
                     }
                 }
+                if(theCurrentView==ViewType.OUT){
+                    if (theDirection2 != theDirType) {
+                        theDirection2 = theDirType;
+                        if (theDirType == DirectionType.JW) {
+                            me.loadPage(PageNameDic.JINGWAI);
+                        }
+                        else {
+                            me.loadPage(PageNameDic.COUNTRY);
+                        }
+                    }
+                }
+
             }
 
             $(this).closest('.part1').find('.hd-first').text(theName);
@@ -271,15 +306,16 @@ $(function () {
             return;
         }
         //debugger;
+        //debugger;
         switch (viewName) {
             case ViewType.IN:
-                theDirection = DirectionType.SHENG;//设置为港澳台
+                theDirection = theDirection1|| DirectionType.SHENG;//设置为港澳台
                 theCurrentView = viewName;
 
                 this.loadInView(viewName);
                 break;
             case  ViewType.OUT:
-                theDirection = DirectionType.SHENG;//设置为港澳台
+                theDirection = theDirection2|| DirectionType.SHENG;//设置为港澳台
                 theCurrentView = viewName;
                 this.loadOutView(viewName);
                 break;

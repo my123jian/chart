@@ -55,7 +55,7 @@ $(function () {
         theMap = new AMap.Map('container', {
             pitch: 0,
             mapStyle: theDefaultMapStyle,
-            viewMode: '3D',// 地图模式
+            //viewMode: '3D',// 地图模式
             center: theCenterPoint,
             features: ['bg', 'building', 'point'],//['all'],// ['bg', 'building','point'],
             zoom: 8,
@@ -194,6 +194,38 @@ $(function () {
         this.initMapEvent();
         this.initMap2Event();
     }
+    MapBase.prototype.hideOtherProvince = function (status) {
+
+        if (!this.provinceLayer) {
+            var thePaths=theGdProvincePath.map(function (m) {
+                return [m.lng,m.lat];
+            });
+            var thePath2=[
+                [-180, -90],
+                [-180, 90],
+                [180, 90],
+                [180, -90],
+                [-180, -90]
+            ];
+            debugger;
+            this.provinceLayer = new AMap.Polygon({
+                map: theMap,
+                //strokeWeight: 10,
+               fillColor:'#132c58',
+                fillOpacity: 1,
+                //strokeColor:'green',
+
+                path:[thePath2,thePaths]
+            });
+        }
+        if (!status) {
+            this.provinceLayer.hide();
+        }
+        else {
+            this.provinceLayer.show();
+            //theMap.setFitView(this.provinceLayer);
+        }
+    }
     /**
      * 初始化大图事件
      */
@@ -248,7 +280,7 @@ $(function () {
             }
             if (theZoom >= 12) {
                 // console.log("显示点");
-                theMap.setFeatures(['bg', 'building', 'point']);
+                theMap.setFeatures(['bg', 'building', 'point','road']);
                 theMap.add(roadNet);
                 theMap.add(building);
                 theMap.setPitch(45);
@@ -404,25 +436,37 @@ $(function () {
         theMap2.setMapStyle('');
     }
 
+    MapBase.prototype.showTrafficLayer=function(){
+        let trafficlayer = 44;
+        let trafficLayer = new AMap.TileLayer({
+            tileSize: 256,
+            zIndex: 20,
+            getTileUrl: function (x, y, z) {
+                return "http://render.tb.amap.com/tile?lid=" + trafficlayer + "&get=map&cache=off&z=" + z + "&x=" + x + "&y=" + y;
+            }
+        });
+        trafficLayer.setMap(theMap);
+    }
     MapBase.prototype.showLine = function (thePaths, map, map2) {
         console.log("开始绘制线！");
+        this.provincePath = thePaths;
         if (!thePaths) {
             console.log("未找到最大的轮廓");
             return;
         }
-       /* var theString = thePaths.map(function (m) {
-            return m.lng + ',' + m.lat;
-        }).join(';');
-        map.setBounds(theString);*/
+        /* var theString = thePaths.map(function (m) {
+             return m.lng + ',' + m.lat;
+         }).join(';');
+         map.setBounds(theString);*/
         //map.setLimitBounds(thePaths);
-      /* var theBounds= new AMap.Polyline({
-            path: thePaths,
-            //strokeWeight: 100,
-            borderWeight: 8, // 线条宽度，默认为 1
-            strokeColor: 'white'//, // 线条颜色
-            //lineJoin: 'round' // 折线拐点连接处样式
-        });
-        map.setBounds(theBounds.getBounds());*/
+        /* var theBounds= new AMap.Polyline({
+              path: thePaths,
+              //strokeWeight: 100,
+              borderWeight: 8, // 线条宽度，默认为 1
+              strokeColor: 'white'//, // 线条颜色
+              //lineJoin: 'round' // 折线拐点连接处样式
+          });
+          map.setBounds(theBounds.getBounds());*/
         var theIndex = 1;
         var thePoints = [];
         thePoints.push(thePaths[0]);
