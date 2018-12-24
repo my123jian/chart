@@ -1,5 +1,7 @@
+// console.log(serviceBase);
+var serviceBase = serviceBase;  // 基地址
+
 $(function(){
-  var serviceBase = serviceBase;  // 基地址
 
   /**
    * ajax封装
@@ -47,7 +49,7 @@ $(function(){
       return;
     }
     console.log('开始访问:',url);
-    data = (data==null || data=="" || typeof(data)=="undefined")? {"date": new Date().getTime()} : data;
+    // data = (data==null || data=="" || typeof(data)=="undefined")? {"date": new Date().getTime()} : data;
     $.ajax({
       type: "post",
       data: data,

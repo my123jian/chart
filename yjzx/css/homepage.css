@@ -107,6 +107,19 @@ html, body {
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2), 5px -5px 5px rgba(0, 0, 0, 0.2), -5px 5px 5px rgba(0, 0, 0, 0.2), -5px -5px 5px rgba(0, 0, 0, 0.2);
           box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2), 5px -5px 5px rgba(0, 0, 0, 0.2), -5px 5px 5px rgba(0, 0, 0, 0.2), -5px -5px 5px rgba(0, 0, 0, 0.2); }
 
+.hidden-cld {
+  width: 295px;
+  height: 100%;
+  position: absolute;
+  left: 45px;
+  top: 0;
+  background-color: #12508f;
+  color: #fff;
+  text-align: center;
+  z-index: 2;
+  opacity: 0;
+  cursor: pointer; }
+
 .title {
   width: 700px;
   height: 160px;
@@ -122,6 +135,15 @@ html, body {
     height: 80px;
     top: 32px;
     left: 32px; }
+
+.back-div {
+  width: 225px;
+  height: 102px;
+  position: absolute;
+  top: 158px;
+  z-index: 100;
+  left: 20px;
+  opacity: 0; }
 
 .road-net {
   height: 97px;
@@ -594,6 +616,10 @@ html, body {
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards; }
 
+.rotate {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg); }
+
 .dn {
   display: none !important; }
 
@@ -821,7 +847,7 @@ html, body {
 .tab-box2 .tab-box2-li2 {
   background: url("../img/4icon_left_2_nor.png") no-repeat; }
   .tab-box2 .tab-box2-li2 .li-tab-box {
-    height: 750px;
+    height: 670px;
     top: -235px; }
     .tab-box2 .tab-box2-li2 .li-tab-box header {
       width: 100%;
@@ -865,7 +891,9 @@ html, body {
         height: 100%;
         background-color: #12508f;
         font-size: 16px;
-        color: #ddf3ff; }
+        color: #ddf3ff;
+        padding-left: 10px;
+        cursor: pointer; }
       .tab-box2 .tab-box2-li2 .li-tab-box .chart-box .arrow {
         position: absolute;
         right: 0;
@@ -878,7 +906,7 @@ html, body {
         background: url("../img/icon_date_arrows_on.png") no-repeat;
         background-position: center; }
     .tab-box2 .tab-box2-li2 .li-tab-box .chart-box2 {
-      height: 250px;
+      height: 200px;
       padding: 0 20px; }
       .tab-box2 .tab-box2-li2 .li-tab-box .chart-box2 .header label {
         font-size: 18px;
@@ -941,7 +969,8 @@ html, body {
       height: 100%;
       background-color: #12508f;
       font-size: 16px;
-      color: #ddf3ff; }
+      color: #ddf3ff;
+      padding-left: 10px; }
     .tab-box3 .tab-box2-li2 .li-tab-box .arrow {
       position: absolute;
       right: 0;
@@ -1008,7 +1037,8 @@ html, body {
       height: 100%;
       background-color: #12508f;
       font-size: 16px;
-      color: #ddf3ff; }
+      color: #ddf3ff;
+      padding-left: 10px; }
     .tab-box4 .tab-box2-li2 .calendar-box .arrow {
       position: absolute;
       right: 0;
@@ -1050,7 +1080,8 @@ html, body {
       height: 100%;
       background-color: #12508f;
       font-size: 16px;
-      color: #ddf3ff; }
+      color: #ddf3ff;
+      padding-left: 10px; }
     .tab-box5 .tab-box2-li2 .calendar-box .arrow {
       position: absolute;
       right: 0;
@@ -1073,13 +1104,14 @@ html, body {
     width: 100%; }
   .tab-box2 .tab-box2-li3 .tab-li3-cld {
     width: 295px;
-    height: 100%;
+    height: 40px;
     position: absolute;
-    left: 45px;
-    top: 0;
+    left: 154px;
+    top: 20px;
     background-color: #12508f;
     color: #fff;
-    text-align: center; }
+    text-align: center;
+    z-index: 1; }
   .tab-box2 .tab-box2-li3 .arrow {
     position: absolute;
     right: 0;
@@ -1106,7 +1138,9 @@ html, body {
       padding: 20px 30px;
       -webkit-box-pack: center;
           -ms-flex-pack: center;
-              justify-content: center; }
+              justify-content: center;
+      cursor: default;
+      position: relative; }
     .tab-box2 .tab-box2-li3 .li-tab-box .calendar {
       width: 380px;
       height: 40px;
@@ -1123,13 +1157,14 @@ html, body {
   background: url("../img/4icon_left_4_nor.png") no-repeat; }
   .tab-box3 .tab-box2-li3 .tab-li3-cld {
     width: 295px;
-    height: 100%;
+    height: 40px;
     position: absolute;
-    left: 45px;
-    top: 0;
+    left: 154px;
+    top: 20px;
     text-align: center;
     color: #fff;
-    background-color: #12508f; }
+    background-color: #12508f;
+    z-index: 1; }
   .tab-box3 .tab-box2-li3 .arrow {
     position: absolute;
     right: 0;
@@ -1175,12 +1210,13 @@ html, body {
   background: url("../img/4icon_left_4_nor.png") no-repeat; }
   .tab-box4 .tab-box2-li3 .tab4-big-cld {
     width: 295px;
-    height: 100%;
+    height: 40px;
     position: absolute;
-    left: 45px;
-    top: 0;
+    left: 154px;
+    top: 20px;
     text-align: center;
     color: #ffffff;
+    z-index: 1;
     background-color: #12508f; }
   .tab-box4 .tab-box2-li3 .arrow {
     position: absolute;
@@ -1222,10 +1258,10 @@ html, body {
   background: url("../img/4icon_left_4_nor.png") no-repeat; }
   .tab-box5 .tab-box2-li3 .tab5-big-cld {
     width: 295px;
-    height: 100%;
+    height: 40px;
     position: absolute;
-    left: 45px;
-    top: 0;
+    left: 154px;
+    top: 20px;
     text-align: center;
     color: #ffffff;
     background-color: #12508f; }
@@ -1411,7 +1447,8 @@ html, body {
       top: 0;
       font-size: 16px;
       color: #ddf3ff;
-      text-align: center; }
+      text-align: center;
+      cursor: pointer; }
     .tab-box2 .tab-box2-li4 .li-tab-box header {
       display: -webkit-box;
       display: -ms-flexbox;
@@ -1431,6 +1468,9 @@ html, body {
         .tab-box2 .tab-box2-li4 .li-tab-box header div label {
           font-size: 34px;
           color: #ddf3ff; }
+          .tab-box2 .tab-box2-li4 .li-tab-box header div label span {
+            font-size: 16px;
+            color: #ddf3ff; }
     .tab-box2 .tab-box2-li4 .li-tab-box .chart-box1 {
       width: 100%;
       height: 160px;
@@ -1600,7 +1640,8 @@ html, body {
       top: 0;
       font-size: 16px;
       color: #ddf3ff;
-      text-align: center; }
+      text-align: center;
+      cursor: pointer; }
     .tab-box3 .tab-box2-li4 .li-tab-box .chart1 {
       height: 220px;
       width: 100%; }
@@ -1752,5 +1793,101 @@ input:focus {
             justify-content: center; }
   #DivButton div.active {
     background: url("../img/layer_choose.png") no-repeat; }
+
+.luwang-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  padding: 50px 40px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none; }
+  .luwang-box .container {
+    width: 300px;
+    height: 600px; }
+  .luwang-box .profile {
+    text-align: center; }
+    .luwang-box .profile .date {
+      font-size: 18px;
+      color: #7da7d9; }
+    .luwang-box .profile .led {
+      font-size: 20px;
+      color: #ffffff; }
+  .luwang-box .title-lw {
+    color: #ffb700; }
+    .luwang-box .title-lw p {
+      margin: 0px;
+      font-size: 15px;
+      padding-bottom: 4.8px;
+      font-weight: bold; }
+    .luwang-box .title-lw .headers {
+      background: #445b92;
+      color: white;
+      padding-left: 3.6px;
+      padding-right: 3.6px;
+      font-weight: bold; }
+    .luwang-box .title-lw .headers table {
+      width: 100%; }
+    .luwang-box .title-lw .headers tr {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between; }
+  .luwang-box .multiPanel {
+    height: 400px;
+    border-radius: 4.8px;
+    background: rgba(255, 255, 255, 0.07);
+    margin-top: 10px; }
+  .luwang-box .multiPanel div.container {
+    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: scroll; }
+    .luwang-box .multiPanel div.container li {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      padding-top: 10px; }
+    .luwang-box .multiPanel div.container li:nth-last-child(1) {
+      padding-bottom: 10px; }
+    .luwang-box .multiPanel div.container .idx {
+      background-color: red;
+      color: white;
+      font-family: serif;
+      font-size: 15.6px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      width: 20px;
+      height: 40px;
+      border-radius: 5px;
+      margin-left: 10px; }
+    .luwang-box .multiPanel div.container .road-profile {
+      color: #00aeef;
+      width: 205px; }
+      .luwang-box .multiPanel div.container .road-profile p {
+        padding-left: 10px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+    .luwang-box .multiPanel div.container .jam-data {
+      color: #00aeef;
+      width: 70px; }
+      .luwang-box .multiPanel div.container .jam-data p {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; }
+  .luwang-box .multiPanel div.container::-webkit-scrollbar {
+    display: none; }
 
 /*# sourceMappingURL=homepage.css.map */

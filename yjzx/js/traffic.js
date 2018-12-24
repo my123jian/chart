@@ -19,7 +19,8 @@ function TrafficView(map,samllmap) {
     this.EndPointCss = "";
     this.TheMap = map;
     this.MarkPoints = [];
-    this.RoadPath = null;
+    this.RoadPaths=[];
+    //this.RoadPath = null;
     this.StartPoint = null;
     this.EndPoint = null;
     this.RoadZommLevel = 10;
@@ -35,13 +36,13 @@ function TrafficView(map,samllmap) {
             me.hidePoints();
         }
         else {
-           // me.hideRoad();
+            // me.hideRoad();
             me.showPoints();
         }
     })
-    this.TheSmallMap = samllmap;
-    this.TheMap.setMapStyle("");
-    this.TheSmallMap && this.TheSmallMap.setMapStyle("");
+    // this.TheSmallMap = samllmap;
+    // this.TheMap.setMapStyle("");
+    // this.TheSmallMap && this.TheSmallMap.setMapStyle("");
 }
 /*删除点*/
 TrafficView.prototype.removePoints = function () {
@@ -53,52 +54,63 @@ TrafficView.prototype.removePoints = function () {
 TrafficView.prototype.drawPoints = function () {
 
 }
-/*画路段通过ID*/
-TrafficView.prototype.drawRoadById = function (id) {
-    if (this.MarkPoints && this.MarkPoints.length > 0) {
-        for (var i = 0; i < this.MarkPoints.length; i++) {
-            var thePoint = this.MarkPoints[i];
-            var theData = thePoint.getExtData();
-            if (theData.id == id) {
-                this.drawRoad(theData);
-                break;
-            }
-        }
+
+
+TrafficView.prototype.drawRoads = function (paramters) {
+    if (!paramters) {
+        console.log("道路参数不正确!");
+        return;
     }
+    for(var i=0;i<this.RoadPaths.length;i++){
+        this.TheMap.remove(this.RoadPaths[i]);
+    }
+    this.RoadPaths=[];
+    for (var i=0;i<paramters.length;i++){
+        var theParamter=paramters[i];
+        var theRoad=this.drawRoad(theParamter);
+        this.RoadPaths.push(theRoad);
+    }
+
+    this.showRoads();
 }
+
+
 /*画路线*/
 TrafficView.prototype.drawRoad = function (paramter) {
     if (!paramter) {
         console.log("道路参数不正确!");
         return;
     }
-    var path = paramter.coords;
-    var pathArray = [];
-    for (var i = 0; i < path.length; i++) {
-        var thePoint = path[i];
-        pathArray.push(new AMap.LngLat(thePoint.lon, thePoint.lat));
-    }
-    path = pathArray;
+    var path = paramter;
+    // var pathArray = [];
+    // debugger
+    var pathArray = path.map(function (item) {
+        var temp = item.split(',');
+        // console.log(temp)
+        return new AMap.LngLat(parseFloat(temp[0]), parseFloat(temp[1]))
+    });
+
     var theStartPoint = path[0];
     var theEndPoint = path[path.length - 1];
-    //删除路径重新绘制
-    if (this.RoadPath) {
-        this.TheMap.remove(this.RoadPath);
-    }
-    debugger;
-    this.RoadPath = new AMap.Polyline({
-        path: path,
-        strokeColor: "#9933ff",
+
+    // debugger;
+    var RoadPath = new AMap.Polyline({
+        path: pathArray,
+        strokeColor: "#a61dff",
         strokeOpacity: "0.6",
         strokeWeight: "6",
         strokeStyle: "solid",
+        zIndex: 1000,
         strokeDasharray: [10, 5]
     });
-    this.TheMap.add(this.RoadPath);
+    // debugger
+    this.TheMap.add(RoadPath);
+    // idx++;
+    // console.log(idx)
     //this.RoadPath.setPath(path);
-    this.drawStart(theStartPoint);
-    this.drawEnd(theEndPoint);
-    this.showRoad();
+    // this.drawStart(theStartPoint);
+    // this.drawEnd(theEndPoint);
+    return RoadPath;
 }
 /*画起始点*/
 TrafficView.prototype.drawStart = function (point) {
@@ -127,8 +139,8 @@ TrafficView.prototype.drawEnd = function (point) {
     this.EndPoint.setPosition(point);
 }
 /*显示路况*/
-TrafficView.prototype.showRoad = function () {
-   
+TrafficView.prototype.showRoads = function () {
+
     this.hidePoints();
     if (this.StartPoint) {
         this.StartPoint.show();
@@ -136,15 +148,19 @@ TrafficView.prototype.showRoad = function () {
     if (this.EndPoint) {
         this.EndPoint.show();
     }
-    if (this.RoadPath) {
-        this.RoadPath.show();
+    if (this.RoadPaths) {
+        for(var i=0;i<this.RoadPaths.length;i++){
+            this.RoadPaths[i].show();
+        }
+        this.TheMap.setFitView(this.RoadPaths);
     }
-    this.TheMap.setFitView();
+
+    // map.setFitView([polyline,marker1]);
 }
 
 //1543470480000
 /*隐藏路况*/
-TrafficView.prototype.hideRoad = function () {
+TrafficView.prototype.hideRoads = function () {
     if (this.StartPoint) {
         this.StartPoint.hide();
     }
@@ -152,7 +168,11 @@ TrafficView.prototype.hideRoad = function () {
         this.EndPoint.hide();
     }
     if (this.RoadPath) {
-        this.RoadPath.hide();
+        if (this.RoadPaths) {
+            for(var i=0;i<this.RoadPaths.length;i++){
+                this.RoadPaths[i].hide();
+            }
+        }
     }
 }
 /*显示交通状态点*/
@@ -188,8 +208,11 @@ TrafficView.prototype.destory = function () {
         if (this.EndPoint) {
             this.TheMap.remove(this.EndPoint);
         }
-        if (this.RoadPath) {
-            this.TheMap.remove(this.RoadPath);
+        if (this.RoadPaths) {
+            for(var i=0;i<this.RoadPaths.length;i++){
+                this.TheMap.remove(this.RoadPaths[i]);
+            }
+            this.RoadPaths=[];
         }
     }
 
@@ -265,7 +288,7 @@ TrafficView.prototype.loadData = function (theJsonObj) {
     }
     for (var i = 0; i < theJsonObj.tableData.length; i++) {
         var theTable = theJsonObj.tableData[i];
-        var thePoint = theTable.coords[0];      
+        var thePoint = theTable.coords[0];
         var theMarkPoint = new AMap.LngLat(thePoint.lon, thePoint.lat);
         //debugger;
         var theMarker = new AMap.Marker({
