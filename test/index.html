@@ -418,7 +418,10 @@
 
     function printRect() {
         if (polygon) {
-            console.log(polygon.getPath());
+            var thePorints=polygon.getPath().map(function (item) {
+                return [item.lng,item.lat];
+            });
+            console.log(JSON.stringify(thePorints));
         }
     }
 </script>
