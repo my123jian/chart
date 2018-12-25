@@ -59,6 +59,7 @@ $(function () {
             var theBeginDay=theDate.getDay();
             var theBeginDate=theDate.addDays(theBeginDay);
             var theEndDate=theBeginDate.addDays(6);
+            debugger
             return theBeginDate.getFullYear() + "-" + (theBeginDate.getMonth() + 1) + "-" + theBeginDate.getDate()+" - "+
                 theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
         }
@@ -283,6 +284,8 @@ $(function () {
             $(theParentContent).find('.part1').hide();
             $(theParentContent).find('.part2').hide();
             $(theParentContent).find('.part-' + theIndex).show();
+            $('.tab-item-right .firstline').css('margin-left','80px')
+            $('.tab-item-left .firstline').css('margin-left','54px')
 
 
         });
@@ -292,7 +295,8 @@ $(function () {
             $('.tab-main .tab-item-right').removeClass('select_a');
             $('.datediv,.dateline').hide();
             $('.datediv1,.dateline1').show();
-
+            $('.tab-item-left .firstline').css('margin-left','80px')
+            $('.tab-item-right .firstline').css('margin-left','54px')
 
             $(theParentContent).find('.part1').hide();
             $(theParentContent).find('.part2').hide();
@@ -787,7 +791,7 @@ $(function () {
         //debugger
         var theCallUrl = "bridge/bridgeAttributionType.do";
         var theParamter = {
-            personDirect: 1||personDirect,
+            personDirect: personDirect||1,
             date: formateDate()
         };
         var me = this;
@@ -820,8 +824,8 @@ $(function () {
     PageViewModel.prototype.loadBridgeAttributionArea = function (personDirect,affiliationType) {
         var theCallUrl = "/bridge/bridgeAttributionArea.do";
         var theData = {
-            personDirect: 1||personDirect,
-            affiliationType:1||affiliationType,
+            personDirect: personDirect||1,
+            affiliationType:affiliationType||1,
             date: formateDate()
         };
         var me = this;
