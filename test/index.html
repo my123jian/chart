@@ -14,159 +14,171 @@
     </style>
     <title>地图查找编辑工具</title>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=e78eb14a0b3399d1733b27fb6835e460&plugin=AMap.PolyEditor"></script>
-    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=e78eb14a0b3399d1733b27fb6835e460&plugin=AMap.PlaceSearch"></script>
+    <script type="text/javascript"
+            src="https://webapi.amap.com/maps?v=1.4.10&key=e78eb14a0b3399d1733b27fb6835e460&plugin=AMap.PolyEditor"></script>
+    <script type="text/javascript"
+            src="https://webapi.amap.com/maps?v=1.4.10&key=e78eb14a0b3399d1733b27fb6835e460&plugin=AMap.PlaceSearch"></script>
 </head>
 <body>
-    <div id="container"></div>
-    <div id="searchdiv" style="position: fixed;top:0px;top:0px;">
-        <div>
-            <input type="text" placeholder="输入字段搜索" id="search_key" />
-        </div>
-        <select id="pos_name" multiple style="height:300px;">
-            <option value="">请选择</option>
-        </select>
-
-        <input type="checkbox" id="multchecek" />
-        <button onclick="doSearch()">搜索</button>
-        <button onclick="PrintMarkers()">输出位置</button>
-        <div class="input-card" style="width: 120px">
-            <button class="btn" onclick="polyEditor.open()" style="margin-bottom: 5px">开始编辑</button>
-            <button class="btn" onclick="polyEditor.close()">结束编辑</button>
-        </div>
+<div id="container"></div>
+<div id="searchdiv" style="position: fixed;top:0px;top:0px;">
+    <div>
+        <input type="text" placeholder="输入字段搜索" id="search_key"/>
     </div>
+    <select id="pos_name" multiple style="height:300px;">
+        <option value="">请选择</option>
+    </select>
 
-    <script type="text/javascript">
-        var polyEditor=null;
-        var theDataResult={};
-        var theMakers=[];
-        var theMaxLevel=18;
-        var thePlaceStr="福田汽车客运站CBG\n" +
-    "龙岗长途汽车客运站\n" +
-    "罗湖汽车站\n" +
-    "深圳宝安国际机场\n" +
-    "深圳北站\n" +
-    "深圳汽车站\n" +
-    "深圳西站\n" +
-    "深圳站\n" +
-    "白云国际机场二号航站楼\n" +
-    "广东省汽车客运站\n" +
-    "广州白云国际机场\n" +
-    "广州北站\n" +
-    "广州东站\n" +
-    "广州芳村汽车客运站\n" +
-    "广州南站\n" +
-    "广州市汽车客运站\n" +
-    "广州市天河客运站\n" +
-    "广州站\n" +
-    "茂名市客运中心站\n" +
-    "湛江机场\n" +
-    "湛江徐闻海安港\n" +
-    "香洲长途站\n" +
-    "佛山汽车站\n" +
-    "河源汽车总站\n" +
-    "揭阳机场\n" +
-    "中山汽车总站\n" +
-    "中山小榄客运站\n" +
-    "江门汽车客运站\n" +
-    "惠州汽车总站\n" +
-    "惠州站\n" +
-    "东莞东\n" +
-    "东莞汽车总站\n" +
-    "东莞站\n" +
-    "东莞长安车站\n" +
-    "虎门站\n" +
-    "潮汕站\n" +
-    "潮州汽车客运站\n" +
-    "清远汽车客运站\n" +
-    "梁金山服务区-向东北\n" +
-    "梁金山服务区-向西南\n" +
-    "雅瑶服务区-向北\n" +
-    "雅瑶服务区-向南\n" +
-    "源潭服务区-向北\n" +
-    "安塘服务区-向东\n" +
-    "安塘服务区-向西\n" +
-    "莲花山服务区-向东\n" +
-    "莲花山服务区-向西\n" +
-    "阳江服务区-向东\n" +
-    "阳江服务区-向西\n" +
-    "黎溪服务区-向东北\n" +
-    "黎溪服务区-向西南\n" +
-    "勒流服务区-向东\n" +
-    "勒流服务区-向西\n" +
-    "顺德服务区-向北\n" +
-    "顺德服务区-向南\n" +
-    "热水服务区-向东北\n" +
-    "热水服务区-向西南\n" +
-    "石坝服务区-向东\n" +
-    "石坝服务区-向西\n" +
-    "泰美服务区-向北\n" +
-    "泰美服务区-向南\n" +
-    "龙甫服务区-向南\n" +
-    "龙甫服务区-向北\n" +
-    "电白服务区-向西\n" +
-    "电白服务区-向东\n" +
-    "沙埔服务区-向西\n" +
-    "沙埔服务区-向东\n" +
-    "广州花城服务区-向南\n" +
-    "清远西收费站\n" +
-    "广园收费站\n" +
-    "三元里收费站\n" +
-    "勒流收费站\n" +
-    "沙贝收费站\n" +
-    "佛山罗格收费站\n" +
-    "莞佛高速虎门大桥\n" +
-    "广佛高速沙贝立交\n" +
-    "长深高速惠州段\n" +
-    "沈海高速广州黄村立交\n" +
-    "大广高速与机场高速连接段\n" +
-    "济广高速金龙大道出入口\n" +
-    "京港高速广汕公路出入口\n" +
-    "粤赣高速小金口到热水段\n" +
-    "京珠北高速\n" +
-    "华南快速\n" +
-    "广深高速\n" +
-    "花都白云机场高速\n";
-        var thePlaces=['福田汽车客运站CBG', '龙岗长途汽车客运站', '罗湖汽车站', '深圳汽车站', '广东省汽车客运站', '广州芳村汽车客运站', '广州市汽车客运站', '广州市天河客运站', '茂名市客运中心站', '香洲长途站', '佛山汽车站', '河源汽车总站', '中山汽车总站', '中山小榄客运站', '江门汽车客运站', '惠州汽车总站', '东莞汽车总站', '东莞长安车站', '潮州汽车客运站', '清远汽车客运站', '梁金山服务区-向东北', '梁金山服务区-向西南', '雅瑶服务区-向北', '雅瑶服务区-向南', '源潭服务区-向北', '安塘服务区-向东', '安塘服务区-向西', '莲花山服务区-向东', '莲花山服务区-向西', '阳江服务区-向东', '阳江服务区-向西', '黎溪服务区-向东北', '黎溪服务区-向西南', '勒流服务区-向东', '勒流服务区-向西', '顺德服务区-向北', '顺德服务区-向南', '热水服务区-向东北', '热水服务区-向西南', '石坝服务区-向东', '石坝服务区-向西', '泰美服务区-向北', '泰美服务区-向南', '龙甫服务区-向南', '龙甫服务区-向北', '电白服务区-向西', '电白服务区-向东', '沙埔服务区-向西', '沙埔服务区-向东', '广州花城服务区-向南', '清远西收费站', '广园收费站', '三元里收费站', '勒流收费站', '沙贝收费站', '佛山罗格收费站', '莞佛高速虎门大桥', '广佛高速沙贝立交', '长深高速惠州段', '沈海高速广州黄村立交', '大广高速与机场高速连接段', '济广高速金龙大道出入口', '京港高速广汕公路出入口', '粤赣高速小金口到热水段', '京珠北高速', '华南快速', '广深高速', '机场高速'];
-        thePlaces=thePlaceStr.split('\n');
-        function PlaceData() {
-            this.Name={};
-            this.Geo={};
-            this.Region={};
+    <input type="checkbox" id="multchecek"/>
+    <button onclick="doSearch()">搜索</button>
+    <button onclick="PrintMarkers()">输出位置</button>
+    <div class="input-card" style="width: 120px">
+        <button class="btn" onclick="polyEditor.open()" style="margin-bottom: 5px">开始编辑</button>
+        <button class="btn" onclick="polyEditor.close()">结束编辑</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var polyEditor = null;
+    var theDataResult = {};
+    var theMakers = [];
+    var theMaxLevel = 18;
+    var thePlaceStr = "福田汽车客运站CBG\n" +
+        "龙岗长途汽车客运站\n" +
+        "罗湖汽车站\n" +
+        "深圳宝安国际机场\n" +
+        "深圳北站\n" +
+        "深圳汽车站\n" +
+        "深圳西站\n" +
+        "深圳站\n" +
+        "白云国际机场二号航站楼\n" +
+        "广东省汽车客运站\n" +
+        "广州白云国际机场\n" +
+        "广州北站\n" +
+        "广州东站\n" +
+        "广州芳村汽车客运站\n" +
+        "广州南站\n" +
+        "广州市汽车客运站\n" +
+        "广州市天河客运站\n" +
+        "广州站\n" +
+        "茂名市客运中心站\n" +
+        "湛江机场\n" +
+        "湛江徐闻海安港\n" +
+        "香洲长途站\n" +
+        "佛山汽车站\n" +
+        "河源汽车总站\n" +
+        "揭阳机场\n" +
+        "中山汽车总站\n" +
+        "中山小榄客运站\n" +
+        "江门汽车客运站\n" +
+        "惠州汽车总站\n" +
+        "惠州站\n" +
+        "东莞东\n" +
+        "东莞汽车总站\n" +
+        "东莞站\n" +
+        "东莞长安车站\n" +
+        "虎门站\n" +
+        "潮汕站\n" +
+        "潮州汽车客运站\n" +
+        "清远汽车客运站\n" +
+        "梁金山服务区-向东北\n" +
+        "梁金山服务区-向西南\n" +
+        "雅瑶服务区-向北\n" +
+        "雅瑶服务区-向南\n" +
+        "源潭服务区-向北\n" +
+        "安塘服务区-向东\n" +
+        "安塘服务区-向西\n" +
+        "莲花山服务区-向东\n" +
+        "莲花山服务区-向西\n" +
+        "阳江服务区-向东\n" +
+        "阳江服务区-向西\n" +
+        "黎溪服务区-向东北\n" +
+        "黎溪服务区-向西南\n" +
+        "勒流服务区-向东\n" +
+        "勒流服务区-向西\n" +
+        "顺德服务区-向北\n" +
+        "顺德服务区-向南\n" +
+        "热水服务区-向东北\n" +
+        "热水服务区-向西南\n" +
+        "石坝服务区-向东\n" +
+        "石坝服务区-向西\n" +
+        "泰美服务区-向北\n" +
+        "泰美服务区-向南\n" +
+        "龙甫服务区-向南\n" +
+        "龙甫服务区-向北\n" +
+        "电白服务区-向西\n" +
+        "电白服务区-向东\n" +
+        "沙埔服务区-向西\n" +
+        "沙埔服务区-向东\n" +
+        "广州花城服务区-向南\n" +
+        "清远西收费站\n" +
+        "广园收费站\n" +
+        "三元里收费站\n" +
+        "勒流收费站\n" +
+        "沙贝收费站\n" +
+        "佛山罗格收费站\n" +
+        "莞佛高速虎门大桥\n" +
+        "广佛高速沙贝立交\n" +
+        "长深高速惠州段\n" +
+        "沈海高速广州黄村立交\n" +
+        "大广高速与机场高速连接段\n" +
+        "济广高速金龙大道出入口\n" +
+        "京港高速广汕公路出入口\n" +
+        "粤赣高速小金口到热水段\n" +
+        "京珠北高速\n" +
+        "华南快速\n" +
+        "广深高速\n" +
+        "花都白云机场高速\n";
+    var thePlaces = ['福田汽车客运站CBG', '龙岗长途汽车客运站', '罗湖汽车站', '深圳汽车站', '广东省汽车客运站', '广州芳村汽车客运站', '广州市汽车客运站', '广州市天河客运站', '茂名市客运中心站', '香洲长途站', '佛山汽车站', '河源汽车总站', '中山汽车总站', '中山小榄客运站', '江门汽车客运站', '惠州汽车总站', '东莞汽车总站', '东莞长安车站', '潮州汽车客运站', '清远汽车客运站', '梁金山服务区-向东北', '梁金山服务区-向西南', '雅瑶服务区-向北', '雅瑶服务区-向南', '源潭服务区-向北', '安塘服务区-向东', '安塘服务区-向西', '莲花山服务区-向东', '莲花山服务区-向西', '阳江服务区-向东', '阳江服务区-向西', '黎溪服务区-向东北', '黎溪服务区-向西南', '勒流服务区-向东', '勒流服务区-向西', '顺德服务区-向北', '顺德服务区-向南', '热水服务区-向东北', '热水服务区-向西南', '石坝服务区-向东', '石坝服务区-向西', '泰美服务区-向北', '泰美服务区-向南', '龙甫服务区-向南', '龙甫服务区-向北', '电白服务区-向西', '电白服务区-向东', '沙埔服务区-向西', '沙埔服务区-向东', '广州花城服务区-向南', '清远西收费站', '广园收费站', '三元里收费站', '勒流收费站', '沙贝收费站', '佛山罗格收费站', '莞佛高速虎门大桥', '广佛高速沙贝立交', '长深高速惠州段', '沈海高速广州黄村立交', '大广高速与机场高速连接段', '济广高速金龙大道出入口', '京港高速广汕公路出入口', '粤赣高速小金口到热水段', '京珠北高速', '华南快速', '广深高速', '机场高速'];
+    thePlaces = thePlaceStr.split('\n');
+
+    function PlaceData() {
+        this.Name = {};
+        this.Geo = {};
+        this.Region = {};
+    }
+
+    var polygon = null;
+    for (var i = 0; i < thePlaces.length; i++) {
+        var theName = thePlaces[i];
+        $('#pos_name').append(' <option value=' + theName + '>' + theName + '</option>');
+    }
+    var map = new AMap.Map("container", {
+        center: [116.400274, 39.905812],
+        features: ['bg', 'road', 'point'],
+        viewMode: '3D',// 地图模式
+        pitch: 0,
+        //mapStyle: 'amap://styles/light',
+
+        zoom: 14
+    });
+
+    var theBuildLayer = new AMap.Buildings({
+        zooms: [16, 18],
+        zIndex: 10,
+        heightFactor: 2//2倍于默认高度，3D下有效
+    });
+
+    theBuildLayer.setMap(map);
+
+    function beginEdit(lng, lat) {
+
+        //debugger;
+        var path = [
+            [lng, lat],
+            [lng, lat + 0.001],
+            [lng + 0.001, lat + 0.001],
+            [lng + 0.001, lat],
+
+        ]
+        if (polyEditor) {
+            polyEditor.close();
         }
-        var polygon =null;
-        for(var i=0;i<thePlaces.length;i++){
-            var theName=thePlaces[i];
-            $('#pos_name').append(' <option value='+theName+'>'+theName+'</option>');
+        if (polygon) {
+            map.remove(polygon);
+            polygon = null;
         }
-        var map = new AMap.Map("container", {
-            center: [116.400274, 39.905812],
-            features: ['bg', 'road', 'point'],
-            viewMode: '3D',// 地图模式
-            pitch: 0,
-            //mapStyle: 'amap://styles/light',
-
-            zoom: 14
-        });
-
-        var theBuildLayer= new AMap.Buildings({
-            zooms: [16, 18],
-            zIndex: 10,
-            heightFactor: 2//2倍于默认高度，3D下有效
-        });
-
-        theBuildLayer.setMap(map);
-
-        function beginEdit(lng,lat){
-
-            //debugger;
-            var path = [
-                [ lng,lat],
-                [lng, lat +0.001],
-                [lng+0.001, lat +0.001],
-                [lng+0.001, lat ],
-
-            ]
+        if (!polygon) {
 
             polygon = new AMap.Polygon({
                 path: path,
@@ -180,228 +192,235 @@
                 fillColor: '#1791fc',
                 zIndex: 50,
             })
-
-            polygon.setMap(map)
-
-            // 缩放地图到合适的视野级别
-            map.setFitView([ polygon ]);
-
-            polyEditor = new AMap.PolyEditor(map, polygon)
-
-            polyEditor.on('addnode', function(event) {
-                console.log('触发事件：addnode')
-            })
-
-            polyEditor.on('adjust', function(event) {
-                console.log('触发事件：adjust')
-            })
-
-            polyEditor.on('removenode', function(event) {
-                console.log('触发事件：removenode')
-            })
-
-            polyEditor.on('end', function(event) {
-                console.log('触发事件： end')
-                // event.target 即为编辑后的多边形对象
-            })
-
-            polyEditor.open();
+        }
+        else {
+            polygon.setPath(path);
         }
 
-        AMap.plugin(["AMap.PolyEditor","AMap.PlaceSearch"],function(){
+
+        polygon.setMap(map)
+
+        // 缩放地图到合适的视野级别
+        map.setFitView([polygon]);
+
+        polyEditor = new AMap.PolyEditor(map, polygon)
+
+        polyEditor.on('addnode', function (event) {
+            console.log('触发事件：addnode')
+        })
+
+        polyEditor.on('adjust', function (event) {
+            console.log('触发事件：adjust')
+        })
+
+        polyEditor.on('removenode', function (event) {
+            console.log('触发事件：removenode')
+        })
+
+        polyEditor.on('end', function (event) {
+            console.log('触发事件： end')
+            // event.target 即为编辑后的多边形对象
+        })
+
+        polyEditor.open();
+    }
+
+    AMap.plugin(["AMap.PolyEditor", "AMap.PlaceSearch"], function () {
 
 
-            var placeSearch = new AMap.PlaceSearch({
-                // city 指定搜索所在城市，支持传入格式有：城市名、citycode和adcode
-                city: '广东',
-                citylimit:true,
-                children:0,
-                type: '交通设施服务|道路附属设施|地名地址信息|公共设施\n'
-            })
+        var placeSearch = new AMap.PlaceSearch({
+            // city 指定搜索所在城市，支持传入格式有：城市名、citycode和adcode
+            city: '广东',
+            citylimit: true,
+            children: 0,
+            type: '交通设施服务|道路附属设施|地名地址信息|公共设施\n'
+        })
 
-            console.log("总共有:"+thePlaces.length+"地点");
-            return;
-            for(let item of thePlaces){
+        console.log("总共有:" + thePlaces.length + "地点");
+        return;
+        for (let item of thePlaces) {
             placeSearch.search(item, function (status, result) {
                 // 查询成功时，result即对应匹配的POI信息
                 console.log(result)
-                if( !result.poiList){
-                console.error('',"未得到数据:"+item);
+                if (!result.poiList) {
+                    console.error('', "未得到数据:" + item);
                     return;
-            }
+                }
                 //debugger;
                 var pois = result.poiList.pois;
-                if(pois&&pois.length>0){
+                if (pois && pois.length > 0) {
                     var poi = pois[0];
                     var marker = [];
-                    theDataResult[item]=poi.location;
+                    theDataResult[item] = poi.location;
                     marker[0] = new AMap.Marker({
-                position: poi.location,   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
-                title: poi.name
-            });
-                    marker[0] .on('click', function (arg) {
-                 var thelng = arg.lnglat;
+                        position: poi.location,   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+                        title: poi.name
+                    });
+                    marker[0].on('click', function (arg) {
+                        var thelng = arg.lnglat;
                         var thelng = arg.target.getPosition();// new AMap.LngLat(113.2685860000, 22.9874720000);
-                //{ "latitude": , "longitude":  }
+                        //{ "latitude": , "longitude":  }
                         var theZoom = map.getZoom();
                         if (theZoom < theMaxLevel) {
                             MoveToPoint(thelng, theMaxLevel);
-                // debugger;
-                beginEdit(thelng.lng,thelng.lat);
-            }
-            else {
+                            // debugger;
+                            beginEdit(thelng.lng, thelng.lat);
+                        }
+                        else {
                             ReturnDefualt();
-            }
-            })
-                // 将创建的点标记添加到已有的地图实例：
+                        }
+                    })
+                    // 将创建的点标记添加到已有的地图实例：
                     map.add(marker[0]);
 
-            }
+                }
 
                 map.setFitView();
 
             })
         }
-        });
+    });
 
 
-        //开始导航到指定点
-        function MoveToPoint(lntlat, maxZoom) {
-            console.log("开始导航到指定点!");
-            var theZoom = map.getZoom();
-            var thePitchTimer = window.setInterval(function () {
-                if (theZoom > maxZoom) {
-                    window.clearInterval(thePitchTimer);
-                    console.log("结束导航到指定点!");
-                    //debugger;
-                    map.setPitch(60);
-                    return;
-                }
-                map.setZoomAndCenter(theZoom++, lntlat);
-
-            }, 10);
-        }
-        //结束导航到指定点
-        function ReturnDefualt(defaultZoom, lntlat) {
-            console.log("开始导航到该蓝图!");
-            var theZoom = map.getZoom();
-            var defaultZoom = defaultZoom || 7;
-            var lntlat = lntlat || new AMap.LngLat(113.275824, 22.994826)
-            var thePitchTimer = window.setInterval(function () {
-                if (theZoom < defaultZoom || theZoom <= 1) {
-                    window.clearInterval(thePitchTimer);
-                    console.log("结束导航到该蓝图!");
-                    map.setPitch(0);
-                    return;
-                }
-                map.setZoomAndCenter(theZoom--, lntlat);
-            }, 10);
-        }
-
-        function doSearch()
-        {
-            var theText=$('#pos_name').val();
-            if(!theText){
-                alert("请输入数据!");
+    //开始导航到指定点
+    function MoveToPoint(lntlat, maxZoom) {
+        console.log("开始导航到指定点!");
+        var theZoom = map.getZoom();
+        var thePitchTimer = window.setInterval(function () {
+            if (theZoom > maxZoom) {
+                window.clearInterval(thePitchTimer);
+                console.log("结束导航到指定点!");
+                //debugger;
+                map.setPitch(60);
                 return;
             }
+            map.setZoomAndCenter(theZoom++, lntlat);
 
-            var placeSearch = new AMap.PlaceSearch({
-                // city 指定搜索所在城市，支持传入格式有：城市名、citycode和adcode
-                city: '广东',
-                citylimit:true,
-                children:0,
-                type: '交通设施服务|道路附属设施|地名地址信息|公共设施\n'
-            })
+        }, 10);
+    }
 
-            map.remove(theMakers);
-            theMakers=[];
-            placeSearch.search(theText, function (status, result) {
-                // 查询成功时，result即对应匹配的POI信息
-                console.log(result)
-                if( !result.poiList){
-                    console.error('',"未得到数据:"+theText);
-                    return;
-                }
-                var pois = result.poiList.pois;
-                if(pois&&pois.length>0){
+    //结束导航到指定点
+    function ReturnDefualt(defaultZoom, lntlat) {
+        console.log("开始导航到该蓝图!");
+        var theZoom = map.getZoom();
+        var defaultZoom = defaultZoom || 7;
+        var lntlat = lntlat || new AMap.LngLat(113.275824, 22.994826)
+        var thePitchTimer = window.setInterval(function () {
+            if (theZoom < defaultZoom || theZoom <= 1) {
+                window.clearInterval(thePitchTimer);
+                console.log("结束导航到该蓝图!");
+                map.setPitch(0);
+                return;
+            }
+            map.setZoomAndCenter(theZoom--, lntlat);
+        }, 10);
+    }
 
-                    var theCheck=$('#multchecek').prop('checked');
-                    for(var i=0;i<pois.length;i++){
-                        if(i>0&&!theCheck){
-                            break;
+    function doSearch() {
+        var theText = $('#pos_name').val();
+        if (!theText) {
+            alert("请输入数据!");
+            return;
+        }
+
+        var placeSearch = new AMap.PlaceSearch({
+            // city 指定搜索所在城市，支持传入格式有：城市名、citycode和adcode
+            city: '广东',
+            citylimit: true,
+            children: 0,
+            type: '交通设施服务|道路附属设施|地名地址信息|公共设施\n'
+        })
+
+        map.remove(theMakers);
+        theMakers = [];
+        placeSearch.search(theText, function (status, result) {
+            // 查询成功时，result即对应匹配的POI信息
+            console.log(result)
+            if (!result.poiList) {
+                console.error('', "未得到数据:" + theText);
+                return;
+            }
+            var pois = result.poiList.pois;
+            if (pois && pois.length > 0) {
+
+                var theCheck = $('#multchecek').prop('checked');
+                for (var i = 0; i < pois.length; i++) {
+                    if (i > 0 && !theCheck) {
+                        break;
+                    }
+                    var poi = pois[i];
+                    var marker = [];
+                    //debugger;
+                    //theDataResult[theText]=poi.location;
+                    console.log(poi.name + i + ":" + poi.location);
+                    map.setZoomAndCenter(10, poi.location);
+                    marker[i] = new AMap.Marker({
+                        position: poi.location,   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+                        title: poi.name + i,
+                        extData: poi.location,
+                        draggable: true
+                    });
+                    theMakers.push(marker[i]);
+                    marker[i].on('click', function (arg) {
+                        //var thelng = arg.lnglat;
+                        var thelng = arg.target.getPosition();// new AMap.LngLat(113.2685860000, 22.9874720000);
+                        //{ "latitude": , "longitude":  }
+                        var theZoom = map.getZoom();
+                        if (theZoom < theMaxLevel) {
+                            MoveToPoint(thelng, theMaxLevel);
+
+                            beginEdit(thelng.lng, thelng.lat);
                         }
-                        var poi = pois[i];
-                        var marker = [];
-                        //debugger;
-                        //theDataResult[theText]=poi.location;
-                        console.log(poi.name+i+":"+poi.location);
-                        map.setZoomAndCenter(10, poi.location);
-                        marker[i] = new AMap.Marker({
-                            position: poi.location,   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
-                            title: poi.name+i,
-                            extData:poi.location,
-                            draggable:true
-                        });
-                        theMakers.push(marker[i]);
-                        marker[i] .on('click', function (arg) {
-                            //var thelng = arg.lnglat;
-                            var thelng = arg.target.getPosition();// new AMap.LngLat(113.2685860000, 22.9874720000);
-                            //{ "latitude": , "longitude":  }
-                            var theZoom = map.getZoom();
-                            if (theZoom < theMaxLevel) {
-                                MoveToPoint(thelng, theMaxLevel);
-
-                                beginEdit(thelng.lng,thelng.lat);
-                            }
-                            else {
-                                ReturnDefualt();
-                            }
-                        })
-                        // 将创建的点标记添加到已有的地图实例：
-                        map.add(marker[i]);
-
-                    }
-                    ////
+                        else {
+                            ReturnDefualt();
+                        }
+                    })
+                    // 将创建的点标记添加到已有的地图实例：
+                    map.add(marker[i]);
 
                 }
+                ////
 
-                map.setFitView();
+            }
 
-            })
+            map.setFitView();
+
+        })
+    }
+
+    function PrintMarkers() {
+        console.clear();
+        if (theMakers) {
+            for (var i = 0; i < theMakers.length; i++) {
+                var theCurrentMarker = theMakers[i];
+                var thPos = theCurrentMarker.getPosition();
+                console.log(theCurrentMarker.getTitle() + ":" + thPos.lng + "," + thPos.lat);
+            }
         }
-        function PrintMarkers(){
-            console.clear();
-            if(theMakers){
-                for (var i = 0; i < theMakers.length; i++) {
-                    var theCurrentMarker=theMakers[i];
-                    var thPos= theCurrentMarker.getPosition();
-                    console.log(theCurrentMarker.getTitle()+":"+thPos.lng+","+thPos.lat);
+    }
+
+    $('#search_key').change(function () {
+        var theValue = $(this).val();
+        if (!theValue) {
+            $('#pos_name option').show();
+        }
+        else {
+            $('#pos_name option').hide();
+            $('#pos_name option').each(function () {
+                var theText = $(this).text();
+                if (theText.indexOf(theValue) >= 0) {
+                    $(this).show();
                 }
-            }
+            });
         }
-        $('#search_key').change(function(){
-            var theValue=$(this).val();
-            if(!theValue){
-                $('#pos_name option').show();
-            }
-            else{
-                $('#pos_name option').hide();
-                $('#pos_name option').each(function(){
-                    var theText=$(this).text();
-                    if(theText.indexOf(theValue)>=0){
-                        $(this).show();
-                    }
-                });
-            }
 
-        });
+    });
 
-        function printRect(){
-            if(polygon){
-                console.log(polygon.getPath());
-            }
+    function printRect() {
+        if (polygon) {
+            console.log(polygon.getPath());
         }
-    </script>
+    }
+</script>
 </body>
 </html>
