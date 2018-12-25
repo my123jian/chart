@@ -442,8 +442,9 @@
     }
 
 
-    function drawReli(lng, lat, data) {
+    function drawReli(value) {
         CreateHeartLayer();
+        value=value||1000;
         if (!polygon) {
             console.log("未找到图形不展示");
             return;
@@ -473,20 +474,33 @@
         }
         var layer = theHeartLayer;
 
+        var theCurrentValue=value;
+        var theShowList=[];
         var list=theValidPoints.map(function (item) {
-            return {
-                coordinate: [item[0], item[1]],
-                count: Math.floor((Math.random() * 100))
+            var theTempValue=0;
+            if(theCurrentValue<=10){
+                theTempValue=theCurrentValue;
             }
+            else{
+                theTempValue=Math.floor(Math.RandomRange(1,10));
+            }
+            theCurrentValue-=theTempValue;
+            if(theTempValue>0){
+                theShowList.push({
+                    coordinate: [item[0], item[1]],
+                    count: Math.floor(theTempValue)
+                });
+            }
+
         })
-        layer.setData(list, {
+        layer.setData(theShowList, {
             lnglat: 'coordinate',
             value: 'count'
         });
 
         layer.setOptions({
             style: {
-                radius: 30,
+                radius: 10,
                 color: {
                     0.5: '#2c7bb6',
                     0.65: '#abd9e9',
