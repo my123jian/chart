@@ -24,6 +24,7 @@ html body {
     position: absolute;
     left: 0px;
     top: 0px;
+    pointer-events: none;
 }
 .mapbase {
     width: 1280px;
