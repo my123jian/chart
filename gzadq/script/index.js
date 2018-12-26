@@ -59,7 +59,7 @@ $(function () {
             var theBeginDay=theDate.getDay();
             var theBeginDate=theDate.addDays(theBeginDay);
             var theEndDate=theBeginDate.addDays(6);
-            debugger
+           // debugger
             return theBeginDate.getFullYear() + "-" + (theBeginDate.getMonth() + 1) + "-" + theBeginDate.getDate()+" - "+
                 theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
         }
@@ -877,7 +877,7 @@ $(function () {
      * 大桥客流趋势接口 startDate ,endDate  OK
      */
     PageViewModel.prototype.loadBridgeFlowDirection = function () {
-        debugger
+       // debugger
         var theCallUrl = "bridge/bridgeFlowDirection.do";
 
         var theCallArgument = {
