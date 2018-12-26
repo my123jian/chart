@@ -2,8 +2,9 @@
 <head>
     <meta charset="utf-8">
     <title>ECharts</title>
-    <script src="lib/base.js"></script>
+
     <script src="lib/jquery-1.8.2.min.js"></script>
+    <script src="lib/base.js"></script>
     <script src="lib/echarts.min.js"></script>
     <script src="qxjc/script/guangdong.js"></script>
     <script src="lib/lat.js"></script>
@@ -51,16 +52,6 @@
         data=[];
             /*data|| [
             [{name: "广州"}, {name: "东莞", value: 95}],
-            [{name: "广州"}, {name: "江门", value: 90}],
-            [{name: "广州"}, {name: "珠海", value: 80}],
-            [{name: "广州"}, {name: "佛山", value: 70}],
-            [{name: "广州"}, {name: "惠州", value: 60}],
-            [{name: "广州"}, {name: "汕头", value: 50}],
-            [{name: "广州"}, {name: "深圳", value: 40}],
-            [{name: "广州"}, {name: "湛江", value: 30}],
-            [{name: "广州"}, {name: "韶关", value: 20}],
-            [{name: "广州"}, {name: "茂名", value: 10}],
-            [{name: "广州"}, {name: "广州", value: 10}],
         ];*/
         for(var i=0;i<theSourceData.length;i++){
             var theItem=theSourceData[i];
@@ -80,7 +71,15 @@
                     res.push({
                         fromName: dataItem[0].name,
                         toName: dataItem[1].name,
-                        coords: [fromCoord, toCoord]
+                        coords: [fromCoord, toCoord],
+                        //设置线段颜色
+                       /* lineStyle: {
+                            normal: {
+                                color: color[i],
+                                width: 0,
+                                curveness: 0.2
+                            }
+                        }*/
                     });
                 }
             }

@@ -807,8 +807,8 @@ $(function () {
                 {"fromType":"1","id":1,"percent":10,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":10000000,"toType":"1"},
                  {"fromType":"2","id":2,"percent":10,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":10000000,"toType":"1"},
                  {"fromType":"3","id":3,"percent":80,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":80000000,"toType":"1"}],"isSuccess":true,"msg":"success"}*/
-                for (var i = 0; i < res.data.length; i++) {
-                    var theItem = res.data[i];
+                for (var i = 0; i < data.length; i++) {
+                    var theItem = data[i];
                     $('#gzabelong' + theItem.fromType).text('(' + theItem.percent + '%)');
                 }
             }
