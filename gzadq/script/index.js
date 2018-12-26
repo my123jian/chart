@@ -60,8 +60,8 @@ $(function () {
             var theBeginDate=theDate.addDays(theBeginDay);
             var theEndDate=theBeginDate.addDays(6);
            // debugger
-            return theBeginDate.getFullYear() + "-" + (theBeginDate.getMonth() + 1) + "-" + theBeginDate.getDate()+" - "+
-                theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
+            return theBeginDate.getFullYear() + "-" + (theBeginDate.getMonth() + 1) + "-" + theBeginDate.getDate();
+            //+" - "+                theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
         }
         return theCurrentDate;//theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
     }
@@ -338,7 +338,7 @@ $(function () {
         laydate.render({
             elem: '#date-input', //指定元素
             trigger: 'click',
-            range: true,//范围选择
+            //range: true,//范围选择
             //format:'yyyy年MM月dd日',
             value:formateDate(),
             done: function (value, date, endDate) {
@@ -822,6 +822,7 @@ $(function () {
      * @param personDirect,date,affiliationType
      */
     PageViewModel.prototype.loadBridgeAttributionArea = function (personDirect,affiliationType) {
+        affiliationType=affiliationType||1;
         var theCallUrl = "/bridge/bridgeAttributionArea.do";
         var theData = {
             personDirect: personDirect||1,
@@ -837,25 +838,26 @@ $(function () {
                 /*{"data":[{"id":1,"nation":"美国","percent":10,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":10000000,"toType":"1"}],"isSuccess":true,"msg":"success"}
                 {"data":[{"id":1,"percent":10,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","province":"湖南","statDate":"2018-12-12","stayNum":10000000,"toType":"1"}],"isSuccess":true,"msg":"success"}*/
                 var theIndex = 1;
-                for (var i = 0; i < data.data.length; i++) {
+                for (var i = 0; i < 6; i++) {
                     var theItme = data.data[i];
+                   // debugger;
                     if(affiliationType==1){
                         var theTempalte = '<li>\n' +
-                            '                                        <span class="guishu-icon">' + theIndex + '</span>\n' +
+                            '                                        <span class="guishu-icon">' + (i+1) + '</span>\n' +
                             '                                        <span class="guishu-cuntry">' + theItme.nation + '</span>\n' +
                             '                                        <span class="guishu-line"></span>\n' +
                             '                                        <span class="guishu-num">' + formateNum(theItme.stayNum) + '</span>人\n' +
                             '                                    </li>';
                     }else if(affiliationType==2){
                         var theTempalte = '<li>\n' +
-                            '                                        <span class="guishu-icon">' + theIndex + '</span>\n' +
+                            '                                        <span class="guishu-icon">' + (i+1) + '</span>\n' +
                             '                                        <span class="guishu-cuntry">' + theItme.province + '</span>\n' +
                             '                                        <span class="guishu-line"></span>\n' +
                             '                                        <span class="guishu-num">' + formateNum(theItme.stayNum) + '</span>人\n' +
                             '                                    </li>';
                     }else{
                         var theTempalte = '<li>\n' +
-                            '                                        <span class="guishu-icon">' + theIndex + '</span>\n' +
+                            '                                        <span class="guishu-icon">' + (i+1) + '</span>\n' +
                             '                                        <span class="guishu-cuntry">' + theItme.city + '</span>\n' +
                             '                                        <span class="guishu-line"></span>\n' +
                             '                                        <span class="guishu-num">' + formateNum(theItme.stayNum) + '</span>人\n' +

@@ -675,7 +675,7 @@ $(function () {
         $('.sex-girl-num').text(data.woman + '%');
         for (var i = 1; i <= 10; i++) {
             $('#age' + i).siblings('span').text((data['age' + i] || 0) + "%");
-            $('#age' + i).css('width', data['age' + i] + 'px');
+            $('#age' + i).css('width', (data['age' + i]/2) + 'px');
         }
     }
     /***
