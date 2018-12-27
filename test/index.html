@@ -81,6 +81,8 @@
         "东莞长安车站\n" +
         "虎门站\n" +
         "潮汕站\n" +
+        "格力人工岛\n" +
+        "港珠澳大桥\n" +
         "潮州汽车客运站\n" +
         "清远汽车客运站\n" +
         "梁金山服务区-向东北\n" +
@@ -444,7 +446,7 @@
 
     function drawReli(value) {
         CreateHeartLayer();
-        value=value||1000;
+        value = value || 1000;
         if (!polygon) {
             console.log("未找到图形不展示");
             return;
@@ -474,18 +476,18 @@
         }
         var layer = theHeartLayer;
 
-        var theCurrentValue=value;
-        var theShowList=[];
-        var list=theValidPoints.map(function (item) {
-            var theTempValue=0;
-            if(theCurrentValue<=10){
-                theTempValue=theCurrentValue;
+        var theCurrentValue = value;
+        var theShowList = [];
+        var list = theValidPoints.map(function (item) {
+            var theTempValue = 0;
+            if (theCurrentValue <= 10) {
+                theTempValue = theCurrentValue;
             }
-            else{
-                theTempValue=Math.floor(Math.RandomRange(1,10));
+            else {
+                theTempValue = Math.floor(Math.RandomRange(1, 10));
             }
-            theCurrentValue-=theTempValue;
-            if(theTempValue>0){
+            theCurrentValue -= theTempValue;
+            if (theTempValue > 0) {
                 theShowList.push({
                     coordinate: [item[0], item[1]],
                     count: Math.floor(theTempValue)

@@ -23,8 +23,8 @@ $(function () {
     var isStopRefresh = true;
     var theTimer = null;
     var theCurrentDate = null;
-    var datebegin=null;
-    var dateend=null;
+    var datebegin = null;
+    var dateend = null;
 
     function PageViewModel() {
         this.initEvent();
@@ -56,28 +56,29 @@ $(function () {
     var formateDate = function () {
         if (!theCurrentDate) {
             var theDate = new Date();
-            var theBeginDay=theDate.getDay();
-            var theBeginDate=theDate.addDays(theBeginDay);
-            var theEndDate=theBeginDate.addDays(6);
-           // debugger
+            var theBeginDay = theDate.getDay();
+            var theBeginDate = theDate.addDays(theBeginDay);
+            var theEndDate = theBeginDate.addDays(6);
+            // debugger
             return theBeginDate.getFullYear() + "-" + (theBeginDate.getMonth() + 1) + "-" + theBeginDate.getDate();
             //+" - "+                theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
         }
-        return theCurrentDate;//theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
+        return theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
     }
     var formateDate1 = function () {
         //debugger;
         if (!theCurrentDate1) {
             var theDate1 = new Date();
-            var theBeginDay1=theDate1.getDay();
-            var theBeginDate1=theDate1.addDays(theBeginDay1);
-            var theEndDate1=theBeginDate1.addDays(6);
-            datebegin=theBeginDate1.getFullYear() + "-" + (theBeginDate1.getMonth() + 1) + "-" + theBeginDate1.getDate();
-            dateend=theEndDate1.getFullYear() + "-" + (theEndDate1.getMonth() + 1) + "-" + theEndDate1.getDate();
-            return theBeginDate1.getFullYear() + "-" + (theBeginDate1.getMonth() + 1) + "-" + theBeginDate1.getDate()+" - "+
+            var theBeginDay1 = theDate1.getDay();
+            var theBeginDate1 = theDate1.addDays(theBeginDay1);
+            var theEndDate1 = theBeginDate1.addDays(6);
+            datebegin = theBeginDate1.getFullYear() + "-" + (theBeginDate1.getMonth() + 1) + "-" + theBeginDate1.getDate();
+            dateend = theEndDate1.getFullYear() + "-" + (theEndDate1.getMonth() + 1) + "-" + theEndDate1.getDate();
+            return theBeginDate1.getFullYear() + "-" + (theBeginDate1.getMonth() + 1) + "-" + theBeginDate1.getDate() + " - " +
                 theEndDate1.getFullYear() + "-" + (theEndDate1.getMonth() + 1) + "-" + theEndDate1.getDate();
         }
-        return theCurrentDate1;//theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
+        return theBeginDate1.getFullYear() + "-" + (theBeginDate1.getMonth() + 1) + "-" + theBeginDate1.getDate() + " - " +
+            theEndDate1.getFullYear() + "-" + (theEndDate1.getMonth() + 1) + "-" + theEndDate1.getDate();
     }
 
 
@@ -111,7 +112,7 @@ $(function () {
             }
         },
         grid: {
-            left:92,
+            left: 92,
             right: 5,
             top: 30,
             bottom: 5,
@@ -127,8 +128,8 @@ $(function () {
             //splitNumber: 5,
             axisTick: {show: false},
             axisLabel: {
-                interval:0,
-                rotate:40,
+                interval: 0,
+                rotate: 40,
 
             },
             boundaryGap: false,
@@ -138,7 +139,7 @@ $(function () {
                     color: '#557398'
                 }
             },
-            data : ['0','6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00']
+            data: ['0', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00']
             //data: theXData
         },
         yAxis: {
@@ -206,8 +207,6 @@ $(function () {
     }
 
 
-
-
     PageViewModel.prototype = new PageViewBase();
     /**
      * 刷新当前的数据
@@ -231,7 +230,7 @@ $(function () {
             var theData = $(this).data();
             if (theData['name']) {
 
-                var theInstance=new ChartHuan(this, theChartIndex++);
+                var theInstance = new ChartHuan(this, theChartIndex++);
                 $(this).data('instance', theInstance);
             }
         });
@@ -271,7 +270,7 @@ $(function () {
 
 
         var me = this;
-        var guishutype=1
+        var guishutype = 1
         //客流tab栏点击切换
         var theParentContent = $('.tab-main').closest('.content');
         $('.tab-main .tab-item-left').click(function () {
@@ -284,8 +283,8 @@ $(function () {
             $(theParentContent).find('.part1').hide();
             $(theParentContent).find('.part2').hide();
             $(theParentContent).find('.part-' + theIndex).show();
-            $('.tab-item-right .firstline').css('margin-left','80px')
-            $('.tab-item-left .firstline').css('margin-left','54px')
+            $('.tab-item-right .firstline').css('margin-left', '80px')
+            $('.tab-item-left .firstline').css('margin-left', '54px')
 
 
         });
@@ -295,16 +294,16 @@ $(function () {
             $('.tab-main .tab-item-right').removeClass('select_a');
             $('.datediv,.dateline').hide();
             $('.datediv1,.dateline1').show();
-            $('.tab-item-left .firstline').css('margin-left','80px')
-            $('.tab-item-right .firstline').css('margin-left','54px')
+            $('.tab-item-left .firstline').css('margin-left', '80px')
+            $('.tab-item-right .firstline').css('margin-left', '54px')
 
             $(theParentContent).find('.part1').hide();
             $(theParentContent).find('.part2').hide();
             $(theParentContent).find('.part-' + theIndex).show();
-            if(theIndex==2){
+            if (theIndex == 2) {
                 me.loadPart2();
             }
-            else{
+            else {
                 me.loadPart1();
             }
         });
@@ -317,20 +316,18 @@ $(function () {
             $('.tab-direction').removeClass('tab-imgage2');
             $('.tab-direction').addClass('tab-imgage' + theIndex);
             $(this).addClass('select');
-            var personDirect=theIndex;
-            guishutype=theIndex;
+            var personDirect = theIndex;
+            guishutype = theIndex;
             me.loadBridgeAttributionType(personDirect)
         });
         //归属类型切换
         $('.guishu .tab-item').click(function () {
             var theIndex = $(this).data('index');
-            affiliationType=theIndex
+            affiliationType = theIndex
             $('.tab-item').removeClass('active');
             $(this).addClass('active');
 
-            me.loadBridgeAttributionArea(guishutype,affiliationType);
-
-
+            me.loadBridgeAttributionArea(guishutype, affiliationType);
 
 
         });
@@ -340,7 +337,7 @@ $(function () {
             trigger: 'click',
             //range: true,//范围选择
             //format:'yyyy年MM月dd日',
-            value:formateDate(),
+            value: formateDate(),
             done: function (value, date, endDate) {
                 //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
@@ -358,7 +355,7 @@ $(function () {
             elem: '#date-input1', //指定元素
             trigger: 'click',
             range: true,//范围选择
-            value:formateDate1(),
+            value: formateDate1(),
             done: function (value, date, endDate) {
                 //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
@@ -409,7 +406,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: data ,
+                data: data,
                 areaStyle: {
                     normal: {
                         color: {
@@ -453,20 +450,23 @@ $(function () {
         ]
         this.Chart1.setOption(theCurrentOption);
     }
-    PageViewModel.prototype.loadChart2 = function (xData, data1, data2,data3) {
+    PageViewModel.prototype.loadChart2 = function (xData, data1, data2, data3) {
         if (!this.Chart2) {
             this.Chart2 = echarts.init(document.getElementById('chart2'));
         }
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
-        theCurrentOption.legend= {
-            data:[{name:'每日客流',textStyle:{color:"#85a8b8"}},{name:'香港>>珠海澳门',textStyle:{color:"#85a8b8"}},{name:'珠海澳门>>香港',textStyle:{color:"#85a8b8"}}
-            // x:'left',
-            //padding:50,
-        ]
+        theCurrentOption.legend = {
+            data: [{name: '每日客流', textStyle: {color: "#85a8b8"}}, {
+                name: '香港>>珠海澳门',
+                textStyle: {color: "#85a8b8"}
+            }, {name: '珠海澳门>>香港', textStyle: {color: "#85a8b8"}}
+                // x:'left',
+                //padding:50,
+            ]
         },
-            theCurrentOption.yAxis=[{
-                name:'（人数/万）',
+            theCurrentOption.yAxis = [{
+                name: '（人数/万）',
                 type: 'value',
                 nameLocation: 'end',
                 splitLine: {show: false},
@@ -483,15 +483,15 @@ $(function () {
                 // name: '搜索引擎',
                 type: 'line',
                 //stack: '总量',
-                name:'每日客流',
-                itemStyle:{
-                    color:'#d1b96b'
+                name: '每日客流',
+                itemStyle: {
+                    color: '#d1b96b'
                 },
                 //tooltip:{
                 //    backgroundColor: 'red',
                 //},
                 smooth: true,
-                data:data1|| [1, 1, 1, 1, 1, 1] ,
+                data: data1 || [1, 1, 1, 1, 1, 1],
                 lineStyle: {
                     normal: {
                         color: '#d1b96b' //rgba(66,147,242
@@ -519,12 +519,12 @@ $(function () {
             {
                 //  name: '搜索引擎',
                 type: 'line',
-                name:'香港>>珠海澳门',
+                name: '香港>>珠海澳门',
 
                 itemStyle: {
 
                     normal: {
-                        color:'#357acb',
+                        color: '#357acb',
                         lineStyle: {
 
                             width: 2,
@@ -535,15 +535,15 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: data2||[2, 2, 2,2, 2, 2, 2]
+                data: data2 || [2, 2, 2, 2, 2, 2, 2]
             },
             {
                 //  name: '搜索引擎',
                 type: 'line',
-                name:'珠海澳门>>香港',
+                name: '珠海澳门>>香港',
                 itemStyle: {
                     normal: {
-                        color:'#219553',
+                        color: '#219553',
                         lineStyle: {
 
                             width: 2,
@@ -554,7 +554,7 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: data3||[3, 3, 3,3, 3, 3, 3]
+                data: data3 || [3, 3, 3, 3, 3, 3, 3]
             }
         ];
 
@@ -568,66 +568,66 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
-        theCurrentOption.legend= {
-            data:[{name:'每日客流',textStyle:{color:"#85a8b8"}},{name:'观光客流',textStyle:{color:"#85a8b8"}}]
+        theCurrentOption.legend = {
+            data: [{name: '每日客流', textStyle: {color: "#85a8b8"}}, {name: '观光客流', textStyle: {color: "#85a8b8"}}]
         },
-        theCurrentOption.series = [
-            {
-                // name: '搜索引擎',
-                type: 'line',
-                //stack: '总量',
-                name:'每日客流',
-                smooth: true,
-                data: data1||[820, 932, 901, 934, 1290, 1330] ,
-                itemStyle:{color: '#d1b96b'},
-                lineStyle: {
-                    normal: {
-                        color: '#d1b96b'//rgba(50,255,75
-                    }
-                },
-
-                areaStyle: {
-                    normal: {
-                        color: {
-                            type: 'linear',
-                            x: 0,
-                            y: 0,
-                            x2: 0,
-                            y2: 1,
-                            colorStops: [{
-                                offset: 0, color: 'rgba(50,255,75,0.3)'
-                            }, {
-                                offset: 0.5, color: 'rgba(50,255,75,0.15)'
-                            }, {
-                                offset: 1, color: 'rgba(50,255,75,0)'
-                            }]
+            theCurrentOption.series = [
+                {
+                    // name: '搜索引擎',
+                    type: 'line',
+                    //stack: '总量',
+                    name: '每日客流',
+                    smooth: true,
+                    data: data1 || [820, 932, 901, 934, 1290, 1330],
+                    itemStyle: {color: '#d1b96b'},
+                    lineStyle: {
+                        normal: {
+                            color: '#d1b96b'//rgba(50,255,75
                         }
-                    }
+                    },
+
+                    areaStyle: {
+                        normal: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0, color: 'rgba(50,255,75,0.3)'
+                                }, {
+                                    offset: 0.5, color: 'rgba(50,255,75,0.15)'
+                                }, {
+                                    offset: 1, color: 'rgba(50,255,75,0)'
+                                }]
+                            }
+                        }
+                    },
                 },
-            },
-            {
-                //  name: '搜索引擎',
-                type: 'line',
-                name:'观光客流',
+                {
+                    //  name: '搜索引擎',
+                    type: 'line',
+                    name: '观光客流',
 
-                itemStyle: {
+                    itemStyle: {
 
-                    normal: {
-                        color:'#357acb',
-                        lineStyle: {
-
-                            width: 2,
+                        normal: {
                             color: '#357acb',
-                            type: 'solid'  //'dotted'虚线 'solid'实线
-                        }
-                    }
-                },
-                smooth: true,
-                //stack: '总量',
-                data: data2||[420, 532, 601,534, 890, 930, 1320]
-            }
+                            lineStyle: {
 
-        ];
+                                width: 2,
+                                color: '#357acb',
+                                type: 'solid'  //'dotted'虚线 'solid'实线
+                            }
+                        }
+                    },
+                    smooth: true,
+                    //stack: '总量',
+                    data: data2 || [420, 532, 601, 534, 890, 930, 1320]
+                }
+
+            ];
         this.Chart3.setOption(theCurrentOption);
     }
     PageViewModel.prototype.loadChart4 = function (data) {
@@ -642,7 +642,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: data||[820, 932, 901, 934, 1290, 1330] ,
+                data: data || [820, 932, 901, 934, 1290, 1330],
                 lineStyle: {
                     normal: {
                         color: '#32ff4b'//rgba(50,255,75
@@ -692,12 +692,12 @@ $(function () {
 
     },
         PageViewModel.prototype.loadPart2 = function () {
-        //debugger;
+            //debugger;
             this.loadBridgeFlowDirection();
             this.loadBridgeIslandsTrend();
             this.loadBridgeTrendDayPassTime();
 
-    }
+        }
 
 //客流洞察接口
     /***
@@ -725,11 +725,11 @@ $(function () {
         }
 
 
-         //debugger;
-        this.load(theCallUrl,theData, function (data) {
-        //debugger
+        //debugger;
+        this.load(theCallUrl, theData, function (data) {
+            //debugger
             if (data && data.isSuccess) {
-                console.log('请求成功'+data)
+                console.log('请求成功' + data)
                 var theData = data.data;//{"isSuccess":true,"msg":"success","data":[{
                 // "flowType":"1",
                 // "id":1,"
@@ -747,7 +747,7 @@ $(function () {
                             theCharts[theItem.flowType].refresh('', theItem.percent);
                         }
                     }
-             }
+                }
             }
             else {
                 console.log("loadCurrent错误:" + data);
@@ -764,9 +764,9 @@ $(function () {
             date: formateDate()
         };
         var me = this;
-         //debugger;
+        //debugger;
         this.load(theCallUrl, theData, function (data) {
-            var chart1Data=[]
+            var chart1Data = []
             if (data && data.isSuccess) {
                 var theResultDatas = data.data;//{"isSuccess":true,"msg":"success","data":[{"id":1,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","tTime":"6:00","tTimePass":15}]}
                 //debugger
@@ -791,7 +791,7 @@ $(function () {
         //debugger
         var theCallUrl = "bridge/bridgeAttributionType.do";
         var theParamter = {
-            personDirect: personDirect||1,
+            personDirect: personDirect || 1,
             date: formateDate()
         };
         var me = this;
@@ -801,14 +801,14 @@ $(function () {
             $('#gzabelong1').text('(0%)');
             $('#gzabelong2').text('(0%)');
             $('#gzabelong3').text('(0%)');
-            //debugger
+            // debugger
             if (data && data.isSuccess) {
                 /*{"data":[
                 {"fromType":"1","id":1,"percent":10,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":10000000,"toType":"1"},
                  {"fromType":"2","id":2,"percent":10,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":10000000,"toType":"1"},
                  {"fromType":"3","id":3,"percent":80,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":80000000,"toType":"1"}],"isSuccess":true,"msg":"success"}*/
-                for (var i = 0; i < data.length; i++) {
-                    var theItem = data[i];
+                for (var i = 0; i < data.data.length; i++) {
+                    var theItem = data.data[i];
                     $('#gzabelong' + theItem.fromType).text('(' + theItem.percent + '%)');
                 }
             }
@@ -817,61 +817,64 @@ $(function () {
             }
         });
     },
-    /***
-     * 归属地市分析接口 完成
-     * @param personDirect,date,affiliationType
-     */
-    PageViewModel.prototype.loadBridgeAttributionArea = function (personDirect,affiliationType) {
-        affiliationType=affiliationType||1;
-        var theCallUrl = "/bridge/bridgeAttributionArea.do";
-        var theData = {
-            personDirect: personDirect||1,
-            affiliationType:affiliationType||1,
-            date: formateDate()
-        };
-        var me = this;
-        // debugger;
-        this.load(theCallUrl, theData, function (data) {
-            var theData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-            $('.guishu-content ul').empty();
-            if (data && data.isSuccess) {
-                /*{"data":[{"id":1,"nation":"美国","percent":10,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":10000000,"toType":"1"}],"isSuccess":true,"msg":"success"}
-                {"data":[{"id":1,"percent":10,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","province":"湖南","statDate":"2018-12-12","stayNum":10000000,"toType":"1"}],"isSuccess":true,"msg":"success"}*/
-                var theIndex = 1;
-                for (var i = 0; i < 6; i++) {
-                    var theItme = data.data[i];
-                   // debugger;
-                    if(affiliationType==1){
-                        var theTempalte = '<li>\n' +
-                            '                                        <span class="guishu-icon">' + (i+1) + '</span>\n' +
-                            '                                        <span class="guishu-cuntry">' + theItme.nation + '</span>\n' +
-                            '                                        <span class="guishu-line"></span>\n' +
-                            '                                        <span class="guishu-num">' + formateNum(theItme.stayNum) + '</span>人\n' +
-                            '                                    </li>';
-                    }else if(affiliationType==2){
-                        var theTempalte = '<li>\n' +
-                            '                                        <span class="guishu-icon">' + (i+1) + '</span>\n' +
-                            '                                        <span class="guishu-cuntry">' + theItme.province + '</span>\n' +
-                            '                                        <span class="guishu-line"></span>\n' +
-                            '                                        <span class="guishu-num">' + formateNum(theItme.stayNum) + '</span>人\n' +
-                            '                                    </li>';
-                    }else{
-                        var theTempalte = '<li>\n' +
-                            '                                        <span class="guishu-icon">' + (i+1) + '</span>\n' +
-                            '                                        <span class="guishu-cuntry">' + theItme.city + '</span>\n' +
-                            '                                        <span class="guishu-line"></span>\n' +
-                            '                                        <span class="guishu-num">' + formateNum(theItme.stayNum) + '</span>人\n' +
-                            '                                    </li>';
-                    }
+        /***
+         * 归属地市分析接口 完成
+         * @param personDirect,date,affiliationType
+         */
+        PageViewModel.prototype.loadBridgeAttributionArea = function (personDirect, affiliationType) {
+            affiliationType = affiliationType || 1;
+            var theCallUrl = "/bridge/bridgeAttributionArea.do";
+            var theData = {
+                personDirect: personDirect || 1,
+                affiliationType: affiliationType || 1,
+                date: formateDate()
+            };
+            var me = this;
+            // debugger;
+            this.load(theCallUrl, theData, function (data) {
+                var theData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+                $('.guishu-content ul').empty();
+                if (data && data.isSuccess) {
+                    /*{"data":[{"id":1,"nation":"美国","percent":10,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":10000000,"toType":"1"}],"isSuccess":true,"msg":"success"}
+                    {"data":[{"id":1,"percent":10,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","province":"湖南","statDate":"2018-12-12","stayNum":10000000,"toType":"1"}],"isSuccess":true,"msg":"success"}*/
+                    var theIndex = 1;
+                    for (var i = 0; i < 6; i++) {
+                        var theItme = data.data[i];
+                        // debugger;
+                        var theTempalte = "";
+                        if (theItme) {
+                            if (affiliationType == 1) {
+                                theTempalte = '<li>\n' +
+                                    '                                        <span class="guishu-icon">' + (i + 1) + '</span>\n' +
+                                    '                                        <span class="guishu-cuntry">' + theItme.nation + '</span>\n' +
+                                    '                                        <span class="guishu-line"></span>\n' +
+                                    '                                        <span class="guishu-num">' + formateNum(theItme.stayNum) + '</span>人\n' +
+                                    '                                    </li>';
+                            } else if (affiliationType == 2) {
+                                theTempalte = '<li>\n' +
+                                    '                                        <span class="guishu-icon">' + (i + 1) + '</span>\n' +
+                                    '                                        <span class="guishu-cuntry">' + theItme.province + '</span>\n' +
+                                    '                                        <span class="guishu-line"></span>\n' +
+                                    '                                        <span class="guishu-num">' + formateNum(theItme.stayNum) + '</span>人\n' +
+                                    '                                    </li>';
+                            } else {
+                                theTempalte = '<li>\n' +
+                                    '                                        <span class="guishu-icon">' + (i + 1) + '</span>\n' +
+                                    '                                        <span class="guishu-cuntry">' + theItme.city + '</span>\n' +
+                                    '                                        <span class="guishu-line"></span>\n' +
+                                    '                                        <span class="guishu-num">' + formateNum(theItme.stayNum) + '</span>人\n' +
+                                    '                                    </li>';
+                            }
+                        }
 
-                    $('.guishu-content ul').append(theTempalte);
+                        $('.guishu-content ul').append(theTempalte);
+                    }
                 }
-            }
-            else {
-                console.log("loadCurrent错误:" + data);
-            }
-        });
-    }
+                else {
+                    console.log("loadCurrent错误:" + data);
+                }
+            });
+        }
 
 
 //客流趋势接口
@@ -879,12 +882,12 @@ $(function () {
      * 大桥客流趋势接口 startDate ,endDate  OK
      */
     PageViewModel.prototype.loadBridgeFlowDirection = function () {
-       // debugger
+        // debugger
         var theCallUrl = "bridge/bridgeFlowDirection.do";
 
         var theCallArgument = {
             startDate: datebegin,
-            endDate:dateend,
+            endDate: dateend,
 
         };
         var me = this;
@@ -895,7 +898,7 @@ $(function () {
             var theData3 = [];
             var theX = [];
             if (data && data.isSuccess) {
-                 //{"isSuccess":true,"msg":"success","data":[{"id":1,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","toHkTra":1000000,"toMzTra":10000000}]}
+                //{"isSuccess":true,"msg":"success","data":[{"id":1,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","toHkTra":1000000,"toMzTra":10000000}]}
                 if (data.data.length > 1) {
                     var theItems = data.data[0];
                     for (var i = 0; i < theItems.length; i++) {
@@ -915,7 +918,7 @@ $(function () {
             else {
                 console.log("loadCurrent错误:" + data);
             }
-            me.loadChart2(theX, theData1, theData2,theData3);
+            me.loadChart2(theX, theData1, theData2, theData3);
         });
     }
     /***
@@ -924,8 +927,8 @@ $(function () {
     PageViewModel.prototype.loadBridgeIslandsTrend = function () {
         var theCallUrl = "/bridge/bridgeIslandsTrend.do";
         var theCallArgument = {
-            startDate:datebegin,
-            endDate:dateend
+            startDate: datebegin,
+            endDate: dateend
         }
 
         var me = this;
@@ -962,16 +965,16 @@ $(function () {
     /***
      * 每日平均通关时长接口 OK
      */
-    PageViewModel.prototype.loadBridgeTrendDayPassTime= function () {
+    PageViewModel.prototype.loadBridgeTrendDayPassTime = function () {
         var theCallUrl = "/bridge/bridgeTrendDayPassTime.do";
         var theCallArgument = {
-            startDate:datebegin,
-            endDate:dateend
+            startDate: datebegin,
+            endDate: dateend
         }
         var me = this;
         // debugger;
         this.load(theCallUrl, theCallArgument, function (data) {
-            var chart1Data=[]
+            var chart1Data = []
             if (data && data.isSuccess) {
                 var theDatas = data.data;
                 for (var i = 0; i < theDatas.length; i++) {
@@ -988,8 +991,6 @@ $(function () {
     }
 
 
-
-
     /***
      * 实时驻留时长图
      */
@@ -1003,58 +1004,58 @@ $(function () {
                 bottom: '3%',
                 containLabel: true
             },
-            xAxis : [
+            xAxis: [
                 {
 //                        type : 'category',
-                    data : ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-24',],
-                    "axisTick":{       //y轴刻度线
-                        "show":false
+                    data: ['0-1', '1-2', '2-3', '3-4', '4-5', '5-6', '6-7', '7-8', '8-24',],
+                    "axisTick": {       //y轴刻度线
+                        "show": false
                     },
                     "splitLine": {     //网格线
                         "show": false
                     },
-                    axisLine:{
-                        show:false,
-                        lineStyle:{
-                            color:'#d9f1ff',
+                    axisLine: {
+                        show: false,
+                        lineStyle: {
+                            color: '#d9f1ff',
 
                         }
 
                     }
                 }
             ],
-            yAxis : [
+            yAxis: [
 
                 {
-                    type : 'value',
-                    min:'0',
-                    max:'10',
-                    "show" : false,
-                    "axisTick":{       //y轴刻度线
-                        "show":false
+                    type: 'value',
+                    min: '0',
+                    max: '10',
+                    "show": false,
+                    "axisTick": {       //y轴刻度线
+                        "show": false
                     },
                     "splitLine": {     //网格线
                         "show": false
                     }
                 }
             ],
-            series : [
+            series: [
 
                 {
                     //设置柱形条是否显示数据
-                    label : {
+                    label: {
                         normal: {
                             show: true,
-                            'position':'top'
+                            'position': 'top'
                         }
                     },
-                    name:'累积',
-                    type:'bar',
+                    name: '累积',
+                    type: 'bar',
 //                        barWidth:'33.3%',
-                    data:data||[4,5,6,3,4.2,3.5],
-                    itemStyle:{
-                        normal:{
-                            color:'#80ddfe'
+                    data: data || [4, 5, 6, 3, 4.2, 3.5],
+                    itemStyle: {
+                        normal: {
+                            color: '#80ddfe'
                         }
                     }
                 },
@@ -1068,14 +1069,23 @@ $(function () {
     /***
      * 实时驻留时长
      */
-    PageViewModel.prototype.loadBridgeFlow= function () {
+    PageViewModel.prototype.loadBridgeFlow = function () {
         var theCallUrl = "/bridge/bridgeFlow.do";
-
+        var landsGps = [113.581696, 22.203582];
+        var landsBounds = [[113.577594, 22.199503], [113.577383, 22.211506], [113.588696, 22.210284], [113.589762, 22.209237], [113.586109, 22.203609], [113.585467, 22.195599], [113.58378, 22.194395], [113.580179, 22.194547], [113.57709, 22.194409]];
+        var bridgeGps = [113.728361, 22.28002];
+        var bridgeBounds = [[113.730068, 22.278834], [113.711688, 22.274786], [113.695492, 22.264382], [113.678056, 22.251648], [113.643183, 22.240596], [113.63326, 22.23637], [113.594097, 22.20946], [113.591794, 22.211593], [113.636709, 22.24112], [113.669761, 22.252132], [113.685975, 22.259945], [113.701248, 22.273654], [113.714493, 22.279067], [113.728361, 22.28102], [113.755533, 22.28275], [113.787706, 22.280576]];
         var me = this;
-        this.load(theCallUrl,function (res) {
 
-            if (res && res.isSuccess) {
+        this.load(theCallUrl, {}, function (res) {
+            //debugger;
+            if (res && res.isSuccess && res.data) {
+                var theData = res.data;
+                var theBridgeUser = theData.bridgeUser;//大桥人数
+                var thelandsUser = theData.islandsUser;//人工岛人数
 
+                me.drawReli(landsBounds, thelandsUser || 0);
+                me.drawReli(bridgeBounds, theBridgeUser || 0);
             }
 
         });

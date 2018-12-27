@@ -1,7 +1,7 @@
 $(function () {
     //1、公路；2、民航；3、水路；4、铁路；5.其它
     //广东省内城市
-    var theCitys = {
+    /*var theCitys = {
         "广州市": "113.264385,23.129112",
         "深圳市": "114.085947,22.547",
         "珠海市": "113.553986,22.224979",
@@ -23,6 +23,29 @@ $(function () {
         "潮州市": "116.632301,23.661701",
         "揭阳市": "116.355733,23.543778",
         "云浮市": "112.044439,22.929801"
+    };*/
+    var theCitys = {
+        "广州": "113.264385,23.129112",
+        "深圳": "114.085947,22.547",
+        "珠海": "113.553986,22.224979",
+        "汕头": "116.708463,23.37102",
+        "佛山": "113.122717,23.028762",
+        "韶关": "113.597313,24.811094",
+        "河源": "114.697802,23.746266",
+        "梅州": "116.117582,24.299112",
+        "惠州": "114.412599,23.079404",
+        "汕尾": "115.364238,22.774485",
+        "东莞": "113.746262,23.046237",
+        "中山": "113.382391,22.521113",
+        "江门": "113.094942,22.590431",
+        "阳江": "111.982697,21.857415",
+        "湛江": "110.364977,21.274898",
+        "茂名": "110.919229,21.659751",
+        "肇庆": "112.472529,23.051546",
+        "清远": "113.051227,23.685022",
+        "潮州": "116.632301,23.661701",
+        "揭阳": "116.355733,23.543778",
+        "云浮": "112.044439,22.929801"
     };
     //视图类型
     var ViewType = {
@@ -70,6 +93,13 @@ $(function () {
     }
 
     PageViewModel.prototype = new PageViewBase();
+    /**
+     * 得到当前的视图格式
+     * @returns {number}
+     */
+    PageViewModel.prototype.getCurrentView=function(){
+        return theCurrentView;
+    }
     /**
      * 初始化页面事件
      */
@@ -259,9 +289,9 @@ $(function () {
     PageViewModel.prototype.loadPage = function (name) {
         $('#page_div').attr('src', name);
     }
-    PageViewModel.prototype.refreshPage = function (data) {
+    PageViewModel.prototype.refreshPage = function (data,type) {
         try {
-            $('#page_div')[0].contentWindow.refresh(data);
+            $('#page_div')[0].contentWindow.refresh(data,theCurrentView);
         }
         catch (e) {
             console.log(e);
@@ -590,11 +620,14 @@ $(function () {
             if (res && res.isSuccess) {
                 //debugger;
                 var theData = res.data;//{"isSuccess":true,"msg":"success","data":[{"id":1,"outNum":"1000000","outPercentage":10,"outType":1,"statDate":"2018-12-10"},{"id":2,"outNum":"5000000","outPercentage":50,"outType":2,"statDate":"2018-12-10"},{"id":3,"outNum":"1000000","outPercentage":10,"outType":3,"statDate":"2018-12-10"},{"id":4,"outNum":"1000000","outPercentage":10,"outType":4,"statDate":"2018-12-10"},{"id":5,"outNum":"1000000","outPercentage":10,"outType":5,"statDate":"2018-12-10"}]}
+                if (seeType == 3){
+                    $('#direction-num').text(0);
+                }
                 if (theData && theData.length > 0) {
                     var theDataList = theData;
                     if (seeType == 3) {
                         theDataList = theData && theData.length > 0 ? theData[0].list : [];
-                        $('#direction-num').text(theData.countNum || 0);
+                        $('#direction-num').text(theData[0].countNum || 0);
                         //debugger;
                     }
                     for (var i = 0; i < theDataList.length; i++) {
@@ -723,7 +756,7 @@ toCity: "深圳"
                 }
                 var theIndex = seeType;
                 me.currentTable = theTableList;
-                me.refreshPage(me.currentTable)
+                me.refreshPage(me.currentTable,theCurrentView)
                 me.loadTemplateTable('table-' + theIndex, theTableList);
             }
         })

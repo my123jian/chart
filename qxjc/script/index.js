@@ -910,10 +910,14 @@ $(function () {
                 var theViewData = {};
                 if (theResultDatas && theResultDatas.length > 0) {
                     var theResultData = theResultDatas[0];
-                    $.extend(theViewData, theResultData);
-                    theViewData.populationGd = theViewData.populationGd / 10000;
-                    theViewData.populationIn = theViewData.populationIn / 10000;
-                    theViewData.populationOut = theViewData.populationOut / 10000;
+                    //可能出现空值 加入判断
+                    //debugger;
+                    if(theResultData){
+                        $.extend(theViewData, theResultData);
+                    }
+                    theViewData.populationGd = (theViewData.populationGd||0 )/ 10000;
+                    theViewData.populationIn = (theViewData.populationIn||0 )/ 10000;
+                    theViewData.populationOut = (theViewData.populationOut||0) / 10000;
                     theViewData['populationGd'] = formateNum1(theViewData.populationGd);
                 }
                 me.bind('.numpart', theViewData);

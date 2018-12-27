@@ -61,7 +61,7 @@ $(function () {
         },
         yAxis: {
             min: '0',
-            max: '30',
+           // max: '30',
             type: 'value',
             name: '(人数/万)',
             nameLocation: 'end',
@@ -371,6 +371,7 @@ $(function () {
     }
 
     PageViewModel.prototype.loadChart3 = function (xData, data1, data2) {
+        //debugger;
         if (!this.Chart3) {
             this.Chart3 = echarts.init(document.getElementById('chart3'));
         }
@@ -384,7 +385,7 @@ $(function () {
                 //stack: '总量',
                 name: '每日客流',
                 smooth: true,
-                data: data1 || [11, 14, 22, 15, 7, 8],
+                data: data1,// || [11, 14, 22, 15, 7, 8],
                 itemStyle: {color: '#d1b96b'},
                 lineStyle: {
                     normal: {
@@ -419,6 +420,7 @@ $(function () {
         if (!this.Chart4) {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
         }
+       //debugger;
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
         theCurrentOption.xAxis.data=xData||theCurrentOption.xAxis.data;
@@ -428,7 +430,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: data1 || [11, 14, 22, 15, 7, 8],
+                data: data1,// || [11, 14, 22, 15, 7, 8],
                 lineStyle: {
                     normal: {
                         color: '#32ff4b'//rgba(50,255,75
@@ -456,6 +458,7 @@ $(function () {
             },
 
         ];
+        //debugger;
         this.Chart4.setOption(theCurrentOption);
     }
     /***
@@ -658,7 +661,7 @@ $(function () {
                 }
                 for (var i = 0; i < theAges.length; i++) {
                     var theAge = theAges[i];
-                    theAgeObj['age' + theAge.qzAge] = theAge.qzGenderPercentage;
+                    theAgeObj['age' + theAge.qzAge] = theAge.qzAgePercentage;
 
                 }
             }
@@ -751,6 +754,7 @@ $(function () {
         var theDate=formateDate1();
         var theParamter = {};
         var me = this;
+        //debugger;
         this.load(theCallUrl, theParamter, function (res) {
             var theDataAll = [];
             var theDataIn = [];
@@ -786,6 +790,7 @@ $(function () {
                     theXArray.push(theItem.statDate);
                 }
             }
+            debugger;
             me.loadChart2(theXArray, theDataAll);
             me.loadChart3(theXArray, theDataIn);
             me.loadChart4(theXArray, theDataOut);
