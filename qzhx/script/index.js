@@ -707,6 +707,7 @@ $(function () {
         this.load(theCallUrl, theParamter, function (res) {
             var theData1 = [];
             var theData2 = [];
+
             var theX1 = [];
             var theX2 = [];
             var theX = [];
@@ -840,7 +841,7 @@ $(function () {
         // this.addInfoWindow("海安新港",110.216824,20.267225);
         this.load(theCallUrl, theParamter, function (res) {
             var theData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-            res = {
+            /*res = {
                 "data": {
                     "id": 1,
                     "pepValue": 1200000,
@@ -849,11 +850,21 @@ $(function () {
                     "statDate": "2018-12-12",
                     "statTime": "12:00"
                 }, "isSuccess": true, "msg": "success"
-            };
+            };*/
             //粤海铁路北港码头0:110.130713,20.226732
             //海安新港0:110.216824,20.267225
             if (res && res.isSuccess && res.data) {
-                me.addMarker("海安两港", 110.221102, 20.270894, ((res.data.pepValue || 0) / 10000).toFixed(1));
+                for(var i=0;i<res.data.length;i++){
+                    var theItem=res.data[i];
+                    debugger;
+                    if(theItem.postionName=="海安两港"){
+                        me.addMarker("海安两港", 110.221102, 20.270894, ((theItem.pepValue || 0) / 10000).toFixed(1));
+                    }
+                    if(theItem.postionName=="粤海铁路北港"){
+                        me.addMarker("粤海铁路北港", 110.221102, 20.270894, ((theItem.pepValue || 0) / 10000).toFixed(1));
+                    }
+                }
+
             }
         });
     }
