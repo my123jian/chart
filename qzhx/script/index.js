@@ -826,8 +826,8 @@ $(function () {
             };
             //粤海铁路北港码头0:110.130713,20.226732
             //海安新港0:110.216824,20.267225
-            if (res && res.isSuccess) {
-
+            if (res && res.isSuccess&&res.data) {
+                this.addMarker("海安新港",110.221102,20.270894,((res.data.pepValue||0)/10000).toFixed(1));
             }
         });
     }
