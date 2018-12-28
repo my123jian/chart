@@ -250,7 +250,7 @@ $(function () {
         theCurrentOption.grid.height = 100;
         theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         theCurrentOption.legend = {
-            data: [{name: '每日客流', textStyle: {color: "#85a8b8"}}, {name: '香港>>珠海澳门', textStyle: {color: "#85a8b8"}}],
+            data: [{name: '粤海铁路北港', textStyle: {color: "#85a8b8"}}, {name: '海安两港', textStyle: {color: "#85a8b8"}}],
             x: 'right',
             y: 'top'
         };
@@ -260,7 +260,7 @@ $(function () {
             {
                 //name: '搜索引擎',
                 type: 'line',
-                name: '每日客流',
+                name: '粤海铁路北港',
                 itemStyle: {
                     color: '#d1b96b'
                 },
@@ -294,7 +294,7 @@ $(function () {
             {
                 //name: '搜索引擎',
                 type: 'line',
-                name: '香港>>珠海澳门',
+                name: '海安两港',
 
                 itemStyle: {
                     normal: {
