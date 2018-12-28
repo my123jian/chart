@@ -247,7 +247,8 @@ $(function () {
 
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
-        theCurrentOption.grid.height = 100;
+        theCurrentOption.grid.height = 80;
+        theCurrentOption.grid.bottom = 10;
         theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         theCurrentOption.legend = {
             data: [{name: '粤海铁路北港', textStyle: {color: "#85a8b8"}}, {name: '海安两港', textStyle: {color: "#85a8b8"}}],
@@ -468,6 +469,7 @@ $(function () {
      * 驻留时长图标
      */
     PageViewModel.prototype.loadChartBar = function (data) {
+        //debugger;
         this.ChartBar = echarts.init(document.getElementById('form_1'));
         var option = {
 
@@ -505,7 +507,7 @@ $(function () {
                 {
                     type: 'value',
                     min: '0',
-                    max: '30',
+                    //max: '30',
                     splitLine: '3',
                     name: '(百分比)',
                     nameLocation: 'end',
@@ -585,14 +587,25 @@ $(function () {
                     "statDate": "2018-12-12"
                 }]
             };*/
+
             if (res && res.isSuccess) {
                 var theDatas = res.data;
                 for (var i = 0; i < theDatas.length; i++) {
                     var theItem = theDatas[i];
                     var theStayTime = theItem.qzStayTime;
-                    theData[theStayTime] = theItem.qzStayPercentage;
+                    if (theStayTime > 8) {
+                        theData[theData.length - 1] = theItem.qzStayPercentage;
+                    }
+                    else if (theStayTime < 1) {
+                        theData[0] = theItem.qzStayPercentage;
+                    }
+                    else {
+                        theData[Math.ceil(theStayTime) - 1] = theItem.qzStayPercentage;
+                    }
+
                 }
             }
+            //debugger;
             me.loadChartBar(theData);
         });
     }
@@ -694,6 +707,8 @@ $(function () {
         this.load(theCallUrl, theParamter, function (res) {
             var theData1 = [];
             var theData2 = [];
+            var theX1 = [];
+            var theX2 = [];
             var theX = [];
             /*res = {
                 "data": [[{
@@ -735,14 +750,24 @@ $(function () {
                     var theItems = res.data[0];
                     for (var i = 0; i < theItems.length; i++) {
                         theData1.push(theItems[i].allPeople);
-                        theX.push(theItems[i].statDate);
+                        theX1.push(theItems[i].statDate);
                     }
                 }
                 if (res.data.length >= 2) {
                     var theItems = res.data[1];
                     for (var i = 0; i < theItems.length; i++) {
                         theData2.push(theItems[i].allPeople);
+                        theX2.push(theItems[i].statDate);
                     }
+                }
+            }
+            var theTmpArray=theX1.concat(theX2);
+            theTmpArray.sort();
+            var theHash={};
+            for(var i=0;i<theTmpArray.length;i++){
+                if(!theHash[theTmpArray[i]]){
+                    theHash[theTmpArray[i]]=true;
+                    theX.push(theTmpArray[i]);
                 }
             }
             me.loadChart1(theX, theData1, theData2);
@@ -996,6 +1021,7 @@ $(function () {
         this.loadQzRatio();
         this.loadQzStay();
         this.loadzFlow();
+        this.loadQzFlowTrend();
     }
     /***
      * 加载第二部分数据
