@@ -72,7 +72,7 @@ $(function () {
         if (!theCurrentDate1) {
             var theDate1 = new Date();
             var theBeginDay1 = theDate1.getDay();
-            var theBeginDate1 = theDate1.addDays(theBeginDay1);
+            var theBeginDate1 = theDate1.addDays(-theBeginDay1);
             var theEndDate1 = theBeginDate1.addDays(6);
             datebegin = theBeginDate1.getFullYear() + "-" + (theBeginDate1.getMonth() + 1) + "-" + theBeginDate1.getDate();
             dateend = theEndDate1.getFullYear() + "-" + (theEndDate1.getMonth() + 1) + "-" + theEndDate1.getDate();
@@ -390,6 +390,7 @@ $(function () {
         //注意修改参数
         this.loadWeather();
         this.loadBridgeFlow();
+        this.loadBridgeRealTimeNumber();
     }
 
     PageViewModel.prototype.loadChart1 = function (data) {
@@ -1001,6 +1002,7 @@ $(function () {
      */
     PageViewModel.prototype.loadChartBar = function (data) {
         this.ChartBar = echarts.init(document.getElementById('form_1'));
+        data = data || [];
         var option = {
 
             grid: {
@@ -1034,7 +1036,7 @@ $(function () {
                 {
                     type: 'value',
                     min: '0',
-                    max: '10',
+                    //max: '10',
                     "show": false,
                     "axisTick": {       //y轴刻度线
                         "show": false
@@ -1057,7 +1059,7 @@ $(function () {
                     name: '累积',
                     type: 'bar',
 //                        barWidth:'33.3%',
-                    data: data || [4, 5, 6, 3, 4.2, 3.5],
+                    data: data,// || [4, 5, 6, 3, 4.2, 3.5],
                     itemStyle: {
                         normal: {
                             color: '#80ddfe'
@@ -1090,7 +1092,8 @@ $(function () {
                 var theData = res.data;
                 var theBridgeUser = theData.bridgeUser;//大桥人数
                 var thelandsUser = theData.islandsUser;//人工岛人数
-
+                me.addMarker2("格力人工岛", 113.581696, 22.203582,((thelandsUser||0)/10000).toFixed(1));
+                me.addMarker2("港珠澳大桥", 113.728361, 22.28002,((theBridgeUser||0)/10000).toFixed(1));
                 me.drawReli(landsBounds, thelandsUser || 0);
                 me.drawReli(bridgeBounds, theBridgeUser || 0);
             }
@@ -1106,11 +1109,48 @@ $(function () {
         var me = this;
         this.load(theCallUrl, {}, function (res) {
 
+            /*res = {
+                "data": {
+                    "ProCountPeople": [{
+                        "id": 1,
+                        "populationGd": 2000000,
+                        "populationIn": 1000000,
+                        "populationOut": 1000000,
+                        "provinceCity": "港珠澳",
+                        "statDate": "2018-12-20",
+                        "statTime": "12:00"
+                    }],
+                    "StationTollStay": [{
+                        "areaid": "港珠澳",
+                        "id": 1,
+                        "recordeddatetime": "2018-12-20 12:00",
+                        "sourcescope": "6",
+                        "statTime": "12:00",
+                        "staytimespan": "3",
+                        "subscribercount": 1000000
+                    }],
+                    "StationNewPeople": [{
+                        "areaid": "港珠澳",
+                        "id": 1,
+                        "recordeddatetime": "2018-12-20 12:00",
+                        "sourcescope": "6",
+                        "statTime": "12:00",
+                        "subscribercount": 1000000
+                    }]
+                }, "isSuccess": true, "msg": "success"
+            };*/
+            //debugger;
             if (res && res.isSuccess && res.data) {
-                var theData = res.data;
-                $('.newcome-people.in').text(0); //进入
-                $('.newcome-people.out').text(0);//离开
-                $('.newcome-people.add').text(0);//新增
+                var theProCountPeople = res.data["ProCountPeople"][0]||{};
+                var theStationNewPeople= res.data["StationNewPeople"][0]||{};
+                var theStationTollStay=res.data["StationNewPeople"];//实时驻留时长
+                var theDatas=theStationTollStay.map(function (item) {
+                    return (item.subscribercount/10000).toFixed(1);
+                })
+                me.loadChartBar(theDatas);
+                $('.newcome-people.in').text(((theProCountPeople["populationIn"]||0)/10000).toFixed(1)); //进入
+                $('.newcome-people.out').text(((theProCountPeople["populationOut"]||0)/10000).toFixed(1));//离开
+                $('.newcome-people.add').text(((theStationNewPeople["subscribercount"]||0)/10000).toFixed(1));//新增
             }
 
         });

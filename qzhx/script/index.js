@@ -61,7 +61,7 @@ $(function () {
         },
         yAxis: {
             min: '0',
-           // max: '30',
+            // max: '30',
             type: 'value',
             name: '(人数/万)',
             nameLocation: 'end',
@@ -106,10 +106,10 @@ $(function () {
         //debugger;
         if (!theCurrentDate1) {
             var theDate = new Date();
-            var theBeginDay=theDate.getDay();
-            var theBeginDate=theDate.addDays(theBeginDay);
-            var theEndDate=theBeginDate.addDays(6);
-            return theBeginDate.getFullYear() + "-" + (theBeginDate.getMonth() + 1) + "-" + theBeginDate.getDate()+" - "+
+            var theBeginDay = theDate.getDay();
+            var theBeginDate = theDate.addDays(-theBeginDay);
+            var theEndDate = theBeginDate.addDays(6);
+            return theBeginDate.getFullYear() + "-" + (theBeginDate.getMonth() + 1) + "-" + theBeginDate.getDate() + " - " +
                 theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
         }
         return theCurrentDate1;//theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
@@ -194,10 +194,10 @@ $(function () {
             $(theParentContent).find('.part1').hide();
             $(theParentContent).find('.part2').hide();
             $(theParentContent).find('.part-' + theIndex).show();
-            if(theIndex==2){
+            if (theIndex == 2) {
                 me.loadPart2();
             }
-            else{
+            else {
                 me.loadPart1();
             }
             //debugger;
@@ -247,7 +247,8 @@ $(function () {
 
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
-        theCurrentOption.xAxis.data=xData||theCurrentOption.xAxis.data;
+        theCurrentOption.grid.height = 100;
+        theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         theCurrentOption.legend = {
             data: [{name: '每日客流', textStyle: {color: "#85a8b8"}}, {name: '香港>>珠海澳门', textStyle: {color: "#85a8b8"}}],
             x: 'right',
@@ -265,7 +266,7 @@ $(function () {
                 },
                 //stack: '总量',
                 smooth: true,
-                data: data1 ,//|| [11, 14, 22, 15, 7, 8],
+                data: data1,//|| [11, 14, 22, 15, 7, 8],
                 areaStyle: {
                     normal: {
                         color: {
@@ -318,7 +319,7 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
-        theCurrentOption.xAxis.data=xData||theCurrentOption.xAxis.data;
+        theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         theCurrentOption.yAxis = [{
             name: '（人数/万）',
             type: 'value',
@@ -379,7 +380,7 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
-        theCurrentOption.xAxis.data=xData||theCurrentOption.xAxis.data;
+        theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -422,10 +423,10 @@ $(function () {
         if (!this.Chart4) {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
         }
-       //debugger;
+        //debugger;
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
-        theCurrentOption.xAxis.data=xData||theCurrentOption.xAxis.data;
+        theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -474,9 +475,9 @@ $(function () {
                 left: 92,
                 right: 5,
                 top: 30,
-                bottom: 5,
+                bottom: 0,
                 width: 560,
-                height: 110,
+                height: 80,
                 containLabel: true
             },
             xAxis: [
@@ -680,7 +681,7 @@ $(function () {
         $('.sex-girl-num').text(data.woman + '%');
         for (var i = 1; i <= 10; i++) {
             $('#age' + i).siblings('span').text((data['age' + i] || 0) + "%");
-            $('#age' + i).css('width', (data['age' + i]/2) + 'px');
+            $('#age' + i).css('width', (data['age' + i] / 2) + 'px');
         }
     }
     /***
@@ -753,7 +754,7 @@ $(function () {
      */
     PageViewModel.prototype.loadQzFlowHistory = function () {
         var theCallUrl = "qz/qzFlowHistory.do";
-        var theDate=formateDate1();
+        var theDate = formateDate1();
         var theParamter = {};
         var me = this;
         //debugger;
@@ -805,13 +806,13 @@ $(function () {
     PageViewModel.prototype.loadzFlow = function () {
         var theCallUrl = "qz/qzFlow.do";
         var theParamter = {};
-
+        var me = this;
         //粤海铁路北港码头0:110.130713,20.226732
         //海安新港0:110.216824,20.267225
-        this.addMarker("粤海铁路北港",110.130713,20.226732);
-       // this.addInfoWindow("粤海铁路北港",110.130713,20.226732);
-        this.addMarker("海安新港",110.221102,20.270894);
-       // this.addInfoWindow("海安新港",110.216824,20.267225);
+        this.addMarker("粤海铁路北港", 110.130713, 20.226732);
+        // this.addInfoWindow("粤海铁路北港",110.130713,20.226732);
+        this.addMarker("海安两港", 110.221102, 20.270894);
+        // this.addInfoWindow("海安新港",110.216824,20.267225);
         this.load(theCallUrl, theParamter, function (res) {
             var theData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
             res = {
@@ -826,8 +827,8 @@ $(function () {
             };
             //粤海铁路北港码头0:110.130713,20.226732
             //海安新港0:110.216824,20.267225
-            if (res && res.isSuccess&&res.data) {
-                this.addMarker("海安新港",110.221102,20.270894,((res.data.pepValue||0)/10000).toFixed(1));
+            if (res && res.isSuccess && res.data) {
+                me.addMarker("海安两港", 110.221102, 20.270894, ((res.data.pepValue || 0) / 10000).toFixed(1));
             }
         });
     }
@@ -894,26 +895,26 @@ $(function () {
         var theParamter = {};
 
         this.load(theCallUrl, theParamter, function (res) {
-           // var theData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-           /* res = {
-                "data": {
-                    "allPeople": 40000,
-                    "id": 5,
-                    "inPeople": 200000,
-                    "outPeople": 200000,
-                    "postionName": "淮安两港",
-                    "postionType": "琼州海峡",
-                    "statDate": "2018-12-17"
-                }, "isSuccess": true, "msg": "success"
-            };*/
+            // var theData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+            /* res = {
+                 "data": {
+                     "allPeople": 40000,
+                     "id": 5,
+                     "inPeople": 200000,
+                     "outPeople": 200000,
+                     "postionName": "淮安两港",
+                     "postionType": "琼州海峡",
+                     "statDate": "2018-12-17"
+                 }, "isSuccess": true, "msg": "success"
+             };*/
 
-        var theData={};
+            var theData = {};
             if (res && res.isSuccess) {
-                theData=res.data;
+                theData = res.data;
             }
-            $('.newcome-people.all').text(theData['allPeople']||0);
-            $('.newcome-people.in').text(theData['inPeople']||0);
-            $('.newcome-people.out').text(theData['outPeople']||0);
+            $('.newcome-people.all').text(((theData['allPeople'] || 0) / 10000).toFixed(1));
+            $('.newcome-people.in').text(((theData['inPeople'] || 0) / 10000).toFixed(1));
+            $('.newcome-people.out').text(((theData['outPeople'] || 0) / 10000).toFixed(1));
         });
     }
     /**
