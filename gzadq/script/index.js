@@ -29,8 +29,9 @@ $(function () {
     function PageViewModel() {
         this.initEvent();
         this.initCharts();
-        this.loadData();
         this.initMap(1);
+        this.loadData();
+
     }
 
     PageViewModel.prototype = new PageViewBase();
@@ -54,13 +55,14 @@ $(function () {
     }
     //获取当前的日期数据
     var formateDate = function () {
+        //debugger;
         if (!theCurrentDate) {
-            var theDate = new Date();
-            var theBeginDay = theDate.getDay();
-            var theBeginDate = theDate.addDays(theBeginDay);
-            var theEndDate = theBeginDate.addDays(6);
+            var theCurrentDate = new Date();
+            //var theBeginDay = theCurrentDate;// theDate.getDay();
+            //var theBeginDate = theDate.addDays(theBeginDay);
+            //var theEndDate = theBeginDate.addDays(6);
             // debugger
-            return theBeginDate.getFullYear() + "-" + (theBeginDate.getMonth() + 1) + "-" + theBeginDate.getDate();
+            return theCurrentDate.getFullYear() + "-" + (theCurrentDate.getMonth() + 1) + "-" + theCurrentDate.getDate();
             //+" - "+                theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
         }
         return theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
@@ -385,6 +387,9 @@ $(function () {
         else {
             this.loadPart2();
         }
+        //注意修改参数
+        this.loadWeather();
+        this.loadBridgeFlow();
     }
 
     PageViewModel.prototype.loadChart1 = function (data) {
@@ -1076,7 +1081,9 @@ $(function () {
         var bridgeGps = [113.728361, 22.28002];
         var bridgeBounds = [[113.730068, 22.278834], [113.711688, 22.274786], [113.695492, 22.264382], [113.678056, 22.251648], [113.643183, 22.240596], [113.63326, 22.23637], [113.594097, 22.20946], [113.591794, 22.211593], [113.636709, 22.24112], [113.669761, 22.252132], [113.685975, 22.259945], [113.701248, 22.273654], [113.714493, 22.279067], [113.728361, 22.28102], [113.755533, 22.28275], [113.787706, 22.280576]];
         var me = this;
-
+        //debugger;
+        me.addMarker2("格力人工岛", 113.581696, 22.203582);
+        me.addMarker2("港珠澳大桥", 113.728361, 22.28002);
         this.load(theCallUrl, {}, function (res) {
             //debugger;
             if (res && res.isSuccess && res.data) {
@@ -1091,6 +1098,22 @@ $(function () {
         });
     }
 
+    /**
+     * 查询实时人数
+     */
+    PageViewModel.prototype.loadBridgeRealTimeNumber = function () {
+        var theCallUrl = "/bridge/bridgeRealTimeNumber.do";
+        var me = this;
+        this.load(theCallUrl, {}, function (res) {
 
+            if (res && res.isSuccess && res.data) {
+                var theData = res.data;
+                $('.newcome-people.in').text(0); //进入
+                $('.newcome-people.out').text(0);//离开
+                $('.newcome-people.add').text(0);//新增
+            }
+
+        });
+    }
     window.PageView = new PageViewModel();
 })

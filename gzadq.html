@@ -28,7 +28,7 @@
 </div>
 <div class="baseView" id="baseView" style="width: 1920px;height: 1080px;z-index: 1;">
 
-    <div id="container" class="container"  style="width: 1920px;height: 1080px;">
+    <div id="container" class="container" style="width: 1920px;height: 1080px;">
     </div>
 </div>
 
@@ -56,20 +56,18 @@
         <div class="left-w-left">
             <div class="newcome">
                 <p class="newcome-text">实时进入人数</p>
-                <p class="newcome-num"><span class="newcome-people">5.5</span>万</p>
+                <p class="newcome-num"><span class="newcome-people in">5.5</span>万</p>
             </div>
             <div class="newcome">
                 <p class="newcome-text">实时离开人数</p>
-                <p class="newcome-num"><span class="newcome-people">5.5</span>万</p>
+                <p class="newcome-num"><span class="newcome-people out">5.5</span>万</p>
             </div>
             <div class="newcome">
                 <p class="newcome-text">小时新增人数</p>
-                <p class="newcome-num"><span class="newcome-people">5.5</span>万</p>
+                <p class="newcome-num"><span class="newcome-people add">5.5</span>万</p>
             </div>
 
         </div>
-
-
 
 
         <div class="form_tab_box tab_active ">
@@ -78,46 +76,46 @@
                 <p class="newtime-text">实时驻留时长</p>
                 <p class="newtime-num">(小时)</p>
             </div>
-            <div id="form_1" ></div>
+            <div id="form_1"></div>
 
         </div>
 
         <div class="left-weather">
             <div class="weather-1">
                 <span class="firstline">天气分析</span>
-                <span class="secondline">2018年12月28日</span>
+                <span class="secondline field" data-field="date">2018年12月28日</span>
             </div>
             <div class="weather-2">
                 <img src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>
                 <div class="w2-right w2-right-top">
                     <span class="weather-litop">温度</span>
-                    <span class="weather-libottom">25℃</span>
+                    <span class="weather-libottom field" data-field="wendu">25℃</span>
                 </div>
             </div>
             <div class="weather-2">
                 <img src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>
                 <div class="w2-right w2-right-top">
                     <span class="weather-litop">风力</span>
-                    <span class="weather-libottom">东风2级</span>
+                    <span class="weather-libottom field" data-field="fengli">东风2级</span>
                 </div>
             </div>
             <div class="weather-2">
                 <img src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>
                 <div class="w2-right w2-right-top">
                     <span class="weather-litop">可见度</span>
-                    <span class="weather-libottom">12公里</span>
+                    <span class="weather-libottom field" data-field="kejiandu">12公里</span>
                 </div>
             </div>
             <div class="weather-2">
                 <img src="./gzadq/img/icon_rain.png" class="weather-icon" alt=""/>
                 <div class="w2-right w2-right-top">
                     <span class="weather-litop">降水</span>
-                    <span class="weather-libottom">0毫米</span>
+                    <span class="weather-libottom field" data-field="jiangshui">0毫米</span>
                 </div>
             </div>
             <div class="weather-2" id="weather-open">
 
-                <div class="weather-7day" >
+                <div class="weather-7day">
                     <span class="weather-litop">未来七天情况</span>
                     <img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>
                 </div>
@@ -126,38 +124,36 @@
         <div class="weather-content">
             <ul>
                 <li>
-                    <div class="weather-1" style="padding-top: 20px;
-    margin-left: 0;
-    width: 202px;">
+                    <div class="weather-1" style="padding-top: 20px;    margin-left: 0;    width: 202px;">
                         <span class="firstline">天气分析</span>
-                        <span class="secondline">2018年12月28日</span>
+                        <span class="secondline field">2018年12月28日</span>
                     </div>
                     <div class="weather-2">
                         <img src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>
                         <div class="w2-right w2-right-top">
                             <span class="weather-litop">温度</span>
-                            <span class="weather-libottom">25℃</span>
+                            <span class="weather-libottom field">25℃</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <img src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>
                         <div class="w2-right w2-right-top">
                             <span class="weather-litop">风力</span>
-                            <span class="weather-libottom">东风2级</span>
+                            <span class="weather-libottom field">东风2级</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <img src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>
                         <div class="w2-right w2-right-top">
                             <span class="weather-litop">可见度</span>
-                            <span class="weather-libottom">12公里</span>
+                            <span class="weather-libottom field">12公里</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <img src="./gzadq/img/icon_rain.png" class="weather-icon" alt=""/>
                         <div class="w2-right w2-right-top">
                             <span class="weather-litop">降水</span>
-                            <span class="weather-libottom">0毫米</span>
+                            <span class="weather-libottom field">0毫米</span>
                         </div>
                     </div>
                     <div class="weather-2">
@@ -170,74 +166,34 @@
                 </li>
                 <li class="middletext">
                     <div class="weather-1">
-                        <span class="secondline" style="margin-top:0">2018年12月28日</span>
+                        <span class="secondline field" style="margin-top:0">2018年12月28日</span>
                     </div>
                     <div class="weather-2 ">
                         <!--<img src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">温度</span>-->
-                            <span class="weather-libottom">25℃</span>
+                            <span class="weather-libottom field">25℃</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">风力</span>-->
-                            <span class="weather-libottom">东风2级</span>
+                            <span class="weather-libottom field">东风2级</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">可见度</span>-->
-                            <span class="weather-libottom">12公里</span>
+                            <span class="weather-libottom field">12公里</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_rain.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">降水</span>-->
-                            <span class="weather-libottom">0毫米</span>
-                        </div>
-                    </div>
-                    <!--<div class="weather-2">-->
-
-                        <!--<div class="weather-7day">-->
-                            <!--<span class="weather-litop">未来七天情况</span>-->
-                            <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                </li>
-                <li class="middletext">
-                    <div class="weather-1">
-                        <span class="secondline" style="margin-top:0">2018年12月28日</span>
-                    </div>
-                    <div class="weather-2">
-                        <!--<img src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>-->
-                        <div class="w2-right">
-                            <!--<span class="weather-litop">温度</span>-->
-                            <span class="weather-libottom">25℃</span>
-                        </div>
-                    </div>
-                    <div class="weather-2">
-                        <!--<img src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>-->
-                        <div class="w2-right">
-                            <!--<span class="weather-litop">风力</span>-->
-                            <span class="weather-libottom">东风2级</span>
-                        </div>
-                    </div>
-                    <div class="weather-2">
-                        <!--<img src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>-->
-                        <div class="w2-right">
-                            <!--<span class="weather-litop">可见度</span>-->
-                            <span class="weather-libottom">12公里</span>
-                        </div>
-                    </div>
-                    <div class="weather-2">
-                        <!--<img src="./gzadq/img/icon_rain.png" class="weather-icon" alt=""/>-->
-                        <div class="w2-right">
-                            <!--<span class="weather-litop">降水</span>-->
-                            <span class="weather-libottom">0毫米</span>
+                            <span class="weather-libottom field">0毫米</span>
                         </div>
                     </div>
                     <!--<div class="weather-2">-->
@@ -250,159 +206,199 @@
                 </li>
                 <li class="middletext">
                     <div class="weather-1">
-                        <span class="secondline" style="margin-top:0">2018年12月28日</span>
+                        <span class="secondline field" style="margin-top:0">2018年12月28日</span>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">温度</span>-->
-                            <span class="weather-libottom">25℃</span>
+                            <span class="weather-libottom field">25℃</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">风力</span>-->
-                            <span class="weather-libottom">东风2级</span>
+                            <span class="weather-libottom field">东风2级</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">可见度</span>-->
-                            <span class="weather-libottom">12公里</span>
+                            <span class="weather-libottom field">12公里</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_rain.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">降水</span>-->
-                            <span class="weather-libottom">0毫米</span>
+                            <span class="weather-libottom field">0毫米</span>
                         </div>
                     </div>
                     <!--<div class="weather-2">-->
 
-                        <!--<div class="weather-7day">-->
-                            <!--<span class="weather-litop">未来七天情况</span>-->
-                            <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
-                        <!--</div>-->
+                    <!--<div class="weather-7day">-->
+                    <!--<span class="weather-litop">未来七天情况</span>-->
+                    <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </li>
                 <li class="middletext">
                     <div class="weather-1">
-                        <span class="secondline" style="margin-top:0">2018年12月28日</span>
+                        <span class="secondline field" style="margin-top:0">2018年12月28日</span>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">温度</span>-->
-                            <span class="weather-libottom">25℃</span>
+                            <span class="weather-libottom field">25℃</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">风力</span>-->
-                            <span class="weather-libottom">东风2级</span>
+                            <span class="weather-libottom field">东风2级</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">可见度</span>-->
-                            <span class="weather-libottom">12公里</span>
+                            <span class="weather-libottom field">12公里</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_rain.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">降水</span>-->
-                            <span class="weather-libottom">0毫米</span>
+                            <span class="weather-libottom field">0毫米</span>
                         </div>
                     </div>
                     <!--<div class="weather-2">-->
 
-                        <!--<div class="weather-7day">-->
-                            <!--<span class="weather-litop">未来七天情况</span>-->
-                            <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
-                        <!--</div>-->
+                    <!--<div class="weather-7day">-->
+                    <!--<span class="weather-litop">未来七天情况</span>-->
+                    <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </li>
                 <li class="middletext">
                     <div class="weather-1">
-                        <span class="secondline" style="margin-top:0">2018年12月28日</span>
+                        <span class="secondline field" style="margin-top:0">2018年12月28日</span>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">温度</span>-->
-                            <span class="weather-libottom">25℃</span>
+                            <span class="weather-libottom field">25℃</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">风力</span>-->
-                            <span class="weather-libottom">东风2级</span>
+                            <span class="weather-libottom field">东风2级</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">可见度</span>-->
-                            <span class="weather-libottom">12公里</span>
+                            <span class="weather-libottom field">12公里</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_rain.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">降水</span>-->
-                            <span class="weather-libottom">0毫米</span>
+                            <span class="weather-libottom field">0毫米</span>
                         </div>
                     </div>
                     <!--<div class="weather-2">-->
 
-                        <!--<div class="weather-7day">-->
-                            <!--<span class="weather-litop">未来七天情况</span>-->
-                            <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
-                        <!--</div>-->
+                    <!--<div class="weather-7day">-->
+                    <!--<span class="weather-litop">未来七天情况</span>-->
+                    <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
+                    <!--</div>-->
                     <!--</div>-->
                 </li>
                 <li class="middletext">
                     <div class="weather-1">
-                        <span class="secondline" style="margin-top:0">2018年12月28日</span>
+                        <span class="secondline field" style="margin-top:0">2018年12月28日</span>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">温度</span>-->
-                            <span class="weather-libottom">25℃</span>
+                            <span class="weather-libottom field">25℃</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">风力</span>-->
-                            <span class="weather-libottom">东风2级</span>
+                            <span class="weather-libottom field">东风2级</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">可见度</span>-->
-                            <span class="weather-libottom">12公里</span>
+                            <span class="weather-libottom field">12公里</span>
                         </div>
                     </div>
                     <div class="weather-2">
                         <!--<img src="./gzadq/img/icon_rain.png" class="weather-icon" alt=""/>-->
                         <div class="w2-right">
                             <!--<span class="weather-litop">降水</span>-->
-                            <span class="weather-libottom">0毫米</span>
+                            <span class="weather-libottom field">0毫米</span>
+                        </div>
+                    </div>
+                    <!--<div class="weather-2">-->
+
+                    <!--<div class="weather-7day">-->
+                    <!--<span class="weather-litop">未来七天情况</span>-->
+                    <!--<img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </li>
+                <li class="middletext">
+                    <div class="weather-1">
+                        <span class="secondline field" style="margin-top:0">2018年12月28日</span>
+                    </div>
+                    <div class="weather-2">
+                        <!--<img src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>-->
+                        <div class="w2-right">
+                            <!--<span class="weather-litop">温度</span>-->
+                            <span class="weather-libottom field">25℃</span>
+                        </div>
+                    </div>
+                    <div class="weather-2">
+                        <!--<img src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>-->
+                        <div class="w2-right">
+                            <!--<span class="weather-litop">风力</span>-->
+                            <span class="weather-libottom field">东风2级</span>
+                        </div>
+                    </div>
+                    <div class="weather-2">
+                        <!--<img src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>-->
+                        <div class="w2-right">
+                            <!--<span class="weather-litop">可见度</span>-->
+                            <span class="weather-libottom field">12公里</span>
+                        </div>
+                    </div>
+                    <div class="weather-2">
+                        <!--<img src="./gzadq/img/icon_rain.png" class="weather-icon" alt=""/>-->
+                        <div class="w2-right">
+                            <!--<span class="weather-litop">降水</span>-->
+                            <span class="weather-libottom field">0毫米</span>
                         </div>
                     </div>
                     <div class="weather-2" id="weather-close" style="padding-top: 20px; line-height: 0;">
 
-                        <div class="weather-7day " >
+                        <div class="weather-7day ">
                             <img src="./gzadq/img/icon_up.png" class="weather-up" alt=""/>
                             <span class="weather-litop weather-close">收起</span>
 
@@ -411,10 +407,6 @@
                 </li>
             </ul>
         </div>
-
-
-
-
 
 
     </div>
@@ -426,7 +418,7 @@
                 <div class="tab-item tab-item-left" data-index="1">
                     <span class="firstline">客流洞察</span>
                     <span style="float: left" class="dateline">|</span>
-                    <div class="datediv" >
+                    <div class="datediv">
                         <div class="date-icon" id="date-icon">
 
                         </div>
@@ -456,20 +448,23 @@
                 </div>
 
             </div>
-            <div class="part1 part-1" >
+            <div class="part1 part-1">
 
                 <div class="chart-div">
                     <div class="title">
                         人工岛客流分析
                     </div>
                     <div class="chart-panel">
-                        <div class="chart-item" data-name="观光" data-color="#80ddfe" data-id="3" data-value="10" id="chart-item1"></div>
-                        <div class="chart-item" data-name="上桥" data-color="#80ddfe" data-id="1" data-value="20" id="chart-item2"></div>
-                        <div class="chart-item" data-name="下桥" data-color="#80ddfe" data-id="2" data-value="30" id="chart-item3"></div>
+                        <div class="chart-item" data-name="观光" data-color="#80ddfe" data-id="3" data-value="10"
+                             id="chart-item1"></div>
+                        <div class="chart-item" data-name="上桥" data-color="#80ddfe" data-id="1" data-value="20"
+                             id="chart-item2"></div>
+                        <div class="chart-item" data-name="下桥" data-color="#80ddfe" data-id="2" data-value="30"
+                             id="chart-item3"></div>
 
                     </div>
                 </div>
-                <div class="chart-div" >
+                <div class="chart-div">
                     <div class="title">
                         时点通关时长
                     </div>
@@ -479,7 +474,7 @@
                     </div>
                 </div>
                 <div class="chart-div">
-                    <div class="title" >
+                    <div class="title">
                         归属分析
                     </div>
                     <div class="tab-direction tab-imgage1">
@@ -544,44 +539,44 @@
                     </div>
 
                     <!--<div class="page">-->
-                        <!--<div class="page-item-1 page-item"></div>-->
-                        <!--<div class="page-item-2 page-item"></div>-->
+                    <!--<div class="page-item-1 page-item"></div>-->
+                    <!--<div class="page-item-2 page-item"></div>-->
                     <!--</div>-->
                 </div>
 
 
             </div>
             <div class="part1 part-2" style="display: none">
-                <div class="chart-div" >
+                <div class="chart-div">
                     <div class="title">
                         大桥客流趋势
                     </div>
 
-                    <div class="chart" id="chart2" >
+                    <div class="chart" id="chart2">
 
                     </div>
                 </div>
-                <div class="chart-div" >
+                <div class="chart-div">
                     <div class="title">
                         人工岛客流趋势
                     </div>
 
-                    <div class="chart" id="chart3" >
+                    <div class="chart" id="chart3">
 
                     </div>
                 </div>
-                <div class="chart-div" >
+                <div class="chart-div">
                     <div class="title">
                         过桥游客每日平均通关时长
                     </div>
 
-                    <div class="chart" id="chart4" >
+                    <div class="chart" id="chart4">
 
                     </div>
                 </div>
                 <!--<div class="page">-->
-                    <!--<div class="page-item-1 page-item"></div>-->
-                    <!--<div class="page-item-2 page-item"></div>-->
+                <!--<div class="page-item-1 page-item"></div>-->
+                <!--<div class="page-item-2 page-item"></div>-->
                 <!--</div>-->
             </div>
 
@@ -591,9 +586,9 @@
 </div>
 
 <script type="text/javascript">
-//天气分析
+    //天气分析
     $('#weather-open').click(function () {
-       $('.left-weather').hide();
+        $('.left-weather').hide();
         $('.weather-content').show()
     });
     $('#weather-close').click(function () {

@@ -853,3 +853,22 @@ iframe {
 .datediv2 #date-input1{
     width:230px;
 }
+.marker-marker-point{
+    background-image: url("img/icon_point.png");
+    width: 80px;
+    height: 80px;
+}
+.infowindow{
+    background-image: url("img/bg_21.png");
+    margin-left: -50px;
+    width: 198px;
+    height: 119px;
+    text-align: center;
+}
+.infowindow .first{
+    padding-top: 30px;
+    font-size: 20px;
+}
+.infowindow .second{
+    font-size: 34px;
+}

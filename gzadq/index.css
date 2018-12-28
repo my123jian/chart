@@ -812,3 +812,22 @@ iframe {
 #chart3,#form_2,#chart4{
     margin-top:56px;
 }
+.marker-marker-point{
+    background-image: url("img/icon_point.png");
+    width: 80px;
+    height: 80px;
+}
+.infowindow{
+    background-image: url("img/bg_2.png");
+    margin-left: -50px;
+    width: 198px;
+    height: 119px;
+    text-align: center;
+}
+.infowindow .first{
+    padding-top: 14px;
+    font-size: 20px;
+}
+.infowindow .second{
+    font-size: 34px;
+}

@@ -118,8 +118,8 @@ $(function () {
     function PageViewModel() {
         this.initEvent();
         this.initCharts();
-        this.loadData();
         this.initMap(2);
+        this.loadData();
     }
 
 
@@ -237,6 +237,8 @@ $(function () {
         else {
             this.loadPart2();
         }
+        //注意修改数据
+        this.loadWeather();
     }
     PageViewModel.prototype.loadChart1 = function (xData, data1, data2) {
         if (!this.Chart1) {
@@ -804,6 +806,12 @@ $(function () {
         var theCallUrl = "qz/qzFlow.do";
         var theParamter = {};
 
+        //粤海铁路北港码头0:110.130713,20.226732
+        //海安新港0:110.216824,20.267225
+        this.addMarker("粤海铁路北港",110.130713,20.226732);
+       // this.addInfoWindow("粤海铁路北港",110.130713,20.226732);
+        this.addMarker("海安新港",110.221102,20.270894);
+       // this.addInfoWindow("海安新港",110.216824,20.267225);
         this.load(theCallUrl, theParamter, function (res) {
             var theData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
             res = {
@@ -815,9 +823,9 @@ $(function () {
                     "statDate": "2018-12-12",
                     "statTime": "12:00"
                 }, "isSuccess": true, "msg": "success"
-            }
-
-            ;
+            };
+            //粤海铁路北港码头0:110.130713,20.226732
+            //海安新港0:110.216824,20.267225
             if (res && res.isSuccess) {
 
             }
