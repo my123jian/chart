@@ -753,16 +753,16 @@ $(function () {
                     var theItems = res.data[0];
                     for (var i = 0; i < theItems.length; i++) {
                         //theData1.push((theItems[i].allPeople/10000).toFixed(1));
-                       theX1.push(theItems[i].statDate);
-                        theX1Obj[theItems[i].statDate]=(theItems[i].allPeople/10000).toFixed(1);
+                       theX1.push(theItems[i].statTime);
+                        theX1Obj[theItems[i].statTime]=(theItems[i].allPeople/10000).toFixed(1);
                     }
                 }
                 if (res.data.length >= 2) {
                     var theItems = res.data[1];
                     for (var i = 0; i < theItems.length; i++) {
                         //theData2.push((theItems[i].allPeople/10000).toFixed(1));
-                        theX2.push(theItems[i].statDate);
-                        theX2Obj[theItems[i].statDate]=(theItems[i].allPeople/10000).toFixed(1);
+                        theX2.push(theItems[i].statTime);
+                        theX2Obj[theItems[i].statTime]=(theItems[i].allPeople/10000).toFixed(1);
                     }
                 }
             }
