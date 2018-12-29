@@ -750,14 +750,14 @@ $(function () {
                 if (res.data.length > 1) {
                     var theItems = res.data[0];
                     for (var i = 0; i < theItems.length; i++) {
-                        theData1.push(theItems[i].allPeople);
+                        theData1.push((theItems[i].allPeople/10000).toFixed(1));
                         theX1.push(theItems[i].statDate);
                     }
                 }
                 if (res.data.length >= 2) {
                     var theItems = res.data[1];
                     for (var i = 0; i < theItems.length; i++) {
-                        theData2.push(theItems[i].allPeople);
+                        theData2.push((theItems[i].allPeople/10000).toFixed(1));
                         theX2.push(theItems[i].statDate);
                     }
                 }
