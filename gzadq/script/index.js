@@ -1096,8 +1096,12 @@ $(function () {
                 var thelandsUser = theData.islandsUser;//人工岛人数
                 me.addMarker2("格力人工岛", 113.581696, 22.203582, ((thelandsUser || 0) / 10000).toFixed(1));
                 me.addMarker2("港珠澳大桥", 113.728361, 22.28002, ((theBridgeUser || 0) / 10000).toFixed(1));
-                me.drawReli(landsBounds, thelandsUser || 0);
-                me.drawReli(bridgeBounds, theBridgeUser || 0);
+                var theReliArrays=[];
+                theReliArrays.push({bounds:landsBounds,data:thelandsUser || 0,max:1000});
+                theReliArrays.push({bounds:bridgeBounds,data:theBridgeUser || 0,max:1000});
+                //me.drawReli(landsBounds, thelandsUser || 0);
+                //me.drawReli(bridgeBounds, theBridgeUser || 0);
+                me.drawRelis(theReliArrays);
             }
 
         });
