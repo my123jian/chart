@@ -653,7 +653,7 @@ html body {
 }
 
 .page-item-1 {
-    background-image: url("img/btn_5.png");
+   /* background-image: url("img/btn_5.png");*/
 }
 
 .page-item-1.select {
@@ -661,12 +661,12 @@ html body {
 }
 
 .page-item-2 {
-    background-image: url("img/btn_4.png");
+   /* background-image: url("img/btn_4.png");*/
     margin-left: 10px;
 }
 
 .page-item-2.select {
-    background-image: url("img/btn_6.png");
+    /*background-image: url("img/btn_6.png");*/
 }
 
 .part2 .chart-div {

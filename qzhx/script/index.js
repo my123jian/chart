@@ -710,6 +710,8 @@ $(function () {
 
             var theX1 = [];
             var theX2 = [];
+            var theX1Obj={};
+            var theX2Obj={};
             var theX = [];
             /*res = {
                 "data": [[{
@@ -750,15 +752,17 @@ $(function () {
                 if (res.data.length > 1) {
                     var theItems = res.data[0];
                     for (var i = 0; i < theItems.length; i++) {
-                        theData1.push((theItems[i].allPeople/10000).toFixed(1));
-                        theX1.push(theItems[i].statDate);
+                        //theData1.push((theItems[i].allPeople/10000).toFixed(1));
+                       theX1.push(theItems[i].statDate);
+                        theX1Obj[theItems[i].statDate]=(theItems[i].allPeople/10000).toFixed(1);
                     }
                 }
                 if (res.data.length >= 2) {
                     var theItems = res.data[1];
                     for (var i = 0; i < theItems.length; i++) {
-                        theData2.push((theItems[i].allPeople/10000).toFixed(1));
+                        //theData2.push((theItems[i].allPeople/10000).toFixed(1));
                         theX2.push(theItems[i].statDate);
+                        theX2Obj[theItems[i].statDate]=(theItems[i].allPeople/10000).toFixed(1);
                     }
                 }
             }
@@ -769,8 +773,11 @@ $(function () {
                 if(!theHash[theTmpArray[i]]){
                     theHash[theTmpArray[i]]=true;
                     theX.push(theTmpArray[i]);
+                    theData1.push(theX1Obj[theTmpArray[i]]||0);
+                    theData2.push(theX2Obj[theTmpArray[i]]||0);
                 }
             }
+            //debugger;
             me.loadChart1(theX, theData1, theData2);
         });
     }
@@ -819,7 +826,7 @@ $(function () {
                     theXArray.push(theItem.statDate);
                 }
             }
-            debugger;
+            //debugger;
             me.loadChart2(theXArray, theDataAll);
             me.loadChart3(theXArray, theDataIn);
             me.loadChart4(theXArray, theDataOut);
@@ -1016,11 +1023,12 @@ $(function () {
                     var theItme = res.data[i];
                     var theTempalte = '<li>\n' +
                         '                                        <span class="guishu-icon">' + theIndex + '</span>\n' +
-                        '                                        <span class="guishu-cuntry">' + theItme.qzBelongArea + '</span>\n' +
+                        '                                        <span class="guishu-cuntry">' + theItme.qzBelong + '</span>\n' +
                         '                                        <span class="guishu-line"></span>\n' +
                         '                                        <span class="guishu-num">' + formateNum(theItme.qzNum) + '</span>人\n' +
                         '                                    </li>';
                     $('.guishu-content ul').append(theTempalte);
+                    theIndex++;
                 }
 
             }
