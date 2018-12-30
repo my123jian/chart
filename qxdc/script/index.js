@@ -93,6 +93,9 @@ $(function () {
     }
 
     PageViewModel.prototype = new PageViewBase();
+    PageViewModel.prototype.onTimer = function () {
+        console.log("开始刷新数据!");
+    }
     /**
      * 得到当前的视图格式
      * @returns {number}

@@ -140,7 +140,7 @@ $(function () {
      * 定时任务开始
      */
     PageViewModel.prototype.onTimer = function () {
-
+        console.log("开始刷新数据!");
     }
     PageViewModel.prototype.initEvent = function () {
         $('.topbutton').click(function () {
@@ -266,12 +266,12 @@ $(function () {
                 }],*/
                 //鼠标移入是否显示省份/城市
                 label: {
-                    position:'top',
-                    distance:10,
+                    position: 'top',
+                    distance: 10,
                     show: true,
                     color: 'white',
                     fontSize: 12,
-                   emphasis: {
+                    emphasis: {
                         color: 'white',
                         fontSize: 20,
                         show: false
@@ -367,9 +367,9 @@ $(function () {
                                         }
                                     },
                                     tooltip: {
-                                        show:false
+                                        show: false
                                     },
-                                    symbolOffset:[0,'100%'],
+                                    symbolOffset: [0, '100%'],
                                     data: [{
                                         name: theAreaNmae,
                                         value: theCityPos,
@@ -899,7 +899,7 @@ $(function () {
     PageViewModel.prototype.loadCurrent = function () {
         var theCallUrl = "migrant/current.do";
         var theCallAreaName = theAreaNmae;
-        var theCallAreaId = this.getAreaCode(theCallAreaName)||'全省';
+        var theCallAreaId = this.getAreaCode(theCallAreaName) || '全省';
         var theCallArgument = {cityCode: theCallAreaId};
         var me = this;
         // debugger;
@@ -912,12 +912,12 @@ $(function () {
                     var theResultData = theResultDatas[0];
                     //可能出现空值 加入判断
                     //debugger;
-                    if(theResultData){
+                    if (theResultData) {
                         $.extend(theViewData, theResultData);
                     }
-                    theViewData.populationGd = (theViewData.populationGd||0 )/ 10000;
-                    theViewData.populationIn = (theViewData.populationIn||0 )/ 10000;
-                    theViewData.populationOut = (theViewData.populationOut||0) / 10000;
+                    theViewData.populationGd = (theViewData.populationGd || 0) / 10000;
+                    theViewData.populationIn = (theViewData.populationIn || 0) / 10000;
+                    theViewData.populationOut = (theViewData.populationOut || 0) / 10000;
                     theViewData['populationGd'] = formateNum1(theViewData.populationGd);
                 }
                 me.bind('.numpart', theViewData);
@@ -933,7 +933,7 @@ $(function () {
     PageViewModel.prototype.loadHistoricalTrend = function () {
         var theCallUrl = "migrant/historicalTrend.do ";
         var theCallAreaName = theAreaNmae;
-        var theCallAreaId = this.getAreaCode(theCallAreaName)||'全省';
+        var theCallAreaId = this.getAreaCode(theCallAreaName) || '全省';
         var theCallArgument = {
             cityCode: theCallAreaId
         };
@@ -977,7 +977,7 @@ $(function () {
     PageViewModel.prototype.loadPredict = function () {
         var theCallUrl = "migrant/predict.do ";
         var theCallAreaName = theAreaNmae;
-        var theCallAreaId = this.getAreaCode(theCallAreaName)||'全省';
+        var theCallAreaId = this.getAreaCode(theCallAreaName) || '全省';
 
         var theCallArgument = {
             cityCode: theCallAreaId,
