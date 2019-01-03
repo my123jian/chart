@@ -399,7 +399,7 @@ $(function () {
         }
         //注意修改参数
         this.loadWeather();
-        this.loadBridgeFlow();
+        //this.loadBridgeFlow();
         this.loadBridgeRealTimeNumber();
     }
 
@@ -1096,10 +1096,22 @@ $(function () {
         //debugger;
         me.addMarker2("格力人工岛", 113.581696, 22.203582);
         me.addMarker2("港珠澳大桥", 113.728361, 22.28002);
+
         this.load(theCallUrl, {}, function (res) {
             //debugger;
             if (res && res.isSuccess && res.data) {
                 var theData = res.data;
+                theData.bridgeUser=0;
+                theData.islandsUser=0;
+                for(var i=0;i<theData.length;i++){
+                    var item=theData[i];
+                    if(item.dataType==1){
+                        theData.islandsUser=item.subscribercount;
+                    }
+                    else{
+                        theData.bridgeUser=item.subscribercount;
+                    }
+                }
                 var theBridgeUser = theData.bridgeUser;//大桥人数
                 var thelandsUser = theData.islandsUser;//人工岛人数
                 me.addMarker2("格力人工岛", 113.581696, 22.203582, ((thelandsUser || 0) / 10000).toFixed(1));
@@ -1155,16 +1167,16 @@ $(function () {
             };*/
             //debugger;
             if (res && res.isSuccess && res.data) {
-                var theProCountPeople = res.data["ProCountPeople"][0] || {};
-                var theStationNewPeople = res.data["StationNewPeople"][0] || {};
-                var theStationTollStay = res.data["StationNewPeople"];//实时驻留时长
+                //var theProCountPeople = res.data["ProCountPeople"][0] || {};
+                //var theStationNewPeople = res.data["StationNewPeople"][0] || {};
+                var theStationTollStay =res.data["stay"];// res.data["StationNewPeople"];//实时驻留时长
                 var theDatas = theStationTollStay.map(function (item) {
                     return (item.subscribercount / 10000).toFixed(1);
                 })
                 me.loadChartBar(theDatas);
-                $('.newcome-people.in').text(((theProCountPeople["populationIn"] || 0) / 10000).toFixed(1)); //进入
-                $('.newcome-people.out').text(((theProCountPeople["populationOut"] || 0) / 10000).toFixed(1));//离开
-                $('.newcome-people.add').text(((theStationNewPeople["subscribercount"] || 0) / 10000).toFixed(1));//新增
+                $('.newcome-people.in').text(((res.data["inPeople"] || 0) / 10000).toFixed(1)); //进入
+                $('.newcome-people.out').text(((res.data["outPeople"] || 0) / 10000).toFixed(1));//离开
+                $('.newcome-people.add').text(((res.data["subscribercount"] || 0) / 10000).toFixed(1));//新增
             }
 
         });

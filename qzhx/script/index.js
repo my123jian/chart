@@ -238,6 +238,8 @@ $(function () {
             this.loadPart2();
         }
         //注意修改数据
+        this.loadSelectNewOne();
+        this.loadzFlow();
         this.loadWeather();
     }
     PageViewModel.prototype.loadChart1 = function (xData, data1, data2) {
@@ -848,6 +850,7 @@ $(function () {
         // this.addInfoWindow("粤海铁路北港",110.130713,20.226732);
         this.addMarker("海安两港", 110.221102, 20.270894);
         // this.addInfoWindow("海安新港",110.216824,20.267225);
+        //debugger;
         this.load(theCallUrl, theParamter, function (res) {
             var theData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
             /*res = {
@@ -863,23 +866,24 @@ $(function () {
             //粤海铁路北港码头0:110.130713,20.226732
             //海安新港0:110.216824,20.267225
             var theReliArrays = [];
+            //debugger;
             if (res && res.isSuccess && res.data) {
                 for (var i = 0; i < res.data.length; i++) {
                     var theItem = res.data[i];
 
-                    if (theItem.postionName == "海安两港" || "淮安两港" == theItem.postionName) {
-                        me.addMarker("海安两港", 110.221102, 20.270894, ((theItem.pepValue || 0) / 10000).toFixed(1));
+                    if (theItem.positionName == "湛江徐闻海安港" || "湛江徐闻海安港" == theItem.positionName) {
+                        me.addMarker("海安两港", 110.221102, 20.270894, ((theItem.subscribercount || 0) / 10000).toFixed(1));
                         theReliArrays.push({
                             bounds: haianBounds,
-                            data: theItem.pepValue || 0,
+                            data: theItem.subscribercount || 0,
                             max: 10000,
                         });
                     }
-                    if (theItem.postionName == "粤海铁路北港" || "铁路北港" == theItem.postionName) {
-                        me.addMarker("粤海铁路北港", 110.221102, 20.270894, ((theItem.pepValue || 0) / 10000).toFixed(1));
+                    if (theItem.positionName == "铁路北港" || "铁路北港" == theItem.positionName) {
+                        me.addMarker("粤海铁路北港", 110.221102, 20.270894, ((theItem.subscribercount || 0) / 10000).toFixed(1));
                         theReliArrays.push({
                             bounds: yhbgBounds,
-                            data: theItem.pepValue || 0,
+                            data: theItem.subscribercount || 0,
                             max: 10000,
                         });
                     }
@@ -948,7 +952,7 @@ $(function () {
      * 查询最新一条数据
      */
     PageViewModel.prototype.loadSelectNewOne = function () {
-        var theCallUrl = "qz/selectNewOne.do";
+        var theCallUrl ="qz/qzRealTimeNumber.do";// "qz/selectNewOne.do";
         var theParamter = {};
 
         this.load(theCallUrl, theParamter, function (res) {
@@ -969,7 +973,7 @@ $(function () {
             if (res && res.isSuccess) {
                 theData = res.data;
             }
-            $('.newcome-people.all').text(((theData['allPeople'] || 0) / 10000).toFixed(1));
+            $('.newcome-people.all').text((((theData['inPeople']-theData['outPeople']) || 0) / 10000).toFixed(1));
             $('.newcome-people.in').text(((theData['inPeople'] || 0) / 10000).toFixed(1));
             $('.newcome-people.out').text(((theData['outPeople'] || 0) / 10000).toFixed(1));
         });
@@ -1050,10 +1054,10 @@ $(function () {
     PageViewModel.prototype.loadPart1 = function () {
         this.loadzQzBelongType();
         this.loadQzBelongArea();
-        this.loadSelectNewOne();
+
         this.loadQzRatio();
         this.loadQzStay();
-        this.loadzFlow();
+
         this.loadQzFlowTrend();
     }
     /***
