@@ -175,17 +175,19 @@ html body {
     background-image: url("img/tittle.png");
 }
 #form_1{
-    width:458px;height:150px;
+    /* width: 458px; */
+    width: 258px;
+    height: 150px;
     position: absolute;
     top: 206px;
-    left: 620px;
+    left: 855px;
 }
 .left-w-left{
     position: absolute;
-    width: 450px;
+    width: 750px;
     height: 150px;
     top: 294px;
-    left: 58px;
+    left: 40px;
     font-size: 16px;
 }
 .newcome{
@@ -207,7 +209,7 @@ html body {
     position: absolute;
     text-align: center;
     top: 294px;
-    left: 506px;
+    left: 760px;
 }
 .left-weather{
     width: 1070px;
