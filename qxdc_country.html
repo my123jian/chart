@@ -80,6 +80,10 @@
        //debugger;
         for(var i=0;i<data.length;i++){
             var theItem=data[i];
+            if(!theCitys[theItem.from]||!theCitys[theItem.to]){
+                console.log('未找到'+theItem.from+":"+theItem.to);
+                continue;
+            }
             theData.push({name: theItem.to, value: theItem.value||0});
             theLineData.push([{name: theItem.from}, {name: theItem.to, value: theItem.value||0}]);
         }

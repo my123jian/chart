@@ -11,9 +11,10 @@ $(function () {
     var theAreaNmae = "";
 
     var theXData = [];
-    for (var i = 1; i <= 24; i++) {
+    for (var i = 1; i <= 24*12; i++) {
         theXData.push(i);
     }
+    //debugger;
     /*一类图表基本设置*/
     var option1 = {
         /*title: {
@@ -30,9 +31,9 @@ $(function () {
             left: 0,
             right: 5,
             top: 30,
-            bottom: 5,
+            bottom: 10,
             width: 510,
-            height: 75,
+            height: 70,
             containLabel: true
         },
         /*toolbox: {
@@ -44,11 +45,15 @@ $(function () {
             type: 'category',
             name: '(时点)',
             nameLocation: 'end',
-            splitNumber: 5,
+            //interval:12,
+            //splitNumber: 24,
             axisLabel: {
                 formatter: function (value, idx) {
-                    if (value % 4 == 0) {
-                        return value;
+                    //debugger;
+                    if (value % (12*4) == 0) {
+                        //console.log('x2:'+value/12);
+                        //console.log('x:'+value/(60/5));
+                        return value/12;
                     }
                     else {
                         return "";
@@ -420,10 +425,12 @@ $(function () {
         if (!this.Chart1) {
             this.Chart1 = echarts.init(document.getElementById('chart1'));
         }
-        var theXData = [];
+       /* var theXData = [];
         for (var i = 0; i <= 24; i++) {
             theXData.push(i);
-        }
+        }*/
+        data1=data1||[];
+        data2=data2||[];
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
         theCurrentOption.series = [
@@ -433,7 +440,9 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: data1 || [820, 932, 901, 934, 1290, 1330],
+                data: data1.map(function (item) {
+                  return (item/10000).toFixed(1);
+                }) ,
                 areaStyle: {
                     normal: {
                         color: {
@@ -472,7 +481,9 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: data2 || [820, 932, 901, 934, 1290, 1330, 1320]
+                data: data2.map(function (item) {
+                    return (item/10000).toFixed(1)
+                })
             }
         ]
         this.Chart1.setOption(theCurrentOption);
@@ -481,6 +492,8 @@ $(function () {
         if (!this.Chart2) {
             this.Chart2 = echarts.init(document.getElementById('chart2'));
         }
+        data1=data1||[];
+        data2=data2||[];
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
         theCurrentOption.series = [
@@ -490,7 +503,9 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: data1 || [820, 932, 901, 934, 1290, 1330],
+                data: data1.map(function (item) {
+                    return (item/10000).toFixed(1);
+                }),
                 lineStyle: {
                     normal: {
                         color: '#4293f2' //rgba(66,147,242
@@ -529,7 +544,9 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: data2 || [820, 932, 901, 934, 1290, 1330, 1320]
+                data:  data2.map(function (item) {
+                    return (item/10000).toFixed(1)
+                })
             }
         ];
 
@@ -540,6 +557,8 @@ $(function () {
         if (!this.Chart3) {
             this.Chart3 = echarts.init(document.getElementById('chart3'));
         }
+        data1=data1||[];
+        data2=data2||[];
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
         theCurrentOption.series = [
@@ -548,7 +567,9 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: data1 || [820, 932, 901, 934, 1290, 1330],
+                data: data1.map(function (item) {
+                    return (item/10000).toFixed(1);
+                }),
                 lineStyle: {
                     normal: {
                         color: '#32ff4b'//rgba(50,255,75
@@ -588,7 +609,9 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: data2 || [820, 932, 901, 934, 1290, 1330, 1320]
+                data:  data2.map(function (item) {
+                    return (item/10000).toFixed(1)
+                })
             }
         ];
         this.Chart3.setOption(theCurrentOption);
@@ -984,7 +1007,7 @@ $(function () {
             date: ''
         };
         if (theCurrentDate) {
-            theCallArgument.date = theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//  'YYYY-mm-dd'
+            theCallArgument.date = theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//  'YYYY-mm-dd'
         }
 
         var me = this;

@@ -838,7 +838,11 @@ html,body{
 
     header {
       width: 100%;
-      padding: 30px 100px 0px;
+      //text-align: center;
+      padding-top: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
 
       label {
         font-size: 26px;
@@ -922,7 +926,10 @@ html,body{
 
   .header1 {
     width: 100%;
-    padding: 30px 100px 25px;
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
 
     label {
       font-size: 26px;
@@ -2076,6 +2083,7 @@ input:focus {
   z-index: 10;
   padding: 50px 40px;
   background-color: rgba(0, 0, 0, 0.5);
+  cursor: default;
   display: none;
 
   .container {
@@ -2141,6 +2149,7 @@ input:focus {
     li {
       display: flex;
       padding-top: 10px;
+      cursor: pointer;
     }
 
     li:nth-last-child(1) {
@@ -2188,4 +2197,53 @@ input:focus {
     display: none;
   }
 
+}
+.info {
+  font-size: 20px;
+}
+
+.amap-info-outer {
+  box-shadow: 0 3px 14px rgba(0,0,100,.6);
+  background: #fff;
+  border-radius: 2px;
+  padding: 1px;
+  text-align: left;
+  border: 1px solid silver;
+
+}
+.amap-info-content {
+  background: rgb(0, 0, 0);
+  color: #00aeef;
+  border-radius: 5px;
+  border: 1px solid #00aeef;
+  padding: 10px 18px 10px 10px;
+  line-height: 1.4;
+  overflow: auto;
+}
+
+.infoTitle {
+  margin: 5px 0;
+  color: yellow;
+}
+.infoContent {
+  margin: 5px 0;
+}
+.amap-info-close {
+  color: #00aeef;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  text-decoration: none;
+  font: 700 16px/14px Tahoma,Verdana,sans-serif;
+  width: 14px;
+  height: 14px;
+}
+.amap-info-sharp {
+  height: 23px;
+  margin: 0 auto;
+  overflow: hidden;
+  top: -1px;
+  width: 30px;
+  position: relative;
+  background-image: url('../img/sharp.png');
 }

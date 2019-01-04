@@ -1,4 +1,3 @@
-
 var pointControl,traffic;
 $(function () {
   var hourArr = ['0-1', '1-2','2-3', '3-4', '4-5', '5-6', '6-7', '7-8','8-24'];
@@ -30,24 +29,38 @@ $(function () {
   pointControl = new PlacePointView(theMap);
   traffic = new TrafficView(theMap);
   init();
+  MapBase.IsFloorVisible=function(){
+    var theName=['深圳北站','广州南站','广州白云国际机场','深圳宝安国际机场','广州站'];
+    //debugger;
+    for(var i =0;i<theName.length;i++){
+      if(curPosition==theName[i]){
+        return true;
+      }
+    }
+    return false;
+  }
+    MapBase.OnFloorClick=function(name){
+      //debugger;
+      if(curPosition=='广州南站'&&name=='2F'){
+        mapbase.hideReli();
+        return;
+      }
+    mapbase.drawReli(curPosition,2000,name);
+    };
   // console.log(pointControl.PlacePoints)
 
   /**
    * 初始化应用
    */
   function init() {
+    moment.locale('zh-cn');
     console.log('切换到:',nowTab);
     // initCalendar();
 
     // 点击标题
     title.on('click',function () {
       toDefaultView();
-      // pointControl.ReturnDefualt();  // 默认视角
-      // pointControl.showMarkers();  // 显示点标记
-      // showTabs();
-      // hideCurLocaction();
-      // hideTab2();
-      // $('#floor').addClass('dn');
+
     });
     backDivBandClick();
 
@@ -103,6 +116,7 @@ $(function () {
           resultList.empty();
           resultList.hide();
           var name = $(this).text();
+          curPosition = name;
           var curPosDataBox = $('#cur-pos-data-box');
           var tabBoxCur = $('#tab-box-cur');
           var arrows = tabBoxCur.find('.arrow');
@@ -214,6 +228,7 @@ $(function () {
       var stationDom = $('<li>'+ t +'</li>');
       stationDom.on('click',function () {
         var name = $(this).text();
+        curPosition = name;
         var curPosDataBox = $('#cur-pos-data-box');
         var tabBoxCur = $('#tab-box-cur');
         var arrows = tabBoxCur.find('.arrow');
@@ -226,6 +241,7 @@ $(function () {
         goToPointByName(name);
         // $('#tab-name').text($(this).text());
         changePosText(name);
+        mapbase.drawReli(name,2000);
       })
       $('#station-box-1').find('ul').append(stationDom);
       // $('#station-box-1').find('ul').append($('<li>'+ t +'</li>'));
@@ -253,6 +269,8 @@ $(function () {
         goToPointByName(name)
         // $('#tab-name').text($(this).text());
         changePosText(name);
+        mapbase.drawReli(name,2000);
+
       })
       $('#station-box-2').find('ul').append(stationDom2);
     }
@@ -275,9 +293,12 @@ $(function () {
         goToPointByName(name);
         // $('#tab-name').text($(this).text());
         changePosText(name);
+        mapbase.drawReli(name,2000);
+
       })
       $('#station-box-3').find('ul').append(stationDom3);
     }
+    $('#station-box-3').find('header').text('机场、港口');
   }
 
   /**
@@ -298,6 +319,14 @@ $(function () {
   function toDefaultView() {
     pointControl.ReturnDefualt();  // 默认视角
     pointControl.showMarkers();  // 显示点标记
+    // traffic.removePaths();  // 清除高速路段的线
+    clearCenterMarker();
+    mapbase.removeHeartMap();
+    // if(nowTab!=='高速路网') {
+    //   console.log(2)
+    //   mapbase.restoreDefaultStyle();
+    // }
+
     showTabs();
     hideCurLocaction();
     hideTab2();
@@ -335,6 +364,8 @@ $(function () {
         lng: lng
       };
       // console.log(clickTarget['地址'][0].lnglat)
+
+      // debugger
       pointControl.MoveToPoint(arg,18);
       isDefaultView = false;
     }
@@ -601,6 +632,21 @@ $(function () {
     }
   }
 
+  var timer;
+  /**
+   * 更新时间
+   */
+  function refreshTime() {
+    var curDate = $('#curDate');
+    var curTime = $('#curTime');
+    function changeFont() {
+      curDate.text(moment().format('LL dddd'));
+      curTime.text(moment().format('h:mm:ss'));
+    }
+    changeFont();
+    timer = setInterval(changeFont,1000)
+  }
+
   // 隐藏tab2
   function hideTab2() {
     var temp;
@@ -650,59 +696,134 @@ $(function () {
     pointControl.ReturnDefualt();
     pointControl.showPoints(t);  // 放大点
     markerBindClick();
-
+    clearCenterMarker();
     if (nowTab === tabArr[0]) {
       addStation();
       positionType = 1;  // 场站type
+      clearInterval(timer);
       $('#top3').show();
-      $('#road-net-tips').hide();
-      $('#road-net').hide();
+      $('#luwang-box').hide();
+      $('#container2').show();
+      mapbase.isGaoSuLuDuan = false;
+      mapbase.restoreDefaultStyle();
+      mapbase.setBg();
+      traffic.removePaths();  // 清除高速路段的线
+
     }
-    else {
-      addStation2();
-    }
+
     if (nowTab === tabArr[1]) {
       positionType = 2;  // 服务区type
+      addStation2();
+      clearInterval(timer);
       $('#top3').show();
-      $('#road-net-tips').hide();
-      $('#road-net').hide();
+      $('#luwang-box').hide();
+      $('#container2').show();
+      mapbase.isGaoSuLuDuan = false;
+      mapbase.restoreDefaultStyle();
+      mapbase.setBg();
+      traffic.removePaths();  // 清除高速路段的线
+
     }
     if (nowTab === tabArr[2]) {
-
       positionType = 3;  // 收费站type
+      addStation2();
+      clearInterval(timer);
       $('#top3').show();
-      $('#road-net-tips').hide();
-      $('#road-net').hide();
+      $('#luwang-box').hide();
+      $('#container2').show();
+      mapbase.isGaoSuLuDuan = false;
+      mapbase.restoreDefaultStyle();
+      mapbase.setBg();
+      traffic.removePaths();  // 清除高速路段的线
+
     }
     if (nowTab === '高速') {
       positionType = 4;  // 高速路段type
-
+      mapbase.setLuDuanStyle();
+      addStation2();
+      clearInterval(timer);
       $('#top3').show();
-      // $('#road-net-tips').hide();
-      // $('#road-net').hide();
+      $('#luwang-box').hide();
+      $('#container2').show();
+      DrawLuDuan();
     }
     if (nowTab === '高速路网') {
+      mapbase.isGaoSuLuDuan = false;
+      refreshTime();
       $('#top3').hide();
       $('#luwang-box').show();
-      // $('#road-net-tips').show();
-      // $('#road-net').show();
-
       mapbase.setTrafficStyle();
-      reqGaoSuDtlData()
+      // reqLuWangDtlData()
+      reqJamList();
+      // jamRankLiClick();
+      $('#container2').hide()
+      traffic.removePaths();  // 清除高速路段的线
+
     }
-    else {
-      mapbase.restoreDefaultStyle();
-      $('#luwang-box').hide();
-    }
+
+    // if (nowTab === tabArr[0]) {
+    //   addStation();
+    //   positionType = 1;  // 场站type
+    // }
+    // else {
+    //   addStation2();
+    // }
+    // if (nowTab === tabArr[1]) {
+    //   positionType = 2;  // 服务区type
+    //
+    // }
+    // if (nowTab === tabArr[2]) {
+    //   positionType = 3;  // 收费站type
+    //
+    // }
+    // if (nowTab === '高速') {
+    //   positionType = 4;  // 高速路段type
+    //   mapbase.setLuDuanStyle();
+    //   // console.log(111)
+    // }
+    // if (nowTab === '高速路网') {
+    //   refreshTime();
+    //   $('#top3').hide();
+    //   $('#luwang-box').show();
+    //   // reqJamList();
+    //   mapbase.setTrafficStyle();
+    //   // reqLuWangDtlData()
+    //   reqJamList();
+    //   // jamRankLiClick();
+    //   $('#container2').hide()
+    // }
+    // else {
+    //   // console.log(222)
+    //   clearInterval(timer);
+    //   clearJamList();
+    //   $('#top3').show();
+    //   $('#luwang-box').hide();
+    //   $('#container2').show();
+    //   mapbase.isGaoSuLuDuan = false;
+    //
+    //   if(nowTab === '高速') {
+    //     mapbase.isGaoSuLuDuan = true;
+    //     mapbase.isGaoSuLuWang = false;
+    //   } else  {
+    //     mapbase.restoreDefaultStyle();
+    //   }
+    // }
 
     // console.log('theDataObject:', pointControl.markes)
     // addStation2()
   }
 
   /**
-   * 查询高速路拥堵事件详细信息
+   * 清空拥挤列表
    */
-  function reqGaoSuDtlData() {
+  function clearJamList() {
+    $('#jam-rank').empty();
+  }
+
+  /**
+   * 查询高速路网拥堵事件详细信息
+   */
+  function reqLuWangDtlData() {
     var url = 'highSpeed/selectGsCongestionDetails.do'
     var data = {
       sid: 60004,
@@ -710,20 +831,247 @@ $(function () {
       serviceKey: '2746555197B6CD66C5E00DA88C8cd5BF'
     };
     $.axpost(url,data,function (data) {
-      // console.log(data)
-      if(data.isSuccess && data.data) {
-        var rows = data.data.rows;
-        console.log(rows)
-          var theRows=[];
-        for (var i = 0; i < rows.length; i++) {
-          var r = rows[i].xys.split(';');
-          // console.log(r);
-            theRows.push(r);
+      console.log(data)
+      // if(data.isSuccess && data.data) {
+        // console.log()
+        // var rows = data.data.rows;
+        // console.log('row',rows)
+        //   var theRows=[];
+        // for (var i = 0; i < rows.length; i++) {
+        //   var r = rows[i].xys.split(';');
+        //   // console.log('r',r);
+        //     theRows.push(r);
+        // }
+        // traffic.drawRoads(theRows)
+      // }
+    })
+    // debugger
 
+        // var rows = def.data.rows;
+        // console.log('row',rows)
+        //   var theRows=[];
+        // for (var i = 0; i < rows.length; i++) {
+        //   var r = rows[i].xys.split(';');
+        //   // console.log('r',r);
+        //     theRows.push(r);
+        // }
+        // // setTimeout(function () {
+        //   traffic.drawRoads(theRows)
+
+        // },1000)
+
+  }
+
+  var mList = [];
+
+  /**
+   * 查询高速拥堵事件列表
+   */
+  function reqJamList() {
+    var url = 'highSpeed/selectGsCongestionAndDetails.do';
+    $.axpost(url,{},function (data) {
+      console.log('reqJamList:',data);
+      if(data.isSuccess && data.data) {
+        clearJamList();
+        var jamList = data.data.rows;
+        // var jamList = [];  // 拥堵列表
+        // for (var i = 0; i < theData.length; i++) {
+        //   var dataObj = theData[i];
+        //   jamList.push(dataObj)
+        // }
+        // console.log('jamList:',jamList);
+        var idx = 0;
+        var jamRankUl = $('#jam-rank');
+
+        for (var j = 0; j < jamList.length; j++) {
+          // debugger
+          idx++;
+          var liData = jamList[j];
+          var liDetailsArray = liData.congestionDetailsArray;
+          // debugger
+          var startLngLat = liDetailsArray[0].xys.split(';')[0].split(',').map(function (t) { return parseFloat(t) });  // 起点经纬度
+          var temp = liDetailsArray[liDetailsArray.length-1].xys.split(';');
+          var endLngLat = temp[temp.length-1].split(',').map(function (t) { return parseFloat(t) });  // 终点经纬度
+          // debugger
+          var angle = calcAngle(startLngLat,endLngLat);  // 角度
+          var dir = judgeDirection(angle);  // 方向 todo 方向不准确
+          // debugger
+          var liStr = '<li>\n' +
+            '<div class="idx">\n' +
+            '<span>'+idx+'</span>\n' +
+            '</div>\n' +
+            '<div class="road-profile">\n' +
+            '<p>'+liData.roadName+'</p>\n' +
+            '<p>'+dir+'</p>\n' +
+            '</div>\n' +
+            '<div class="jam-data">\n' +
+            '<p>'+toKM(liData.jamDist)+'</p>\n' +
+            '<p>'+liData.jamSpeed+'km/h</p>\n' +
+            '</div>\n' +
+            '</li>';
+
+          var liDom = $(liStr);
+          liDom[0].dataset.eventId = liData.eventId;
+          liDom[0].dataset.insertTime = liData.insertTime;
+          liDom[0].dataset.jamDist = toKM(liData.jamDist);
+          liDom[0].dataset.dir = dir;
+          liDom[0].dataset.roadName = liData.roadName;
+
+          liDom.on('click',function () {
+            var me = this;
+            var theData = {
+              name: me.dataset.roadName,
+              jamDist: me.dataset.jamDist,
+              dir: me.dataset.dir
+            }
+            clearCenterMarker();
+            // console.log(this.dataset);
+            var theEventId = this.dataset.eventId;
+            var theInsertTime = this.dataset.insertTime;
+            var xy = this.dataset.lnglat;
+            var url = 'highSpeed/selectGsCongestionDetails.do';
+            var data = {
+              eventId: theEventId,
+              insertTime: theInsertTime
+            };
+            $.axpost(url,data,function (data) {
+              console.log('dtlData:',data);
+              var rows = data.data.rows;
+              var eve = data.data.event;
+              // console.log('row',rows)
+              var theRows=[];
+              var pointArr = [];
+              for (var i = 0; i < rows.length; i++) {
+                var r = rows[i].xys.split(';');
+                for (var k = 0; k < r.length; k++) {
+                  var ritem = r[k].split(',');
+                  pointArr.push(ritem);
+
+                }
+                // console.log('r',r);
+                // debugger
+                theRows.push(r);
+              }
+              // debugger
+              // console.log('theRow:',theRows);
+              // console.log('pointArr:',pointArr);
+
+              // var centerRow = rows[parseInt(rows.length/2)];
+              // var lnglat = xy.split(',').map(function (t) { return parseFloat(t) });
+
+              traffic.drawRoads(theRows,nowTab);
+              var theMiddlePointArr = pointArr[parseInt(pointArr.length/2)];
+              addLuWangMarker(theMiddlePointArr,theData);
+
+              // theMap.remove(mList);
+              // var mIdx = 'm';
+              // for (var i = 0; i < rows.length; i++) {
+              //   // debugger
+              //   var p = rows[i].xy.split(',');
+              //   mIdx+=i;
+              //
+              //   mIdx = new AMap.Marker({
+              //     position: new AMap.LngLat(parseFloat(p[0]),parseFloat(p[1])),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+              //     title: '中间点',
+              //     content: '<div style="color:#fff;font-size:20px">'+i+'</div>'
+              //   });
+              //   mList.push(mIdx)
+              // }
+              // theMap.add(mList);
+
+            })
+          });
+          jamRankUl.append(liDom);
         }
-        traffic.drawRoads(theRows)
       }
     })
+  }
+
+
+  var luWangMarker = null;  // 路网  路中心点
+  /**
+   * 清除路网的marker
+   */
+  function clearCenterMarker() {
+    if(luWangMarker) {
+      theMap.remove(luWangMarker)
+    }
+    closeInfoWindow()
+  }
+
+  /**
+   * 高速路网 点击道路li后 显示中心的marker
+   * @param lnglatArr 经纬度数组
+   * @param dataObj 目标数据数组
+   */
+  function addLuWangMarker(lnglatArr,dataObj) {
+    clearCenterMarker();
+    var theArr = lnglatArr.map(function (t) {
+      return parseFloat(t)
+    });
+    luWangMarker = new AMap.Marker({
+      position: new AMap.LngLat(theArr[0],theArr[1]),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+      title: '中间点',
+      content: '<div style="color: black;"></div>'
+    });
+
+    //实例化信息窗体
+    var title = dataObj.name,
+      content = [];
+    // content.push("<img src='http://tpc.googlesyndication.com/simgad/5843493769827749134'>地址：北京市朝阳区阜通东大街6号院3号楼东北8.3公里");
+    // content.push("电话：010-64733333");
+    // content.push("<a href='https://ditu.amap.com/detail/B000A8URXB?citycode=110105'>详细信息</a>");
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  //使用自定义窗体
+      content: createInfoWindow(title, dataObj),
+      offset: new AMap.Pixel(0, -20),
+      position: luWangMarker.getPosition()
+    });
+
+    theMap.add(luWangMarker);
+    // 打开信息窗体
+    infoWindow.open(theMap);
+    theMap.setFitView(luWangMarker,theMap.RoadPaths);
+  }
+
+  //构建自定义信息窗体
+  function createInfoWindow(title, content) {
+    var container = document.createElement("div");
+    var info = document.createElement("div");
+    info.className = "amap-info-content amap-info-outer";
+
+    //可以通过下面的方式修改自定义窗体的宽高
+    //info.style.width = "400px";
+    // 定义顶部标题
+    var titleD = document.createElement("h4");
+    var p = document.createElement("p");
+    var closeX = document.createElement("a");
+    var bottom = document.createElement("div");
+
+    titleD.className = 'infoTitle';
+    titleD.innerHTML = title;
+    p.className = 'infoContent';
+    p.innerHTML = '方向:' + content.dir + ' ' + '长度:' + content.jamDist;
+    closeX.className = 'amap-info-close';
+    closeX.href = 'javascript: void(0)';
+    closeX.innerHTML = 'x';
+    // closeX.src = "https://webapi.amap.com/images/close2.gif";
+
+    closeX.onclick = closeInfoWindow;
+    bottom.className = 'amap-info-sharp';
+
+    info.appendChild(titleD);
+    info.appendChild(p);
+    container.appendChild(info);
+    container.appendChild(closeX);
+    container.appendChild(bottom);
+
+    return container;
+  }
+
+//关闭信息窗体
+  function closeInfoWindow() {
+    theMap.clearInfoWindow();
   }
 
   // var sb3 = $('#station-box-3');
@@ -763,7 +1111,6 @@ $(function () {
    * 显示不同tab的筛选地点
    */
   function addStation2() {
-
     clearStation();
     showStation();
     var tgt;
@@ -788,6 +1135,7 @@ $(function () {
       var stationDom = $('<li>'+ m.C.extData['枢纽名称'] +'</li>');
       stationDom.on('click',function () {
         var name = $(this).text();
+        curPosition = name;
         var curPosDataBox = $('#cur-pos-data-box');
         var tabBoxCur = $('#tab-box-cur');
         var arrows = tabBoxCur.find('.arrow');
@@ -799,6 +1147,7 @@ $(function () {
         goToPointByName(name);
         // console.log('m',m.C.extData['枢纽名称']);
         changePosText(name);
+        mapbase.drawReli(name,2000);
         // $('#tab-name').text($(this).text());
       });
       tgt.find('header').text(m.C.extData['枢纽类别']);
@@ -881,7 +1230,7 @@ $(function () {
       tab3Li2InitEchart2();
     }
     if(nowTab===tabArr[1]&&tab2Name==='旅客洞察') {
-      getAreaData2($(tabDomNameArr[1]),'境外',returnDate())  // 默认省外
+      getAreaData2($(tabDomNameArr[1]),'境外',returnDate(1));  // 默认省外
       tab3Li3InitEchart();
       tab3Li3InitKLHX2();
       guishufenxiChart();
@@ -897,7 +1246,7 @@ $(function () {
       tab4Li2InitEchart3();
     }
     if(nowTab===tabArr[2]&&tab2Name==='旅客洞察') {
-      getDayCarFlowT3(returnDate());
+      getDayCarFlowT3(returnDate(1));
       tab4Li3InitEchart1();
       tab4Li3InitEchart2();
     }
@@ -1005,7 +1354,6 @@ $(function () {
     new theScale('tuodong3', 'line3');
     // console.log('dis:',tuodong.dis)
 
-
   }
 
 
@@ -1081,6 +1429,7 @@ $(function () {
           changePosText(name);
           hideTabs(name);
           pointControl.hideMarkers();
+          mapbase.drawReli(name,1000);
         });
         item.dom.append(temp)
       }
@@ -1120,6 +1469,8 @@ $(function () {
         imgBox.append(newImage)
       }
     }
+    //切换更改地点名称
+    curPosition=posName;
     // debugger
     $('#tab-name').text(posName);
   }
@@ -1202,11 +1553,11 @@ $(function () {
   }
 
   /**
-   * 交通枢纽-旅客洞察 获取当天旅客量
+   * 交通枢纽-旅客洞察 获取旅客量 默认昨天
    */
   function getPassengerData(date) {
     var d;
-    d = date?date:'';
+    d = date?date:returnDate(1);
     var url = 'terminal/selectTerminalPassenger.do?'+'postionType='+positionType+'&postionName='+curPosition+'&countDate='+d;
 
     $.axpost(url,{},function (data) {
@@ -1225,10 +1576,10 @@ $(function () {
    * 服务区-实时客流 获取实时客流量
    */
   function getRealTimeFlowDataT2() {
-    var url = 'serviceArea/selectServiceFlowRealtime.do?'+'postionType='+positionType+'&postionName='+curPosition.split('-')[0];
-    var url2 = 'serviceArea/selectServiceIn.do?'+'postionType='+positionType+'&postionName='+curPosition.split('-')[0];
-    var url3 = 'serviceArea/selectServiceOut.do?'+'postionType='+positionType+'&postionName='+curPosition.split('-')[0];
-    var url4 = 'serviceArea/selectServiceHourAdd.do?'+'postionType='+positionType+'&postionName='+curPosition.split('-')[0];
+    var url = 'serviceArea/selectServiceFlowRealtime.do?'+'postionType='+positionType+'&postionName='+curPosition;
+    var url2 = 'serviceArea/selectServiceIn.do?'+'postionType='+positionType+'&postionName='+curPosition;
+    var url3 = 'serviceArea/selectServiceOut.do?'+'postionType='+positionType+'&postionName='+curPosition;
+    var url4 = 'serviceArea/selectServiceHourAdd.do?'+'postionType='+positionType+'&postionName='+curPosition;
 
     var data = {
 
@@ -1362,14 +1713,84 @@ $(function () {
       $('#tab4').removeClass('vh');
 
     }
-    // 高速路网
+    // 高速路段
     if(nowTab===tabArr[3]) {
       $('#tab5').removeClass('vh');
     }
+    // 高速路网
     if(nowTab===tabArr[4]) {
       // $('#tab2').removeClass('vh');
     }
     isDefaultView = false;
+  }
+
+  /**
+   * 请求高速路段数据
+   * @param name 路段名字
+   */
+  function reqRoadData(name) {
+    console.log('name:',name);
+
+    var url = 'http://restapi.amap.com/v3/road/roadname?city=020&key=8d3ac117e5e739d89d425f8c6798b781&keywords=' + name;
+    $.ajax({
+      type: "GET",
+      url: url,
+      data: {},
+      dataType: "json",
+      success: function(data){
+        // console.log('reqRoadData',data)
+        handleRoadData(data.roads);
+      }
+    });
+  }
+
+  /**
+   * 高速路段 画线
+   */
+  function DrawLuDuan() {
+    var lngLatArr = [];
+    for (var i = 0; i < LuDuanDataArr.length; i++) {
+      var luDuan = LuDuanDataArr[i];
+      var theArr = luDuan.xys.split(';');
+      lngLatArr.push(theArr);
+
+      // debugger
+      // console.log(lngLatArr)
+      // traffic.drawLuDuan(lngLatArr);
+
+    }
+    traffic.drawRoads(lngLatArr,nowTab);
+    // console.log(lngLatArr)
+  }
+
+  /**
+   * 处理高速路段数据
+   * @param arr
+   */
+  function handleRoadData(arr) {
+    var theDataArr = [];
+    
+    for (var i = 0; i < arr.length; i++) {
+      var lnglatArr = arr[i].polylines;
+      // console.log(lnglatArr)
+      theDataArr.push(lnglatArr)
+      
+    }
+    // console.log(theDataArr)
+    var theRoadsArr = [];
+    for (var j = 0; j < theDataArr.length; j++) {
+      var theArr = theDataArr[j];
+      for (var k = 0; k < theArr.length; k++) {
+        var lnglat = theArr[k];
+        // debugger
+        var paramArr = lnglat.split(';');
+        theRoadsArr.push(paramArr)
+      }
+    }
+    console.log(theRoadsArr)
+    // 高速路段画线
+    // debugger
+    traffic.drawRoads(theRoadsArr,nowTab);
   }
 
   // 显示1级tab
@@ -1520,8 +1941,8 @@ $(function () {
   }
 
   function getAreaData2(dom, area, date) {
-    var d = date?date:returnDate();  // todo 默认昨天
-    var url = 'serviceArea/selectServiceAscriptionTop.do?postionType='+positionType+'&postionName='+curPosition.split('-')[0]+'&area='+area+'&countDate='+d;
+    var d = date?date:returnDate(1);  // 默认昨天
+    var url = 'serviceArea/selectServiceAscriptionTop.do?postionType='+positionType+'&postionName='+curPosition+'&area='+area+'&countDate='+d;
     $.axpost(url,{},function (data) {
       dom.find('.from-chart ul.body').empty();
       var theName,theKey,theDom,theArr,num=0;
@@ -1655,9 +2076,19 @@ $(function () {
       // console.log(m.C.extData['枢纽名称'])
       // debugger
       m.on('click',function () {
-        // console.log(this.C.extData['枢纽名称']);
+        $('#tab-box-cur').removeClass('dn');
 
-        hideTabs(this.C.extData['枢纽名称'])
+        // console.log(this.C.extData['枢纽名称']);
+        var theName = this.C.extData['枢纽名称'];
+        // debugger
+        mapbase.drawReli(theName,10000);
+        // if(nowTab===tabArr[3]) {
+        //   reqRoadData(theName)
+        // } else {
+        //   goToPointByName(theName)
+        // }
+        goToPointByName(theName);
+        hideTabs(theName)
       })
     }
   }
@@ -2929,7 +3360,7 @@ $(function () {
   function tab3Li2Echart2reqData(date) {
     var d = date?date:returnDate();
     tab3Li2Echart2.showLoading();    //加载动画
-    var url = 'serviceArea/selectServiceLingerRealtime.do?postionType='+ positionType +'&postionName='+ curPosition.split('-')[0] +'&countDate='+d;
+    var url = 'serviceArea/selectServiceLingerRealtime.do?postionType='+ positionType +'&postionName='+ curPosition +'&countDate='+d;
     $.axpost(url,{},function (data) {
       // console.log('tab3Li2Echart2',data);
       var d = [];
@@ -3095,8 +3526,8 @@ $(function () {
     var d = date?date:returnDate();
     $('#tab3-cld1-box').hide();
     tab3Li2Echart1.showLoading();    //加载动画
-    var url = 'serviceArea/selectServiceFlowTrend.do?postionType='+ positionType +'&postionName='+ curPosition.split('-')[0] +'&countDate='+d;
-    var url2 = 'serviceArea/selectServiceFlowPredict.do?postionType='+ positionType +'&postionName='+ curPosition.split('-')[0] +'&countDate='+d;
+    var url = 'serviceArea/selectServiceFlowTrend.do?postionType='+ positionType +'&postionName='+ curPosition +'&countDate='+d;
+    var url2 = 'serviceArea/selectServiceFlowPredict.do?postionType='+ positionType +'&postionName='+ curPosition +'&countDate='+d;
 
     $.axpost(url,{},function (data) {
       // console.log('tab2Li2InitEchart',data);
@@ -3354,8 +3785,8 @@ $(function () {
   function tab3Li3Echart2ReqData(date) {
     tab3Li3Echart2.showLoading();    //加载动画
     var d;
-    d = date?date:returnDate();
-    var url = 'serviceArea/selectServiceSexAge.do?postionType='+ positionType +'&postionName='+ curPosition.split('-')[0] +'&countDate='+d;
+    d = date?date:returnDate(1);
+    var url = 'serviceArea/selectServiceSexAge.do?postionType='+ positionType +'&postionName='+ curPosition +'&countDate='+d;
     $.axpost(url,{},function (data) {
       // console.log('tab3Li3Echart2',data);
       var dataArr = [];
@@ -3468,7 +3899,7 @@ $(function () {
     tab3Li3Echart1.showLoading();    //加载动画
     var d;
     d = date?date:returnDate();
-    var url = 'serviceArea/selectServiceLinger.do?postionType='+ positionType +'&postionName='+ curPosition.split('-')[0] +'&countDate='+d;
+    var url = 'serviceArea/selectServiceLinger.do?postionType='+ positionType +'&postionName='+ curPosition +'&countDate='+d;
     $.axpost(url,{},function (data) {
       // console.log('tab3Li3Echart1',data);
       var dataArr = [];
@@ -3611,7 +4042,7 @@ $(function () {
       // console.log('d',d);
     }
     tab3Li4Echart1.showLoading();    //加载动画
-    var url = 'serviceArea/selectServicePassengerTrend.do?postionType='+ positionType +'&postionName='+ curPosition.split('-')[0] +'&startDate='+d.start + '&endDate='+d.end;
+    var url = 'serviceArea/selectServicePassengerTrend.do?postionType='+ positionType +'&postionName='+ curPosition +'&startDate='+d.start + '&endDate='+d.end;
     $.axpost(url,{},function (data) {
       // console.log('tab3Li4Echart1',data);
       var dayArr = [];
@@ -3715,8 +4146,8 @@ $(function () {
     var colors = ['rgb(252,162,34)','rgb(152,113,253)','rgb(38,229,225)'];
     guishufenxi.showLoading();    //加载动画
     var d;
-    d = date?date:returnDate();  // todo 默认访问昨天
-    var url = 'serviceArea/selectServiceAscription.do?postionType='+ positionType +'&postionName='+ curPosition.split('-')[0] +'&countDate='+d;
+    d = date?date:returnDate(1);  // 默认访问昨天
+    var url = 'serviceArea/selectServiceAscription.do?postionType='+ positionType +'&postionName='+ curPosition +'&countDate='+d;
     $.axpost(url,{},function (data) {
       var dataArr = [];
       for (var i = 0; i < data.data.length; i++) {

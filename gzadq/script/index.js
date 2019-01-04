@@ -71,10 +71,10 @@ $(function () {
             //var theBeginDate = theDate.addDays(theBeginDay);
             //var theEndDate = theBeginDate.addDays(6);
             // debugger
-            return theCurrentDate.getFullYear() + "-" + (theCurrentDate.getMonth() + 1) + "-" + theCurrentDate.getDate();
+            return theCurrentDate.getFullYear() + "-" + FormateDateNum(theCurrentDate.getMonth() + 1) + "-" + FormateDateNum(theCurrentDate.getDate());
             //+" - "+                theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
         }
-        return theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
+        return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
     }
     var formateDate1 = function () {
         //debugger;
@@ -83,10 +83,10 @@ $(function () {
             var theBeginDay1 = theDate1.getDay();
             var theBeginDate1 = theDate1.addDays(-theBeginDay1);
             var theEndDate1 = theBeginDate1.addDays(6);
-            datebegin = theBeginDate1.getFullYear() + "-" + (theBeginDate1.getMonth() + 1) + "-" + theBeginDate1.getDate();
-            dateend = theEndDate1.getFullYear() + "-" + (theEndDate1.getMonth() + 1) + "-" + theEndDate1.getDate();
-            return theBeginDate1.getFullYear() + "-" + (theBeginDate1.getMonth() + 1) + "-" + theBeginDate1.getDate() + " - " +
-                theEndDate1.getFullYear() + "-" + (theEndDate1.getMonth() + 1) + "-" + theEndDate1.getDate();
+            datebegin = theBeginDate1.getFullYear() + "-" + FormateDateNum(theBeginDate1.getMonth() + 1) + "-" + FormateDateNum(theBeginDate1.getDate());
+            dateend = theEndDate1.getFullYear() + "-" + FormateDateNum(theEndDate1.getMonth() + 1) + "-" +FormateDateNum(theEndDate1.getDate());
+            return theBeginDate1.getFullYear() + "-" + FormateDateNum(theBeginDate1.getMonth() + 1) + "-" + FormateDateNum(theBeginDate1.getDate()) + " - " +
+                theEndDate1.getFullYear() + "-" + FormateDateNum(theEndDate1.getMonth() + 1) + "-" + FormateDateNum(theEndDate1.getDate());
         }
         return theCurrentDate1;
     }

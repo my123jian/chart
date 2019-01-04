@@ -264,29 +264,30 @@ html body {
     float: right;
     background: transparent;
     color: white;
-    width: 130px;
+    width: 150px;
     /* border: none; */
     border-width: 0px;
     font-size: 18px;
     color: #ddf3ff;
     height: 32px;
+    padding-left: -42px;
     line-height: 32px;
     /* padding-right: 32px; */
     right: 0px;
-    text-align: center;
+    /* text-align: center; */
     vertical-align: middle;
     outline: none;
-    margin-left: 29px;
+    /* margin-left: 29px; */
 
 }
 
 #date-icon {
     float: right;
-    /*position: absolute;*/
-    background-image: url("img/icon1.png");
+    /* position: absolute; */
+    background-image: url(img/icon1.png);
     width: 24px;
     height: 24px;
-    margin-right: 12px;
+    margin-right: 23px;
     margin-top: 5px;
 }
 

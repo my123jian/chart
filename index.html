@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+  <!--verson1-->
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +27,6 @@
     }
   </style>
   <link rel="stylesheet" href="yjzx/css/homepage.css">
-
 </head>
 <body>
 <div id="container" class="container">
@@ -136,15 +137,15 @@
     <div class="tab-box" data-name="收费站">
       <span>收费站</span>
     </div>
-    <div class="tab-box" data-name="高速">
+    <!--<div class="tab-box" data-name="高速">
       <span>高速路段</span>
-    </div>
+    </div>-->
     <div class="tab-box" data-name="高速路网">
       <span>高速路网</span>
     </div>
 
     <!--当前位置-->
-    <div class="tab-box-cur" id="tab-box-cur">
+    <div class="tab-box-cur dn" id="tab-box-cur">
       <div class="bg-div">
         <div>
           <img src="yjzx/img/menu/icon_lower_left.png" alt="">
@@ -1005,11 +1006,11 @@
   <div class="luwang-box" id="luwang-box">
     <div class="container">
       <div class="profile">
-        <div class="date">
-          12月23日 星期日
+        <div class="date" id="curDate">
+          <!--12月23日 星期日-->
         </div>
-        <div class="led">
-          11:02:12
+        <div class="led" id="curTime">
+          <!--11:02:12-->
         </div>
       </div>
 
@@ -1029,150 +1030,21 @@
       </div>
       <div class="multiPanel">
         <div class="container">
-          <ul>
-            <li>
-              <div class="idx">
-                <span>1</span>
-              </div>
-              <div class="road-profile">
-                <p>G4W2清连高速</p>
-                <p>由南向北</p>
-              </div>
-              <div class="jam-data">
-                <p>4.59km</p>
-                <p>15km/h</p>
-              </div>
-            </li>
-            <li>
-              <div class="idx">
-                <span>1</span>
-              </div>
-              <div class="road-profile">
-                <p>G4W2清连高速</p>
-                <p>由南向北</p>
-              </div>
-              <div class="jam-data">
-                <p>4.59km</p>
-                <p>15km/h</p>
-              </div>
-            </li>
-            <li>
-              <div class="idx">
-                <span>1</span>
-              </div>
-              <div class="road-profile">
-                <p>G4W2清连高速</p>
-                <p>由南向北</p>
-              </div>
-              <div class="jam-data">
-                <p>4.59km</p>
-                <p>15km/h</p>
-              </div>
-            </li>
-            <li>
-              <div class="idx">
-                <span>1</span>
-              </div>
-              <div class="road-profile">
-                <p>G4W2清连高速</p>
-                <p>由南向北</p>
-              </div>
-              <div class="jam-data">
-                <p>4.59km</p>
-                <p>15km/h</p>
-              </div>
-            </li>
-            <li>
-              <div class="idx">
-                <span>1</span>
-              </div>
-              <div class="road-profile">
-                <p>G4W2清连高速</p>
-                <p>由南向北</p>
-              </div>
-              <div class="jam-data">
-                <p>4.59km</p>
-                <p>15km/h</p>
-              </div>
-            </li>
-            <li>
-              <div class="idx">
-                <span>1</span>
-              </div>
-              <div class="road-profile">
-                <p>G4W2清连高速</p>
-                <p>由南向北</p>
-              </div>
-              <div class="jam-data">
-                <p>4.59km</p>
-                <p>15km/h</p>
-              </div>
-            </li>
-            <li>
-              <div class="idx">
-                <span>1</span>
-              </div>
-              <div class="road-profile">
-                <p>G4W2清连高速</p>
-                <p>由南向北</p>
-              </div>
-              <div class="jam-data">
-                <p>4.59km</p>
-                <p>15km/h</p>
-              </div>
-            </li>
-            <li>
-              <div class="idx">
-                <span>1</span>
-              </div>
-              <div class="road-profile">
-                <p>G4W2清连高速</p>
-                <p>由南向北</p>
-              </div>
-              <div class="jam-data">
-                <p>4.59km</p>
-                <p>15km/h</p>
-              </div>
-            </li>
-            <li>
-              <div class="idx">
-                <span>1</span>
-              </div>
-              <div class="road-profile">
-                <p>G4W2清连高速</p>
-                <p>由南向北</p>
-              </div>
-              <div class="jam-data">
-                <p>4.59km</p>
-                <p>15km/h</p>
-              </div>
-            </li>
-            <li>
-              <div class="idx">
-                <span>1</span>
-              </div>
-              <div class="road-profile">
-                <p>G4W2清连高速</p>
-                <p>由南向北</p>
-              </div>
-              <div class="jam-data">
-                <p>4.59km</p>
-                <p>15km/h</p>
-              </div>
-            </li>
-            <li>
-              <div class="idx">
-                <span>1</span>
-              </div>
-              <div class="road-profile">
-                <p>G4W2清连高速</p>
-                <p>由南向北</p>
-              </div>
-              <div class="jam-data">
-                <p>4.59km</p>
-                <p>15km/h</p>
-              </div>
-            </li>
+          <ul id="jam-rank">
+            <!--<li>-->
+              <!--<div class="idx">-->
+                <!--<span>1</span>-->
+              <!--</div>-->
+              <!--<div class="road-profile">-->
+                <!--<p>G4W2清连高速</p>-->
+                <!--<p>由南向北</p>-->
+              <!--</div>-->
+              <!--<div class="jam-data">-->
+                <!--<p>4.59km</p>-->
+                <!--<p>15km/h</p>-->
+              <!--</div>-->
+            <!--</li>-->
+
           </ul>
         </div>
       </div>
@@ -1188,6 +1060,7 @@
 
 <script src="lib/jquery-1.8.2.min.js"></script>
 <script src="lib/base.js"></script>
+
 <script src="lib/layer/layer.js"></script>
 <script src="lib/laydate.js"></script>
 <script src="lib/echarts3.js"></script>
@@ -1271,8 +1144,11 @@
   <!--}-->
 <!--</script>-->
 <script src="yjzx/js/data.js"></script>
+<script src="yjzx/js/LuDuanData.js"></script>
 <!--<script src="yjzx/js/tuodong.js"></script>-->
 <script src="lib/underscore-min.js"></script>
+<script src="lib/moment/moment-with-locales.min.js"></script>
+<script src="lib/moment/zh-cn.js"></script>
 <script src="lib/provincegd.js"></script>
 <script src="yjzx/js/traffic.js"></script>
 <script src="yjzx/js/ajax.js"></script>

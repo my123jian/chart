@@ -80,9 +80,9 @@ $(function () {
     var formateDate = function () {
         if (!theCurrentDate) {
             var theDate = new Date();
-            return theDate.getFullYear() + "-" + (theDate.getMonth() + 1) + "-" + theDate.getDate();
+            return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
         }
-        return theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
+        return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
     }
 
     var formateNum = function (num) {
@@ -109,8 +109,8 @@ $(function () {
             var theBeginDay = theDate.getDay();
             var theBeginDate = theDate.addDays(-theBeginDay);
             var theEndDate = theBeginDate.addDays(6);
-            return theBeginDate.getFullYear() + "-" + (theBeginDate.getMonth() + 1) + "-" + theBeginDate.getDate() + " - " +
-                theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
+            return theBeginDate.getFullYear() + "-" + FormateDateNum(theBeginDate.getMonth() + 1) + "-" + FormateDateNum(theBeginDate.getDate()) + " - " +
+                theEndDate.getFullYear() + "-" + FormateDateNum(theEndDate.getMonth() + 1) + "-" + FormateDateNum(theEndDate.getDate());
         }
         return theCurrentDate1;//theCurrentDate.year + '-' + theCurrentDate.month + '-' + theCurrentDate.date;//
     }
@@ -253,7 +253,7 @@ $(function () {
         theCurrentOption.grid.bottom = 10;
         theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         theCurrentOption.legend = {
-            data: [{name: '粤海铁路北港', textStyle: {color: "#85a8b8"}}, {name: '海安两港', textStyle: {color: "#85a8b8"}}],
+            data: [{name: '粤海铁路北港', textStyle: {color: "#85a8b8"}}, {name: '海安港', textStyle: {color: "#85a8b8"}}],
             x: 'right',
             y: 'top'
         };
@@ -297,7 +297,7 @@ $(function () {
             {
                 //name: '搜索引擎',
                 type: 'line',
-                name: '海安两港',
+                name: '海安港',
 
                 itemStyle: {
                     normal: {
@@ -679,7 +679,8 @@ $(function () {
                 }
                 for (var i = 0; i < theAges.length; i++) {
                     var theAge = theAges[i];
-                    theAgeObj['age' + theAge.qzAge] = theAge.qzAgePercentage;
+//debugger;
+                    theAgeObj['age' + parseInt(theAge.qzAge.split(' ', 2)[0] || '0')] = (theAge.qzAgePercentage * 100).toFixed(2);
 
                 }
             }
@@ -848,7 +849,7 @@ $(function () {
         var yhbgBounds = [[110.13105, 20.225806], [110.129529, 20.226263], [110.129431, 20.233007], [110.123572, 20.232898], [110.131067, 20.234793]];
         var haianBounds = [[110.218008, 20.26316], [110.215798, 20.26669], [110.215341, 20.267565], [110.216824, 20.268225], [110.224952, 20.27459], [110.235985, 20.26588], [110.234317, 20.266659], [110.233084, 20.265605], [110.227222, 20.268448], [110.220356, 20.268853], [110.217824, 20.267225]];
         // this.addInfoWindow("粤海铁路北港",110.130713,20.226732);
-        this.addMarker("海安两港", 110.221102, 20.270894);
+        this.addMarker("海安港", 110.221102, 20.270894);
         // this.addInfoWindow("海安新港",110.216824,20.267225);
         //debugger;
         this.load(theCallUrl, theParamter, function (res) {
@@ -872,7 +873,7 @@ $(function () {
                     var theItem = res.data[i];
 
                     if (theItem.positionName == "湛江徐闻海安港" || "湛江徐闻海安港" == theItem.positionName) {
-                        me.addMarker("海安两港", 110.221102, 20.270894, ((theItem.subscribercount || 0) / 10000).toFixed(1));
+                        me.addMarker("海安港", 110.221102, 20.270894, ((theItem.subscribercount || 0) / 10000).toFixed(1));
                         theReliArrays.push({
                             bounds: haianBounds,
                             data: theItem.subscribercount || 0,
@@ -952,7 +953,7 @@ $(function () {
      * 查询最新一条数据
      */
     PageViewModel.prototype.loadSelectNewOne = function () {
-        var theCallUrl ="qz/qzRealTimeNumber.do";// "qz/selectNewOne.do";
+        var theCallUrl = "qz/qzRealTimeNumber.do";// "qz/selectNewOne.do";
         var theParamter = {};
 
         this.load(theCallUrl, theParamter, function (res) {
@@ -973,7 +974,7 @@ $(function () {
             if (res && res.isSuccess) {
                 theData = res.data;
             }
-            $('.newcome-people.all').text((((theData['inPeople']-theData['outPeople']) || 0) / 10000).toFixed(1));
+            $('.newcome-people.all').text((((theData['inPeople'] - theData['outPeople']) || 0) / 10000).toFixed(1));
             $('.newcome-people.in').text(((theData['inPeople'] || 0) / 10000).toFixed(1));
             $('.newcome-people.out').text(((theData['outPeople'] || 0) / 10000).toFixed(1));
         });
