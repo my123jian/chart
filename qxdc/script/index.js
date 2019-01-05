@@ -81,6 +81,7 @@ $(function () {
     var formateDate = function () {
         if (!theCurrentDate) {
             var theDate = new Date();
+            theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
         }
         return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
@@ -100,7 +101,7 @@ $(function () {
      * 得到当前的视图格式
      * @returns {number}
      */
-    PageViewModel.prototype.getCurrentView=function(){
+    PageViewModel.prototype.getCurrentView = function () {
         return theCurrentView;
     }
     /**
@@ -134,21 +135,20 @@ $(function () {
             }
             else {
                 //debugger;
-                if(theIndex==ViewType.IN){
-                    if(theDirection1==DirectionType.JW){
+                if (theIndex == ViewType.IN) {
+                    if (theDirection1 == DirectionType.JW) {
                         me.loadPage(PageNameDic.JINGWAI);
                     }
-                    else{
+                    else {
                         me.loadPage(PageNameDic.COUNTRY);
                     }
 
                 }
-                if(theIndex==ViewType.OUT)
-                {
-                    if(theDirection2==DirectionType.JW){
+                if (theIndex == ViewType.OUT) {
+                    if (theDirection2 == DirectionType.JW) {
                         me.loadPage(PageNameDic.JINGWAI);
                     }
-                    else{
+                    else {
                         me.loadPage(PageNameDic.COUNTRY);
                     }
                 }
@@ -168,7 +168,7 @@ $(function () {
             //debugger;
 
             if (theCurrentView != ViewType.PROVINCE) {
-                if(theCurrentView==ViewType.IN){
+                if (theCurrentView == ViewType.IN) {
                     if (theDirection1 != theDirType) {
                         theDirection1 = theDirType;
                         if (theDirType == DirectionType.JW) {
@@ -179,7 +179,7 @@ $(function () {
                         }
                     }
                 }
-                if(theCurrentView==ViewType.OUT){
+                if (theCurrentView == ViewType.OUT) {
                     if (theDirection2 != theDirType) {
                         theDirection2 = theDirType;
                         if (theDirType == DirectionType.JW) {
@@ -261,10 +261,12 @@ $(function () {
 
         $('#' + theFromCityId + ",#" + theToCityId).each(function () {
             $(this).empty();
-            $(this).append('<option value="">' + '请选择' + '</option>')
+            // $(this).append('<option value="">' + '请选择' + '</option>')
             for (var theCityName in theCitys) {
                 $(this).append('<option value="' + theCityName + '">' + theCityName + '</option>')
             }
+            $('#' + theFromCityId).val('广州');
+            $('#' + theToCityId).val('深圳');
         });
         $('#' + theFromCityId + ",#" + theToCityId).change(function () {
             var theFromCityValue = $('#' + theFromCityId).val();
@@ -292,9 +294,9 @@ $(function () {
     PageViewModel.prototype.loadPage = function (name) {
         $('#page_div').attr('src', name);
     }
-    PageViewModel.prototype.refreshPage = function (data,type) {
+    PageViewModel.prototype.refreshPage = function (data, type) {
         try {
-            $('#page_div')[0].contentWindow.refresh(data,theCurrentView);
+            $('#page_div')[0].contentWindow.refresh(data, theCurrentView);
         }
         catch (e) {
             console.log(e);
@@ -342,13 +344,13 @@ $(function () {
         //debugger;
         switch (viewName) {
             case ViewType.IN:
-                theDirection = theDirection1|| DirectionType.SHENG;//设置为港澳台
+                theDirection = theDirection1 || DirectionType.SHENG;//设置为港澳台
                 theCurrentView = viewName;
 
                 this.loadInView(viewName);
                 break;
             case  ViewType.OUT:
-                theDirection = theDirection2|| DirectionType.SHENG;//设置为港澳台
+                theDirection = theDirection2 || DirectionType.SHENG;//设置为港澳台
                 theCurrentView = viewName;
                 this.loadOutView(viewName);
                 break;
@@ -362,9 +364,13 @@ $(function () {
                 return;
         }
         var theDateString = formateDate();
-        var fromCity = $(theFromCityId).val();
-        var toCity = $(theToCityId).val();
-        this.loadMigrantChannelType(theCurrentView, theDateString, fromCity, toCity);
+        var fromCity = '';
+        var toCity = '';
+        if (theCurrentView == ViewType.PROVINCE) {
+            fromCity = $('#' + theFromCityId).val();
+            toCity = $('#' + theToCityId).val();
+        }
+        this.loadMigrantChannelType(theCurrentView, theDateString, this.getAreaCode(fromCity), this.getAreaCode(toCity));
 
     }
 
@@ -410,7 +416,8 @@ $(function () {
         var theSelectDiv = $('.part-3');
         var theTitle = "省内迁徙人数";
         //var theData = 111111111;
-        this.updateNum(theTitle, "");
+        //var theNum="1057.61"
+        this.updateNum(theTitle, $("#num3").data('value'));
         var theCharts = {};
         $(theSelectDiv).find('.chart-item').each(function () {
             var theName = $(this).data('name');
@@ -533,10 +540,11 @@ $(function () {
                 }
                 for (var i = 0; i < theDatas.length; i++) {
                     var theData = theDatas[i];
-                    theDefaultData[theData.migType] = theData.num ;//.toFixed(2);
+                    theDefaultData[theData.migType] = theData.num;//.toFixed(2);
                 }
                 //debugger;
                 for (var key in theDefaultData) {
+                    $('#num' + key).data('value', theDefaultData[key]);
                     $('#num' + key).text((theDefaultData[key] / 10000).toFixed(2));
                     //debugger;
                     if (theCurrentView == key) {
@@ -623,21 +631,23 @@ $(function () {
             if (res && res.isSuccess) {
                 //debugger;
                 var theData = res.data;//{"isSuccess":true,"msg":"success","data":[{"id":1,"outNum":"1000000","outPercentage":10,"outType":1,"statDate":"2018-12-10"},{"id":2,"outNum":"5000000","outPercentage":50,"outType":2,"statDate":"2018-12-10"},{"id":3,"outNum":"1000000","outPercentage":10,"outType":3,"statDate":"2018-12-10"},{"id":4,"outNum":"1000000","outPercentage":10,"outType":4,"statDate":"2018-12-10"},{"id":5,"outNum":"1000000","outPercentage":10,"outType":5,"statDate":"2018-12-10"}]}
-                if (seeType == 3){
+                if (seeType == 3) {
                     $('#direction-num').text(0);
                 }
                 if (theData && theData.length > 0) {
                     var theDataList = theData;
-                    if (seeType == 3) {
-                        theDataList = theData && theData.length > 0 ? theData[0].list : [];
-                        $('#direction-num').text(theData[0].countNum || 0);
-                        //debugger;
-                    }
+                    var theTotalNum = 0;
                     for (var i = 0; i < theDataList.length; i++) {
                         var theItem = theDataList[i];
-                        if (theCharts[theItem.outType || theItem.inType || theItem.migChannel]) {
+                        if (theCharts[theItem.outChannel || theItem.inType || theItem.migChannel]) {
+                            theTotalNum+=(theItem.oPercentage||0);
                             theCharts[theItem.outType || theItem.inType || theItem.migChannel].refresh('', (theItem.outPercentage || theItem.inPercentage || theItem.oPercentage));
                         }
+                    }
+                    if (seeType == 3) {
+                        theDataList = theData && theData.length > 0 ? theData[0].list : [];
+                        $('#direction-num').text(theTotalNum || 0);
+                        //debugger;
                     }
                 }
                 else {
@@ -728,6 +738,7 @@ $(function () {
                         "value": 0
                     };
                     theRow['area'] = theDataItem.area;
+                    //debugger;
                     if (seeType == ViewType.OUT) {
                         theRow['to'] = me.getProvinceCity(theDataItem.area);
                     }
@@ -737,6 +748,8 @@ $(function () {
                     else {
                         //debugger;
                         var theCitys = theDataItem.area.split('-');
+                        theDataItem.area = me.getCityNameByCode(theCitys[0]) + '-' + me.getCityNameByCode(theCitys[1]);
+                        theRow['area'] = theDataItem.area;
                         theRow['from'] = theCitys[0];
                         theRow['to'] = theCitys[1];
                     }
@@ -759,7 +772,7 @@ toCity: "深圳"
                 }
                 var theIndex = seeType;
                 me.currentTable = theTableList;
-                me.refreshPage(me.currentTable,theCurrentView)
+                me.refreshPage(me.currentTable, theCurrentView)
                 me.loadTemplateTable('table-' + theIndex, theTableList);
             }
         })

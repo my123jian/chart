@@ -80,6 +80,7 @@ $(function () {
     var formateDate = function () {
         if (!theCurrentDate) {
             var theDate = new Date();
+            theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
         }
         return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
@@ -873,7 +874,7 @@ $(function () {
                     var theItem = res.data[i];
 
                     if (theItem.positionName == "湛江徐闻海安港" || "湛江徐闻海安港" == theItem.positionName) {
-                        me.addMarker("海安港", 110.221102, 20.270894, ((theItem.subscribercount || 0) / 10000).toFixed(1));
+                        me.addMarker("海安港", 110.221102, 20.270894, ((theItem.subscribercount || 0)));
                         theReliArrays.push({
                             bounds: haianBounds,
                             data: theItem.subscribercount || 0,
@@ -881,7 +882,7 @@ $(function () {
                         });
                     }
                     if (theItem.positionName == "铁路北港" || "铁路北港" == theItem.positionName) {
-                        me.addMarker("粤海铁路北港", 110.221102, 20.270894, ((theItem.subscribercount || 0) / 10000).toFixed(1));
+                        me.addMarker("粤海铁路北港", 110.221102, 20.270894, ((theItem.subscribercount || 0)));
                         theReliArrays.push({
                             bounds: yhbgBounds,
                             data: theItem.subscribercount || 0,
@@ -974,9 +975,31 @@ $(function () {
             if (res && res.isSuccess) {
                 theData = res.data;
             }
-            $('.newcome-people.all').text((((theData['inPeople'] - theData['outPeople']) || 0) / 10000).toFixed(1));
-            $('.newcome-people.in').text(((theData['inPeople'] || 0) / 10000).toFixed(1));
-            $('.newcome-people.out').text(((theData['outPeople'] || 0) / 10000).toFixed(1));
+            var inPeople=((theData['inPeople'] - theData['inPeople']) || 0);
+            var outPeople=((theData['outPeople'] - theData['outPeople']) || 0);
+            var allPeople=(inPeople-outPeople);
+            var unitText='万';
+            if(inPeople<1000){
+                unitText="";
+            }else {
+                unitText="万";
+                inPeople= (inPeople/10000).toFixed(1);
+            }
+            $('.newcome-num.in').html('<span class="newcome-people">'+inPeople+'</span>'+unitText);
+            if(outPeople<1000){
+                unitText="";
+            }else {
+                unitText="万";
+                outPeople= (outPeople/10000).toFixed(1);
+            }
+            $('.newcome-num.out').html('<span class="newcome-people">'+outPeople+'</span>'+unitText);
+            if(allPeople<1000){
+                unitText="";
+            }else {
+                unitText="万";
+                allPeople= (allPeople/10000).toFixed(1);
+            }
+            $('.newcome-num.all').html('<span class="newcome-people">'+allPeople+'</span>'+unitText);
         });
     }
     /**

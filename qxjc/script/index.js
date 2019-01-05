@@ -11,7 +11,8 @@ $(function () {
     var theAreaNmae = "";
 
     var theXData = [];
-    for (var i = 1; i <= 24*12; i++) {
+    //var theTodayDate=new Date();
+    for (var i = 0; i <= 24*12; i++) {
         theXData.push(i);
     }
     //debugger;
@@ -28,11 +29,11 @@ $(function () {
             }
         },
         grid: {
-            left: 0,
+            left: 30,
             right: 5,
             top: 30,
             bottom: 10,
-            width: 510,
+            width: 480,
             height: 70,
             containLabel: true
         },
@@ -48,8 +49,10 @@ $(function () {
             //interval:12,
             //splitNumber: 24,
             axisLabel: {
+                interval: 11,
                 formatter: function (value, idx) {
                     //debugger;
+                    //return value;
                     if (value % (12*4) == 0) {
                         //console.log('x2:'+value/12);
                         //console.log('x:'+value/(60/5));
@@ -405,7 +408,7 @@ $(function () {
             });
             this.ChartMap.on('mapselectchanged', function (params) {
                 var theName = params.name;
-                debugger;
+                //debugger;
                 if (theAreaNmae != theName) {
                     theAreaNmae = theName;
                     me.loadData();
@@ -621,6 +624,13 @@ $(function () {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
         }
 
+        dataPopulationGd1=dataPopulationGd1||[];
+        dataMigIn1=dataMigIn1||[];
+        dataMigOut1=dataMigOut1||[];
+        dataPopulationGd2=dataPopulationGd2||[];
+        dataMigIn2=dataMigIn2||[];
+        dataMigOut2=dataMigOut2||[];
+
         var theXData = [];
         var theBeginDate = new Date('2018-12-5');
         theXData.push(theBeginDate.getTime());
@@ -659,12 +669,14 @@ $(function () {
                 textStyle: {
                     color: '#557398',
                 },
-                data: ['人口总量', '迁出', '迁入']
+                data: [{name:'人口总量', textStyle: {color: "#ffdc6f"}}, {name:'迁出', textStyle: {color: "#32ff4b"}}, {name:'迁入', textStyle: {color: "#4293f2"}}]
             },
-            /* visualMap:{
-                 show:false,
-                 seriesIndex:1,
-             },*/
+
+
+        /* visualMap:{
+             show:false,
+             seriesIndex:1,
+         },*/
             /*legend: {
                 data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
             },*/
@@ -758,7 +770,7 @@ $(function () {
                             return [point[0], '10%'];
                         }*/
                     },
-                    data: dataPopulationGd1 || [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100],
+                    data: dataPopulationGd2.map(function(item){ return (item/10000).toFixed(2)}) ,
                     areaStyle: {
                         normal: {
                             color: {
@@ -783,7 +795,7 @@ $(function () {
                         }
                     }
                 },
-                {
+               /* {
                     name: '人口总量',
                     type: 'line',
                     itemStyle: {
@@ -797,8 +809,8 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: dataPopulationGd2 || [820 - 100, 932 - 100, 901 - 100, 934 - 100, 1290 - 100, 1330 - 100, 800]
-                },
+                    data: dataPopulationGd2.map(function(item){ return (item/10000).toFixed(2)})
+                },*/
 
 
                 {
@@ -806,7 +818,7 @@ $(function () {
                     type: 'line',
                     //stack: '总量',
                     smooth: true,
-                    data: dataMigIn1 || [820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200],
+                    data: dataMigIn2.map(function(item){ return (item/10000).toFixed(2)}) ,
                     lineStyle: {
                         normal: {
                             color: '#4293f2' //rgba(66,147,242
@@ -831,7 +843,7 @@ $(function () {
                         }
                     },
                 },
-                {
+               /* {
                     name: '迁入',
                     type: 'line',
                     itemStyle: {
@@ -845,8 +857,8 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: dataMigIn2 || [820 - 200, 932 - 200, 901 - 200, 934 - 200, 1290 - 200, 1330 - 200, 900],
-                },
+                    data: dataMigIn2.map(function(item){ return (item/10000).toFixed(2)}) ,
+                },*/
 
 
                 {
@@ -855,7 +867,7 @@ $(function () {
                     z: 1,
                     //stack: '总量',
                     smooth: true,
-                    data: dataMigOut1 || [820, 932, 901, 934, 1290, 1330],
+                    data: dataMigOut2.map(function(item){ return (item/10000).toFixed(2)}) ,
                     lineStyle: {
                         normal: {
                             color: '#32ff4b'//rgba(55,255,75
@@ -880,7 +892,7 @@ $(function () {
                         }
                     },
                 },
-                {
+               /* {
                     name: '迁出',
                     symbol: 'none',
                     z: 2,
@@ -896,8 +908,8 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: dataMigOut2 || [820, 932, 901, 934, 1290, 1330, 1320]
-                },
+                    data: dataMigOut2.map(function(item){ return (item/10000).toFixed(2)})
+                },*/
             ]
         };
         this.Chart4.setOption(option);
@@ -986,6 +998,7 @@ $(function () {
                     dataMigIn2.push(theDataItem.migIn);
                     dataPopulationGd2.push(theDataItem.populationGd);
                 }
+                //debugger;
                 me.loadChart4(theXData, dataPopulationGd1, dataMigIn1, dataMigOut1, dataPopulationGd2, dataMigIn2, dataMigOut2);
                 //this.bind('.numpart', theViewData);
             }

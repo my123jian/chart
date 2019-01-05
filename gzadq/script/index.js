@@ -21,7 +21,7 @@ $(function () {
     var theCurrentView = "";
     var theDirection = "";
     var isStopRefresh = true;
-    var affiliationType = 1;
+    var affiliationType = 1;//'国际';
     var theTimer = null;
     var theCurrentDate = null;
     var datebegin = null;
@@ -66,12 +66,13 @@ $(function () {
     var formateDate = function () {
         //debugger;
         if (!theCurrentDate) {
-            theCurrentDate = new Date();
+            var theDate = new Date();
             //var theBeginDay = theCurrentDate;// theDate.getDay();
             //var theBeginDate = theDate.addDays(theBeginDay);
             //var theEndDate = theBeginDate.addDays(6);
             // debugger
-            return theCurrentDate.getFullYear() + "-" + FormateDateNum(theCurrentDate.getMonth() + 1) + "-" + FormateDateNum(theCurrentDate.getDate());
+            theDate.setDate(theDate.getDate() - 1);
+            return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
             //+" - "+                theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
         }
         return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
@@ -84,7 +85,7 @@ $(function () {
             var theBeginDate1 = theDate1.addDays(-theBeginDay1);
             var theEndDate1 = theBeginDate1.addDays(6);
             datebegin = theBeginDate1.getFullYear() + "-" + FormateDateNum(theBeginDate1.getMonth() + 1) + "-" + FormateDateNum(theBeginDate1.getDate());
-            dateend = theEndDate1.getFullYear() + "-" + FormateDateNum(theEndDate1.getMonth() + 1) + "-" +FormateDateNum(theEndDate1.getDate());
+            dateend = theEndDate1.getFullYear() + "-" + FormateDateNum(theEndDate1.getMonth() + 1) + "-" + FormateDateNum(theEndDate1.getDate());
             return theBeginDate1.getFullYear() + "-" + FormateDateNum(theBeginDate1.getMonth() + 1) + "-" + FormateDateNum(theBeginDate1.getDate()) + " - " +
                 theEndDate1.getFullYear() + "-" + FormateDateNum(theEndDate1.getMonth() + 1) + "-" + FormateDateNum(theEndDate1.getDate());
         }
@@ -280,7 +281,7 @@ $(function () {
 
 
         var me = this;
-        var guishutype = 1
+        var guishutype =1;// '去往珠海澳门'
         //客流tab栏点击切换
         var theParentContent = $('.tab-main').closest('.content');
         $('.tab-main .tab-item-left').click(function () {
@@ -321,10 +322,11 @@ $(function () {
 
         $('.tab-direction .tab-left,.tab-direction .tab-right').click(function () {
             var theIndex = $(this).data('index');
+            var theDataIndex=theIndex;// $(this).index();
             $('.tab-direction div').removeClass('select');
             $('.tab-direction').removeClass('tab-imgage1');
             $('.tab-direction').removeClass('tab-imgage2');
-            $('.tab-direction').addClass('tab-imgage' + theIndex);
+            $('.tab-direction').addClass('tab-imgage' + (theDataIndex+1));
             $(this).addClass('select');
             var personDirect = theIndex;
             guishutype = theIndex;
@@ -760,7 +762,7 @@ $(function () {
                         //debugger
 
                         if (theCharts[theItem.flowType]) {
-                            theCharts[theItem.flowType].refresh('', theItem.percent);
+                            theCharts[theItem.flowType].refresh('', theItem.percent * 100);
                         }
                     }
                 }
@@ -806,26 +808,42 @@ $(function () {
     PageViewModel.prototype.loadBridgeAttributionType = function (personDirect) {
         //debugger
         var theCallUrl = "bridge/bridgeAttributionType.do";
+        /*var theMap={
+            '1':'去往珠海澳门',
+            '2':'去往香港',
+        };*/
         var theParamter = {
-            personDirect: personDirect || 1,
+            personDirect: personDirect || 1,// '去往珠海澳门',
             date: formateDate()
         };
+
         var me = this;
         // debugger;
         this.load(theCallUrl, theParamter, function (data) {
             var theData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-            $('#gzabelong1').text('(0%)');
-            $('#gzabelong2').text('(0%)');
-            $('#gzabelong3').text('(0%)');
+            // $('#gzabelong1').text('(0%)');
+            //$('#gzabelong2').text('(0%)');
+            //$('#gzabelong3').text('(0%)');
+            var theMap = {};
+            $('.guishu .tab-item').each(function () {
+                var theType = $(this).data('index');
+                theMap[theType] = $(this).find('.secondline');
+                theMap[theType].text('(0%)');
+            });
             // debugger
             if (data && data.isSuccess) {
                 /*{"data":[
                 {"fromType":"1","id":1,"percent":10,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":10000000,"toType":"1"},
                  {"fromType":"2","id":2,"percent":10,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":10000000,"toType":"1"},
                  {"fromType":"3","id":3,"percent":80,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":80000000,"toType":"1"}],"isSuccess":true,"msg":"success"}*/
+
+                //debugger;
                 for (var i = 0; i < data.data.length; i++) {
                     var theItem = data.data[i];
-                    $('#gzabelong' + theItem.fromType).text('(' + theItem.percent + '%)');
+                    if (theMap[theItem.fromType]) {
+                        theMap[theItem.fromType].text('(' + (theItem.percent*100).toFixed(1) + '%)');
+                    }
+
                 }
             }
             else {
@@ -838,11 +856,11 @@ $(function () {
          * @param personDirect,date,affiliationType
          */
         PageViewModel.prototype.loadBridgeAttributionArea = function (personDirect, affiliationType) {
-            affiliationType = affiliationType || 1;
+            affiliationType = affiliationType || 1;// '国际';
             var theCallUrl = "/bridge/bridgeAttributionArea.do";
             var theData = {
-                personDirect: personDirect || 1,
-                affiliationType: affiliationType || 1,
+                personDirect: personDirect || 1,//'去往珠海澳门',
+                affiliationType: affiliationType || 1,//'国际',
                 date: formateDate()
             };
             var me = this;
@@ -1101,21 +1119,21 @@ $(function () {
             //debugger;
             if (res && res.isSuccess && res.data) {
                 var theData = res.data;
-                theData.bridgeUser=0;
-                theData.islandsUser=0;
-                for(var i=0;i<theData.length;i++){
-                    var item=theData[i];
-                    if(item.dataType==1){
-                        theData.islandsUser=item.subscribercount;
+                theData.bridgeUser = 0;
+                theData.islandsUser = 0;
+                for (var i = 0; i < theData.length; i++) {
+                    var item = theData[i];
+                    if (item.dataType == 1) {
+                        theData.islandsUser = item.subscribercount;
                     }
-                    else{
-                        theData.bridgeUser=item.subscribercount;
+                    else {
+                        theData.bridgeUser = item.subscribercount;
                     }
                 }
                 var theBridgeUser = theData.bridgeUser;//大桥人数
                 var thelandsUser = theData.islandsUser;//人工岛人数
-                me.addMarker2("格力人工岛", 113.581696, 22.203582, ((thelandsUser || 0) / 10000).toFixed(1));
-                me.addMarker2("港珠澳大桥", 113.728361, 22.28002, ((theBridgeUser || 0) / 10000).toFixed(1));
+                me.addMarker2("格力人工岛", 113.581696, 22.203582, ((thelandsUser || 0)));
+                me.addMarker2("港珠澳大桥", 113.728361, 22.28002, ((theBridgeUser || 0)));
                 var theReliArrays = [];
                 theReliArrays.push({bounds: landsBounds, data: thelandsUser || 0, max: 1000});
                 theReliArrays.push({bounds: bridgeBounds, data: theBridgeUser || 0, max: 1000});
@@ -1169,14 +1187,43 @@ $(function () {
             if (res && res.isSuccess && res.data) {
                 //var theProCountPeople = res.data["ProCountPeople"][0] || {};
                 //var theStationNewPeople = res.data["StationNewPeople"][0] || {};
-                var theStationTollStay =res.data["stay"];// res.data["StationNewPeople"];//实时驻留时长
+                var theStationTollStay = res.data["stay"];// res.data["StationNewPeople"];//实时驻留时长
                 var theDatas = theStationTollStay.map(function (item) {
-                    return (item.subscribercount / 10000).toFixed(1);
+                    return item.subscribercount;//(item.subscribercount / 10000).toFixed(1);
                 })
                 me.loadChartBar(theDatas);
-                $('.newcome-people.in').text(((res.data["inPeople"] || 0) / 10000).toFixed(1)); //进入
-                $('.newcome-people.out').text(((res.data["outPeople"] || 0) / 10000).toFixed(1));//离开
-                $('.newcome-people.add').text(((res.data["subscribercount"] || 0) / 10000).toFixed(1));//新增
+                var unitText = "万";
+                var inPeople = (res.data["inPeople"] || 0);
+                if (inPeople < 1000) {
+                    unitText = "";
+                }
+                else {
+                    unitText = "万";
+                    inPeople = (inPeople / 10000).toFixed(1);
+                }
+                $('.newcome-num.in').html('<span class="newcome-people">' + inPeople + '</span>' + unitText); //进入
+                var outPeople = (res.data["outPeople"] || 0);
+                if (inPeople < 1000) {
+                    unitText = "";
+                }
+                else {
+                    unitText = "万";
+                    outPeople = (outPeople / 10000).toFixed(1);
+                }
+                $('.newcome-num.out').html('<span class="newcome-people">' + outPeople + '</span>' + unitText);//离开
+                var addPeople = (res.data["subscribercount"] || 0);
+                if (inPeople < 1000) {
+                    unitText = "";
+                }
+                else {
+                    unitText = "万";
+                    addPeople = (addPeople / 10000).toFixed(1);
+                }
+
+
+                $('.newcome-num.add').html('<span class="newcome-people">' + addPeople + '</span>' + unitText);//新增
+                //$('.newcome.out').text(( / 10000).toFixed(1));//离开
+                //$('.newcome.add').text(( / 10000).toFixed(1));//新增
             }
 
         });
