@@ -80,13 +80,20 @@ $(function () {
     //获取当前的日期数据
     var formateDate = function () {
         if (!theCurrentDate) {
-            var theDate = new Date();
-            theDate.setDate(theDate.getDate()-1);
+            var theDate =GetYesterdayDate();// GetFromDate();
+            //theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
         }
         return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
     }
-
+    var formateDate1 = function () {
+        if (!theCurrentDate) {
+            var theDate =GetYesterdayDate();// GetFromDate();
+            //theDate.setDate(theDate.getDate()-1);
+            return theDate.getFullYear() + "年" + FormateDateNum(theDate.getMonth() + 1) + "月" + FormateDateNum(theDate.getDate())+'日';
+        }
+        return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
+    }
     function PageViewModel() {
         this.initEvent();
         this.start();
@@ -236,7 +243,7 @@ $(function () {
             trigger: 'click',
             format: 'yyyy年MM月dd日',
             //range: true,//范围选择
-            value: new Date(),
+            value: formateDate1(),
             done: function (value, date, endDate) {
                 //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
@@ -287,7 +294,7 @@ $(function () {
                 alert("来源城市和目标城市不能相同!");
                 return;
             }
-            me.loadMigrantChannelType(theCurrentView, formateDate(), theFromCityValue, theToCityValue);
+            me.loadMigrantChannelType(theCurrentView, formateDate(), theFromCityValue, theToCityValue,me.getRealAreaCode(theFromCityValue), me.getRealAreaCode(theToCityValue));
         });
     }
 
@@ -370,7 +377,7 @@ $(function () {
             fromCity = $('#' + theFromCityId).val();
             toCity = $('#' + theToCityId).val();
         }
-        this.loadMigrantChannelType(theCurrentView, theDateString, this.getAreaCode(fromCity), this.getAreaCode(toCity));
+        this.loadMigrantChannelType(theCurrentView, theDateString, fromCity,toCity,this.getRealAreaCode(fromCity), this.getRealAreaCode(toCity));
 
     }
 
@@ -604,20 +611,22 @@ $(function () {
      * @param fromCity 城市出发地(仅限省内迁徙填写)
      * @param toCity 城市到达地(仅限省内迁徙填写)
      */
-    PageViewModel.prototype.loadMigrantChannelType = function (seeType, date, fromCity, toCity) {
+    PageViewModel.prototype.loadMigrantChannelType = function (seeType, date, fromCity, toCity,fromCityCode,toCityCode) {
         var theUrl = "migrant/migrantChannelType.do";
         var theData = {
             seeType: seeType,
             date: date,
             fromCity: fromCity,
-            toCity: toCity
+            toCity: toCity,
+            fromCityCode:fromCityCode,
+            toCityCode:toCityCode
         };
 
         var me = this;
         var theCharts = {};
         var theSelectDiv = ".part-" + seeType;
         $(theSelectDiv).find('.chart-item').each(function () {
-            var theName = $(this).data('id');
+            var theName = $(this).data('id')+'';
             var theInstance = $(this).data('instance');
             theCharts[theName] = theInstance;
         });
@@ -640,8 +649,8 @@ $(function () {
                     for (var i = 0; i < theDataList.length; i++) {
                         var theItem = theDataList[i];
                         if (theCharts[theItem.outChannel || theItem.inType || theItem.migChannel]) {
-                            theTotalNum+=(theItem.oPercentage||0);
-                            theCharts[theItem.outType || theItem.inType || theItem.migChannel].refresh('', (theItem.outPercentage || theItem.inPercentage || theItem.oPercentage));
+                            theTotalNum+=(theItem.migNum||0);
+                            theCharts[theItem.outChannel || theItem.inType || theItem.migChannel].refresh('', (theItem.outPercentage || theItem.inPercentage || theItem.oPercentage));
                         }
                     }
                     if (seeType == 3) {

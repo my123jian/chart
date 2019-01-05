@@ -9,7 +9,22 @@ $(function () {
     var theCurrentDate = null;
     //当前的区域名称
     var theAreaNmae = "";
-
+    var formateDate = function () {
+        if (!theCurrentDate) {
+            var theDate =GetYesterdayDate();
+            //theDate.setDate(theDate.getDate()-1);
+            return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
+        }
+        return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
+    }
+    var formateDate1 = function () {
+        if (!theCurrentDate) {
+            var theDate = GetYesterdayDate();
+           // theDate.setDate(theDate.getDate()-1);
+            return theDate.getFullYear() + "年" + FormateDateNum(theDate.getMonth() + 1) + "月" + FormateDateNum(theDate.getDate())+'日';
+        }
+        return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
+    }
     var theXData = [];
     //var theTodayDate=new Date();
     for (var i = 0; i <= 24*12; i++) {
@@ -150,7 +165,11 @@ $(function () {
     PageViewModel.prototype.onTimer = function () {
         console.log("开始刷新数据!");
     }
+    PageViewModel.prototype.updateDate=function(){
+        $('#date-input').val(formateDate1());
+    }
     PageViewModel.prototype.initEvent = function () {
+        this.updateDate();
         $('.topbutton').click(function () {
             var theUrl = $(this).data('url');
             if (theUrl) {
@@ -163,18 +182,20 @@ $(function () {
         });
         $('#date-action').click(function () {
             //$('#date-input').click();
-            laydate.render({
+            /*laydate.render({
                 elem: '#date-input', //指定元素
                 show: true,
                 format: 'yyyy年MM月dd日',
-            });
+            });*/
         });
         var me = this;
-        laydate.render({
+        //var theDate=new Date();
+       // theDate.setDate(theDate.getDate()-1);
+       /* laydate.render({
             elem: '#date-input', //指定元素
             trigger: 'click',
             format: 'yyyy年MM月dd日',
-            value: new Date(),
+            value: formateDate1(),
             done: function (value, date, endDate) {
                 //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
@@ -186,7 +207,7 @@ $(function () {
                 }
 
             }
-        });
+        });*/
         /*$('#date-input').change(function(){
             theCurrentDate=$(this).val();
             console.log('日期变化:'+theCurrentDate);
@@ -938,6 +959,7 @@ $(function () {
         var theCallArgument = {cityCode: theCallAreaId};
         var me = this;
         // debugger;
+        me.bind('.numpart', {"populationGd":0,"populationIn":0,"populationOut":0});
         this.load(theCallUrl, theCallArgument, function (data) {
 
             if (data && data.isSuccess) {
@@ -1019,9 +1041,10 @@ $(function () {
             cityCode: theCallAreaId,
             date: ''
         };
-        if (theCurrentDate) {
-            theCallArgument.date = theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//  'YYYY-mm-dd'
-        }
+        /*if (theCurrentDate) {
+            theCallArgument.date =formateDate();// theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//  'YYYY-mm-dd'
+        }*/
+        theCallArgument.date =formateDate();
 
         var me = this;
         this.load(theCallUrl, theCallArgument, function (data) {

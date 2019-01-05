@@ -79,7 +79,7 @@ $(function () {
     //获取当前的日期数据
     var formateDate = function () {
         if (!theCurrentDate) {
-            var theDate = new Date();
+            var theDate = GetYesterdayDate();
             theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
         }
@@ -106,7 +106,7 @@ $(function () {
     var formateDate1 = function () {
         //debugger;
         if (!theCurrentDate1) {
-            var theDate = new Date();
+            var theDate = GetFromDate();
             var theBeginDay = theDate.getDay();
             var theBeginDate = theDate.addDays(-theBeginDay);
             var theEndDate = theBeginDate.addDays(6);
@@ -137,7 +137,7 @@ $(function () {
         laydate.render({
             elem: '#date-input', //指定元素
             trigger: 'click',
-            value: new Date(),
+            value: formateDate(),
             done: function (value, date, endDate) {
                 //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
@@ -345,7 +345,7 @@ $(function () {
                     color: '#d1b96b'
                 },
                 smooth: true,
-                data: data1 || [11, 14, 22, 15, 7, 8],
+                data: data1,// || [11, 14, 22, 15, 7, 8],
                 lineStyle: {
                     normal: {
                         color: '#d1b96b' //rgba(66,147,242
@@ -669,12 +669,13 @@ $(function () {
             if (res && res.isSuccess && res.data) {
                 var theAges = res.data.age;
                 var theGenders = res.data.gender;
+
                 for (var i = 0; i < theGenders.length; i++) {
                     var theGender = theGenders[i];
-                    if (theGender.qzGender == 1) {
+                    if (theGender.qzGender == 1&&!theAgeObj.man) {
                         theAgeObj.man = theGender.qzGenderPercentage;
                     }
-                    if (theGender.qzGender == 2) {
+                    if (theGender.qzGender == 2&&!theAgeObj.woman) {
                         theAgeObj.woman = theGender.qzGenderPercentage;
                     }
                 }
@@ -900,7 +901,7 @@ $(function () {
      * 归属地区分析 ok
      */
     PageViewModel.prototype.loadQzBelongArea = function () {
-        var theCallUrl = "qz/qzBelongArea .do";
+        var theCallUrl = "qz/qzBelongArea.do";
         var theParamter = {
             date: formateDate()
         };
@@ -954,7 +955,7 @@ $(function () {
      * 查询最新一条数据
      */
     PageViewModel.prototype.loadSelectNewOne = function () {
-        var theCallUrl = "qz/qzRealTimeNumber.do";// "qz/selectNewOne.do";
+        var theCallUrl = "qz/qzTotalOutIn.do";// "qz/selectNewOne.do";
         var theParamter = {};
 
         this.load(theCallUrl, theParamter, function (res) {

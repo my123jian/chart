@@ -21,7 +21,7 @@ $(function () {
     var theCurrentView = "";
     var theDirection = "";
     var isStopRefresh = true;
-    var affiliationType = 1;//'国际';
+    var affiliationType = '国际';//1;//
     var theTimer = null;
     var theCurrentDate = null;
     var datebegin = null;
@@ -66,7 +66,7 @@ $(function () {
     var formateDate = function () {
         //debugger;
         if (!theCurrentDate) {
-            var theDate = new Date();
+            var theDate = GetYesterdayDate();
             //var theBeginDay = theCurrentDate;// theDate.getDay();
             //var theBeginDate = theDate.addDays(theBeginDay);
             //var theEndDate = theBeginDate.addDays(6);
@@ -80,7 +80,7 @@ $(function () {
     var formateDate1 = function () {
         //debugger;
         if (!theCurrentDate1) {
-            var theDate1 = new Date();
+            var theDate1 = GetFromDate();
             var theBeginDay1 = theDate1.getDay();
             var theBeginDate1 = theDate1.addDays(-theBeginDay1);
             var theEndDate1 = theBeginDate1.addDays(6);
@@ -281,7 +281,7 @@ $(function () {
 
 
         var me = this;
-        var guishutype =1;// '去往珠海澳门'
+        var guishutype = '去往珠海澳门';//1;//
         //客流tab栏点击切换
         var theParentContent = $('.tab-main').closest('.content');
         $('.tab-main .tab-item-left').click(function () {
@@ -321,8 +321,8 @@ $(function () {
         //归属分析香港-珠海澳门点击切换
 
         $('.tab-direction .tab-left,.tab-direction .tab-right').click(function () {
-            var theIndex = $(this).data('index');
-            var theDataIndex=theIndex;// $(this).index();
+            var theIndex = $(this).data('text');//$(this).data('index');
+            var theDataIndex=$(this).index();//theIndex;//
             $('.tab-direction div').removeClass('select');
             $('.tab-direction').removeClass('tab-imgage1');
             $('.tab-direction').removeClass('tab-imgage2');
@@ -509,7 +509,7 @@ $(function () {
                 //    backgroundColor: 'red',
                 //},
                 smooth: true,
-                data: data1 || [1, 1, 1, 1, 1, 1],
+                data: data1,// || [1, 1, 1, 1, 1, 1],
                 lineStyle: {
                     normal: {
                         color: '#d1b96b' //rgba(66,147,242
@@ -553,7 +553,7 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: data2 || [2, 2, 2, 2, 2, 2, 2]
+                data: data2 ,//|| [2, 2, 2, 2, 2, 2, 2]
             },
             {
                 //  name: '搜索引擎',
@@ -572,7 +572,7 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: data3 || [3, 3, 3, 3, 3, 3, 3]
+                data: data3 ,//|| [3, 3, 3, 3, 3, 3, 3]
             }
         ];
 
@@ -596,7 +596,7 @@ $(function () {
                     //stack: '总量',
                     name: '每日客流',
                     smooth: true,
-                    data: data1 || [820, 932, 901, 934, 1290, 1330],
+                    data: data1,// || [820, 932, 901, 934, 1290, 1330],
                     itemStyle: {color: '#d1b96b'},
                     lineStyle: {
                         normal: {
@@ -642,7 +642,7 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: data2 || [420, 532, 601, 534, 890, 930, 1320]
+                    data: data2 ,//|| [420, 532, 601, 534, 890, 930, 1320]
                 }
 
             ];
@@ -660,7 +660,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: data || [820, 932, 901, 934, 1290, 1330],
+                data: data,// || [820, 932, 901, 934, 1290, 1330],
                 lineStyle: {
                     normal: {
                         color: '#32ff4b'//rgba(50,255,75
@@ -813,7 +813,7 @@ $(function () {
             '2':'去往香港',
         };*/
         var theParamter = {
-            personDirect: personDirect || 1,// '去往珠海澳门',
+            personDirect: personDirect ||  '去往珠海澳门',//1,//
             date: formateDate()
         };
 
@@ -856,11 +856,11 @@ $(function () {
          * @param personDirect,date,affiliationType
          */
         PageViewModel.prototype.loadBridgeAttributionArea = function (personDirect, affiliationType) {
-            affiliationType = affiliationType || 1;// '国际';
+            affiliationType = affiliationType ||  '国际';//1;//
             var theCallUrl = "/bridge/bridgeAttributionArea.do";
             var theData = {
-                personDirect: personDirect || 1,//'去往珠海澳门',
-                affiliationType: affiliationType || 1,//'国际',
+                personDirect: personDirect || '去往珠海澳门',//1,//
+                affiliationType: affiliationType || '国际',//1,//
                 date: formateDate()
             };
             var me = this;
