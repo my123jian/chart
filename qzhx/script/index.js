@@ -256,7 +256,7 @@ $(function () {
         theCurrentOption.grid.bottom = 10;
         var theXData = [];
         //var theTodayDate=new Date();
-        for (var i = 0; i <= 24 * 12; i++) {
+        for (var i = 0; i <= 24; i++) {
             theXData.push(i);
         }
         theCurrentOption.xAxis = {
@@ -266,14 +266,14 @@ $(function () {
             //interval:12,
             //splitNumber: 24,
             axisLabel: {
-                interval: 11,
+                interval: 3,
                 formatter: function (value, idx) {
                     //debugger;
                     //return value;
-                    if (value % (12 * 4) == 0) {
+                    if (value % 4 == 0) {
                         //console.log('x2:'+value/12);
                         //console.log('x:'+value/(60/5));
-                        return value / 12;
+                        return value;
                     }
                     else {
                         return "";
@@ -366,10 +366,36 @@ $(function () {
         var theBeginDate = new Date(datebegin);
         var theEndDate = new Date(dateend);
         var theXData = [];
+        var theValidData=[];
+        var theMap={};
+        xData=xData||[];
+        for(var i=0;i<xData.length;i++){
+            theMap[xData[i]]=data1[i];
+        }
+        var maxDate=xData.max();
+        for(var i=0;i<xData.length;i++){
+            theMap[xData[i]]=data1[i];
+        }
         while (theEndDate.getTime() > theBeginDate.getTime()) {
+
+            var thekey=theBeginDate.getFullYear()+''+FormateDateNum(theBeginDate.getMonth()+1)+''+FormateDateNum(theBeginDate.getDate());
             theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
+
+            if(maxDate){
+                if(theBeginDate.getTime()>new Date(maxDate).getTime()){
+                    theBeginDate.setDate(theBeginDate.getDate() + 1);
+                    continue;
+                }
+                if(theMap[thekey]){
+                    theValidData.push(theMap[thekey]);
+                }
+                else{
+                    theValidData.push(0);
+                }
+            }
             theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
+        data1=theValidData;
         theCurrentOption.xAxis.data = theXData;
 
         //theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
@@ -441,11 +467,38 @@ $(function () {
         var dateend = theDate1String.split(" - ")[1];
         var theBeginDate = new Date(datebegin);
         var theEndDate = new Date(dateend);
+
         var theXData = [];
+        var theValidData=[];
+        var theMap={};
+        xData=xData||[];
+        for(var i=0;i<xData.length;i++){
+            theMap[xData[i]]=data1[i];
+        }
+        var maxDate=xData.max();
+        for(var i=0;i<xData.length;i++){
+            theMap[xData[i]]=data1[i];
+        }
         while (theEndDate.getTime() > theBeginDate.getTime()) {
+
+            var thekey=theBeginDate.getFullYear()+''+FormateDateNum(theBeginDate.getMonth()+1)+''+FormateDateNum(theBeginDate.getDate());
             theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
+
+            if(maxDate){
+                if(theBeginDate.getTime()>new Date(maxDate).getTime()){
+                    theBeginDate.setDate(theBeginDate.getDate() + 1);
+                    continue;
+                }
+                if(theMap[thekey]){
+                    theValidData.push(theMap[thekey]);
+                }
+                else{
+                    theValidData.push(0);
+                }
+            }
             theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
+        data1=theValidData;
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.series = [
             {
@@ -454,7 +507,9 @@ $(function () {
                 //stack: '总量',
                 name: '每日客流',
                 smooth: true,
-                data: data1,// || [11, 14, 22, 15, 7, 8],
+                data: data1.map(function (item) {
+                    return (item/10000).toFixed(1);
+                }),// || [11, 14, 22, 15, 7, 8],
                 itemStyle: {color: '#d1b96b'},
                 lineStyle: {
                     normal: {
@@ -499,10 +554,33 @@ $(function () {
         var theBeginDate = new Date(datebegin);
         var theEndDate = new Date(dateend);
         var theXData = [];
+        var theValidData=[];
+        var theMap={};
+        xData=xData||[];
+        var maxDate=xData.max();
+        for(var i=0;i<xData.length;i++){
+            theMap[xData[i]]=data1[i];
+        }
         while (theEndDate.getTime() > theBeginDate.getTime()) {
+
+            var thekey=theBeginDate.getFullYear()+''+FormateDateNum(theBeginDate.getMonth()+1)+''+FormateDateNum(theBeginDate.getDate());
             theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
+
+            if(maxDate){
+                if(theBeginDate.getTime()>new Date(maxDate).getTime()){
+                    theBeginDate.setDate(theBeginDate.getDate() + 1);
+                    continue;
+                }
+                if(theMap[thekey]){
+                    theValidData.push(theMap[thekey]);
+                }
+                else{
+                    theValidData.push(0);
+                }
+            }
             theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
+        data1=theValidData;
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.series = [
             {
@@ -510,7 +588,9 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
-                data: data1,// || [11, 14, 22, 15, 7, 8],
+                data: data1.map(function (item) {
+                    return (item/10000).toFixed(1);
+                }),// || [11, 14, 22, 15, 7, 8],
                 lineStyle: {
                     normal: {
                         color: '#32ff4b'//rgba(50,255,75
@@ -837,7 +917,7 @@ $(function () {
                     for (var i = 0; i < theItems.length; i++) {
                         //theData1.push((theItems[i].allPeople/10000).toFixed(1));
                         theX1.push(theItems[i].statDate);
-                        theX1Obj[theItems[i].statDate] = (theItems[i].subscribercount / 10000).toFixed(1);
+                        theX1Obj[theItems[i].statDate] = (theItems[i].subscribercount / 10000).toFixed(2);
                     }
                 }
                 if (res.data.length >= 2) {
@@ -845,7 +925,7 @@ $(function () {
                     for (var i = 0; i < theItems.length; i++) {
                         //theData2.push((theItems[i].allPeople/10000).toFixed(1));
                         theX2.push(theItems[i].statDate);
-                        theX2Obj[theItems[i].statDate] = (theItems[i].subscribercount / 10000).toFixed(1);
+                        theX2Obj[theItems[i].statDate] = (theItems[i].subscribercount / 10000).toFixed(2);
                     }
                 }
             }
@@ -871,7 +951,11 @@ $(function () {
     PageViewModel.prototype.loadQzFlowHistory = function () {
         var theCallUrl = "qz/qzFlowHistory.do";
         var theDate = formateDate1();
-        var theParamter = {};
+        var theDates=theDate.split(' - ')
+        var theParamter = {
+            startDate:theDates[0],
+            endDate:theDates[1],
+        };
         var me = this;
         //debugger;
         this.load(theCallUrl, theParamter, function (res) {
@@ -879,7 +963,7 @@ $(function () {
             var theDataIn = [];
             var theDataOut = [];
             var theXArray = [];
-            res = {
+           /* res = {
                 "isSuccess": true,
                 "msg": "success",
                 "data": [{
@@ -899,7 +983,7 @@ $(function () {
                     "postionType": "琼州海峡",
                     "statDate": "2018-12-13"
                 }]
-            };
+            };*/
             if (res && res.isSuccess) {
                 for (var i = 0; i < res.data.length; i++) {
                     var theItem = res.data[i];
@@ -1022,7 +1106,13 @@ $(function () {
             if (res && res.isSuccess) {
                 for (var i = 0; i < res.data.length; i++) {
                     var theItem = res.data[i];
-                    $('#qzBelong' + theItem.qzBelong).text('(' + (theItem.qzBelongPercentage * 100).toFixed(2) + '%)');
+                    if(theItem.qzBelongPercentage==1){
+                        $('#qzBelong' + theItem.qzBelong).text('(100%)');
+                    }
+                    else{
+                        $('#qzBelong' + theItem.qzBelong).text('(' + (theItem.qzBelongPercentage * 100%100).toFixed(2) + '%)');
+                    }
+
                 }
 
             }

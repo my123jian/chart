@@ -964,7 +964,7 @@ $(function () {
     PageViewModel.prototype.loadCurrent = function () {
         var theCallUrl = "migrant/current.do";
         var theCallAreaName = theAreaNmae;
-        var theCallAreaId = this.getAreaCode(theCallAreaName) || '全省';
+        var theCallAreaId = this.getAreaCode(theCallAreaName) || '广东省';
         var theCallArgument = {cityCode: theCallAreaId};
         var me = this;
         // debugger;
@@ -999,7 +999,7 @@ $(function () {
     PageViewModel.prototype.loadHistoricalTrend = function () {
         var theCallUrl = "migrant/historicalTrend.do ";
         var theCallAreaName = theAreaNmae;
-        var theCallAreaId = this.getAreaCode(theCallAreaName) || '全省';
+        var theCallAreaId = this.getAreaCode(theCallAreaName) || '广东省';
         var theCallArgument = {
             cityCode: theCallAreaId
         };
@@ -1045,7 +1045,7 @@ $(function () {
     PageViewModel.prototype.loadPredict = function () {
         var theCallUrl = "migrant/predict.do ";
         var theCallAreaName = theAreaNmae;
-        var theCallAreaId = this.getAreaCode(theCallAreaName) || '全省';
+        var theCallAreaId = this.getAreaCode(theCallAreaName) || '广东省';
 
         var theCallArgument = {
             cityCode: theCallAreaId,

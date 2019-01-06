@@ -487,6 +487,7 @@ $(function () {
         if (!this.Chart2) {
             this.Chart2 = echarts.init(document.getElementById('chart2'));
         }
+        //debugger;
         data1=data1||[];
         data2=data2||[];
         data3=data3||[];
@@ -607,7 +608,7 @@ $(function () {
                 smooth: true,
                 //stack: '总量',
                 data: data3.map(function (item) {
-                    return (item/10000).toFixed();
+                    return (item/10000).toFixed(2);
                 }) ,//|| [3, 3, 3, 3, 3, 3, 3]
             }
         ];
@@ -917,12 +918,16 @@ $(function () {
                  {"fromType":"3","id":3,"percent":80,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":80000000,"toType":"1"}],"isSuccess":true,"msg":"success"}*/
 
                 //debugger;
+                var theDataMap={};
                 for (var i = 0; i < data.data.length; i++) {
                     var theItem = data.data[i];
-                    if (theMap[theItem.fromType]) {
-                        theMap[theItem.fromType].text('(' + (theItem.percent*100).toFixed(1) + '%)');
+                    theDataMap[theItem.fromType]=theItem.percent;
+                }
+                //debugger;
+                for(var key in theDataMap){
+                    if (theMap[key]) {
+                        theMap[key].text('(' + ((theDataMap[key]||0)*100).toFixed(1) + '%)');
                     }
-
                 }
             }
             else {
