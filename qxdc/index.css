@@ -537,6 +537,7 @@ html body {
 
 #date-icon {
     float: right;
+    cursor: pointer;
     /*position: absolute;*/
     background-image: url("img/icon1.png");
     width: 24px;
@@ -546,6 +547,7 @@ html body {
 }
 
 #date-action {
+    cursor: pointer;
     float: right;
     background-size: auto 32px;
     /*position: absolute;*/

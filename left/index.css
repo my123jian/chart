@@ -30,6 +30,7 @@ html body {
     width: 216px;
     height: 90px;
     position: relative;
+    pointer-events:painted;
 }
 
 .topbutton.test {
@@ -112,7 +113,7 @@ html body {
 }
 
 .fixdiv > div {
-    pointer-events: painted;
+
     position: absolute;
     background-repeat: no-repeat;
 }
@@ -125,11 +126,11 @@ html body {
 
 .toppart .rightpart div {
     display: inline-block;
-    pointer-events:painted;
+
 }
 
 .toppart .rightpart {
-    pointer-events:painted;
+
     position: absolute;
     width: 1236px;
     left: 664px;

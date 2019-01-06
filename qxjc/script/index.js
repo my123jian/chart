@@ -191,7 +191,7 @@ $(function () {
         var me = this;
         //var theDate=new Date();
        // theDate.setDate(theDate.getDate()-1);
-       /* laydate.render({
+       laydate.render({
             elem: '#date-input', //指定元素
             trigger: 'click',
             format: 'yyyy年MM月dd日',
@@ -207,7 +207,7 @@ $(function () {
                 }
 
             }
-        });*/
+        });
         /*$('#date-input').change(function(){
             theCurrentDate=$(this).val();
             console.log('日期变化:'+theCurrentDate);
