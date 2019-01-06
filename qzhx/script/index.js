@@ -80,7 +80,7 @@ $(function () {
     var formateDate = function () {
         if (!theCurrentDate) {
             var theDate = GetYesterdayDate();
-            theDate.setDate(theDate.getDate()-1);
+            ///theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
         }
         return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
@@ -168,9 +168,14 @@ $(function () {
 
             }
         });
+        $('.datediv,.datediv1').click(function(e){
+            //debugger;
+            e.stopPropagation();
+        });
         //右边tab栏点击切换
         var theParentContent = $('.tab-main').closest('.content');
-        $('.tab-main .tab-item-left').click(function () {
+        $('.tab-main .tab-item-left').click(function () { //firstline
+            //var parent=$(this).parent();
             var theIndex = $(this).data('index');
             $('.tab-main .tab-item-right').addClass('select_a');
             $('.tab-main .tab-item-left').removeClass('select_a');
@@ -182,9 +187,10 @@ $(function () {
             $(theParentContent).find('.part2').hide();
             $(theParentContent).find('.part-' + theIndex).show();
 
-
+            me.loadPart1();
         });
-        $('.tab-main .tab-item-right').click(function () {
+        $('.tab-main .tab-item-right').click(function () {//firstline
+            //var parent=$(this).parent();
             var theIndex = $(this).data('index');
             $('.tab-main .tab-item-left').addClass('select_a');
             $('.tab-main .tab-item-right').removeClass('select_a');
@@ -195,12 +201,7 @@ $(function () {
             $(theParentContent).find('.part1').hide();
             $(theParentContent).find('.part2').hide();
             $(theParentContent).find('.part-' + theIndex).show();
-            if (theIndex == 2) {
-                me.loadPart2();
-            }
-            else {
-                me.loadPart1();
-            }
+            me.loadPart2();
             //debugger;
 
         });
@@ -212,6 +213,7 @@ $(function () {
             $('.tab-direction').addClass('tab-imgage' + theIndex);
             $(this).addClass('select');
         });
+
         $('.guishu .tab-item').click(function () {
             var theIndex = $(this).data('index');
             $('.tab-item').removeClass('active');
@@ -247,12 +249,46 @@ $(function () {
         if (!this.Chart1) {
             this.Chart1 = echarts.init(document.getElementById('chart1'));
         }
-
+        //debugger;
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
+        $.extend(true,theCurrentOption, option1);
         theCurrentOption.grid.height = 80;
         theCurrentOption.grid.bottom = 10;
-        theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
+        var theXData = [];
+        //var theTodayDate=new Date();
+        for (var i = 0; i <= 24 * 12; i++) {
+            theXData.push(i);
+        }
+        theCurrentOption.xAxis = {
+            type: 'category',
+            name: '(时点)',
+            nameLocation: 'end',
+            //interval:12,
+            //splitNumber: 24,
+            axisLabel: {
+                interval: 11,
+                formatter: function (value, idx) {
+                    //debugger;
+                    //return value;
+                    if (value % (12 * 4) == 0) {
+                        //console.log('x2:'+value/12);
+                        //console.log('x:'+value/(60/5));
+                        return value / 12;
+                    }
+                    else {
+                        return "";
+                    }
+                }
+            },
+            boundaryGap: false,
+            axisLine: {
+                lineStyle: {
+                    color: '#557398'
+                }
+            },
+            data: theXData
+        };
+        //theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         theCurrentOption.legend = {
             data: [{name: '粤海铁路北港', textStyle: {color: "#85a8b8"}}, {name: '海安港', textStyle: {color: "#85a8b8"}}],
             x: 'right',
@@ -321,20 +357,20 @@ $(function () {
         if (!this.Chart2) {
             this.Chart2 = echarts.init(document.getElementById('chart2'));
         }
-        data1=data1||[];
+        data1 = data1 || [];
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
-        var theDate1String=formateDate1();
+        $.extend(true,theCurrentOption, option1);
+        var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
-        var theBeginDate=new Date(datebegin);
-        var theEndDate=new Date(dateend);
-        var theXData=[];
-        while (theEndDate.getTime()>theBeginDate.getTime()){
-            theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
-            theBeginDate.setDate(theBeginDate.getDate()+1);
+        var theBeginDate = new Date(datebegin);
+        var theEndDate = new Date(dateend);
+        var theXData = [];
+        while (theEndDate.getTime() > theBeginDate.getTime()) {
+            theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
+            theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
-        theCurrentOption.xAxis.data=theXData;
+        theCurrentOption.xAxis.data = theXData;
 
         //theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         theCurrentOption.yAxis = [{
@@ -359,7 +395,7 @@ $(function () {
                 },
                 smooth: true,
                 data: data1.map(function (item) {
-                    return (item/10000).toFixed(1);
+                    return (item / 10000).toFixed(1);
                 }),// || [11, 14, 22, 15, 7, 8],
                 lineStyle: {
                     normal: {
@@ -398,19 +434,19 @@ $(function () {
             this.Chart3 = echarts.init(document.getElementById('chart3'));
         }
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
-       // theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
-        var theDate1String=formateDate1();
+        $.extend(true,theCurrentOption, option1);
+        // theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
+        var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
-        var theBeginDate=new Date(datebegin);
-        var theEndDate=new Date(dateend);
-        var theXData=[];
-        while (theEndDate.getTime()>theBeginDate.getTime()){
-            theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
-            theBeginDate.setDate(theBeginDate.getDate()+1);
+        var theBeginDate = new Date(datebegin);
+        var theEndDate = new Date(dateend);
+        var theXData = [];
+        while (theEndDate.getTime() > theBeginDate.getTime()) {
+            theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
+            theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
-        theCurrentOption.xAxis.data=theXData;
+        theCurrentOption.xAxis.data = theXData;
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -455,19 +491,19 @@ $(function () {
         }
         //debugger;
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
-       // theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
-        var theDate1String=formateDate1();
+        $.extend(true,theCurrentOption, option1);
+        // theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
+        var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
-        var theBeginDate=new Date(datebegin);
-        var theEndDate=new Date(dateend);
-        var theXData=[];
-        while (theEndDate.getTime()>theBeginDate.getTime()){
-            theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
-            theBeginDate.setDate(theBeginDate.getDate()+1);
+        var theBeginDate = new Date(datebegin);
+        var theEndDate = new Date(dateend);
+        var theXData = [];
+        while (theEndDate.getTime() > theBeginDate.getTime()) {
+            theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
+            theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
-        theCurrentOption.xAxis.data=theXData;
+        theCurrentOption.xAxis.data = theXData;
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -510,7 +546,7 @@ $(function () {
      */
     PageViewModel.prototype.loadChartBar = function (data) {
         //debugger;
-        data=data||[];
+        data = data || [];
         this.ChartBar = echarts.init(document.getElementById('form_1'));
         var option = {
 
@@ -708,9 +744,10 @@ $(function () {
             };*/
             if (res && res.isSuccess && res.data) {
                 var theAges = res.data.age;
-                var theGenders = res.data.gender;
-
-                for (var i = 0; i < theGenders.length; i++) {
+                // var theGenders = res.data.gender;
+                theAgeObj.man = Math.ceil((res.data.man || 0) * 100);
+                theAgeObj.woman = 100 - theAgeObj.man;
+                /*for (var i = 0; i < theGenders.length; i++) {
                     var theGender = theGenders[i];
                     if (theGender.qzGender == 1&&!theAgeObj.man) {
                         theAgeObj.man = (theGender.qzGenderPercentage*100).toFixed(0);
@@ -718,7 +755,7 @@ $(function () {
                     if (theGender.qzGender == 2&&!theAgeObj.woman) {
                         theAgeObj.woman = (theGender.qzGenderPercentage*100).toFixed(0);
                     }
-                }
+                }*/
                 for (var i = 0; i < theAges.length; i++) {
                     var theAge = theAges[i];
 //debugger;
@@ -749,6 +786,7 @@ $(function () {
         var theCallUrl = "qz/qzFlowTrend.do";
         var theParamter = {date: formateDate()};
         var me = this;
+
         this.load(theCallUrl, theParamter, function (res) {
             var theData1 = [];
             var theData2 = [];
@@ -798,16 +836,16 @@ $(function () {
                     var theItems = res.data[0];
                     for (var i = 0; i < theItems.length; i++) {
                         //theData1.push((theItems[i].allPeople/10000).toFixed(1));
-                        theX1.push(theItems[i].statTime);
-                        theX1Obj[theItems[i].statTime] = (theItems[i].allPeople / 10000).toFixed(1);
+                        theX1.push(theItems[i].statDate);
+                        theX1Obj[theItems[i].statDate] = (theItems[i].subscribercount / 10000).toFixed(1);
                     }
                 }
                 if (res.data.length >= 2) {
                     var theItems = res.data[1];
                     for (var i = 0; i < theItems.length; i++) {
                         //theData2.push((theItems[i].allPeople/10000).toFixed(1));
-                        theX2.push(theItems[i].statTime);
-                        theX2Obj[theItems[i].statTime] = (theItems[i].allPeople / 10000).toFixed(1);
+                        theX2.push(theItems[i].statDate);
+                        theX2Obj[theItems[i].statDate] = (theItems[i].subscribercount / 10000).toFixed(1);
                     }
                 }
             }
@@ -984,7 +1022,7 @@ $(function () {
             if (res && res.isSuccess) {
                 for (var i = 0; i < res.data.length; i++) {
                     var theItem = res.data[i];
-                    $('#qzBelong' + theItem.qzBelong).text('(' + (theItem.qzBelongPercentage*100).toFixed(2) + '%)');
+                    $('#qzBelong' + theItem.qzBelong).text('(' + (theItem.qzBelongPercentage * 100).toFixed(2) + '%)');
                 }
 
             }
@@ -1017,31 +1055,31 @@ $(function () {
                 theData = res.data;
             }
             //debugger;
-            var inPeople=((theData['inPeople'] ) || 0);
-            var outPeople=((theData['outPeople']) || 0);
-            var allPeople=(inPeople-outPeople);
-            var unitText='万';
-            if(inPeople<1000){
-                unitText="";
-            }else {
-                unitText="万";
-                inPeople= (inPeople/10000).toFixed(1);
+            var inPeople = ((theData['inPeople']) || 0);
+            var outPeople = ((theData['outPeople']) || 0);
+            var allPeople = (inPeople - outPeople);
+            var unitText = '万';
+            if (inPeople < 1000) {
+                unitText = "";
+            } else {
+                unitText = "万";
+                inPeople = (inPeople / 10000).toFixed(1);
             }
-            $('.newcome-num.in').html('<span class="newcome-people">'+inPeople+'</span>'+unitText);
-            if(outPeople<1000){
-                unitText="";
-            }else {
-                unitText="万";
-                outPeople= (outPeople/10000).toFixed(1);
+            $('.newcome-num.in').html('<span class="newcome-people">' + inPeople + '</span>' + unitText);
+            if (outPeople < 1000) {
+                unitText = "";
+            } else {
+                unitText = "万";
+                outPeople = (outPeople / 10000).toFixed(1);
             }
-            $('.newcome-num.out').html('<span class="newcome-people">'+outPeople+'</span>'+unitText);
-            if(allPeople<1000){
-                unitText="";
-            }else {
-                unitText="万";
-                allPeople= (allPeople/10000).toFixed(1);
+            $('.newcome-num.out').html('<span class="newcome-people">' + outPeople + '</span>' + unitText);
+            if (Math.abs(allPeople) < 1000) {
+                unitText = "";
+            } else {
+                unitText = "万";
+                allPeople = (allPeople / 10000).toFixed(1);
             }
-            $('.newcome-num.all').html('<span class="newcome-people">'+allPeople+'</span>'+unitText);
+            $('.newcome-num.all').html('<span class="newcome-people">' + allPeople + '</span>' + unitText);
         });
     }
     /**

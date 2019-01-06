@@ -228,7 +228,7 @@ $(function () {
         });
 
 
-        $('#date-action').click(function () {
+       /* $('#date-action').click(function () {
             //$('#date-input').click();
             laydate.render({
                 elem: '#date-input', //指定元素
@@ -236,7 +236,7 @@ $(function () {
                 format: 'yyyy年MM月dd日',
 
             });
-        });
+        });*/
         var me = this;
         laydate.render({
             elem: '#date-input', //指定元素

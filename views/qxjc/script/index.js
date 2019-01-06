@@ -627,7 +627,7 @@ $(function () {
             theXData.push(i);
         }
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
+        $.extend(true,theCurrentOption, option1);
         theCurrentOption.series = [
 
             {
@@ -684,7 +684,7 @@ $(function () {
             this.Chart2 = echarts.init(document.getElementById('chart2'));
         }
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
+        $.extend(true,theCurrentOption, option1);
         theCurrentOption.series = [
 
             {
@@ -743,7 +743,7 @@ $(function () {
             this.Chart3 = echarts.init(document.getElementById('chart3'));
         }
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
+        $.extend(true,theCurrentOption, option1);
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -1112,7 +1112,7 @@ $(function () {
                 var theViewData = {};
                 if (theResultDatas && theResultDatas.length > 0) {
                     var theResultData = theResultDatas[0];
-                    $.extend(theViewData, theResultData);
+                    $.extend(true,theViewData, theResultData);
                     theViewData.populationGd = theViewData.populationGd / 10000;
                     theViewData.populationIn = theViewData.populationIn / 10000;
                     theViewData.populationOut = theViewData.populationOut / 10000;

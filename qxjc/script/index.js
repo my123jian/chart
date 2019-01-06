@@ -19,7 +19,7 @@ $(function () {
     }
     var formateDate1 = function () {
         if (!theCurrentDate) {
-            var theDate =new Date();// GetYesterdayDate();
+            var theDate =GetYesterdayDate();
            // theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "年" + FormateDateNum(theDate.getMonth() + 1) + "月" + FormateDateNum(theDate.getDate())+'日';
         }
@@ -180,14 +180,14 @@ $(function () {
                 console.log("未找到对应的URL不跳转！");
             }
         });
-        $('#date-action').click(function () {
+       // $('#date-action').click(function () {
             //$('#date-input').click();
             /*laydate.render({
                 elem: '#date-input', //指定元素
                 show: true,
                 format: 'yyyy年MM月dd日',
             });*/
-        });
+        //});
         var me = this;
         //var theDate=new Date();
        // theDate.setDate(theDate.getDate()-1);
@@ -456,7 +456,7 @@ $(function () {
         data1=data1||[];
         data2=data2||[];
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
+        $.extend(true,theCurrentOption, option1);
         theCurrentOption.series = [
 
             {
@@ -519,7 +519,7 @@ $(function () {
         data1=data1||[];
         data2=data2||[];
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
+        $.extend(true,theCurrentOption, option1);
         theCurrentOption.series = [
 
             {
@@ -584,7 +584,7 @@ $(function () {
         data1=data1||[];
         data2=data2||[];
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
+        $.extend(true,theCurrentOption, option1);
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -979,7 +979,7 @@ $(function () {
                     //可能出现空值 加入判断
                     //debugger;
                     if (theResultData) {
-                        $.extend(theViewData, theResultData);
+                        $.extend(true,theViewData, theResultData);
                     }
                     theViewData.populationGd = (theViewData.populationGd || 0) / 10000;
                     theViewData.populationIn = (theViewData.populationIn || 0) / 10000;

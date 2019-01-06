@@ -71,7 +71,7 @@ $(function () {
             //var theBeginDate = theDate.addDays(theBeginDay);
             //var theEndDate = theBeginDate.addDays(6);
             // debugger
-            theDate.setDate(theDate.getDate() - 1);
+            //theDate.setDate(theDate.getDate() - 1);
             return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
             //+" - "+                theEndDate.getFullYear() + "-" + (theEndDate.getMonth() + 1) + "-" + theEndDate.getDate();
         }
@@ -255,7 +255,7 @@ $(function () {
                 console.log("未找到对应的URL不跳转！");
             }
         });
-        $('#date-action').click(function () {
+        /*$('#date-action').click(function () {
             //$('#date-input').click();
             laydate.render({
                 elem: '#date-input', //指定元素
@@ -269,7 +269,7 @@ $(function () {
                 show: true,
                 //format:'yyyy年MM月dd日',
             });
-        });
+        });*/
         //var personDirect=1;
         //var affiliationType=1;
         //$('.tab-left').click(function(){
@@ -284,7 +284,14 @@ $(function () {
         var guishutype = '去往珠海澳门';//1;//
         //客流tab栏点击切换
         var theParentContent = $('.tab-main').closest('.content');
-        $('.tab-main .tab-item-left').click(function () {
+
+        $('.datediv,.datediv1').click(function(e){
+            //debugger;
+            e.stopPropagation();
+        });
+
+        $('.tab-main .tab-item-left ').click(function () {
+            //var parent=$(this).parent();
             var theIndex = $(this).data('index');
             $('.tab-main .tab-item-right').addClass('select_a');
             $('.tab-main .tab-item-left').removeClass('select_a');
@@ -295,11 +302,16 @@ $(function () {
             $(theParentContent).find('.part2').hide();
             $(theParentContent).find('.part-' + theIndex).show();
             $('.tab-item-right .firstline').css('margin-left', '80px')
-            $('.tab-item-left .firstline').css('margin-left', '54px')
+            $('.tab-item-left .firstline').css('margin-left', '54px');
+            me.loadPart1();
 
 
         });
+
+
         $('.tab-main .tab-item-right').click(function () {
+            //debugger;
+            //var parent=$(this).parent();
             var theIndex = $(this).data('index');
             $('.tab-main .tab-item-left').addClass('select_a');
             $('.tab-main .tab-item-right').removeClass('select_a');
@@ -311,26 +323,29 @@ $(function () {
             $(theParentContent).find('.part1').hide();
             $(theParentContent).find('.part2').hide();
             $(theParentContent).find('.part-' + theIndex).show();
-            if (theIndex == 2) {
+            me.loadPart2();
+            /*if (theIndex == 2) {
                 me.loadPart2();
             }
             else {
                 me.loadPart1();
-            }
+            }*/
         });
+
+
         //归属分析香港-珠海澳门点击切换
 
         $('.tab-direction .tab-left,.tab-direction .tab-right').click(function () {
-            var theIndex = $(this).data('text');//$(this).data('index');
+            var theIndex = $(this).data('index');//$(this).data('index');
             var theDataIndex=$(this).index();//theIndex;//
             $('.tab-direction div').removeClass('select');
             $('.tab-direction').removeClass('tab-imgage1');
             $('.tab-direction').removeClass('tab-imgage2');
             $('.tab-direction').addClass('tab-imgage' + (theDataIndex+1));
             $(this).addClass('select');
-            var personDirect = theIndex;
             guishutype = theIndex;
-            me.loadBridgeAttributionType(personDirect);
+            //guishutype = theIndex;
+            me.loadBridgeAttributionType(guishutype);
             //区域列表
             me.loadBridgeAttributionArea(guishutype, affiliationType);
         });
@@ -414,9 +429,9 @@ $(function () {
             theXData.push(i);
         }
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
+        $.extend(true,theCurrentOption, option1);
 
-
+//debugger;
         theCurrentOption.series = [
 
             {
@@ -476,7 +491,7 @@ $(function () {
         data2=data2||[];
         data3=data3||[];
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
+        $.extend(true,theCurrentOption, option1);
         var theDate1String=formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
@@ -608,7 +623,7 @@ $(function () {
         data1=data1||[];
         data2=data2||[];
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
+        $.extend(true,theCurrentOption, option1);
         var theDate1String=formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
@@ -704,7 +719,7 @@ $(function () {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
         }
         var theCurrentOption = {};
-        $.extend(theCurrentOption, option1);
+        $.extend(true,theCurrentOption, option1);
         var theDate1String=formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
@@ -715,6 +730,7 @@ $(function () {
             theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
             theBeginDate.setDate(theBeginDate.getDate()+1);
         }
+        //debugger;
         theCurrentOption.xAxis.data=theXData;
         theCurrentOption.xAxis.axisLabel.rotate=0;
         theCurrentOption.series = [
@@ -1278,7 +1294,7 @@ $(function () {
                 }
                 $('.newcome-num.out').html('<span class="newcome-people">' + outPeople + '</span>' + unitText);//离开
                 var addPeople = (res.data["subscribercount"] || 0);
-                if (inPeople < 1000) {
+                if (Math.abs(addPeople) < 1000) {
                     unitText = "";
                 }
                 else {

@@ -120,13 +120,16 @@ html body {
 .toppart {
     width: 1920px;
     line-height: 82px;
+    pointer-events: none;
 }
 
 .toppart .rightpart div {
     display: inline-block;
+    pointer-events:painted;
 }
 
 .toppart .rightpart {
+    pointer-events:painted;
     position: absolute;
     width: 1236px;
     left: 664px;
@@ -168,4 +171,5 @@ html body {
     position: absolute;
     left: 49px;
     top: 50px;
+    pointer-events:painted;
 }
