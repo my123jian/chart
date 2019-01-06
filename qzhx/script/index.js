@@ -321,9 +321,22 @@ $(function () {
         if (!this.Chart2) {
             this.Chart2 = echarts.init(document.getElementById('chart2'));
         }
+        data1=data1||[];
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
-        theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
+        var theDate1String=formateDate1();
+        var datebegin = theDate1String.split(" - ")[0];
+        var dateend = theDate1String.split(" - ")[1];
+        var theBeginDate=new Date(datebegin);
+        var theEndDate=new Date(dateend);
+        var theXData=[];
+        while (theEndDate.getTime()>theBeginDate.getTime()){
+            theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
+            theBeginDate.setDate(theBeginDate.getDate()+1);
+        }
+        theCurrentOption.xAxis.data=theXData;
+
+        //theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         theCurrentOption.yAxis = [{
             name: '（人数/万）',
             type: 'value',
@@ -345,7 +358,9 @@ $(function () {
                     color: '#d1b96b'
                 },
                 smooth: true,
-                data: data1,// || [11, 14, 22, 15, 7, 8],
+                data: data1.map(function (item) {
+                    return (item/10000).toFixed(1);
+                }),// || [11, 14, 22, 15, 7, 8],
                 lineStyle: {
                     normal: {
                         color: '#d1b96b' //rgba(66,147,242
@@ -384,7 +399,18 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
-        theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
+       // theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
+        var theDate1String=formateDate1();
+        var datebegin = theDate1String.split(" - ")[0];
+        var dateend = theDate1String.split(" - ")[1];
+        var theBeginDate=new Date(datebegin);
+        var theEndDate=new Date(dateend);
+        var theXData=[];
+        while (theEndDate.getTime()>theBeginDate.getTime()){
+            theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
+            theBeginDate.setDate(theBeginDate.getDate()+1);
+        }
+        theCurrentOption.xAxis.data=theXData;
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -430,7 +456,18 @@ $(function () {
         //debugger;
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
-        theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
+       // theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
+        var theDate1String=formateDate1();
+        var datebegin = theDate1String.split(" - ")[0];
+        var dateend = theDate1String.split(" - ")[1];
+        var theBeginDate=new Date(datebegin);
+        var theEndDate=new Date(dateend);
+        var theXData=[];
+        while (theEndDate.getTime()>theBeginDate.getTime()){
+            theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
+            theBeginDate.setDate(theBeginDate.getDate()+1);
+        }
+        theCurrentOption.xAxis.data=theXData;
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -473,6 +510,7 @@ $(function () {
      */
     PageViewModel.prototype.loadChartBar = function (data) {
         //debugger;
+        data=data||[];
         this.ChartBar = echarts.init(document.getElementById('form_1'));
         var option = {
 
@@ -545,7 +583,9 @@ $(function () {
                     name: '累积',
                     type: 'bar',
                     barWidth: '50%',
-                    data: data,//[4, 5, 6, 13, 14, 11, 8.5, 11, 12],
+                    data: data.map(function (item) {
+                        return item;
+                    }),//[4, 5, 6, 13, 14, 11, 8.5, 11, 12],
                     itemStyle: {
                         normal: {
                             color: '#80ddfe'
@@ -673,10 +713,10 @@ $(function () {
                 for (var i = 0; i < theGenders.length; i++) {
                     var theGender = theGenders[i];
                     if (theGender.qzGender == 1&&!theAgeObj.man) {
-                        theAgeObj.man = theGender.qzGenderPercentage;
+                        theAgeObj.man = (theGender.qzGenderPercentage*100).toFixed(0);
                     }
                     if (theGender.qzGender == 2&&!theAgeObj.woman) {
-                        theAgeObj.woman = theGender.qzGenderPercentage;
+                        theAgeObj.woman = (theGender.qzGenderPercentage*100).toFixed(0);
                     }
                 }
                 for (var i = 0; i < theAges.length; i++) {
@@ -944,7 +984,7 @@ $(function () {
             if (res && res.isSuccess) {
                 for (var i = 0; i < res.data.length; i++) {
                     var theItem = res.data[i];
-                    $('#qzBelong' + theItem.qzBelong).text('(' + theItem.qzBelongPercentage + '%)');
+                    $('#qzBelong' + theItem.qzBelong).text('(' + (theItem.qzBelongPercentage*100).toFixed(2) + '%)');
                 }
 
             }
@@ -976,8 +1016,9 @@ $(function () {
             if (res && res.isSuccess) {
                 theData = res.data;
             }
-            var inPeople=((theData['inPeople'] - theData['inPeople']) || 0);
-            var outPeople=((theData['outPeople'] - theData['outPeople']) || 0);
+            //debugger;
+            var inPeople=((theData['inPeople'] ) || 0);
+            var outPeople=((theData['outPeople']) || 0);
             var allPeople=(inPeople-outPeople);
             var unitText='万';
             if(inPeople<1000){
@@ -1052,7 +1093,7 @@ $(function () {
                     var theItme = res.data[i];
                     var theTempalte = '<li>\n' +
                         '                                        <span class="guishu-icon">' + theIndex + '</span>\n' +
-                        '                                        <span class="guishu-cuntry">' + theItme.qzBelong + '</span>\n' +
+                        '                                        <span class="guishu-cuntry">' + theItme.qzBelongArea + '</span>\n' +
                         '                                        <span class="guishu-line"></span>\n' +
                         '                                        <span class="guishu-num">' + formateNum(theItme.qzNum) + '</span>人\n' +
                         '                                    </li>';

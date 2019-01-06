@@ -472,8 +472,23 @@ $(function () {
         if (!this.Chart2) {
             this.Chart2 = echarts.init(document.getElementById('chart2'));
         }
+        data1=data1||[];
+        data2=data2||[];
+        data3=data3||[];
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
+        var theDate1String=formateDate1();
+        var datebegin = theDate1String.split(" - ")[0];
+        var dateend = theDate1String.split(" - ")[1];
+        var theBeginDate=new Date(datebegin);
+        var theEndDate=new Date(dateend);
+        var theXData=[];
+        while (theEndDate.getTime()>theBeginDate.getTime()){
+            theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
+            theBeginDate.setDate(theBeginDate.getDate()+1);
+        }
+        theCurrentOption.xAxis.data=theXData;
+        theCurrentOption.xAxis.axisLabel.rotate=0;
         theCurrentOption.legend = {
             data: [{name: '每日客流', textStyle: {color: "#85a8b8"}}, {
                 name: '香港>>珠海澳门',
@@ -509,7 +524,9 @@ $(function () {
                 //    backgroundColor: 'red',
                 //},
                 smooth: true,
-                data: data1,// || [1, 1, 1, 1, 1, 1],
+                data: data1.map(function (item) {
+                    return (item/10000).toFixed(2);
+                }),// || [1, 1, 1, 1, 1, 1],
                 lineStyle: {
                     normal: {
                         color: '#d1b96b' //rgba(66,147,242
@@ -553,7 +570,9 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: data2 ,//|| [2, 2, 2, 2, 2, 2, 2]
+                data: data2.map(function (item) {
+                    return (item/10000).toFixed(2);
+                }) ,//|| [2, 2, 2, 2, 2, 2, 2]
             },
             {
                 //  name: '搜索引擎',
@@ -572,7 +591,9 @@ $(function () {
                 },
                 smooth: true,
                 //stack: '总量',
-                data: data3 ,//|| [3, 3, 3, 3, 3, 3, 3]
+                data: data3.map(function (item) {
+                    return (item/10000).toFixed();
+                }) ,//|| [3, 3, 3, 3, 3, 3, 3]
             }
         ];
 
@@ -584,8 +605,34 @@ $(function () {
         if (!this.Chart3) {
             this.Chart3 = echarts.init(document.getElementById('chart3'));
         }
+        data1=data1||[];
+        data2=data2||[];
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
+        var theDate1String=formateDate1();
+        var datebegin = theDate1String.split(" - ")[0];
+        var dateend = theDate1String.split(" - ")[1];
+        var theBeginDate=new Date(datebegin);
+        var theEndDate=new Date(dateend);
+        var theXData=[];
+        while (theEndDate.getTime()>theBeginDate.getTime()){
+            theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
+            theBeginDate.setDate(theBeginDate.getDate()+1);
+        }
+        theCurrentOption.xAxis.data=theXData;
+        theCurrentOption.xAxis.axisLabel.rotate=0;
+        theCurrentOption.yAxis = [{
+            name: '（人数/万）',
+            type: 'value',
+            nameLocation: 'end',
+            splitLine: {show: false},
+
+            axisLine: {
+                lineStyle: {
+                    color: '#557398'
+                }
+            }
+        }]
         theCurrentOption.legend = {
             data: [{name: '每日客流', textStyle: {color: "#85a8b8"}}, {name: '观光客流', textStyle: {color: "#85a8b8"}}]
         },
@@ -596,7 +643,9 @@ $(function () {
                     //stack: '总量',
                     name: '每日客流',
                     smooth: true,
-                    data: data1,// || [820, 932, 901, 934, 1290, 1330],
+                    data: data1.map(function (item) {
+                        return (item/10000).toFixed(2);
+                    }),// || [820, 932, 901, 934, 1290, 1330],
                     itemStyle: {color: '#d1b96b'},
                     lineStyle: {
                         normal: {
@@ -642,7 +691,9 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: data2 ,//|| [420, 532, 601, 534, 890, 930, 1320]
+                    data: data2.map(function (item) {
+                        return (item/10000).toFixed(2);
+                    }) ,//|| [420, 532, 601, 534, 890, 930, 1320]
                 }
 
             ];
@@ -654,6 +705,18 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(theCurrentOption, option1);
+        var theDate1String=formateDate1();
+        var datebegin = theDate1String.split(" - ")[0];
+        var dateend = theDate1String.split(" - ")[1];
+        var theBeginDate=new Date(datebegin);
+        var theEndDate=new Date(dateend);
+        var theXData=[];
+        while (theEndDate.getTime()>theBeginDate.getTime()){
+            theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
+            theBeginDate.setDate(theBeginDate.getDate()+1);
+        }
+        theCurrentOption.xAxis.data=theXData;
+        theCurrentOption.xAxis.axisLabel.rotate=0;
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -877,14 +940,14 @@ $(function () {
                         // debugger;
                         var theTempalte = "";
                         if (theItme) {
-                            if (affiliationType == 1) {
+                            if (affiliationType == '国际') {
                                 theTempalte = '<li>\n' +
                                     '                                        <span class="guishu-icon">' + (i + 1) + '</span>\n' +
                                     '                                        <span class="guishu-cuntry">' + theItme.nation + '</span>\n' +
                                     '                                        <span class="guishu-line"></span>\n' +
                                     '                                        <span class="guishu-num">' + formateNum(theItme.stayNum) + '</span>人\n' +
                                     '                                    </li>';
-                            } else if (affiliationType == 2) {
+                            } else if (affiliationType == '省外') {
                                 theTempalte = '<li>\n' +
                                     '                                        <span class="guishu-icon">' + (i + 1) + '</span>\n' +
                                     '                                        <span class="guishu-cuntry">' + theItme.province + '</span>\n' +
@@ -1031,6 +1094,9 @@ $(function () {
     PageViewModel.prototype.loadChartBar = function (data) {
         this.ChartBar = echarts.init(document.getElementById('form_1'));
         data = data || [];
+        if(data.length>4){
+            data=data.slice(0,4);
+        }
         var option = {
 
             grid: {

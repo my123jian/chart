@@ -11,7 +11,7 @@ $(function () {
     var theAreaNmae = "";
     var formateDate = function () {
         if (!theCurrentDate) {
-            var theDate =GetYesterdayDate();
+            var theDate =new Date();// GetYesterdayDate();
             //theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
         }
@@ -19,7 +19,7 @@ $(function () {
     }
     var formateDate1 = function () {
         if (!theCurrentDate) {
-            var theDate = GetYesterdayDate();
+            var theDate =new Date();// GetYesterdayDate();
            // theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "年" + FormateDateNum(theDate.getMonth() + 1) + "月" + FormateDateNum(theDate.getDate())+'日';
         }
@@ -652,8 +652,17 @@ $(function () {
         dataMigIn2=dataMigIn2||[];
         dataMigOut2=dataMigOut2||[];
 
-        var theXData = [];
+        var theXData =theXData|| [];
+        var theMinDate=theXData.min();
         var theBeginDate = new Date('2018-12-5');
+        if(theMinDate){
+            if(theMinDate.length==8){
+                theBeginDate=new Date(theMinDate.substr(0,4)+'-'+theMinDate.substr(4,2)+'-'+theMinDate.substr(6,2))
+            }
+            else{
+                theBeginDate=new Date(theMinDate);
+            }
+        }
         theXData.push(theBeginDate.getTime());
         for (var i = 1; i < 40; i++) {
             theBeginDate.setDate(theBeginDate.getDate() + 1);
@@ -1009,6 +1018,7 @@ $(function () {
                 for (var i = 0; i < theResultDatas.length; i++) {
                     var theDataItem = theResultDatas[i];
                     var tehDataDate = theDataItem['statDate'];
+                    theXData.push(tehDataDate);
                     var theDate = me.parserDate(tehDataDate);
 
                     if (theDate.getTime() <= new Date().getTime()) {
