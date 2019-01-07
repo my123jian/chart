@@ -36,6 +36,7 @@ $(function () {
         /*title: {
             text: '折线图堆叠'
         },*/
+
         tooltip: {
             trigger: 'axis',
             backgroundColor: 'transparent',
@@ -78,6 +79,27 @@ $(function () {
                     }
                 }
             },
+			axisPointer: {
+                    label: {
+show:true,
+                        color: '#05cffa',
+                        formatter: function (arg) {
+                            var theTimeValue=parseInt(arg.value);
+							var theHours=Math.floor(theTimeValue/12)+"点"+(theTimeValue%12)*5+'分';
+							//debugger;
+                            //var theDate = new Date();
+                            //theDate.setTime(arg.value);
+                            return theHours;//theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                        }
+                    },
+                    lineStyle: {
+                        color: '#05cffa',
+                        shadowBlur: {
+                            shadowColor: '#05cffa',
+                            shadowBlur: 10
+                        }
+                    }
+                },
             boundaryGap: false,
             axisLine: {
                 lineStyle: {
@@ -101,7 +123,7 @@ $(function () {
     };
     //显示第一行数据
     var formateNum1 = function (value) {
-        var theValueStr = value.toFixed(1);
+        var theValueStr = value.toFixed(2);
         var theNumberStrArray = [];
         for (var i = 0; i < theValueStr.length; i++) {
             theNumberStrArray.push(theValueStr[i]);
@@ -465,7 +487,7 @@ $(function () {
                 //stack: '总量',
                 smooth: true,
                 data: data1.map(function (item) {
-                  return (item/10000).toFixed(1);
+                  return (item/10000).toFixed(2);
                 }) ,
                 areaStyle: {
                     normal: {
@@ -506,7 +528,7 @@ $(function () {
                 smooth: true,
                 //stack: '总量',
                 data: data2.map(function (item) {
-                    return (item/10000).toFixed(1)
+                    return (item/10000).toFixed(2)
                 })
             }
         ]
@@ -518,6 +540,7 @@ $(function () {
         }
         data1=data1||[];
         data2=data2||[];
+        //debugger;
         var theCurrentOption = {};
         $.extend(true,theCurrentOption, option1);
         theCurrentOption.series = [
@@ -528,7 +551,7 @@ $(function () {
                 //stack: '总量',
                 smooth: true,
                 data: data1.map(function (item) {
-                    return (item/10000).toFixed(1);
+                    return (item/10000).toFixed(2);
                 }),
                 lineStyle: {
                     normal: {
@@ -569,7 +592,7 @@ $(function () {
                 smooth: true,
                 //stack: '总量',
                 data:  data2.map(function (item) {
-                    return (item/10000).toFixed(1)
+                    return (item/10000).toFixed(2)
                 })
             }
         ];
@@ -583,6 +606,7 @@ $(function () {
         }
         data1=data1||[];
         data2=data2||[];
+        //debugger;
         var theCurrentOption = {};
         $.extend(true,theCurrentOption, option1);
         theCurrentOption.series = [
@@ -592,7 +616,7 @@ $(function () {
                 //stack: '总量',
                 smooth: true,
                 data: data1.map(function (item) {
-                    return (item/10000).toFixed(1);
+                    return (item/10000).toFixed(2);
                 }),
                 lineStyle: {
                     normal: {
@@ -634,7 +658,7 @@ $(function () {
                 smooth: true,
                 //stack: '总量',
                 data:  data2.map(function (item) {
-                    return (item/10000).toFixed(1)
+                    return (item/10000).toFixed(2)
                 })
             }
         ];
@@ -982,8 +1006,8 @@ $(function () {
                         $.extend(true,theViewData, theResultData);
                     }
                     theViewData.populationGd = (theViewData.populationGd || 0) / 10000;
-                    theViewData.populationIn = (theViewData.populationIn || 0) / 10000;
-                    theViewData.populationOut = (theViewData.populationOut || 0) / 10000;
+                    theViewData.populationIn = ((theViewData.populationIn || 0) / 10000).toFixed(2); //保留两位小数
+                    theViewData.populationOut = ((theViewData.populationOut || 0) / 10000).toFixed(2); //保留两位小数
                     theViewData['populationGd'] = formateNum1(theViewData.populationGd);
                 }
                 me.bind('.numpart', theViewData);

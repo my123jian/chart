@@ -329,14 +329,14 @@ $(function () {
             theCharts[theName] = theInstance;
         });
         for (var key in theCharts) {
-            theCharts[key].refresh('', (Math.random() * 100).toFixed(1))
+            theCharts[key].refresh('', (Math.random() * 100).toFixed(2))
         }
         this.loadMigrantDirectType(ViewType.PROVINCE, '', formateDate());
     }
 
     PageViewModel.prototype.updateNum = function (name, value) {
         $('.numpart .title').text(name);
-        $('.numpart .num').text(((value || 0) / 10000).toFixed(1) + "万");
+        $('.numpart .num').text(((value || 0) / 10000).toFixed(2) + "万");
     }
 
     /***
@@ -389,7 +389,7 @@ $(function () {
             theCharts[theName] = theInstance;
         });
         for (var key in theCharts) {
-            theCharts[key].refresh('', (0).toFixed(1))
+            theCharts[key].refresh('', (0).toFixed(2))
         }
         console.log("开始获取迁入渠道人数比", theData);
         this.load(theUrl, theData, function (res) {
@@ -475,7 +475,7 @@ $(function () {
             theCharts[theName] = theInstance;
         });
         for (var key in theCharts) {
-            theCharts[key].refresh('', (0).toFixed(1))
+            theCharts[key].refresh('', (0).toFixed(2))
         }
         console.log("开始获取迁出渠道人数比", theData);
         this.load(theUrl, theData, function (res) {
@@ -523,7 +523,7 @@ $(function () {
             theCharts[theName] = theInstance;
         });
         for (var key in theCharts) {
-            theCharts[key].refresh('', (0).toFixed(1))
+            theCharts[key].refresh('', (0).toFixed(2))
         }
 
         console.log("开始迁徙洞察模块 渠道占比统计", theData);

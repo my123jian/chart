@@ -48,13 +48,13 @@
                 // --- 地图 ---
                 var myChart2 = ec.init(document.getElementById('mainMap'));
                 theChart = myChart2;
-                if(parent&&parent.PageView&&parent.PageView.currentTable){
+                if (parent && parent.PageView && parent.PageView.currentTable) {
                     refresh(parent.PageView.currentTable);
                 }
-                else{
+                else {
                     refresh([]);
                 }
-               // refresh([]);
+                // refresh([]);
             });
     }
 
@@ -63,6 +63,15 @@
      * @param data
      */
     function refresh(data) {
+        //debugger;
+        var colors = [
+            '#ff3333', 'orange', 'yellow','lime','aqua',
+           /* '#faeebe',
+            '#c9c5fd',
+            '#21faf6',
+            '#bdfce6',
+            '#0dc3ff',*/
+            '#00c7ff'];
         var theData = [
             /*{name: '上海', value: 95},
             {name: '广州', value: 90},
@@ -74,29 +83,52 @@
             {name: '包头', value: 30},
             {name: '重庆', value: 20},
             {name: '常州', value: 10}*/
-            ];
-        var theLineData=[];
-        data=data||[];
-       //debugger;
-        for(var i=0;i<data.length;i++){
-            var theItem=data[i];
-            if(!theCitys[theItem.from]||!theCitys[theItem.to]){
-                console.log('未找到'+theItem.from+":"+theItem.to);
+        ];
+        var theLineData = [];
+        data = data || [];
+        //debugger;
+        var values=[];
+        for (var i = 0; i < data.length; i++) {
+            var theItem = data[i];
+            if (!theCitys[theItem.from] || !theCitys[theItem.to]) {
+                console.log('未找到' + theItem.from + ":" + theItem.to);
                 continue;
             }
-            theData.push({name: theItem.to, value: theItem.value||0});
-            theLineData.push([{name: theItem.from}, {name: theItem.to, value: theItem.value||0}]);
+            values.push( theItem.value ||theItem.num|| 0);
+            theData.push({name: theItem.to, value: theItem.value ||theItem.num|| 0});
+            theLineData.push([{name: theItem.from}, {name: theItem.to, value: theItem.value||theItem.num || 0}]);
         }
+
+        var theSplits=[];
+        values.sort().reverse();
+        for(var i=0;i<values.length;i++){
+            if(i<5){
+                theSplits.push({start: values[i],end:values[i]});
+            }
+            if(i==5){
+                theSplits.push({start:values[i],end:0});
+            }
+            if(i>=5){
+                continue;
+            }
+        }
+        if(theSplits.length<=0){
+            theSplits.push({start:0,end:0});
+        }
+       // debugger;
         var theOptions = {
-            /*dataRange: {
-                min : 0,
-                max : 100,
-                calculable : true,
-                color: ['#ff3333', 'orange', 'yellow','lime','aqua'],
+            dataRange: {
+                show:false,
+                //min :theMin.toFixed(0) ,
+                //max :theMax.toFixed(0) ,
+                splitList: theSplits,
+
+                //calculable : true,
+                color:colors,// ['#ff3333', 'orange', 'yellow','lime','aqua'],
                 textStyle:{
                     color:'#fff'
                 }
-            },*/
+            },
             series: [
                 {
                     name: '全国',
@@ -129,10 +161,10 @@
                             areaStyle: {
                                 color: 'rgba(31,70,143,0.8)',//#1f468f'
                             },
-                            label:{
-                                show:true,
-                                textStyle:{
-                                    color:'white'
+                            label: {
+                                show: true,
+                                textStyle: {
+                                    color: 'white'
                                 },
                             },
                         }
@@ -140,12 +172,12 @@
                     data: [],
                     markLine: {
                         smooth: true,
-                        symbol:'none',
+                        symbol: 'none',
                         effect: {
                             show: true,
                             scaleSize: 1,
                             period: 30,
-                            color: '#00c7ff',
+                            //color: '#00c7ff',
                             shadowBlur: 10
                         },
                         itemStyle: {
@@ -153,31 +185,31 @@
                                 label: {show: false},
                                 borderWidth: 2,
                                 lineStyle: {
-                                    color: '#00c7ff',
+                                    //color:'#00c7ff',
                                     type: 'solid',
                                     shadowBlur: 10
                                 }
                             }
                         },
                         data: theLineData
-                            /*[
-                            [{name: '上海'}, {name: '北京', value: 95}],
-                            [{name: '广州'}, {name: '北京', value: 90}],
-                            [{name: '大连'}, {name: '北京', value: 80}],
-                            [{name: '南宁'}, {name: '北京', value: 70}],
-                            [{name: '南昌'}, {name: '北京', value: 60}],
-                            [{name: '拉萨'}, {name: '北京', value: 50}],
-                            [{name: '长春'}, {name: '北京', value: 40}],
-                            [{name: '包头'}, {name: '北京', value: 30}],
-                            [{name: '重庆'}, {name: '北京', value: 20}],
-                            [{name: '常州'}, {name: '北京', value: 10}]
-                        ]*/
+                        /*[
+                        [{name: '上海'}, {name: '北京', value: 95}],
+                        [{name: '广州'}, {name: '北京', value: 90}],
+                        [{name: '大连'}, {name: '北京', value: 80}],
+                        [{name: '南宁'}, {name: '北京', value: 70}],
+                        [{name: '南昌'}, {name: '北京', value: 60}],
+                        [{name: '拉萨'}, {name: '北京', value: 50}],
+                        [{name: '长春'}, {name: '北京', value: 40}],
+                        [{name: '包头'}, {name: '北京', value: 30}],
+                        [{name: '重庆'}, {name: '北京', value: 20}],
+                        [{name: '常州'}, {name: '北京', value: 10}]
+                    ]*/
                     },
                     geoCoord: theCitys,
                     markPoint: {
                         symbol: 'emptyCircle',
                         symbolSize: function (v) {
-                            return 10 + v / 10
+                            return 10 + v / 10000
                         },
                         effect: {
                             show: true,
@@ -186,7 +218,7 @@
                         },
                         itemStyle: {
                             normal: {
-                                color:'#1dd9ff',
+                                //color: '#1dd9ff',
                                 label: {show: false}
                             },
                             emphasis: {

@@ -161,6 +161,7 @@ html body {
     height: 160px;
     left: 0px;
     top: 0px;
+    z-index:10;
     background-image: url("img/tittle.png");
 }
 
@@ -173,4 +174,53 @@ html body {
     left: 49px;
     top: 50px;
     pointer-events:painted;
+}
+
+.toppart .rightpart_new{
+    position: absolute;
+    width: 1238px;
+    left: 620px;
+    top: 0px;
+    height: 111px;
+    border-bottom-color: #356ddc;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    /*height: 108px;
+    line-height: 108px;
+    right: 20px;*/
+}
+.topbutton_new{
+    /*margin-top: 30px;*/
+    margin-right: 0px;
+    /*margin-left: -10px;*/
+    width: 318px;
+    height: 144px;
+    line-height: 144px;
+    text-align: center;
+    font-size: 32px;
+    color: #94d1ff;
+    position: relative;
+    pointer-events:painted;
+    display: inline-block;
+}
+.topbutton_new.test.active,.topbutton_new.test:hover{
+    background-image: url("img/1.png");
+    background-position: center center;
+    z-index: 9;
+}
+.topbutton_new.insight.active,.topbutton_new.insight:hover{
+    background-image: url("img/2.png");
+    z-index: 9;
+}
+.topbutton_new.yxzk.active,.topbutton_new.yxzk:hover{
+    background-image: url("img/3.png");
+    z-index: 9;
+}
+.topbutton_new.bridge.active,.topbutton_new.bridge:hover{
+    background-image: url("img/4.png");
+    z-index: 9;
+}
+.topbutton_new.strait.active,.topbutton_new.strait:hover{
+    background-image: url("img/5.png");
+    z-index: 9;
 }

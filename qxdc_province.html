@@ -150,7 +150,7 @@
         //debugger;
         if (parent && parent.PageView && parent.PageView.currentTable) {
 
-            refresh(parent.PageView.currentTable);
+            refresh(parent.PageView.currentTable,'',parent.PageView.selectItem);
         }
         else {
             refresh([]);
@@ -163,7 +163,7 @@
      * @param data 数据列表
      * @param selectItem 当前的选择项目
      */
-    function refresh(data, selectItem) {
+    function refresh(data,type, selectItem) {
         option = null;
         var geoCoordMap = theCitys;
         var theSourceData = data || [];
@@ -217,7 +217,7 @@
                     if (selectItem && theLine.fromName == selectItem.from && theLine.toName == selectItem.to) {
                         theLine.lineStyle = {
                             normal: {
-                                color: 'red',
+                                color:'#ff3333',// '#faeebe',
                                 width: 2,
                                 curveness: 0.2
                             }
@@ -336,7 +336,7 @@
                     }
                 },
                 symbolSize: function (val) {
-                    return val[2] / 8;
+                    return 8+(val[2] / 10000);
                 },
                 itemStyle: {
                     normal: {
@@ -433,7 +433,7 @@
             series: series,
 
         };
-
+        theChartMap.clear();
         theChartMap.setOption(option, true);
         theChartMap.on('geoselectchanged', function (params) {
             //debugger;

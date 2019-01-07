@@ -13,7 +13,7 @@ $(function () {
     //显示第一行数据
     var ShowNumber1 = function (city, value) {
         $('#numpart1').find('.cityname').val(city);
-        var theValueStr = value.toFixed(1);
+        var theValueStr = value.toFixed(2);
         var theNumberStrArray = [];
         for (var i = 0; i < theValueStr.length; i++) {
             theNumberStrArray.push(theValueStr[i]);

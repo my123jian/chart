@@ -11,7 +11,7 @@ $(function () {
     var theCurrentDate1 = null;
     //当前的区域名称
     var theAreaNmae = "";
-
+    var belongType = 2;
     var theXData = [];
     for (var i = 1; i <= 24; i++) {
         theXData.push(i);
@@ -168,7 +168,7 @@ $(function () {
 
             }
         });
-        $('.datediv,.datediv1').click(function(e){
+        $('.datediv,.datediv1').click(function (e) {
             //debugger;
             e.stopPropagation();
         });
@@ -218,6 +218,7 @@ $(function () {
             var theIndex = $(this).data('index');
             $('.tab-item').removeClass('active');
             $(this).addClass('active');
+            belongType = theIndex;
             me.loadzQzBelongType(theIndex);
         });
         $('#weather-open').click(function () {
@@ -251,7 +252,7 @@ $(function () {
         }
         //debugger;
         var theCurrentOption = {};
-        $.extend(true,theCurrentOption, option1);
+        $.extend(true, theCurrentOption, option1);
         theCurrentOption.grid.height = 80;
         theCurrentOption.grid.bottom = 10;
         var theXData = [];
@@ -359,43 +360,43 @@ $(function () {
         }
         data1 = data1 || [];
         var theCurrentOption = {};
-        $.extend(true,theCurrentOption, option1);
+        $.extend(true, theCurrentOption, option1);
         var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
         var theBeginDate = new Date(datebegin);
         var theEndDate = new Date(dateend);
         var theXData = [];
-        var theValidData=[];
-        var theMap={};
-        xData=xData||[];
-        for(var i=0;i<xData.length;i++){
-            theMap[xData[i]]=data1[i];
+        var theValidData = [];
+        var theMap = {};
+        xData = xData || [];
+        for (var i = 0; i < xData.length; i++) {
+            theMap[xData[i]] = data1[i];
         }
-        var maxDate=xData.max();
-        for(var i=0;i<xData.length;i++){
-            theMap[xData[i]]=data1[i];
+        var maxDate = xData.max();
+        for (var i = 0; i < xData.length; i++) {
+            theMap[xData[i]] = data1[i];
         }
         while (theEndDate.getTime() > theBeginDate.getTime()) {
 
-            var thekey=theBeginDate.getFullYear()+''+FormateDateNum(theBeginDate.getMonth()+1)+''+FormateDateNum(theBeginDate.getDate());
+            var thekey = theBeginDate.getFullYear() + '' + FormateDateNum(theBeginDate.getMonth() + 1) + '' + FormateDateNum(theBeginDate.getDate());
             theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
 
-            if(maxDate){
-                if(theBeginDate.getTime()>new Date(maxDate).getTime()){
+            if (maxDate) {
+                if (theBeginDate.getTime() > new Date(maxDate).getTime()) {
                     theBeginDate.setDate(theBeginDate.getDate() + 1);
                     continue;
                 }
-                if(theMap[thekey]){
+                if (theMap[thekey]) {
                     theValidData.push(theMap[thekey]);
                 }
-                else{
+                else {
                     theValidData.push(0);
                 }
             }
             theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
-        data1=theValidData;
+        data1 = theValidData;
         theCurrentOption.xAxis.data = theXData;
 
         //theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
@@ -421,7 +422,7 @@ $(function () {
                 },
                 smooth: true,
                 data: data1.map(function (item) {
-                    return (item / 10000).toFixed(1);
+                    return (item / 10000).toFixed(2);
                 }),// || [11, 14, 22, 15, 7, 8],
                 lineStyle: {
                     normal: {
@@ -460,7 +461,7 @@ $(function () {
             this.Chart3 = echarts.init(document.getElementById('chart3'));
         }
         var theCurrentOption = {};
-        $.extend(true,theCurrentOption, option1);
+        $.extend(true, theCurrentOption, option1);
         // theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
@@ -469,36 +470,36 @@ $(function () {
         var theEndDate = new Date(dateend);
 
         var theXData = [];
-        var theValidData=[];
-        var theMap={};
-        xData=xData||[];
-        for(var i=0;i<xData.length;i++){
-            theMap[xData[i]]=data1[i];
+        var theValidData = [];
+        var theMap = {};
+        xData = xData || [];
+        for (var i = 0; i < xData.length; i++) {
+            theMap[xData[i]] = data1[i];
         }
-        var maxDate=xData.max();
-        for(var i=0;i<xData.length;i++){
-            theMap[xData[i]]=data1[i];
+        var maxDate = xData.max();
+        for (var i = 0; i < xData.length; i++) {
+            theMap[xData[i]] = data1[i];
         }
         while (theEndDate.getTime() > theBeginDate.getTime()) {
 
-            var thekey=theBeginDate.getFullYear()+''+FormateDateNum(theBeginDate.getMonth()+1)+''+FormateDateNum(theBeginDate.getDate());
+            var thekey = theBeginDate.getFullYear() + '' + FormateDateNum(theBeginDate.getMonth() + 1) + '' + FormateDateNum(theBeginDate.getDate());
             theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
 
-            if(maxDate){
-                if(theBeginDate.getTime()>new Date(maxDate).getTime()){
+            if (maxDate) {
+                if (theBeginDate.getTime() > new Date(maxDate).getTime()) {
                     theBeginDate.setDate(theBeginDate.getDate() + 1);
                     continue;
                 }
-                if(theMap[thekey]){
+                if (theMap[thekey]) {
                     theValidData.push(theMap[thekey]);
                 }
-                else{
+                else {
                     theValidData.push(0);
                 }
             }
             theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
-        data1=theValidData;
+        data1 = theValidData;
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.series = [
             {
@@ -508,7 +509,7 @@ $(function () {
                 name: '每日客流',
                 smooth: true,
                 data: data1.map(function (item) {
-                    return (item/10000).toFixed(1);
+                    return (item / 10000).toFixed(2);
                 }),// || [11, 14, 22, 15, 7, 8],
                 itemStyle: {color: '#d1b96b'},
                 lineStyle: {
@@ -546,7 +547,7 @@ $(function () {
         }
         //debugger;
         var theCurrentOption = {};
-        $.extend(true,theCurrentOption, option1);
+        $.extend(true, theCurrentOption, option1);
         // theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
@@ -554,33 +555,33 @@ $(function () {
         var theBeginDate = new Date(datebegin);
         var theEndDate = new Date(dateend);
         var theXData = [];
-        var theValidData=[];
-        var theMap={};
-        xData=xData||[];
-        var maxDate=xData.max();
-        for(var i=0;i<xData.length;i++){
-            theMap[xData[i]]=data1[i];
+        var theValidData = [];
+        var theMap = {};
+        xData = xData || [];
+        var maxDate = xData.max();
+        for (var i = 0; i < xData.length; i++) {
+            theMap[xData[i]] = data1[i];
         }
         while (theEndDate.getTime() > theBeginDate.getTime()) {
 
-            var thekey=theBeginDate.getFullYear()+''+FormateDateNum(theBeginDate.getMonth()+1)+''+FormateDateNum(theBeginDate.getDate());
+            var thekey = theBeginDate.getFullYear() + '' + FormateDateNum(theBeginDate.getMonth() + 1) + '' + FormateDateNum(theBeginDate.getDate());
             theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
 
-            if(maxDate){
-                if(theBeginDate.getTime()>new Date(maxDate).getTime()){
+            if (maxDate) {
+                if (theBeginDate.getTime() > new Date(maxDate).getTime()) {
                     theBeginDate.setDate(theBeginDate.getDate() + 1);
                     continue;
                 }
-                if(theMap[thekey]){
+                if (theMap[thekey]) {
                     theValidData.push(theMap[thekey]);
                 }
-                else{
+                else {
                     theValidData.push(0);
                 }
             }
             theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
-        data1=theValidData;
+        data1 = theValidData;
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.series = [
             {
@@ -589,7 +590,7 @@ $(function () {
                 //stack: '总量',
                 smooth: true,
                 data: data1.map(function (item) {
-                    return (item/10000).toFixed(1);
+                    return (item / 10000).toFixed(2);
                 }),// || [11, 14, 22, 15, 7, 8],
                 lineStyle: {
                     normal: {
@@ -750,21 +751,25 @@ $(function () {
             if (res && res.isSuccess) {
                 var theDatas = res.data;
                 for (var i = 0; i < theDatas.length; i++) {
+                    //debugger;
                     var theItem = theDatas[i];
                     var theStayTime = theItem.qzStayTime;
-                    if (theStayTime > 8) {
-                        theData[theData.length - 1] = theItem.qzStayPercentage;
+                    if (theStayTime >= 8) {
+                        theData[theData.length - 1] = (theItem.qzStayPercentage*100).toFixed(2);
+                        continue;
                     }
-                    else if (theStayTime < 1) {
-                        theData[0] = theItem.qzStayPercentage;
+                    if (theStayTime < 1) {
+                        theData[0] = (theItem.qzStayPercentage*100).toFixed(2);
+                        //continue;
                     }
                     else {
-                        theData[Math.ceil(theStayTime) - 1] = theItem.qzStayPercentage;
+
+                        theData[Math.ceil(theStayTime)] = (theItem.qzStayPercentage*100).toFixed(2);
                     }
 
                 }
             }
-            //debugger;
+
             me.loadChartBar(theData);
         });
     }
@@ -951,10 +956,10 @@ $(function () {
     PageViewModel.prototype.loadQzFlowHistory = function () {
         var theCallUrl = "qz/qzFlowHistory.do";
         var theDate = formateDate1();
-        var theDates=theDate.split(' - ')
+        var theDates = theDate.split(' - ')
         var theParamter = {
-            startDate:theDates[0],
-            endDate:theDates[1],
+            startDate: theDates[0],
+            endDate: theDates[1],
         };
         var me = this;
         //debugger;
@@ -963,27 +968,27 @@ $(function () {
             var theDataIn = [];
             var theDataOut = [];
             var theXArray = [];
-           /* res = {
-                "isSuccess": true,
-                "msg": "success",
-                "data": [{
-                    "allPeople": 40000000,
-                    "id": 1,
-                    "inPeople": 20000000,
-                    "outPeople": 20000000,
-                    "postionName": "淮安两港",
-                    "postionType": "琼州海峡",
-                    "statDate": "2018-12-12"
-                }, {
-                    "allPeople": 20000000,
-                    "id": 2,
-                    "inPeople": 1000000,
-                    "outPeople": 10000000,
-                    "postionName": "淮安两港",
-                    "postionType": "琼州海峡",
-                    "statDate": "2018-12-13"
-                }]
-            };*/
+            /* res = {
+                 "isSuccess": true,
+                 "msg": "success",
+                 "data": [{
+                     "allPeople": 40000000,
+                     "id": 1,
+                     "inPeople": 20000000,
+                     "outPeople": 20000000,
+                     "postionName": "淮安两港",
+                     "postionType": "琼州海峡",
+                     "statDate": "2018-12-12"
+                 }, {
+                     "allPeople": 20000000,
+                     "id": 2,
+                     "inPeople": 1000000,
+                     "outPeople": 10000000,
+                     "postionName": "淮安两港",
+                     "postionType": "琼州海峡",
+                     "statDate": "2018-12-13"
+                 }]
+             };*/
             if (res && res.isSuccess) {
                 for (var i = 0; i < res.data.length; i++) {
                     var theItem = res.data[i];
@@ -1106,11 +1111,11 @@ $(function () {
             if (res && res.isSuccess) {
                 for (var i = 0; i < res.data.length; i++) {
                     var theItem = res.data[i];
-                    if(theItem.qzBelongPercentage==1){
+                    if (theItem.qzBelongPercentage == 1) {
                         $('#qzBelong' + theItem.qzBelong).text('(100%)');
                     }
-                    else{
-                        $('#qzBelong' + theItem.qzBelong).text('(' + (theItem.qzBelongPercentage * 100%100).toFixed(2) + '%)');
+                    else {
+                        $('#qzBelong' + theItem.qzBelong).text('(' + (theItem.qzBelongPercentage * 100 % 100).toFixed(2) + '%)');
                     }
 
                 }
@@ -1153,21 +1158,21 @@ $(function () {
                 unitText = "";
             } else {
                 unitText = "万";
-                inPeople = (inPeople / 10000).toFixed(1);
+                inPeople = (inPeople / 10000).toFixed(2);
             }
             $('.newcome-num.in').html('<span class="newcome-people">' + inPeople + '</span>' + unitText);
             if (outPeople < 1000) {
                 unitText = "";
             } else {
                 unitText = "万";
-                outPeople = (outPeople / 10000).toFixed(1);
+                outPeople = (outPeople / 10000).toFixed(2);
             }
             $('.newcome-num.out').html('<span class="newcome-people">' + outPeople + '</span>' + unitText);
             if (Math.abs(allPeople) < 1000) {
                 unitText = "";
             } else {
                 unitText = "万";
-                allPeople = (allPeople / 10000).toFixed(1);
+                allPeople = (allPeople / 10000).toFixed(2);
             }
             $('.newcome-num.all').html('<span class="newcome-people">' + allPeople + '</span>' + unitText);
         });
@@ -1178,7 +1183,7 @@ $(function () {
     PageViewModel.prototype.loadzQzBelongType = function (belongType) {
         var theCallUrl = "qz/qzBelongType.do";
         var theParamter = {
-            belongType: belongType || 1,//归属类别(1.归属国家 2.归属省份 3. 归属城市)
+            belongType: belongType || 2,//归属类别(1.归属国家 2.归属省份 3. 归属城市)
             date: formateDate()//日期
         };
 
@@ -1217,9 +1222,9 @@ $(function () {
             $('.guishu-content ul').empty();
             if (res && res.isSuccess) {
                 var theIndex = 1;
-                var theMaxLength=6;
-                if(res.data.length<theMaxLength){
-                    theMaxLength=res.data.length;
+                var theMaxLength = 6;
+                if (res.data.length < theMaxLength) {
+                    theMaxLength = res.data.length;
                 }
                 for (var i = 0; i < theMaxLength; i++) {
                     var theItme = res.data[i];
@@ -1250,7 +1255,7 @@ $(function () {
      * 加载第一部分数据
      */
     PageViewModel.prototype.loadPart1 = function () {
-        this.loadzQzBelongType();
+        this.loadzQzBelongType(belongType);
         this.loadQzBelongArea();
 
         this.loadQzRatio();

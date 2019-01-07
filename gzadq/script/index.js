@@ -21,7 +21,7 @@ $(function () {
     var theCurrentView = "";
     var theDirection = "";
     var isStopRefresh = true;
-    var affiliationType = '国际';//1;//
+    var affiliationType = '省外';//1;//
     var theTimer = null;
     var theCurrentDate = null;
     var datebegin = null;
@@ -169,7 +169,7 @@ $(function () {
     };
     //显示第一行数据
     var formateNum1 = function (value) {
-        var theValueStr = value.toFixed(1);
+        var theValueStr = value.toFixed(2);
         var theNumberStrArray = [];
         for (var i = 0; i < theValueStr.length; i++) {
             theNumberStrArray.push(theValueStr[i]);
@@ -824,7 +824,7 @@ $(function () {
         });
 
         for (var key in theCharts) {
-            theCharts[key].refresh('', (0).toFixed(1))
+            theCharts[key].refresh('', (0).toFixed(2))
         }
 
 
@@ -931,7 +931,7 @@ $(function () {
                 //debugger;
                 for (var key in theDataMap) {
                     if (theMap[key]) {
-                        theMap[key].text('(' + ((theDataMap[key] || 0) * 100).toFixed(1) + '%)');
+                        theMap[key].text('(' + ((theDataMap[key] || 0) * 100).toFixed(2) + '%)');
                     }
                 }
             }
@@ -945,11 +945,11 @@ $(function () {
          * @param personDirect,date,affiliationType
          */
         PageViewModel.prototype.loadBridgeAttributionArea = function (personDirect, affiliationType) {
-            affiliationType = affiliationType || '国际';//1;//
+            affiliationType = affiliationType || '省外';//1;//
             var theCallUrl = "/bridge/bridgeAttributionArea.do";
             var theData = {
                 personDirect: personDirect || '去往珠海澳门',//1,//
-                affiliationType: affiliationType || '国际',//1,//
+                affiliationType: affiliationType || '省外',//1,//
                 date: formateDate()
             };
             var me = this;
@@ -1281,7 +1281,7 @@ $(function () {
                 //var theStationNewPeople = res.data["StationNewPeople"][0] || {};
                 var theStationTollStay = res.data["stay"];// res.data["StationNewPeople"];//实时驻留时长
                 var theDatas = theStationTollStay.map(function (item) {
-                    return item.subscribercount;//(item.subscribercount / 10000).toFixed(1);
+                    return item.subscribercount;//(item.subscribercount / 10000).toFixed(2);
                 })
                 me.loadChartBar(theDatas);
                 var unitText = "万";
@@ -1291,7 +1291,7 @@ $(function () {
                 }
                 else {
                     unitText = "万";
-                    inPeople = (inPeople / 10000).toFixed(1);
+                    inPeople = (inPeople / 10000).toFixed(2);
                 }
                 $('.newcome-num.in').html('<span class="newcome-people">' + inPeople + '</span>' + unitText); //进入
                 var outPeople = (res.data["outPeople"] || 0);
@@ -1300,7 +1300,7 @@ $(function () {
                 }
                 else {
                     unitText = "万";
-                    outPeople = (outPeople / 10000).toFixed(1);
+                    outPeople = (outPeople / 10000).toFixed(2);
                 }
                 $('.newcome-num.out').html('<span class="newcome-people">' + outPeople + '</span>' + unitText);//离开
                 var addPeople = (res.data["subscribercount"] || 0);
@@ -1309,7 +1309,7 @@ $(function () {
                 }
                 else {
                     unitText = "万";
-                    addPeople = (addPeople / 10000).toFixed(1);
+                    addPeople = (addPeople / 10000).toFixed(2);
                 }
 
 
