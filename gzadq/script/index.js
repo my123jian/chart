@@ -285,7 +285,7 @@ $(function () {
         //客流tab栏点击切换
         var theParentContent = $('.tab-main').closest('.content');
 
-        $('.datediv,.datediv1').click(function(e){
+        $('.datediv,.datediv1').click(function (e) {
             //debugger;
             e.stopPropagation();
         });
@@ -337,11 +337,11 @@ $(function () {
 
         $('.tab-direction .tab-left,.tab-direction .tab-right').click(function () {
             var theIndex = $(this).data('index');//$(this).data('index');
-            var theDataIndex=$(this).index();//theIndex;//
+            var theDataIndex = $(this).index();//theIndex;//
             $('.tab-direction div').removeClass('select');
             $('.tab-direction').removeClass('tab-imgage1');
             $('.tab-direction').removeClass('tab-imgage2');
-            $('.tab-direction').addClass('tab-imgage' + (theDataIndex+1));
+            $('.tab-direction').addClass('tab-imgage' + (theDataIndex + 1));
             $(this).addClass('select');
             guishutype = theIndex;
             //guishutype = theIndex;
@@ -379,17 +379,21 @@ $(function () {
 
             }
         });
-
-        laydate.render({
+        $('#date-input1').val(formateDate1());
+        //$('#date-input1').clone(true).attr('id','date-input2').appendTo('.datediv1');
+        //$('#date-input1').css('pointer-events', 'none');
+        //var theDate = formateDate1().split(' - ')[1];
+        var theValue = laydate.render({
             elem: '#date-input1', //指定元素
             trigger: 'click',
+            //show: true,
             range: true,//范围选择
             value: formateDate1(),
             done: function (value, date, endDate) {
                 //debugger;
-                console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
-                console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-                console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                //console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
+                // console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                // console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
                 if (theCurrentDate1 != value) {
                     theCurrentDate1 = value;
                     // me.loadPredict();
@@ -399,6 +403,7 @@ $(function () {
 
             }
         });
+
         /*$('#date-input').change(function(){
             theCurrentDate=$(this).val();
             console.log('日期变化:'+theCurrentDate);
@@ -429,7 +434,7 @@ $(function () {
             theXData.push(i);
         }
         var theCurrentOption = {};
-        $.extend(true,theCurrentOption, option1);
+        $.extend(true, theCurrentOption, option1);
 
 //debugger;
         theCurrentOption.series = [
@@ -488,23 +493,23 @@ $(function () {
             this.Chart2 = echarts.init(document.getElementById('chart2'));
         }
         //debugger;
-        data1=data1||[];
-        data2=data2||[];
-        data3=data3||[];
+        data1 = data1 || [];
+        data2 = data2 || [];
+        data3 = data3 || [];
         var theCurrentOption = {};
-        $.extend(true,theCurrentOption, option1);
-        var theDate1String=formateDate1();
+        $.extend(true, theCurrentOption, option1);
+        var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
-        var theBeginDate=new Date(datebegin);
-        var theEndDate=new Date(dateend);
-        var theXData=[];
-        while (theEndDate.getTime()>theBeginDate.getTime()){
-            theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
-            theBeginDate.setDate(theBeginDate.getDate()+1);
+        var theBeginDate = new Date(datebegin);
+        var theEndDate = new Date(dateend);
+        var theXData = [];
+        while (theEndDate.getTime() > theBeginDate.getTime()) {
+            theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
+            theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
-        theCurrentOption.xAxis.data=theXData;
-        theCurrentOption.xAxis.axisLabel.rotate=0;
+        theCurrentOption.xAxis.data = theXData;
+        theCurrentOption.xAxis.axisLabel.rotate = 0;
         theCurrentOption.legend = {
             data: [{name: '每日客流', textStyle: {color: "#85a8b8"}}, {
                 name: '香港>>珠海澳门',
@@ -541,7 +546,7 @@ $(function () {
                 //},
                 smooth: true,
                 data: data1.map(function (item) {
-                    return (item/10000).toFixed(2);
+                    return (item / 10000).toFixed(2);
                 }),// || [1, 1, 1, 1, 1, 1],
                 lineStyle: {
                     normal: {
@@ -587,8 +592,8 @@ $(function () {
                 smooth: true,
                 //stack: '总量',
                 data: data2.map(function (item) {
-                    return (item/10000).toFixed(2);
-                }) ,//|| [2, 2, 2, 2, 2, 2, 2]
+                    return (item / 10000).toFixed(2);
+                }),//|| [2, 2, 2, 2, 2, 2, 2]
             },
             {
                 //  name: '搜索引擎',
@@ -608,8 +613,8 @@ $(function () {
                 smooth: true,
                 //stack: '总量',
                 data: data3.map(function (item) {
-                    return (item/10000).toFixed(2);
-                }) ,//|| [3, 3, 3, 3, 3, 3, 3]
+                    return (item / 10000).toFixed(2);
+                }),//|| [3, 3, 3, 3, 3, 3, 3]
             }
         ];
 
@@ -621,22 +626,22 @@ $(function () {
         if (!this.Chart3) {
             this.Chart3 = echarts.init(document.getElementById('chart3'));
         }
-        data1=data1||[];
-        data2=data2||[];
+        data1 = data1 || [];
+        data2 = data2 || [];
         var theCurrentOption = {};
-        $.extend(true,theCurrentOption, option1);
-        var theDate1String=formateDate1();
+        $.extend(true, theCurrentOption, option1);
+        var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
-        var theBeginDate=new Date(datebegin);
-        var theEndDate=new Date(dateend);
-        var theXData=[];
-        while (theEndDate.getTime()>theBeginDate.getTime()){
-            theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
-            theBeginDate.setDate(theBeginDate.getDate()+1);
+        var theBeginDate = new Date(datebegin);
+        var theEndDate = new Date(dateend);
+        var theXData = [];
+        while (theEndDate.getTime() > theBeginDate.getTime()) {
+            theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
+            theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
-        theCurrentOption.xAxis.data=theXData;
-        theCurrentOption.xAxis.axisLabel.rotate=0;
+        theCurrentOption.xAxis.data = theXData;
+        theCurrentOption.xAxis.axisLabel.rotate = 0;
         theCurrentOption.yAxis = [{
             name: '（人数/万）',
             type: 'value',
@@ -660,7 +665,7 @@ $(function () {
                     name: '每日客流',
                     smooth: true,
                     data: data1.map(function (item) {
-                        return (item/10000).toFixed(2);
+                        return (item / 10000).toFixed(2);
                     }),// || [820, 932, 901, 934, 1290, 1330],
                     itemStyle: {color: '#d1b96b'},
                     lineStyle: {
@@ -708,8 +713,8 @@ $(function () {
                     smooth: true,
                     //stack: '总量',
                     data: data2.map(function (item) {
-                        return (item/10000).toFixed(2);
-                    }) ,//|| [420, 532, 601, 534, 890, 930, 1320]
+                        return (item / 10000).toFixed(2);
+                    }),//|| [420, 532, 601, 534, 890, 930, 1320]
                 }
 
             ];
@@ -720,20 +725,20 @@ $(function () {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
         }
         var theCurrentOption = {};
-        $.extend(true,theCurrentOption, option1);
-        var theDate1String=formateDate1();
+        $.extend(true, theCurrentOption, option1);
+        var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
-        var theBeginDate=new Date(datebegin);
-        var theEndDate=new Date(dateend);
-        var theXData=[];
-        while (theEndDate.getTime()>theBeginDate.getTime()){
-            theXData.push((theBeginDate.getMonth()+1)+'-'+FormateDateNum(theBeginDate.getDate()));
-            theBeginDate.setDate(theBeginDate.getDate()+1);
+        var theBeginDate = new Date(datebegin);
+        var theEndDate = new Date(dateend);
+        var theXData = [];
+        while (theEndDate.getTime() > theBeginDate.getTime()) {
+            theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
+            theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
         //debugger;
-        theCurrentOption.xAxis.data=theXData;
-        theCurrentOption.xAxis.axisLabel.rotate=0;
+        theCurrentOption.xAxis.data = theXData;
+        theCurrentOption.xAxis.axisLabel.rotate = 0;
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -893,7 +898,7 @@ $(function () {
             '2':'去往香港',
         };*/
         var theParamter = {
-            personDirect: personDirect ||  '去往珠海澳门',//1,//
+            personDirect: personDirect || '去往珠海澳门',//1,//
             date: formateDate()
         };
 
@@ -918,15 +923,15 @@ $(function () {
                  {"fromType":"3","id":3,"percent":80,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","stayNum":80000000,"toType":"1"}],"isSuccess":true,"msg":"success"}*/
 
                 //debugger;
-                var theDataMap={};
+                var theDataMap = {};
                 for (var i = 0; i < data.data.length; i++) {
                     var theItem = data.data[i];
-                    theDataMap[theItem.fromType]=theItem.percent;
+                    theDataMap[theItem.fromType] = theItem.percent;
                 }
                 //debugger;
-                for(var key in theDataMap){
+                for (var key in theDataMap) {
                     if (theMap[key]) {
-                        theMap[key].text('(' + ((theDataMap[key]||0)*100).toFixed(1) + '%)');
+                        theMap[key].text('(' + ((theDataMap[key] || 0) * 100).toFixed(1) + '%)');
                     }
                 }
             }
@@ -940,7 +945,7 @@ $(function () {
          * @param personDirect,date,affiliationType
          */
         PageViewModel.prototype.loadBridgeAttributionArea = function (personDirect, affiliationType) {
-            affiliationType = affiliationType ||  '国际';//1;//
+            affiliationType = affiliationType || '国际';//1;//
             var theCallUrl = "/bridge/bridgeAttributionArea.do";
             var theData = {
                 personDirect: personDirect || '去往珠海澳门',//1,//
@@ -1115,8 +1120,8 @@ $(function () {
     PageViewModel.prototype.loadChartBar = function (data) {
         this.ChartBar = echarts.init(document.getElementById('form_1'));
         data = data || [];
-        if(data.length>4){
-            data=data.slice(0,4);
+        if (data.length > 4) {
+            data = data.slice(0, 4);
         }
         var option = {
 

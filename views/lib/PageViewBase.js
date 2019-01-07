@@ -307,6 +307,11 @@ PageViewBase.prototype.stop = function () {
         console.log('结束清除定时器');
     }
 }
+/**
+ * 添加日期的解析
+ * @param dateStr
+ * @returns {Date}
+ */
 PageViewBase.prototype.parserDate = function (dateStr) {
     return new Date(dateStr);
 }

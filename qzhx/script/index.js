@@ -1217,7 +1217,11 @@ $(function () {
             $('.guishu-content ul').empty();
             if (res && res.isSuccess) {
                 var theIndex = 1;
-                for (var i = 0; i < res.data.length; i++) {
+                var theMaxLength=6;
+                if(res.data.length<theMaxLength){
+                    theMaxLength=res.data.length;
+                }
+                for (var i = 0; i < theMaxLength; i++) {
                     var theItme = res.data[i];
                     var theTempalte = '<li>\n' +
                         '                                        <span class="guishu-icon">' + theIndex + '</span>\n' +
