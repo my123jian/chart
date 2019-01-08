@@ -25,7 +25,17 @@ $(function () {
             trigger: 'axis',
             backgroundColor: 'transparent',
             formatter: function (params) {
-                return params[params.length - 1].data;
+               var theDatas=[];
+               if(params.length>1){
+                   for(var i=0;i<params.length;i++){
+                       theDatas.push(params[i].seriesName+':'+params[i].data+"万");
+                   }
+               }else{
+                   for(var i=0;i<params.length;i++){
+                       theDatas.push(params[i].data+"万");
+                   }
+               }
+                return theDatas.join('<br />');
             }
         },
         grid: {
@@ -79,9 +89,7 @@ $(function () {
     //获取当前的日期数据
     var formateDate = function () {
         if (!theCurrentDate) {
-            var theDate = GetYesterdayDate();
-            ///theDate.setDate(theDate.getDate()-1);
-            return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
+            return GetTodayDate().before(2).formate();
         }
         return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
     }
@@ -137,7 +145,8 @@ $(function () {
         laydate.render({
             elem: '#date-input', //指定元素
             trigger: 'click',
-            value: formateDate(),
+            max:GetTodayDate().formate(),
+            value:  formateDate(),
             done: function (value, date, endDate) {
                 //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
@@ -155,6 +164,7 @@ $(function () {
             trigger: 'click',
             range: true,//范围选择
             value: formateDate1(),
+            max:GetTodayDate().formate(),
             done: function (value, date, endDate) {
                 //debugger;
                 //debugger;
@@ -291,7 +301,14 @@ $(function () {
         };
         //theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         theCurrentOption.legend = {
-            data: [{name: '粤海铁路北港', textStyle: {color: "#85a8b8"}}, {name: '海安港', textStyle: {color: "#85a8b8"}}],
+            data: [{name: '粤海铁路北港',
+                textStyle: {color: "#d1b96b"}
+//                textStyle: {color: "#85a8b8"}
+                },
+                {name: '海安港',
+                    textStyle: {color: "#357acb"}
+                    //textStyle: {color: "#85a8b8"}
+                }],
             x: 'right',
             y: 'top'
         };

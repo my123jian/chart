@@ -41,7 +41,7 @@ $(function () {
             trigger: 'axis',
             backgroundColor: 'transparent',
             formatter: function (params) {
-                return params[params.length - 1].data;
+                return params[params.length - 1].data+'万';
             }
         },
         grid: {
@@ -218,6 +218,7 @@ show:true,
             trigger: 'click',
             format: 'yyyy年MM月dd日',
             value: formateDate1(),
+           max:GetTodayDate().formate(),
             done: function (value, date, endDate) {
                 //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
@@ -709,13 +710,17 @@ show:true,
                 backgroundColor: 'transparent',
                 formatter: function (params) {
                     var theIndex = 0;
-                    var theText = "";
-                    while (theIndex < params.length - 1) {
+                    var theDatas=[];
+                    //var theText = "";
+                    for(var i=0;i<params.length;i=i+2){
+                        theDatas.push(params[i].seriesName+':'+(params[i].data||params[i+1].data)+'万');
+                    }
+                   /* while (theIndex < params.length - 1) {
 
                         theText += params[theIndex].data + "<br />";
                         theIndex += 2;
-                    }
-                    return theText;
+                    }*/
+                    return theDatas.join('<br />');
                 }
             },
 
@@ -849,7 +854,7 @@ show:true,
                         }
                     }
                 },
-               /* {
+               {
                     name: '人口总量',
                     type: 'line',
                     itemStyle: {
@@ -864,7 +869,7 @@ show:true,
                     smooth: true,
                     //stack: '总量',
                     data: dataPopulationGd2.map(function(item){ return (item/10000).toFixed(2)})
-                },*/
+                },
 
 
                 {
@@ -897,7 +902,7 @@ show:true,
                         }
                     },
                 },
-               /* {
+               {
                     name: '迁入',
                     type: 'line',
                     itemStyle: {
@@ -912,7 +917,7 @@ show:true,
                     smooth: true,
                     //stack: '总量',
                     data: dataMigIn2.map(function(item){ return (item/10000).toFixed(2)}) ,
-                },*/
+                },
 
 
                 {
@@ -946,7 +951,7 @@ show:true,
                         }
                     },
                 },
-               /* {
+               {
                     name: '迁出',
                     symbol: 'none',
                     z: 2,
@@ -963,7 +968,7 @@ show:true,
                     smooth: true,
                     //stack: '总量',
                     data: dataMigOut2.map(function(item){ return (item/10000).toFixed(2)})
-                },*/
+                },
             ]
         };
         this.Chart4.setOption(option);

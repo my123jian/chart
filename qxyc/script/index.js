@@ -97,6 +97,7 @@ $(function () {
             //$('#date-input').click();
             laydate.render({
                 elem: '#date-input', //指定元素
+                max:GetTodayDate().formate(),
                 show: true
             });
         });
@@ -105,6 +106,7 @@ $(function () {
             elem: '#date-input', //指定元素
             trigger: 'click',
             value: new Date(),
+            max:GetTodayDate().formate(),
             done: function (value, date, endDate) {
                 //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18

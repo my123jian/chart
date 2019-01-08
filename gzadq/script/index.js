@@ -119,7 +119,17 @@ $(function () {
             trigger: 'axis',
             backgroundColor: 'transparent',
             formatter: function (params) {
-                return params[params.length - 1].data;
+                var theDatas=[];
+                if(params.length>1){
+                    for(var i=0;i<params.length;i++){
+                        theDatas.push(params[i].seriesName+':'+params[i].data+'万');
+                    }
+                }else{
+                    for(var i=0;i<params.length;i++){
+                        theDatas.push(params[i].data+'万');
+                    }
+                }
+                return theDatas.join('<br />');
             }
         },
         grid: {
@@ -366,6 +376,7 @@ $(function () {
             trigger: 'click',
             //range: true,//范围选择
             //format:'yyyy年MM月dd日',
+            max:GetTodayDate().formate(),
             value: formateDate(),
             done: function (value, date, endDate) {
                 //debugger;
@@ -389,6 +400,7 @@ $(function () {
             //show: true,
             range: true,//范围选择
             value: formateDate1(),
+            max:GetTodayDate().formate(),
             done: function (value, date, endDate) {
                 //debugger;
                 //console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
@@ -435,6 +447,19 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
+        theCurrentOption.tooltip.formatter=function (params) {
+            var theDatas=[];
+            if(params.length>1){
+                for(var i=0;i<params.length;i++){
+                    theDatas.push(params[i].seriesName+':'+params[i].data+'分钟');
+                }
+            }else{
+                for(var i=0;i<params.length;i++){
+                    theDatas.push(params[i].data+'分钟');
+                }
+            }
+            return theDatas.join('<br />');
+        };
 
 //debugger;
         theCurrentOption.series = [
@@ -511,15 +536,25 @@ $(function () {
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.xAxis.axisLabel.rotate = 0;
         theCurrentOption.legend = {
-            data: [{name: '每日客流', textStyle: {color: "#85a8b8"}}, {
+            data: [{name: '每日客流',
+                textStyle: {color: "#d1b96b"}
+                //textStyle: {color: "#85a8b8"}
+                },
+                {
                 name: '香港>>珠海澳门',
-                textStyle: {color: "#85a8b8"}
-            }, {name: '珠海澳门>>香港', textStyle: {color: "#85a8b8"}}
+                    textStyle: {color: "#357acb"}
+                //textStyle: {color: "#85a8b8"}
+            },
+                {name: '珠海澳门>>香港',
+                    textStyle: {color: "#219553"}
+                   // textStyle: {color: "#85a8b8"}
+                }
                 // x:'left',
                 //padding:50,
             ]
         },
-            theCurrentOption.yAxis = [{
+            theCurrentOption.yAxis = [
+                {
                 name: '（人数/万）',
                 type: 'value',
                 nameLocation: 'end',
@@ -655,7 +690,14 @@ $(function () {
             }
         }]
         theCurrentOption.legend = {
-            data: [{name: '每日客流', textStyle: {color: "#85a8b8"}}, {name: '观光客流', textStyle: {color: "#85a8b8"}}]
+            data: [{name: '每日客流',
+                textStyle:{color:'#d1b96b'}
+                //textStyle: {color: "#85a8b8"}
+                },
+                {name: '观光客流',
+                    textStyle:{color:'#357acb'}
+                    //textStyle: {color: "#85a8b8"}
+                }]
         },
             theCurrentOption.series = [
                 {
@@ -726,6 +768,19 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
+        theCurrentOption.tooltip.formatter=function (params) {
+            var theDatas=[];
+            if(params.length>1){
+                for(var i=0;i<params.length;i++){
+                    theDatas.push(params[i].seriesName+':'+params[i].data+'分钟');
+                }
+            }else{
+                for(var i=0;i<params.length;i++){
+                    theDatas.push(params[i].data+'分钟');
+                }
+            }
+            return theDatas.join('<br />');
+        };
         var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
