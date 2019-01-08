@@ -1152,7 +1152,7 @@ $(function () {
             //debugger;
             var inPeople = ((theData['inPeople']) || 0);
             var outPeople = ((theData['outPeople']) || 0);
-            var allPeople = (inPeople - outPeople);
+            var allPeople = ( outPeople-inPeople);
             var unitText = '万';
             if (inPeople < 1000) {
                 unitText = "";

@@ -179,7 +179,7 @@ html body {
 .toppart .rightpart_new{
     position: absolute;
     width: 1238px;
-    left: 620px;
+    left: 656px;
     top: 0px;
     height: 111px;
     border-bottom-color: #356ddc;
@@ -193,7 +193,7 @@ html body {
     /*margin-top: 30px;*/
     margin-right: 0px;
     /*margin-left: -10px;*/
-    width: 318px;
+    width: 258px;
     height: 144px;
     line-height: 144px;
     text-align: center;
@@ -202,25 +202,35 @@ html body {
     position: relative;
     pointer-events:painted;
     display: inline-block;
+    margin-left: -16px;
 }
 .topbutton_new.test.active,.topbutton_new.test:hover{
     background-image: url("img/1.png");
     background-position: center center;
+    color:transparent;
     z-index: 9;
 }
 .topbutton_new.insight.active,.topbutton_new.insight:hover{
     background-image: url("img/2.png");
+    background-position: center center;
+    color:transparent;
     z-index: 9;
 }
 .topbutton_new.yxzk.active,.topbutton_new.yxzk:hover{
     background-image: url("img/3.png");
+    background-position: center center;
+    color:transparent;
     z-index: 9;
 }
 .topbutton_new.bridge.active,.topbutton_new.bridge:hover{
     background-image: url("img/4.png");
+    background-position: center center;
+    color:transparent;
     z-index: 9;
 }
 .topbutton_new.strait.active,.topbutton_new.strait:hover{
     background-image: url("img/5.png");
+    background-position: center center;
+    color:transparent;
     z-index: 9;
 }

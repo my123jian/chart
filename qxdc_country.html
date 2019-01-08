@@ -90,7 +90,10 @@
         var values=[];
         for (var i = 0; i < data.length; i++) {
             var theItem = data[i];
+            theItem.from=theItem.from.trim();
+            theItem.to=theItem.to.trim();
             if (!theCitys[theItem.from] || !theCitys[theItem.to]) {
+
                 console.log('未找到' + theItem.from + ":" + theItem.to);
                 continue;
             }
@@ -100,22 +103,28 @@
         }
 
         var theSplits=[];
-        values.sort().reverse();
-        for(var i=0;i<values.length;i++){
-            if(i<5){
-                theSplits.push({start: values[i],end:values[i]});
+        values.sort(function (a,b) {
+            return a<=b;
+        });
+        var values1=values.reverse();
+        //debugger;
+        var theIndex=0;
+        for(var i=values1.length-1;i>=0;i--){
+            if(theIndex<5){
+                theSplits.push({start: values1[i],end:values1[i]});
             }
-            if(i==5){
-                theSplits.push({start:values[i],end:0});
+            if(theIndex==5){
+                theSplits.push({end:values1[i],start:0});
             }
-            if(i>=5){
+            theIndex++;
+            if(theIndex>=5){
                 continue;
             }
         }
         if(theSplits.length<=0){
             theSplits.push({start:0,end:0});
         }
-       // debugger;
+       //debugger;
         var theOptions = {
             dataRange: {
                 show:false,
@@ -232,6 +241,7 @@
 
             ]
         };
+        theChart.clear();
         theChart.setOption(theOptions);
     }
 </script>
