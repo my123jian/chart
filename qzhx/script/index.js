@@ -263,7 +263,7 @@ $(function () {
         //debugger;
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
-        theCurrentOption.grid.height = 80;
+        theCurrentOption.grid.height = 100;
         theCurrentOption.grid.bottom = 10;
         var theXData = [];
         //var theTodayDate=new Date();

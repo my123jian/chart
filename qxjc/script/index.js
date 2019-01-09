@@ -50,7 +50,7 @@ $(function () {
             top: 30,
             bottom: 10,
             width: 480,
-            height: 70,
+            height: 100,
             containLabel: true
         },
         /*toolbox: {

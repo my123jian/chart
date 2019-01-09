@@ -167,8 +167,8 @@ html body {
 .righttop .title {
     font-size: 20px;
     color: #ddf3ff;
-    margin-bottom: 16px;
-    margin-top: 22px;
+    margin-bottom: 5px;
+    /*margin-top: 22px;*/
     margin-left: 40px;
 }
 
@@ -309,7 +309,7 @@ html body {
 
 #chart1, #chart2, #chart3 {
     width: 560px;
-    height: 110px !important;
+    height: 150px !important;
     margin-left: 20px;
     margin-right: 20px;
 }

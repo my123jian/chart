@@ -1186,6 +1186,7 @@ $(function () {
                 bottom: '3%',
                 containLabel: true
             },
+            barWidth:30,
             xAxis: [
                 {
 //                        type : 'category',
@@ -1259,8 +1260,12 @@ $(function () {
         var bridgeBounds = [[113.730068, 22.278834], [113.711688, 22.274786], [113.695492, 22.264382], [113.678056, 22.251648], [113.643183, 22.240596], [113.63326, 22.23637], [113.594097, 22.20946], [113.591794, 22.211593], [113.636709, 22.24112], [113.669761, 22.252132], [113.685975, 22.259945], [113.701248, 22.273654], [113.714493, 22.279067], [113.728361, 22.28102], [113.755533, 22.28275], [113.787706, 22.280576]];
         var me = this;
         //debugger;
-        me.addMarker2("格力人工岛", 113.581696, 22.203582);
-        me.addMarker2("港珠澳大桥", 113.728361, 22.28002);
+        var theNameMap={
+            "珠海公路口岸":"港珠澳大桥起点（珠澳口岸人工岛）",
+            "港珠澳大桥境内段":"港珠澳大桥终点（桥面）"
+        };
+        me.addMarker2("珠海公路口岸", 113.581696, 22.203582);
+        me.addMarker2("港珠澳大桥境内段", 113.728361, 22.28002);
 
         this.load(theCallUrl, {}, function (res) {
             //debugger;
@@ -1279,8 +1284,8 @@ $(function () {
                 }
                 var theBridgeUser = theData.bridgeUser;//大桥人数
                 var thelandsUser = theData.islandsUser;//人工岛人数
-                me.addMarker2("格力人工岛", 113.581696, 22.203582, ((thelandsUser || 0)));
-                me.addMarker2("港珠澳大桥", 113.728361, 22.28002, ((theBridgeUser || 0)));
+                me.addMarker2("珠海公路口岸", 113.581696, 22.203582, ((thelandsUser || 0)));
+                me.addMarker2("港珠澳大桥境内段", 113.728361, 22.28002, ((theBridgeUser || 0)));
                 var theReliArrays = [];
                 theReliArrays.push({bounds: landsBounds, data: thelandsUser || 0, max: 1000});
                 theReliArrays.push({bounds: bridgeBounds, data: theBridgeUser || 0, max: 1000});
