@@ -13,18 +13,120 @@ html body {
     background-image: url("img/bg.png");
 }
 
-.part1{
+.part1 {
     width: 1850px;
     height: 290px;
+    margin-top: 144px;
+    margin-left: 35px;
     background-image: url("img/bg_01.png");
 }
-.part2{
-    width: 1920px;
-    height: 1080px;
+
+.part2 {
+    width: 1850px;
+    height: 290px;
+    margin-left: 35px;
+    margin-top: 20px;
     background-image: url("img/bg_02.png");
 }
-.part3{
-    width: 1920px;
-    height: 1080px;
+
+.part2.active {
     background-image: url("img/bg_03.png");
+}
+
+.part3 {
+    width: 1850px;
+    height: 290px;
+    margin-left: 35px;
+    margin-top: 20px;
+    background-image: url("img/bg_04.png");
+}
+
+.title {
+    margin-left: 40px;
+    color: #d9f1ff;
+    font-size: 24px;
+    line-height: 30px;
+    display: inline-block;
+}
+
+.date {
+    line-height: 30px;
+    display: inline-block;
+    background: transparent;
+    color: white;
+    width: 154px;
+    /* border: none; */
+    border-width: 0px;
+    font-size: 18px;
+    color: #ddf3ff;
+    height: 32px;
+    line-height: 32px;
+    /* padding-right: 32px; */
+    right: 0px;
+    text-align: center;
+    vertical-align: middle;
+    outline: none;
+    margin-left: 141px;
+    margin-right: 14px;
+    background: url(img/icon_down.png) no-repeat transparent;
+    background-position-x: 138px;
+    background-position-y: 9px;
+    background-size: 14px 8px;
+}
+
+.part1 .date,.part2 .date{
+    margin-left: 235px!important;
+}
+.date-text {
+    line-height: 30px;
+    color: #ddf3ff;
+    display: inline-block;
+}
+
+.select {
+    font-size: 24px;
+    padding-right: 15px;
+    width: 237px;
+    color: #d9f1ff;
+    text-align: center;
+    float: right;
+    display: inline-block;
+    margin-right: 20px;
+    border: 0px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    padding-left: 24px;
+    background: transparent;
+    background: url(img/icon_down.png) no-repeat transparent;
+    background-position-x: 217px;
+    background-position-y: 13px;
+    background-size: 14px 8px;
+    font-size: 24px;
+}
+.right-title1{
+    font-size: 24px;
+    padding-right: 15px;
+    margin-left: 680px;
+    width: 237px;
+    color: #d9f1ff;
+    display: inline-block;
+    cursor: pointer;
+}
+.right-title2{
+    font-size: 24px;
+    padding-right: 15px;
+    margin-left: 20px;
+    width: 237px;
+    color: #289ee5;
+    display: inline-block;
+    cursor: pointer;
+}
+.part2.active .right-title1{
+    color: #289ee5;
+}
+.part2.active .right-title2{
+    color: #d9f1ff;
 }

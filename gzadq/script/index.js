@@ -448,7 +448,7 @@ $(function () {
             this.loadPart2();
         }
         //注意修改参数
-        this.loadWeather('珠海');
+        this.loadWeather('珠海/珠海');
         //this.loadBridgeFlow();
         this.loadBridgeRealTimeNumber();
         this.loadBridgeBus();
@@ -1287,14 +1287,14 @@ $(function () {
                 var theClassCount=res.data.classCount||0;//巴士数量
                 var theCheckCount=res.data.checkCount||0;//旅客数量
 
-                var unitText = "万";
-                if (theClassCount < 1000) {
+                var unitText = "";
+             /*   if (theClassCount < 1000) {
                     unitText = "";
                 }
                 else {
                     unitText = "万";
                     theClassCount = (theClassCount / 10000).toFixed(2);
-                }
+                }*/
                 $('.newcome-num.class').html('<span class="newcome-people">' + theClassCount + '</span>' + unitText);
                 if (theCheckCount < 1000) {
                     unitText = "";

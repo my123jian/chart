@@ -214,7 +214,7 @@ html body {
 .left-weather{
     width: 1070px;
     height: 90px;
-    background-image: url("img/bg_weather.png");
+    background-image: url("img/weath.png");
     position: absolute;
     top: 154px;
     left: 20px;
@@ -231,7 +231,8 @@ html body {
 }
 .left-weather>div,.weather-content>ul>li>div{
     float: left;
-    width: 172px;
+    /*width: 172px;*/
+    width:217px;
     padding-top:20px;
     text-align: center;
 }
@@ -832,4 +833,9 @@ iframe {
 }
 .infowindow .second{
     font-size: 34px;
+}
+.weather-bg{
+    width:1071px ;
+    height: 90px;
+    background-image: url("img/weath.png");
 }

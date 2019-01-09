@@ -213,7 +213,7 @@ $(function () {
         var me = this;
         //var theDate=new Date();
         // theDate.setDate(theDate.getDate()-1);
-        laydate.render({
+       /* laydate.render({
             elem: '#date-input', //指定元素
             trigger: 'click',
             format: 'yyyy年MM月dd日',
@@ -230,7 +230,7 @@ $(function () {
                 }
 
             }
-        });
+        });*/
         /*$('#date-input').change(function(){
             theCurrentDate=$(this).val();
             console.log('日期变化:'+theCurrentDate);
@@ -1072,7 +1072,7 @@ $(function () {
                 var dataPopulationGd2 = [];
                 var data4 = [];
                 var theXData = [];
-                var thePreditDate = null;
+                var thePreditDate = new Date('2019-01-20');
                 var theBeginDate = new Date('2019-01-21');
                 for (var i = 0; i < theResultDatas.length; i++) {
                     var theDataItem = theResultDatas[i];
@@ -1106,6 +1106,7 @@ $(function () {
                         }
                     }
                 }
+
                 if (thePredictList && thePredictList.length > 0) {
                     for (var i = 0; i < thePredictList.length; i++) {
                         var theItem = thePredictList[i];

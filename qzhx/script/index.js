@@ -270,7 +270,7 @@ $(function () {
         //注意修改数据
         this.loadSelectNewOne();
         this.loadzFlow();
-        this.loadWeather('徐闻');
+        this.loadWeather('湛江/徐闻');
     }
     PageViewModel.prototype.loadChart1 = function (xData, data1, data2) {
         if (!this.Chart1) {

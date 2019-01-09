@@ -86,7 +86,7 @@ $(function () {
     }
     var formateDate1 = function () {
         if (!theCurrentDate) {
-            var theDate = GetYesterdayDate();// GetFromDate();
+            var theDate =GetTodayDate().before(3);// GetFromDate();
             //theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "年" + FormateDateNum(theDate.getMonth() + 1) + "月" + FormateDateNum(theDate.getDate()) + '日';
         }
@@ -242,7 +242,7 @@ $(function () {
             trigger: 'click',
             format: 'yyyy年MM月dd日',
             //range: true,//范围选择
-            value: formateDate(),
+            value: formateDate1(),
             max:GetTodayDate().formate(),
             done: function (value, date, endDate) {
                 //debugger;

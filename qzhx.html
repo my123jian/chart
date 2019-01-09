@@ -72,43 +72,45 @@
         <div class="left-weather">
             <div class="weather-1">
                 <span class="firstline">天气分析</span>
-                <span class="secondline field">2018年12月28日</span>
+                <span class="secondline field" data-field="date">2018年12月28日</span>
             </div>
             <div class="weather-2">
                 <img src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>
                 <div class="w2-right w2-right-top">
                     <span class="weather-litop">温度</span>
-                    <span class="weather-libottom field">25℃</span>
+                    <span class="weather-libottom field" data-field="wendu">25℃</span>
                 </div>
             </div>
             <div class="weather-2">
                 <img src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>
                 <div class="w2-right w2-right-top">
-                    <span class="weather-litop">风力</span>
-                    <span class="weather-libottom field">东风2级</span>
+                    <span class="weather-litop">风向</span>
+                    <span class="weather-libottom field" data-field="fengli">东风2级</span>
                 </div>
             </div>
             <div class="weather-2">
                 <img src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>
                 <div class="w2-right w2-right-top">
-                    <span class="weather-litop">可见度</span>
-                    <span class="weather-libottom field">12公里</span>
+                    <span class="weather-litop">风速</span>
+                    <span class="weather-libottom field" data-field="kejiandu">12公里</span>
                 </div>
             </div>
             <div class="weather-2">
-                <img src="./gzadq/img/icon_rain.png" class="weather-icon" alt=""/>
+                <img src="./gzadq/img/icon_rain.png" data-base="./gzadq/img/" class="weather-icon change" alt=""/>
                 <div class="w2-right w2-right-top">
-                    <span class="weather-litop">降水</span>
-                    <span class="weather-libottom field">0毫米</span>
+                    <span class="weather-litop">天气状况</span>
+                    <span class="weather-libottom field" data-field="jiangshui"></span>
                 </div>
             </div>
-            <div class="weather-2" id="weather-open">
 
-                <div class="weather-7day" >
+
+            <!--<div class="weather-2" id="weather-open">
+
+                <div class="weather-7day">
                     <span class="weather-litop">未来七天情况</span>
                     <img src="./gzadq/img/icon3.png" class="weather-up" alt=""/>
                 </div>
-            </div>
+            </div>-->
         </div>
         <div class="weather-content">
             <ul>
