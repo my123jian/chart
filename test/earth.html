@@ -8,22 +8,22 @@
     <script src="../lib/echarts-gl.min.js"></script>
     <script src="../lib/world.js"></script>
     <script src="../lib/china.js"></script>
-<style>
+    <style>
 
-    #chart-panel {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        padding: 10px 10px 20px 10px;
-    }
+        #chart-panel {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            padding: 10px 10px 20px 10px;
+        }
 
-</style>
+    </style>
 
 </head>
 <body>
-<div id="chart-panel" ></div>
+<div id="chart-panel"></div>
 <script type="text/javascript">
     let canvas = document.createElement('canvas');
     let mapChart = echarts.init(canvas, null, {
@@ -39,8 +39,8 @@
             left: 0,
             right: 0,
             bottom: 0,
-            itemStyle:{
-                areaColor:{
+            itemStyle: {
+                areaColor: {
                     type: 'linear',
                     x: 0,
                     y: 0,
@@ -146,6 +146,7 @@
             value: (Math.random() * 3000).toFixed(2)
         }
     }
+
     // 添加地图详细canvas
     $('<canvas id="sMap" style="position: absolute; top: 0; left: 0; width: 100%; height: calc(100% + 30px); background: #333; z-index: -1"></canvas>').appendTo($('#chart-panel'))
     // 双击返回地球
@@ -156,12 +157,13 @@
         width: $('#sMap').width(),
         height: $('#sMap').height()
     })
-   var theGlobalChart=echarts.init(document.getElementById('chart-panel'));
+    var theGlobalChart = echarts.init(document.getElementById('chart-panel'));
     theGlobalChart.setOption(option);
     // 点击地球获取该区域地图
-    mapChart.on('click', function(params) {
+    mapChart.on('geoselectchanged', function (params) {
         console.log(params)
-        let name = params.name
+        debugger;
+        let name = params.name;
         let mapJson = 'https://raw.githubusercontent.com/Mying666/EC-JSON/gh-pages/json/' + name + '.json'
         $('#sMap').css('z-index', '999')
         sMap.showLoading()
@@ -211,6 +213,7 @@
             sMap.hideLoading()
         })
     });
+
 </script>
 </body>
 </html>

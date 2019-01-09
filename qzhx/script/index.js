@@ -66,6 +66,22 @@ $(function () {
                     color: '#557398'
                 }
             },
+            axisPointer: {
+                label: {
+                    show:true,
+                    color: '#05cffa',
+                    formatter: function (arg) {
+                        return arg.value;
+                    }
+                },
+                lineStyle: {
+                    color: '#05cffa',
+                    shadowBlur: {
+                        shadowColor: '#05cffa',
+                        shadowBlur: 10
+                    }
+                }
+            },
             data: ['0', '12-28', '12-29', '12-30', '1-01', '1-02', '1-03', '1-04']
             //data: theXData
         },
@@ -254,7 +270,7 @@ $(function () {
         //注意修改数据
         this.loadSelectNewOne();
         this.loadzFlow();
-        this.loadWeather();
+        this.loadWeather('徐闻');
     }
     PageViewModel.prototype.loadChart1 = function (xData, data1, data2) {
         if (!this.Chart1) {
@@ -288,6 +304,22 @@ $(function () {
                     }
                     else {
                         return "";
+                    }
+                }
+            },
+            axisPointer: {
+                label: {
+                    show:true,
+                    color: '#05cffa',
+                    formatter: function (arg) {
+                        return arg.value;
+                    }
+                },
+                lineStyle: {
+                    color: '#05cffa',
+                    shadowBlur: {
+                        shadowColor: '#05cffa',
+                        shadowBlur: 10
                     }
                 }
             },

@@ -160,6 +160,22 @@ $(function () {
                     color: '#557398'
                 }
             },
+            axisPointer: {
+                label: {
+                    show:true,
+                    color: '#05cffa',
+                    formatter: function (arg) {
+                       return arg.value;
+                    }
+                },
+                lineStyle: {
+                    color: '#05cffa',
+                    shadowBlur: {
+                        shadowColor: '#05cffa',
+                        shadowBlur: 10
+                    }
+                }
+            },
             data: ['0', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00']
             //data: theXData
         },
@@ -432,9 +448,10 @@ $(function () {
             this.loadPart2();
         }
         //注意修改参数
-        this.loadWeather();
+        this.loadWeather('珠海');
         //this.loadBridgeFlow();
         this.loadBridgeRealTimeNumber();
+        this.loadBridgeBus();
     }
 
     PageViewModel.prototype.loadChart1 = function (data) {
@@ -1249,6 +1266,48 @@ $(function () {
     }
 
 
+    /***
+     * 穿梭巴士数据
+     */
+    PageViewModel.prototype.loadBridgeBus=function(){
+        var theCallUrl = "bridge/bridgeBus.do";
+
+        /*{
+            "data": {
+            "classCount": "0",
+                "checkCount": "0"
+        },
+            "isSuccess": true,
+            "msg": "success"
+        }*/
+        var me = this;
+        this.load(theCallUrl, {}, function (res) {
+            //debugger;
+            if (res && res.isSuccess && res.data) {
+                var theClassCount=res.data.classCount||0;//巴士数量
+                var theCheckCount=res.data.checkCount||0;//旅客数量
+
+                var unitText = "万";
+                if (theClassCount < 1000) {
+                    unitText = "";
+                }
+                else {
+                    unitText = "万";
+                    theClassCount = (theClassCount / 10000).toFixed(2);
+                }
+                $('.newcome-num.class').html('<span class="newcome-people">' + theClassCount + '</span>' + unitText);
+                if (theCheckCount < 1000) {
+                    unitText = "";
+                }
+                else {
+                    unitText = "万";
+                    theCheckCount = (theCheckCount / 10000).toFixed(2);
+                }
+                $('.newcome-num.check').html('<span class="newcome-people">' + theCheckCount + '</span>' + unitText);
+            }
+
+        });
+    }
     /***
      * 实时驻留时长
      */

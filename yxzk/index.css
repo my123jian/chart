@@ -1,0 +1,30 @@
+
+* {
+    background-repeat: no-repeat;
+    margin: 0px;
+    padding: 0px;
+}
+
+html body {
+    margin: 0px;
+    padding: 0px;
+    width: 1920px;
+    height: 1080px;
+    background-image: url("img/bg.png");
+}
+
+.part1{
+    width: 1850px;
+    height: 290px;
+    background-image: url("img/bg_01.png");
+}
+.part2{
+    width: 1920px;
+    height: 1080px;
+    background-image: url("img/bg_02.png");
+}
+.part3{
+    width: 1920px;
+    height: 1080px;
+    background-image: url("img/bg_03.png");
+}
