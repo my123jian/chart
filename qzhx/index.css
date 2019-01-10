@@ -879,3 +879,72 @@ iframe {
 .infowindow .second{
     font-size: 34px;
 }
+.sex-chart,.age-chart{
+    /*display: inline-block;*/
+    float: left;
+}
+.sex-chart{
+    width:322px;
+}
+.sex-chart .title-new{
+    margin-left: 40px;
+    margin-bottom: 18px;
+}
+.age-chart .title-new{
+    margin-left: 10px;
+    margin-bottom: 18px;
+}
+.sex-chart .content div{
+    display: inline-block;
+    float: left;
+    line-height: 118px;
+}
+.age-chart{
+    width: 370px;
+}
+.sex-chartview{
+    width: 118px;
+    height: 118px;
+    /*background: red;*/
+    position: relative;
+    margin-left: 14px;
+    margin-right: 14px;
+}
+.age-chartview{
+    height: 118px;
+    width: 370px;
+    /*background: blue;*/
+}
+.sex-chart .content{
+    padding-left:40px;
+}
+.sex-name{
+    font-size: 20px;
+}
+.overlayer{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    width: 118px;
+    height: 118px;
+
+}
+.man-icon, .woman-icon{
+    width: 50%;
+    text-align: center;
+    display: inline-block;
+    height: 118px;
+    /*background-image: url(img/m.png);*/
+    background-repeat: no-repeat;
+    background-position-x: 16px;
+    background-position-y: 29px;
+    padding-top: 10px;
+
+}
+.woman-icon{
+    /*background-image: url(img/g.png);*/
+}
+.sex-name{
+    color: #80ddfe;
+}

@@ -213,24 +213,24 @@ $(function () {
         var me = this;
         //var theDate=new Date();
         // theDate.setDate(theDate.getDate()-1);
-       /* laydate.render({
-            elem: '#date-input', //指定元素
-            trigger: 'click',
-            format: 'yyyy年MM月dd日',
-            value: formateDate1(),
-            max: GetTodayDate().formate(),
-            done: function (value, date, endDate) {
-                //debugger;
-                console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
-                console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-                console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
-                if (theCurrentDate != date) {
-                    theCurrentDate = date;
-                    me.loadPredict();
-                }
+        /* laydate.render({
+             elem: '#date-input', //指定元素
+             trigger: 'click',
+             format: 'yyyy年MM月dd日',
+             value: formateDate1(),
+             max: GetTodayDate().formate(),
+             done: function (value, date, endDate) {
+                 //debugger;
+                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
+                 console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                 console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                 if (theCurrentDate != date) {
+                     theCurrentDate = date;
+                     me.loadPredict();
+                 }
 
-            }
-        });*/
+             }
+         });*/
         /*$('#date-input').change(function(){
             theCurrentDate=$(this).val();
             console.log('日期变化:'+theCurrentDate);
@@ -665,7 +665,7 @@ $(function () {
         ];
         this.Chart3.setOption(theCurrentOption);
     }
-    PageViewModel.prototype.loadChart4 = function (theXData, dataPopulationGd1, dataMigIn1, dataMigOut1, dataPopulationGd2, dataMigIn2, dataMigOut2) {
+    PageViewModel.prototype.loadChart4 = function (theXData, dataPopulationGd1, dataMigIn1, dataMigOut1, dataPopulationGd2, dataMigIn2, dataMigOut2, dataResi1, dataResi2) {
         if (!this.Chart4) {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
         }
@@ -676,11 +676,13 @@ $(function () {
         dataPopulationGd2 = dataPopulationGd2 || [];
         dataMigIn2 = dataMigIn2 || [];
         dataMigOut2 = dataMigOut2 || [];
+        dataResi1 = dataResi1 || [];
+        dataResi2 = dataResi2 || [];
         var theBeginDate = new Date('2019-01-21');
-        var theXData = theXData || [];
-        var theMinDate = theXData.min(function(a,b){
+        var theXData = [];
+        /*var theMinDate = theXData.min(function(a,b){
             return a.getTime()<b.getTime();
-        });
+        });*/
 
         /*if (theMinDate) {
             if (theMinDate.length == 8) {
@@ -714,8 +716,15 @@ $(function () {
                     var theIndex = 0;
                     var theDatas = [];
                     //var theText = "";
-                    for (var i = 0; i < params.length; i = i + 2) {
-                        theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
+                    if (params.length > 4) {
+                        for (var i = 0; i < params.length; i = i + 2) {
+                            theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
+                        }
+                    }
+                    else {
+                        for (var i = 0; i < params.length; i = i + 1) {
+                            theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
+                        }
                     }
                     /* while (theIndex < params.length - 1) {
 
@@ -730,10 +739,13 @@ $(function () {
                 textStyle: {
                     color: '#557398',
                 },
-                data: [{name: '人口总量', textStyle: {color: "#ffdc6f"}}, {
-                    name: '迁出',
-                    textStyle: {color: "#32ff4b"}
-                }, {name: '迁入', textStyle: {color: "#4293f2"}}]
+                data: [{name: '人口总量', textStyle: {color: "#ffdc6f"}},
+                    {name: '常驻人口', textStyle: {color: "#ffdc6f"}},
+                    {
+                        name: '迁出',
+                        textStyle: {color: "#32ff4b"}
+                    }, {name: '迁入', textStyle: {color: "#4293f2"}}
+                ]
             },
 
 
@@ -768,7 +780,7 @@ $(function () {
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                name: '(时间/点)',
+                name: '(日期)',
                 axisLine: {
                     lineStyle: {
                         color: '#557398'
@@ -779,7 +791,7 @@ $(function () {
 
                         color: '#05cffa',
                         formatter: function (arg) {
-                            // debugger;
+                            //debugger;
                             var theDate = new Date();
                             theDate.setTime(arg.value);
                             return theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
@@ -880,7 +892,64 @@ $(function () {
                     })
                 },
 
-
+                {
+                    name: '常驻人口',
+                    type: 'line',
+                    //stack: '总量',
+                    smooth: true,
+                    showSymbol: false,
+                    tooltip: {
+                        position: 'left',
+                        /*function (point, params, dom, rect, size) {
+                            // 固定在顶部
+                            return [point[0], '10%'];
+                        }*/
+                    },
+                    data: dataResi1.map(function (item) {
+                        return (item / 10000).toFixed(2)
+                    }),
+                    areaStyle: {
+                        normal: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0, color: 'rgba(255,220,111,0.3)'
+                                }, {
+                                    offset: 0.5, color: 'rgba(255,220,111,0.15)'
+                                }, {
+                                    offset: 1, color: 'rgba(255,220,111,0)'
+                                }]
+                            }
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            color: '#ffdc6f'
+                        }
+                    }
+                },
+                {
+                    name: '常驻人口',
+                    type: 'line',
+                    itemStyle: {
+                        normal: {
+                            lineStyle: {
+                                width: 2,
+                                color: '#ffdc6f',
+                                type: 'dotted'  //'dotted'虚线 'solid'实线
+                            }
+                        }
+                    },
+                    smooth: true,
+                    //stack: '总量',
+                    data: dataResi2.map(function (item) {
+                        return (item / 10000).toFixed(2)
+                    })
+                },
                 {
                     name: '迁入',
                     type: 'line',
@@ -1070,6 +1139,9 @@ $(function () {
                 var dataMigOut2 = [];
                 var dataMigIn2 = [];
                 var dataPopulationGd2 = [];
+
+                var dataResi1 = [];
+                var dataResi2 = [];
                 var data4 = [];
                 var theXData = [];
                 var thePreditDate = new Date('2019-01-20');
@@ -1078,30 +1150,33 @@ $(function () {
                     var theDataItem = theResultDatas[i];
                     var tehDataDate = theDataItem['statDate'];
                     var theDate = me.parserDate(tehDataDate);
-                    if(theDate.getTime()<theBeginDate.getTime()){
+                    if (theDate.getTime() < theBeginDate.getTime()) {
                         continue;
                     }
                     theXData.push(tehDataDate);
 
                     thePreditDate = theDate;
-                    if (theDate.getTime() <= new Date().getTime()) {
-                        dataMigOut1.push(theDataItem.migOut);
-                        dataMigIn1.push(theDataItem.migIn);
-                        dataPopulationGd1.push(theDataItem.populationGd);
+                    // if (theDate.getTime() <= new Date().getTime())
+                    {
+                        dataMigOut1.push(theDataItem.migOut || 0);
+                        dataMigIn1.push(theDataItem.migIn || 0);
+                        dataPopulationGd1.push(theDataItem.populationGd || 0);
+                        dataResi1.push(theDataItem.populationResi || 0);
                     }
-                    dataMigOut2.push(theDataItem.migOut);
-                    dataMigIn2.push(theDataItem.migIn);
-                    dataPopulationGd2.push(theDataItem.populationGd);
+                    dataMigOut2.push(theDataItem.migOut || 0);
+                    dataMigIn2.push(theDataItem.migIn || 0);
+                    dataPopulationGd2.push(theDataItem.populationGd || 0);
+                    dataResi2.push(theDataItem.populationResi || 0);
                 }
                 if (thePreditDate) {
                     thePreditDate = thePreditDate.next(1);
                 }
                 var theRate = 1;
-                if (thePredictCityRatioList&&theAreaNmae) {
+                if (thePredictCityRatioList && theAreaNmae) {
                     for (var i = 0; i < thePredictCityRatioList.length; i++) {
                         var theItem = thePredictCityRatioList[i];
-                        if(theItem.provinceCity+'市'==theAreaNmae){
-                            theRate=parseFloat(theItem.ratio||'0');
+                        if (theItem.provinceCity + '市' == theAreaNmae) {
+                            theRate = parseFloat(theItem.ratio || '0');
                             break;
                         }
                     }
@@ -1119,14 +1194,15 @@ $(function () {
                outNum: 4844850
                statDate: "2019-01-21"
                * */
-                            dataPopulationGd2.push(theItem.countNum*theRate);
-                            dataMigIn2.push(theItem.inNum*theRate);
-                            dataMigOut2.push(theItem.outNum*theRate);
+                            dataPopulationGd2.push(theItem.countNum * theRate);
+                            dataMigIn2.push(theItem.inNum * theRate);
+                            dataMigOut2.push(theItem.outNum * theRate);
+                            dataResi2.push(theItem.populationResi * theRate);
                         }
                     }
                 }
                 //debugger;
-                me.loadChart4(theXData, dataPopulationGd1, dataMigIn1, dataMigOut1, dataPopulationGd2, dataMigIn2, dataMigOut2);
+                me.loadChart4(theXData, dataPopulationGd1, dataMigIn1, dataMigOut1, dataPopulationGd2, dataMigIn2, dataMigOut2, dataResi1, dataResi2);
                 //this.bind('.numpart', theViewData);
             }
             else {

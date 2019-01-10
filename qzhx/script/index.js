@@ -25,16 +25,16 @@ $(function () {
             trigger: 'axis',
             backgroundColor: 'transparent',
             formatter: function (params) {
-               var theDatas=[];
-               if(params.length>1){
-                   for(var i=0;i<params.length;i++){
-                       theDatas.push(params[i].seriesName+':'+params[i].data+"万");
-                   }
-               }else{
-                   for(var i=0;i<params.length;i++){
-                       theDatas.push(params[i].data+"万");
-                   }
-               }
+                var theDatas = [];
+                if (params.length > 1) {
+                    for (var i = 0; i < params.length; i++) {
+                        theDatas.push(params[i].seriesName + ':' + params[i].data + "万");
+                    }
+                } else {
+                    for (var i = 0; i < params.length; i++) {
+                        theDatas.push(params[i].data + "万");
+                    }
+                }
                 return theDatas.join('<br />');
             }
         },
@@ -68,7 +68,7 @@ $(function () {
             },
             axisPointer: {
                 label: {
-                    show:true,
+                    show: true,
                     color: '#05cffa',
                     formatter: function (arg) {
                         return arg.value;
@@ -161,8 +161,8 @@ $(function () {
         laydate.render({
             elem: '#date-input', //指定元素
             trigger: 'click',
-            max:GetTodayDate().formate(),
-            value:  formateDate(),
+            max: GetTodayDate().formate(),
+            value: formateDate(),
             done: function (value, date, endDate) {
                 //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
@@ -180,7 +180,7 @@ $(function () {
             trigger: 'click',
             range: true,//范围选择
             value: formateDate1(),
-            max:GetTodayDate().formate(),
+            max: GetTodayDate().formate(),
             done: function (value, date, endDate) {
                 //debugger;
                 //debugger;
@@ -309,7 +309,7 @@ $(function () {
             },
             axisPointer: {
                 label: {
-                    show:true,
+                    show: true,
                     color: '#05cffa',
                     formatter: function (arg) {
                         return arg.value;
@@ -333,11 +333,13 @@ $(function () {
         };
         //theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         theCurrentOption.legend = {
-            data: [{name: '粤海铁路北港',
+            data: [{
+                name: '粤海铁路北港',
                 textStyle: {color: "#d1b96b"}
 //                textStyle: {color: "#85a8b8"}
-                },
-                {name: '海安港',
+            },
+                {
+                    name: '海安港',
                     textStyle: {color: "#357acb"}
                     //textStyle: {color: "#85a8b8"}
                 }],
@@ -410,6 +412,7 @@ $(function () {
         data1 = data1 || [];
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
+        theCurrentOption.xAxis.name = "(日期)";
         var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
@@ -511,6 +514,7 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
+        theCurrentOption.xAxis.name = "(日期)";
         // theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
@@ -597,6 +601,7 @@ $(function () {
         //debugger;
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
+        theCurrentOption.xAxis.name = "(日期)";
         // theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
         var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
@@ -677,7 +682,9 @@ $(function () {
     PageViewModel.prototype.loadChartBar = function (data) {
         //debugger;
         data = data || [];
-        this.ChartBar = echarts.init(document.getElementById('form_1'));
+        if (!this.ChartBar) {
+            this.ChartBar = echarts.init(document.getElementById('form_1'));
+        }
         var option = {
 
             grid: {
@@ -742,7 +749,11 @@ $(function () {
                     label: {
                         normal: {
                             show: true,
-                            'position': 'top'
+                            'position': 'top',
+                            formatter: function (arg) {
+                                return arg.value + '%';
+                                //return arg;
+                            },
                         }
                     },
 
@@ -804,16 +815,16 @@ $(function () {
                     var theItem = theDatas[i];
                     var theStayTime = theItem.qzStayTime;
                     if (theStayTime >= 8) {
-                        theData[theData.length - 1] = (theItem.qzStayPercentage*100).toFixed(2);
+                        theData[theData.length - 1] = (theItem.qzStayPercentage * 100).toFixed(2);
                         continue;
                     }
                     if (theStayTime < 1) {
-                        theData[0] = (theItem.qzStayPercentage*100).toFixed(2);
+                        theData[0] = (theItem.qzStayPercentage * 100).toFixed(2);
                         //continue;
                     }
                     else {
 
-                        theData[Math.ceil(theStayTime)] = (theItem.qzStayPercentage*100).toFixed(2);
+                        theData[Math.ceil(theStayTime)] = (theItem.qzStayPercentage * 100).toFixed(2);
                     }
 
                 }
@@ -906,12 +917,31 @@ $(function () {
      * @param data
      */
     PageViewModel.prototype.loadAgeView = function (data) {
-        $('.sex-boy-num').text(data.man + '%');
-        $('.sex-girl-num').text(data.woman + '%');
-        for (var i = 1; i <= 10; i++) {
-            $('#age' + i).siblings('span').text((data['age' + i] || 0) + "%");
-            $('#age' + i).css('width', (data['age' + i] / 2) + 'px');
+
+        var man = data.man;
+        var woman = 0;
+        if (man <= 0.6 * 100) {
+            man = (0.6 * 100).toFixed(0);
+            woman = 100 - man;
         }
+        else {
+            man = ((0.25 * (man / 100 - 0.6) + 0.6) * 100).toFixed(0);
+            woman = 100 - man;
+        }
+        $('.man-icon').text(man + '%');
+        $('.woman-icon').text(woman + '%');
+        // debugger;
+        var theDegaer =man * 360 / 100
+        var thePath = this.drawArcByRadiusDeg(118, 59, 59, (theDegaer || 0), 1);
+        ;$('#per-path').attr('d', thePath);
+        var theDatas = [];
+        for (var i = 1; i <= 10; i++) {
+            theDatas.push(data['age' + i]);
+            /*$('#age' + i).siblings('span').text((data['age' + i] || 0) + "%");
+            $('#age' + i).css('width', (data['age' + i] / 2) + 'px');*/
+        }
+        //debugger;
+        this.loadAgeChartBar(theDatas);
     }
     /***
      * 实时客流趋势 ok 需要注意横坐标
@@ -1164,7 +1194,7 @@ $(function () {
                         $('#qzBelong' + theItem.qzBelong).text('(100%)');
                     }
                     else {
-                        $('#qzBelong' + theItem.qzBelong).text('(' + (theItem.qzBelongPercentage * 100 % 100).toFixed(2) + '%)');
+                        $('#qzBelong' + theItem.qzBelong).text('(' + ((theItem.qzBelongPercentage || 0) * 100 % 100).toFixed(2) + '%)');
                     }
 
                 }
@@ -1173,6 +1203,94 @@ $(function () {
         });
     }
 
+    /**
+     * 加载年龄
+     * @param data
+     */
+    PageViewModel.prototype.loadAgeChartBar = function (data) {
+        if (!this.ChartAgeBar) {
+            this.ChartAgeBar = echarts.init(document.getElementById('age-chartview'));
+        }
+
+        data = data || [];
+        if (data.length > 6) {
+            data = data.slice(0, 6);
+        }
+        var option = {
+
+            grid: {
+                left: 10,
+                right: 20,
+                bottom: 10,
+                width: 370,
+                height: 90,
+                containLabel: true
+            },
+            barWidth: 30,
+            xAxis: [
+                {
+//                        type : 'category',
+                    data: ['0-17', '18-24', '25-34', '35-44', '55-54', '55以上'],// '4-5', '5-6', '6-7', '7-8', '8-24',],
+                    "axisTick": {       //y轴刻度线
+                        "show": false
+                    },
+                    "splitLine": {     //网格线
+                        "show": false
+                    },
+                    axisLine: {
+                        show: false,
+                        lineStyle: {
+                            color: '#d9f1ff',
+
+                        }
+
+                    }
+                }
+            ],
+            yAxis: [
+
+                {
+                    type: 'value',
+                    min: '0',
+                    //max: '10',
+                    "show": false,
+                    "axisTick": {       //y轴刻度线
+                        "show": false
+                    },
+                    "splitLine": {     //网格线
+                        "show": false
+                    }
+                }
+            ],
+            series: [
+
+                {
+                    //设置柱形条是否显示数据
+                    label: {
+                        normal: {
+                            show: true,
+                            formatter: function (arg) {
+                                return arg.value + '%';
+                                //return arg;
+                            },
+                            'position': 'top'
+                        }
+                    },
+                    name: '累积',
+                    type: 'bar',
+//                        barWidth:'33.3%',
+                    data: data,// || [4, 5, 6, 3, 4.2, 3.5],
+                    itemStyle: {
+                        normal: {
+                            color: '#80ddfe'
+                        }
+                    }
+                },
+
+            ]
+        };
+        this.ChartAgeBar.setOption(option);
+    }
     /**
      * 查询最新一条数据
      */
@@ -1201,7 +1319,7 @@ $(function () {
             //debugger;
             var inPeople = ((theData['inPeople']) || 0);
             var outPeople = ((theData['outPeople']) || 0);
-            var allPeople = ( outPeople-inPeople);
+            var allPeople = (outPeople - inPeople);
             var unitText = '万';
             if (inPeople < 1000) {
                 unitText = "";

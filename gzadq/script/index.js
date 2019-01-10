@@ -540,6 +540,7 @@ $(function () {
         data3 = data3 || [];
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
+        theCurrentOption.xAxis.name="(日期)";
         var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
@@ -682,6 +683,7 @@ $(function () {
         data2 = data2 || [];
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
+        theCurrentOption.xAxis.name="(日期)";
         var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
@@ -785,6 +787,7 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
+        theCurrentOption.xAxis.name="(日期)";
         theCurrentOption.tooltip.formatter=function (params) {
             var theDatas=[];
             if(params.length>1){
@@ -996,9 +999,18 @@ $(function () {
 
                 //debugger;
                 var theDataMap = {};
+                var keyMap={"港澳台":"省外"};
+               // debugger;
                 for (var i = 0; i < data.data.length; i++) {
                     var theItem = data.data[i];
-                    theDataMap[theItem.fromType] = theItem.percent;
+                    var theFromType=theItem.fromType;
+                    if(keyMap[theItem.fromType]){
+                        theFromType=keyMap[theItem.fromType];
+
+                    }
+
+                    theDataMap[theFromType]=(theDataMap[theFromType]||0)+theItem.percent;
+
                 }
                 //debugger;
                 for (var key in theDataMap) {

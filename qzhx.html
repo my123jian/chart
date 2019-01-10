@@ -28,7 +28,7 @@
 </div>
 <div class="baseView" id="baseView" style="width: 1920px;height: 1080px z-index: 1;">
 
-    <div id="container" class="container"  style="width: 1920px;height: 1080px">
+    <div id="container" class="container" style="width: 1920px;height: 1080px">
     </div>
 </div>
 <div class="map-box"></div>
@@ -61,42 +61,43 @@
                 <p class="newcome-text">累计到港人数</p>
                 <p class="newcome-num in"><span class="newcome-people in">125.5</span>万</p>
             </div>
-            <div class="newcome newcome3">
-                <p class="newcome-text">累计净离港人数</p>
-                <p class="newcome-num all"><span class="newcome-people all">120</span>万</p>
-            </div>
+            <!-- <div class="newcome newcome3">
+                 <p class="newcome-text">累计净离港人数</p>
+                 <p class="newcome-num all"><span class="newcome-people all">120</span>万</p>
+             </div>-->
 
         </div>
 
 
         <div class="left-weather">
             <div class="weather-1">
-                <span class="firstline">天气分析</span>
+                <span class="firstline">天 气</span>
                 <span class="secondline field" data-field="date">2018年12月28日</span>
             </div>
             <div class="weather-2">
-                <img src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>
+                <img style="margin-left: 20px" src="./gzadq/img/icon_temperature.png" class="weather-icon" alt=""/>
                 <div class="w2-right w2-right-top">
                     <span class="weather-litop">温度</span>
                     <span class="weather-libottom field" data-field="wendu">25℃</span>
                 </div>
             </div>
             <div class="weather-2">
-                <img src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>
+                <img style="margin-left: 46px" src="./gzadq/img/icon_wind.png" class="weather-icon" alt=""/>
                 <div class="w2-right w2-right-top">
                     <span class="weather-litop">风向</span>
                     <span class="weather-libottom field" data-field="fengli">东风2级</span>
                 </div>
             </div>
             <div class="weather-2">
-                <img src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>
+                <img style="margin-left: 52px" src="./gzadq/img/icon_fog.png" class="weather-icon" alt=""/>
                 <div class="w2-right w2-right-top">
                     <span class="weather-litop">风速</span>
                     <span class="weather-libottom field" data-field="kejiandu">12公里</span>
                 </div>
             </div>
             <div class="weather-2">
-                <img src="./gzadq/img/icon_rain.png" data-base="./gzadq/img/" class="weather-icon change" alt=""/>
+                <img style="margin-left: 43px" src="./gzadq/img/icon_rain.png" data-base="./gzadq/img/"
+                     class="weather-icon change" alt=""/>
                 <div class="w2-right w2-right-top">
                     <span class="weather-litop">天气状况</span>
                     <span class="weather-libottom field" data-field="jiangshui"></span>
@@ -391,7 +392,7 @@
                     </div>
                     <div class="weather-2" id="weather-close" style="padding-top: 20px; line-height: 0;">
 
-                        <div class="weather-7day " >
+                        <div class="weather-7day ">
                             <img src="./gzadq/img/icon_up.png" class="weather-up" alt=""/>
                             <span class="weather-litop weather-close">收起</span>
 
@@ -400,10 +401,6 @@
                 </li>
             </ul>
         </div>
-
-
-
-
 
 
     </div>
@@ -415,7 +412,7 @@
                 <div class="tab-item tab-item-left" data-index="1">
                     <span class="firstline">客流洞察</span>
                     <span style="float: left" class="dateline">|</span>
-                    <div class="datediv" >
+                    <div class="datediv">
                         <div class="date-icon" id="date-icon">
 
                         </div>
@@ -430,7 +427,7 @@
                 <div class="tab-item tab-item-right select_a" data-index="2">
                     <span class="firstline" style="margin-left: 25px">客流趋势</span>
                     <span style="float: left" class="dateline1">|</span>
-                    <div class="datediv1 datediv2"  style="display: none">
+                    <div class="datediv1 datediv2" style="display: none">
                         <div class="date-icon" id="date-icon1">
 
                         </div>
@@ -445,13 +442,13 @@
                 </div>
 
             </div>
-            <div class="part1 part-1" >
+            <div class="part1 part-1">
 
                 <div class="chart-div">
                     <div class="title">
                         驻留时长洞察
                     </div>
-                    <div id="form_1" ></div>
+                    <div id="form_1"></div>
 
 
                 </div>
@@ -466,8 +463,8 @@
                 </div>
 
 
-                <div class="table-div" style="overflow: hidden">
-                    <div class="chart-div" style="padding-top: 0">
+                <div class="table-div" style="overflow: hidden;height: 180px;">
+                    <!--<div class="chart-div" style="padding-top: 0">
                         <div class="sex">
                             <div class="title">
                                 性别占比
@@ -554,12 +551,45 @@
 
 
                         </tbody>
-                    </table>
+                    </table>-->
+                    <div class="sex-chart">
+                        <div class="title-new">
+                            性别占比
+                        </div>
+                        <div class="content">
+                            <div class="sex-name">男</div>
+                            <div class="sex-chartview">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                     style="height: 118px;width: 118px;">
+                                    <circle cx="59" cy="59" r="59"  fill="#80ddfe"/>
+                                    <path id='per-path' fill="#0c5ab8"/>
+                                </svg>
+                                <div class="overlayer">
+                                    <div class="man-icon">
+                                        57%
+                                    </div>
+                                    <div class="woman-icon">
+                                        43%
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="sex-name">女</div>
+                        </div>
+                    </div>
+                    <div class="age-chart">
+                        <div class="title-new">
+                            年龄占比
+                        </div>
+                        <div id="age-chartview" class="age-chartview">
+
+                        </div>
+                    </div>
                 </div>
 
 
                 <div class="chart-div" style="padding-top: 10px;">
-                    <div class="title" >
+                    <div class="title">
                         归属分析
                     </div>
                     <div class="tab-direction tab-imgage1">
@@ -636,25 +666,25 @@
                         每周客流趋势
                     </div>
 
-                    <div class="chart" id="chart2" >
+                    <div class="chart" id="chart2">
 
                     </div>
                 </div>
-                <div class="chart-div" >
+                <div class="chart-div">
                     <div class="title">
                         每周到港人数趋势
                     </div>
 
-                    <div class="chart" id="chart3" >
+                    <div class="chart" id="chart3">
 
                     </div>
                 </div>
-                <div class="chart-div" >
+                <div class="chart-div">
                     <div class="title">
                         每周离港人数趋势
                     </div>
 
-                    <div class="chart" id="chart4" >
+                    <div class="chart" id="chart4">
 
                     </div>
                 </div>
@@ -670,9 +700,6 @@
 </div>
 
 <script type="text/javascript">
-
-
-
 
 
 </script>

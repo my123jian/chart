@@ -10,31 +10,143 @@
     <script src="lib/base.js"></script>
     <script src="lib/PageViewBase.js"></script>
     <script src="lib/laydate.js"></script>
+
     <script src="yxzk/script/index.js"></script>
 </head>
 <body>
 <!--运输总览-->
 <div class="part1">
     <div class="title">运输总览</div>
-    <input value="2019年1月21日" class="date">
+    <input value="2019年1月21日" class="date" id="date1">
     <div class="date-text">春运第一天</div>
+    <div class="content">
+        <div class="allinfo">
+            <table>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        <div class="table-icon-bg table-icon-bg1">发送总量</div>
+                    </td>
+                    <td>
+                        <div class="table-icon-bg table-icon-bg2">公路发送</div>
+                    </td>
+                    <td>
+                        <div class="table-icon-bg table-icon-bg3">铁路发送</div>
+                    </td>
+                    <td>
+                        <div class="table-icon-bg table-icon-bg4">水路发送</div>
+                    </td>
+                    <td>
+                        <div class="table-icon-bg table-icon-bg5">民航发送</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><div class="row-title">当日发送量/<br/>去年同比</div></td>
+                    <td>750.86万<span class="green">↑1.56%</span></td>
+                    <td>750.86万<span class="red">↓1.56%</span></td>
+                    <td>750.86万<span class="green">↑1.56%</span></td>
+                    <td>750.86万<span class="green">↑1.56%</span></td>
+                    <td>750.86万<span class="green">↑1.56%</span></td>
+                </tr>
+                <tr>
+                    <td><div class="row-title">累计发送量/<br/>去年同比</div></td>
+                    <td>750.86万<span class="red">↓1.56%</span></td>
+                    <td>750.86万<span class="red">↓1.56%</span></td>
+                    <td>750.86万<span class="red">↓1.56%</span></td>
+                    <td>750.86万<span class="red">↓1.56%</span></td>
+                    <td>750.86万<span class="red">↓1.56%</span></td>
+                </tr>
+            </table>
+        </div>
+        <div class="airinfo">
+            <table>
+                <tr>
+                    <td>
+                        <div class="table-icon-small table-icon-small1">航班信息</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>发送航班:
+                        <div class="num">336</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>到达航班:
+                        <div class="num">336</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>延误航班:
+                        <div class="num">336</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>延误旅客:
+                        <div class="num">336人</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="traininfo">
+            <table>
+                <tr>
+                    <td>
+                        <div class="table-icon-small table-icon-small2">列车信息</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>发送列次:
+                        <div class="num">
+                            <span class="smallnum">总量</span>1111<span class="smallnum smallnum1">高铁</span>3666
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>到达列次:
+                        <div class="num"><span class="smallnum">总量</span>1111<span class="smallnum smallnum1">高铁</span>3666</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>延误列次:
+                        <div class="num">336</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>延误旅客:
+                        <div class="num">336人</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
 <!--运输趋势-->
 <div class="part2">
     <div class="title">运输趋势</div>
-    <input value="2019年1月21日" class="date">
+    <input value="2019年1月21日" class="date" id="date2">
     <div class="date-text">春运第一天</div>
     <div class="right-title1">旅客发送趋势及预测</div>
     <div class="right-title2">航班/列车收发趋势</div>
+    <div class="btn-contain">
+        <div class="btn active">发送量</div>
+        <div class="btn ">累计发送量</div>
+
+    </div>
+
+    <div id="chart1"></div>
+
 </div>
 <!--交通枢纽旅客趋势-->
 <div class="part3">
     <div class="title">交通枢纽旅客趋势</div>
-    <input value="2019年1月21日" class="date">
+    <input value="2019年1月21日" class="date" id="date3">
     <div class="date-text">春运第一天</div>
     <select class="select">
         <option value="深圳宝安国际机场">深圳宝安国际机场</option>
     </select>
+    <div id="chart2"></div>
 </div>
 <script type="text/javascript">
 

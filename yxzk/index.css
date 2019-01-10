@@ -5,11 +5,12 @@
     padding: 0px;
 }
 
-html body {
+html, body {
     margin: 0px;
     padding: 0px;
     width: 1920px;
     height: 1080px;
+    overflow: hidden;
     background-image: url("img/bg.png");
 }
 
@@ -51,6 +52,7 @@ html body {
 
 .date {
     line-height: 30px;
+    /* padding-right: 2px; */
     display: inline-block;
     background: transparent;
     color: white;
@@ -63,24 +65,51 @@ html body {
     line-height: 32px;
     /* padding-right: 32px; */
     right: 0px;
-    text-align: center;
+    text-align: left;
     vertical-align: middle;
     outline: none;
     margin-left: 141px;
     margin-right: 14px;
     background: url(img/icon_down.png) no-repeat transparent;
-    background-position-x: 138px;
+    background-position-x: 141px;
     background-position-y: 9px;
     background-size: 14px 8px;
 }
 
-.part1 .date,.part2 .date{
-    margin-left: 235px!important;
+.part1 .date, .part2 .date {
+    margin-left: 235px !important;
 }
+
 .date-text {
     line-height: 30px;
     color: #ddf3ff;
     display: inline-block;
+}
+
+.part1 .content {
+    width: 1850px;
+    height: 239px;
+    /*background: red*/
+}
+
+.allinfo {
+    float: left;
+    width: 1271px;
+    height: 100%;
+}
+
+.airinfo {
+    float: left;
+    width: 248px;
+    border-left: solid #1a75ac 1px;
+    height: 100%;
+}
+
+.traininfo {
+    float: left;
+    width: 328px;
+    border-left: solid #1a75ac 1px;
+    height: 100%;
 }
 
 .select {
@@ -106,7 +135,8 @@ html body {
     background-size: 14px 8px;
     font-size: 24px;
 }
-.right-title1{
+
+.right-title1 {
     font-size: 24px;
     padding-right: 15px;
     margin-left: 680px;
@@ -115,7 +145,8 @@ html body {
     display: inline-block;
     cursor: pointer;
 }
-.right-title2{
+
+.right-title2 {
     font-size: 24px;
     padding-right: 15px;
     margin-left: 20px;
@@ -124,9 +155,145 @@ html body {
     display: inline-block;
     cursor: pointer;
 }
-.part2.active .right-title1{
+
+.part2.active .right-title1 {
     color: #289ee5;
 }
-.part2.active .right-title2{
+
+.part2.active .right-title2 {
     color: #d9f1ff;
+}
+
+.btn-contain {
+    width: 300px;
+    height: 30px;
+    line-height: 30px;
+    color: #ddf3ff;
+    font-size: 18px;
+    text-align: center;
+    /* float: right;
+    margin-right: 10px;
+    margin-top: 22px;*/
+    z-index: 10;
+    right: 44px;
+    /*top:56px;*/
+    position: absolute;
+
+}
+
+.btn {
+    width: 115px;
+    text-align: center;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 22px;
+    z-index: 10;
+    right: 44px;
+    /*top:56px;*/
+}
+
+.btn.active {
+    background: url("img/btn_01.png");
+}
+
+table {
+    width: 100%;
+    height: 100%;
+    color: #ffffff;
+    text-align: center;
+}
+
+table > td {
+    text-align: center;
+}
+
+.table-icon-bg {
+    font-size: 18px;
+    color: #ffffff;
+
+    background-position: top center;
+    padding-top: 66px;
+    background-repeat: no-repeat;
+}
+
+.table-icon-bg1 {
+    background-image: url(img/icon_01.png);
+}
+
+.table-icon-bg2 {
+    background-image: url(img/icon_02.png);
+}
+
+.table-icon-bg3 {
+    background-image: url(img/icon_03.png);
+}
+
+.table-icon-bg4 {
+    background-image: url(img/icon_04.png);
+}
+
+.table-icon-bg5 {
+    background-image: url(img/icon_05.png);
+}
+
+.table-icon-small {
+    font-size: 20px;
+    color: #ffffff;
+    background-position: left center;
+    padding-left: 64px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.table-icon-small1 {
+    background-image: url(img/icon_06.png);
+}
+
+.table-icon-small2 {
+    background-image: url(img/icon_07.png);
+}
+
+.airinfo .num {
+    font-size: 10px;
+    color: #80ddfe;
+    width: 118px;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.traininfo .num {
+    font-size: 10px;
+    color: #80ddfe;
+    width: 180px;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.traininfo .smallnum {
+    font-size: 14px;
+    margin-right: 6px;
+}
+
+.smallnum1 {
+    margin-left: 22px;
+}
+
+.red {
+    color: #fd1e28;
+    margin-left: 6px;
+}
+
+.green {
+    color: #1eff1e;
+    margin-left: 6px;
+}
+
+.row-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#chart1, #chart2 {
+    width: 1850px;
+    height: 250px;
 }
