@@ -755,6 +755,7 @@ $(function () {
                     "5": "qita",
                 };
 
+                var theRowMap={};
                 for (var i = 0; i < theData.length; i++) {
                     var theDataItem = theData[i];
                     var theRow = {

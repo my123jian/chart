@@ -90,6 +90,9 @@
         var values=[];
         for (var i = 0; i < data.length; i++) {
             var theItem = data[i];
+            if(!theItem.from||!theItem.to){
+                continue;
+            }
             theItem.from=theItem.from.trim();
             theItem.to=theItem.to.trim();
             if (!theCitys[theItem.from] || !theCitys[theItem.to]) {

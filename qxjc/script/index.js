@@ -191,7 +191,7 @@ $(function () {
         $('#date-input').val(formateDate1());
     }
     PageViewModel.prototype.initEvent = function () {
-        var me=this;
+        var me = this;
         this.updateDate();
         $('.topbutton').click(function () {
             var theUrl = $(this).data('url');
@@ -205,22 +205,22 @@ $(function () {
         });
         $('.btn-contain .btn').click(
             function () {
-                if($(this).hasClass('active')){
+                if ($(this).hasClass('active')) {
                     return;
                 }
-                else{
+                else {
                     $('.btn-contain .btn').removeClass('active');
                     $(this).addClass('active');
-                    $('#chart4').data('mode',$(this).data('mode'));
+                    $('#chart4').data('mode', $(this).data('mode'));
 
-                    var theData=$('#chart4').data('data')||{};
+                    var theData = $('#chart4').data('data') || {};
                     //1 人口总量 2  迁入迁出
-                    var theMode=$('#chart4').data('mode')||1;
-                    if(theMode==1){
-                        me.showChart4(theXData,theData['dataPopulationGd1']||[],theData['dataPopulationGd2']||[],theData['dataResi1']||[], theData['dataResi2']||[],theMode);
+                    var theMode = $('#chart4').data('mode') || 1;
+                    if (theMode == 1) {
+                        me.showChart4(theXData, theData['dataPopulationGd1'] || [], theData['dataPopulationGd2'] || [], theData['dataResi1'] || [], theData['dataResi2'] || [], theMode);
                     }
-                    else{
-                        me.showChart4(theXData,theData['dataMigOut1']||[],theData['dataMigOut2']||[],theData['dataMigIn1']||[], theData['dataMigIn2']||[],theMode);
+                    else {
+                        me.showChart4(theXData, theData['dataMigOut1'] || [], theData['dataMigOut2'] || [], theData['dataMigIn1'] || [], theData['dataMigIn2'] || [], theMode);
                     }
 
                 }
@@ -692,8 +692,8 @@ $(function () {
         ];
         this.Chart3.setOption(theCurrentOption);
     }
-    PageViewModel.prototype.loadChart4=function(theXData, dataPopulationGd1, dataMigIn1, dataMigOut1, dataPopulationGd2, dataMigIn2, dataMigOut2, dataResi1, dataResi2){
-         dataPopulationGd1 = dataPopulationGd1 || [];
+    PageViewModel.prototype.loadChart4 = function (theXData, dataPopulationGd1, dataMigIn1, dataMigOut1, dataPopulationGd2, dataMigIn2, dataMigOut2, dataResi1, dataResi2) {
+        dataPopulationGd1 = dataPopulationGd1 || [];
         dataPopulationGd2 = dataPopulationGd2 || [];
         dataResi1 = dataResi1 || [];
         dataResi2 = dataResi2 || [];
@@ -704,16 +704,23 @@ $(function () {
         dataMigOut2 = dataMigOut2 || [];
 
         $('#chart4').data('data',
-            {dataPopulationGd1:dataPopulationGd1,dataPopulationGd2:dataPopulationGd2,dataResi1:dataResi1,dataResi2:dataResi2,
-                dataMigIn1:dataMigIn1,dataMigOut1:dataMigOut1,dataMigIn2:dataMigIn2,dataMigOut2:dataMigOut2
+            {
+                dataPopulationGd1: dataPopulationGd1,
+                dataPopulationGd2: dataPopulationGd2,
+                dataResi1: dataResi1,
+                dataResi2: dataResi2,
+                dataMigIn1: dataMigIn1,
+                dataMigOut1: dataMigOut1,
+                dataMigIn2: dataMigIn2,
+                dataMigOut2: dataMigOut2
             });
         //1 人口总量 2  迁入迁出
-        var theMode=$('#chart4').data('mode')||1;
-        if(theMode==1){
-            this.showChart4(theXData,dataPopulationGd1,dataPopulationGd2,dataResi1, dataResi2,theMode);
+        var theMode = $('#chart4').data('mode') || 1;
+        if (theMode == 1) {
+            this.showChart4(theXData, dataPopulationGd1, dataPopulationGd2, dataResi1, dataResi2, theMode);
         }
-        else{
-            this.showChart4(theXData,dataMigOut1,dataMigOut2,dataMigIn1, dataMigIn2,theMode);
+        else {
+            this.showChart4(theXData, dataMigOut1, dataMigOut2, dataMigIn1, dataMigIn2, theMode);
         }
 
     }
@@ -726,13 +733,13 @@ $(function () {
      * @param data22
      * @param theMode  //1 人口总量 2  迁入迁出
      */
-    PageViewModel.prototype.showChart4 = function (theXData, data11,  data12,  data21,  data22,theMode) {
+    PageViewModel.prototype.showChart4 = function (theXData, data11, data12, data21, data22, theMode) {
         if (!this.Chart4) {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
         }
 
         //1 人口总量 2  迁入迁出
-        var theMode=$('#chart4').data('mode')||1;
+        var theMode = $('#chart4').data('mode') || 1;
 
         var theBeginDate = new Date('2019-01-21');
         var theXData = [];
@@ -744,11 +751,11 @@ $(function () {
             {name: '迁出', textStyle: {color: "#32ff4b"}},
             {name: '迁入', textStyle: {color: "#4293f2"}}
         ];
-        var theName1="人口总量";
-        var theName2="常驻人口";
-        if(theMode==2){
-             theName1="迁出";
-             theName2="迁入";
+        var theName1 = "人口总量";
+        var theName2 = "常驻人口";
+        if (theMode == 2) {
+            theName1 = "迁出";
+            theName2 = "迁入";
         }
         theXData.push(theBeginDate.getTime());
         for (var i = 1; i < 40; i++) {
@@ -786,10 +793,10 @@ $(function () {
             },
             color: theColors,
             legend: theLegends.filter(function (item) {
-                if(theMode==1&&(item.name=="人口总量"||item.name=="常驻人口")){
+                if (theMode == 1 && (item.name == "人口总量" || item.name == "常驻人口")) {
                     return true;
                 }
-                else if(item.name=="迁出"||item.name=="迁入"){
+                else if (item.name == "迁出" || item.name == "迁入") {
                     return true;
                 }
                 return false;
@@ -1090,7 +1097,7 @@ $(function () {
                         }
                     }
                 }
-
+                //debugger;
                 if (thePredictList && thePredictList.length > 0) {
                     for (var i = 0; i < thePredictList.length; i++) {
                         var theItem = thePredictList[i];
@@ -1103,10 +1110,10 @@ $(function () {
                outNum: 4844850
                statDate: "2019-01-21"
                * */
-                            dataPopulationGd2.push((theItem.countNum||0) * theRate);
-                            dataMigIn2.push((theItem.inNum||0) * theRate);
-                            dataMigOut2.push((theItem.outNum||0) * theRate);
-                            dataResi2.push((theItem.populationResi||0) * theRate);
+                            dataPopulationGd2.push((theItem.countNum || 0) * theRate);
+                            dataMigIn2.push((theItem.inNum || 0) * theRate);
+                            dataMigOut2.push((theItem.outNum || 0) * theRate);
+                            dataResi2.push((theItem.populationResi || 0) * theRate);
                         }
                     }
                 }
