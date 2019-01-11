@@ -800,7 +800,8 @@ toCity: "深圳"
 
                     for (var j = 0; j < theDataItem.list.length; j++) {
                         var theCellItem = theDataItem.list[j];
-                        theRow[theChannelMap[theCellItem.outChannel || theCellItem.inChannel || theCellItem.migChannel]] = (theCellItem.outPercentage || theCellItem.inPercentage || theCellItem.oPercentage);
+
+                        theRow[theChannelMap[theCellItem.outChannel || theCellItem.inChannel || theCellItem.migChannel]] = ((theCellItem.outPercentage || theCellItem.inPercentage || theCellItem.oPercentage||0)*100).toFixed(2);
                        //debugger;
 
                     }
