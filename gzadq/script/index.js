@@ -486,6 +486,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
+                symbol: 'none',
                 data: data,
                 areaStyle: {
                     normal: {
@@ -598,6 +599,7 @@ $(function () {
                 //    backgroundColor: 'red',
                 //},
                 smooth: true,
+                symbol: 'none',
                 data: data1.map(function (item) {
                     return (item / 10000).toFixed(2);
                 }),// || [1, 1, 1, 1, 1, 1],
@@ -643,6 +645,7 @@ $(function () {
                     }
                 },
                 smooth: true,
+                symbol: 'none',
                 //stack: '总量',
                 data: data2.map(function (item) {
                     return (item / 10000).toFixed(2);
@@ -664,6 +667,7 @@ $(function () {
                     }
                 },
                 smooth: true,
+                symbol: 'none',
                 //stack: '总量',
                 data: data3.map(function (item) {
                     return (item / 10000).toFixed(2);
@@ -725,6 +729,7 @@ $(function () {
                     //stack: '总量',
                     name: '每日客流',
                     smooth: true,
+                    symbol: 'none',
                     data: data1.map(function (item) {
                         return (item / 10000).toFixed(2);
                     }),// || [820, 932, 901, 934, 1290, 1330],
@@ -772,6 +777,7 @@ $(function () {
                         }
                     },
                     smooth: true,
+                    symbol: 'none',
                     //stack: '总量',
                     data: data2.map(function (item) {
                         return (item / 10000).toFixed(2);
@@ -820,6 +826,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
+                symbol: 'none',
                 data: data,// || [820, 932, 901, 934, 1290, 1330],
                 lineStyle: {
                     normal: {

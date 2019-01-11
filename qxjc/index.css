@@ -319,3 +319,34 @@ html body {
     width: 1194px;
     height: 246px;
 }
+.btn-contain {
+    width: 300px;
+    height: 30px;
+    line-height: 30px;
+    color: #ddf3ff;
+    font-size: 18px;
+    text-align: center;
+    /* float: right;
+    margin-right: 10px;
+    margin-top: 22px;*/
+    z-index: 10;
+    right: 44px;
+    top:25px;
+    position: absolute;
+
+}
+
+.btn {
+    width: 115px;
+    text-align: center;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 22px;
+    z-index: 10;
+    right: 44px;
+    /*top:56px;*/
+}
+
+.btn.active {
+    background: url("img/btn_01.png");
+}

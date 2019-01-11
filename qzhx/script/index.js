@@ -358,6 +358,7 @@ $(function () {
                 },
                 //stack: '总量',
                 smooth: true,
+                symbol: 'none',
                 data: data1,//|| [11, 14, 22, 15, 7, 8],
                 areaStyle: {
                     normal: {
@@ -399,6 +400,7 @@ $(function () {
                     }
                 },
                 smooth: true,
+                symbol: 'none',
                 //stack: '总量',
                 data: data2 //|| [5, 6, 7, 8, 11, 12]
             }
@@ -473,6 +475,7 @@ $(function () {
                     color: '#d1b96b'
                 },
                 smooth: true,
+                symbol: 'none',
                 data: data1.map(function (item) {
                     return (item / 10000).toFixed(2);
                 }),// || [11, 14, 22, 15, 7, 8],
@@ -561,6 +564,7 @@ $(function () {
                 //stack: '总量',
                 name: '每日客流',
                 smooth: true,
+                symbol: 'none',
                 data: data1.map(function (item) {
                     return (item / 10000).toFixed(2);
                 }),// || [11, 14, 22, 15, 7, 8],
@@ -643,6 +647,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
+                symbol: 'none',
                 data: data1.map(function (item) {
                     return (item / 10000).toFixed(2);
                 }),// || [11, 14, 22, 15, 7, 8],

@@ -191,6 +191,7 @@ $(function () {
         $('#date-input').val(formateDate1());
     }
     PageViewModel.prototype.initEvent = function () {
+        var me=this;
         this.updateDate();
         $('.topbutton').click(function () {
             var theUrl = $(this).data('url');
@@ -202,6 +203,29 @@ $(function () {
                 console.log("未找到对应的URL不跳转！");
             }
         });
+        $('.btn-contain .btn').click(
+            function () {
+                if($(this).hasClass('active')){
+                    return;
+                }
+                else{
+                    $('.btn-contain .btn').removeClass('active');
+                    $(this).addClass('active');
+                    $('#chart4').data('mode',$(this).data('mode'));
+
+                    var theData=$('#chart4').data('data')||{};
+                    //1 人口总量 2  迁入迁出
+                    var theMode=$('#chart4').data('mode')||1;
+                    if(theMode==1){
+                        me.showChart4(theXData,theData['dataPopulationGd1']||[],theData['dataPopulationGd2']||[],theData['dataResi1']||[], theData['dataResi2']||[],theMode);
+                    }
+                    else{
+                        me.showChart4(theXData,theData['dataMigOut1']||[],theData['dataMigOut2']||[],theData['dataMigIn1']||[], theData['dataMigIn2']||[],theMode);
+                    }
+
+                }
+            }
+        );
         // $('#date-action').click(function () {
         //$('#date-input').click();
         /*laydate.render({
@@ -487,6 +511,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
+                symbol: 'none',
                 data: data1.map(function (item) {
                     return (item / 10000).toFixed(2);
                 }),
@@ -551,6 +576,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
+                symbol: 'none',
                 data: data1.map(function (item) {
                     return (item / 10000).toFixed(2);
                 }),
@@ -616,6 +642,7 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
+                symbol: 'none',
                 data: data1.map(function (item) {
                     return (item / 10000).toFixed(2);
                 }),
@@ -665,42 +692,70 @@ $(function () {
         ];
         this.Chart3.setOption(theCurrentOption);
     }
-    PageViewModel.prototype.loadChart4 = function (theXData, dataPopulationGd1, dataMigIn1, dataMigOut1, dataPopulationGd2, dataMigIn2, dataMigOut2, dataResi1, dataResi2) {
+    PageViewModel.prototype.loadChart4=function(theXData, dataPopulationGd1, dataMigIn1, dataMigOut1, dataPopulationGd2, dataMigIn2, dataMigOut2, dataResi1, dataResi2){
+         dataPopulationGd1 = dataPopulationGd1 || [];
+        dataPopulationGd2 = dataPopulationGd2 || [];
+        dataResi1 = dataResi1 || [];
+        dataResi2 = dataResi2 || [];
+
+        dataMigIn1 = dataMigIn1 || [];
+        dataMigOut1 = dataMigOut1 || [];
+        dataMigIn2 = dataMigIn2 || [];
+        dataMigOut2 = dataMigOut2 || [];
+
+        $('#chart4').data('data',
+            {dataPopulationGd1:dataPopulationGd1,dataPopulationGd2:dataPopulationGd2,dataResi1:dataResi1,dataResi2:dataResi2,
+                dataMigIn1:dataMigIn1,dataMigOut1:dataMigOut1,dataMigIn2:dataMigIn2,dataMigOut2:dataMigOut2
+            });
+        //1 人口总量 2  迁入迁出
+        var theMode=$('#chart4').data('mode')||1;
+        if(theMode==1){
+            this.showChart4(theXData,dataPopulationGd1,dataPopulationGd2,dataResi1, dataResi2,theMode);
+        }
+        else{
+            this.showChart4(theXData,dataMigOut1,dataMigOut2,dataMigIn1, dataMigIn2,theMode);
+        }
+
+    }
+    /**
+     *
+     * @param theXData
+     * @param data11
+     * @param data12
+     * @param data21
+     * @param data22
+     * @param theMode  //1 人口总量 2  迁入迁出
+     */
+    PageViewModel.prototype.showChart4 = function (theXData, data11,  data12,  data21,  data22,theMode) {
         if (!this.Chart4) {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
         }
 
-        dataPopulationGd1 = dataPopulationGd1 || [];
-        dataMigIn1 = dataMigIn1 || [];
-        dataMigOut1 = dataMigOut1 || [];
-        dataPopulationGd2 = dataPopulationGd2 || [];
-        dataMigIn2 = dataMigIn2 || [];
-        dataMigOut2 = dataMigOut2 || [];
-        dataResi1 = dataResi1 || [];
-        dataResi2 = dataResi2 || [];
+        //1 人口总量 2  迁入迁出
+        var theMode=$('#chart4').data('mode')||1;
+
         var theBeginDate = new Date('2019-01-21');
         var theXData = [];
-        /*var theMinDate = theXData.min(function(a,b){
-            return a.getTime()<b.getTime();
-        });*/
+        var theColors = ['#32ff4b', '#4293f2'];
 
-        /*if (theMinDate) {
-            if (theMinDate.length == 8) {
-                theBeginDate = new Date(theMinDate.substr(0, 4) + '-' + theMinDate.substr(4, 2) + '-' + theMinDate.substr(6, 2))
-            }
-            else {
-                theBeginDate = new Date(theMinDate);
-            }
-        }*/
+        var theLegends = [
+            {name: '人口总量', textStyle: {color: "#32ff4b"}},
+            {name: '常驻人口', textStyle: {color: "#4293f2"}},
+            {name: '迁出', textStyle: {color: "#32ff4b"}},
+            {name: '迁入', textStyle: {color: "#4293f2"}}
+        ];
+        var theName1="人口总量";
+        var theName2="常驻人口";
+        if(theMode==2){
+             theName1="迁出";
+             theName2="迁入";
+        }
         theXData.push(theBeginDate.getTime());
         for (var i = 1; i < 40; i++) {
             theBeginDate.setDate(theBeginDate.getDate() + 1);
             theXData.push(theBeginDate.getTime());
         }
         var option = {
-            /*title: {
-                text: '折线图堆叠'
-            },*/
             tooltip: {
                 trigger: 'axis',
                 //show:true,
@@ -726,42 +781,19 @@ $(function () {
                             theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
                         }
                     }
-                    /* while (theIndex < params.length - 1) {
-
-                         theText += params[theIndex].data + "<br />";
-                         theIndex += 2;
-                     }*/
                     return theDatas.join('<br />');
                 }
             },
-
-            legend: {
-                textStyle: {
-                    color: '#557398',
-                },
-                data: [{name: '人口总量', textStyle: {color: "#ffdc6f"}},
-                    {name: '常驻人口', textStyle: {color: "#ffdc6f"}},
-                    {
-                        name: '迁出',
-                        textStyle: {color: "#32ff4b"}
-                    }, {name: '迁入', textStyle: {color: "#4293f2"}}
-                ]
-            },
-
-
-            /* visualMap:{
-                 show:false,
-                 seriesIndex:1,
-             },*/
-            /*legend: {
-                data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
-            },*/
-            /* grid: {
-                 left: '3%',
-                 right: '4%',
-                 bottom: '3%',
-                 containLabel: true
-             },*/
+            color: theColors,
+            legend: theLegends.filter(function (item) {
+                if(theMode==1&&(item.name=="人口总量"||item.name=="常驻人口")){
+                    return true;
+                }
+                else if(item.name=="迁出"||item.name=="迁入"){
+                    return true;
+                }
+                return false;
+            }),
             grid: {
                 left: 0,
                 right: 30,
@@ -771,12 +803,6 @@ $(function () {
                 height: 216,
                 containLabel: true
             },
-            /*toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },*/
-
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
@@ -788,7 +814,6 @@ $(function () {
                 },
                 axisPointer: {
                     label: {
-
                         color: '#05cffa',
                         formatter: function (arg) {
                             //debugger;
@@ -834,128 +859,12 @@ $(function () {
             series: [
 
                 {
-                    name: '人口总量',
+                    name: theName1,
                     type: 'line',
+                    symbol: 'none',
                     //stack: '总量',
                     smooth: true,
-                    showSymbol: false,
-                    tooltip: {
-                        position: 'left',
-                        /*function (point, params, dom, rect, size) {
-                            // 固定在顶部
-                            return [point[0], '10%'];
-                        }*/
-                    },
-                    data: dataPopulationGd1.map(function (item) {
-                        return (item / 10000).toFixed(2)
-                    }),
-                    areaStyle: {
-                        normal: {
-                            color: {
-                                type: 'linear',
-                                x: 0,
-                                y: 0,
-                                x2: 0,
-                                y2: 1,
-                                colorStops: [{
-                                    offset: 0, color: 'rgba(255,220,111,0.3)'
-                                }, {
-                                    offset: 0.5, color: 'rgba(255,220,111,0.15)'
-                                }, {
-                                    offset: 1, color: 'rgba(255,220,111,0)'
-                                }]
-                            }
-                        }
-                    },
-                    lineStyle: {
-                        normal: {
-                            color: '#ffdc6f'
-                        }
-                    }
-                },
-                {
-                    name: '人口总量',
-                    type: 'line',
-                    itemStyle: {
-                        normal: {
-                            lineStyle: {
-                                width: 2,
-                                color: '#ffdc6f',
-                                type: 'dotted'  //'dotted'虚线 'solid'实线
-                            }
-                        }
-                    },
-                    smooth: true,
-                    //stack: '总量',
-                    data: dataPopulationGd2.map(function (item) {
-                        return (item / 10000).toFixed(2)
-                    })
-                },
-
-                {
-                    name: '常驻人口',
-                    type: 'line',
-                    //stack: '总量',
-                    smooth: true,
-                    showSymbol: false,
-                    tooltip: {
-                        position: 'left',
-                        /*function (point, params, dom, rect, size) {
-                            // 固定在顶部
-                            return [point[0], '10%'];
-                        }*/
-                    },
-                    data: dataResi1.map(function (item) {
-                        return (item / 10000).toFixed(2)
-                    }),
-                    areaStyle: {
-                        normal: {
-                            color: {
-                                type: 'linear',
-                                x: 0,
-                                y: 0,
-                                x2: 0,
-                                y2: 1,
-                                colorStops: [{
-                                    offset: 0, color: 'rgba(255,220,111,0.3)'
-                                }, {
-                                    offset: 0.5, color: 'rgba(255,220,111,0.15)'
-                                }, {
-                                    offset: 1, color: 'rgba(255,220,111,0)'
-                                }]
-                            }
-                        }
-                    },
-                    lineStyle: {
-                        normal: {
-                            color: '#ffdc6f'
-                        }
-                    }
-                },
-                {
-                    name: '常驻人口',
-                    type: 'line',
-                    itemStyle: {
-                        normal: {
-                            lineStyle: {
-                                width: 2,
-                                color: '#ffdc6f',
-                                type: 'dotted'  //'dotted'虚线 'solid'实线
-                            }
-                        }
-                    },
-                    smooth: true,
-                    //stack: '总量',
-                    data: dataResi2.map(function (item) {
-                        return (item / 10000).toFixed(2)
-                    })
-                },
-                {
-                    name: '迁入',
-                    type: 'line',
-                    //stack: '总量',
-                    smooth: true,
-                    data: dataMigIn1.map(function (item) {
+                    data: data11.map(function (item) {
                         return (item / 10000).toFixed(2)
                     }),
                     lineStyle: {
@@ -983,8 +892,9 @@ $(function () {
                     },
                 },
                 {
-                    name: '迁入',
+                    name: theName1,
                     type: 'line',
+                    symbol: 'none',
                     itemStyle: {
                         normal: {
                             lineStyle: {
@@ -996,19 +906,18 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: dataMigIn2.map(function (item) {
+                    data: data12.map(function (item) {
                         return (item / 10000).toFixed(2)
                     }),
                 },
-
-
                 {
-                    name: '迁出',
+                    name: theName2,
                     type: 'line',
+                    symbol: 'none',
                     z: 1,
                     //stack: '总量',
                     smooth: true,
-                    data: dataMigOut1.map(function (item) {
+                    data: data21.map(function (item) {
                         return (item / 10000).toFixed(2)
                     }),
                     lineStyle: {
@@ -1036,7 +945,7 @@ $(function () {
                     },
                 },
                 {
-                    name: '迁出',
+                    name: theName2,
                     symbol: 'none',
                     z: 2,
                     type: 'line',
@@ -1051,7 +960,7 @@ $(function () {
                     },
                     smooth: true,
                     //stack: '总量',
-                    data: dataMigOut2.map(function (item) {
+                    data: data22.map(function (item) {
                         return (item / 10000).toFixed(2)
                     })
                 },
@@ -1194,10 +1103,10 @@ $(function () {
                outNum: 4844850
                statDate: "2019-01-21"
                * */
-                            dataPopulationGd2.push(theItem.countNum * theRate);
-                            dataMigIn2.push(theItem.inNum * theRate);
-                            dataMigOut2.push(theItem.outNum * theRate);
-                            dataResi2.push(theItem.populationResi * theRate);
+                            dataPopulationGd2.push((theItem.countNum||0) * theRate);
+                            dataMigIn2.push((theItem.inNum||0) * theRate);
+                            dataMigOut2.push((theItem.outNum||0) * theRate);
+                            dataResi2.push((theItem.populationResi||0) * theRate);
                         }
                     }
                 }
