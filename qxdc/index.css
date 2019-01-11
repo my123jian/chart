@@ -597,3 +597,18 @@ iframe {
 .index5{
     background-image: url("img/5.png");
 }
+
+.row-index{
+    /*float: left;*/
+    font-family: MicrosoftYaHei;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #12DDDA;
+    color: #112C63;
+    margin-right: 10px;
+    display: inline-block;
+}
