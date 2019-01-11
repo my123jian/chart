@@ -1173,8 +1173,8 @@ $(function () {
                 }
                 //debugger;
                 me.loadChart1(theXData, dataPopulationGd1, dataPopulationGd2);
-                me.loadChart2(theXData, dataMigIn1, dataMigIn2);
-                me.loadChart3(theXData, dataMigOut1, dataMigOut2);
+                me.loadChart2(theXData,dataMigOut1, dataMigOut2 );
+                me.loadChart3(theXData, dataMigIn1, dataMigIn2);
             }
             else {
                 console.log("loadCurrent错误:" + data);
