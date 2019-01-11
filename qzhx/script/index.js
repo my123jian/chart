@@ -431,13 +431,16 @@ $(function () {
         for (var i = 0; i < xData.length; i++) {
             theMap[xData[i]] = data1[i];
         }
+        //debugger;
+        var me=this;
+
         while (theEndDate.getTime() > theBeginDate.getTime()) {
 
             var thekey = theBeginDate.getFullYear() + '' + FormateDateNum(theBeginDate.getMonth() + 1) + '' + FormateDateNum(theBeginDate.getDate());
             theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
 
             if (maxDate) {
-                if (theBeginDate.getTime() > new Date(maxDate).getTime()) {
+                if (theBeginDate.getTime() > me.parserDate(maxDate).getTime()) {
                     theBeginDate.setDate(theBeginDate.getDate() + 1);
                     continue;
                 }
@@ -542,7 +545,7 @@ $(function () {
             theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
 
             if (maxDate) {
-                if (theBeginDate.getTime() > new Date(maxDate).getTime()) {
+                if (theBeginDate.getTime() > this.parserDate(maxDate).getTime()) {
                     theBeginDate.setDate(theBeginDate.getDate() + 1);
                     continue;
                 }
@@ -626,7 +629,7 @@ $(function () {
             theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
 
             if (maxDate) {
-                if (theBeginDate.getTime() > new Date(maxDate).getTime()) {
+                if (theBeginDate.getTime() > this.parserDate(maxDate).getTime()) {
                     theBeginDate.setDate(theBeginDate.getDate() + 1);
                     continue;
                 }
@@ -1073,6 +1076,7 @@ $(function () {
                      "statDate": "2018-12-13"
                  }]
              };*/
+            //var theMaxDate=null;
             if (res && res.isSuccess) {
                 for (var i = 0; i < res.data.length; i++) {
                     var theItem = res.data[i];

@@ -1,5 +1,6 @@
 
 * {
+    font-family: "微软雅黑", "Microsoft YaHei", Tahoma, Verdana;
     background-repeat: no-repeat;
     margin: 0px;
     padding: 0px;
@@ -77,9 +78,11 @@ html, body {
 }
 
 .part1 .date, .part2 .date {
-    margin-left: 235px !important;
+    margin-left: 218px !important;
 }
-
+#date3{
+    margin-left: 110px!important;
+}
 .date-text {
     line-height: 30px;
     color: #ddf3ff;
@@ -138,22 +141,26 @@ html, body {
 
 .right-title1 {
     font-size: 24px;
-    padding-right: 15px;
-    margin-left: 680px;
+    /* padding-right: 15px; */
+    /* margin-left: 680px; */
     width: 237px;
     color: #d9f1ff;
     display: inline-block;
     cursor: pointer;
+    position: absolute;
+    left: 1334px;
 }
 
 .right-title2 {
     font-size: 24px;
-    padding-right: 15px;
-    margin-left: 20px;
+    /* padding-right: 15px; */
+    /* margin-left: 20px; */
     width: 237px;
     color: #289ee5;
     display: inline-block;
     cursor: pointer;
+    position: absolute;
+    left: 1628px;
 }
 
 .part2.active .right-title1 {
@@ -297,4 +304,9 @@ table > td {
 #chart1, #chart2 {
     width: 1850px;
     height: 250px;
+}
+
+select option {
+    /*font-size: 12px;*/
+    background: #0f265c;
 }

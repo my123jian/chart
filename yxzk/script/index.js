@@ -5,6 +5,45 @@ $(function () {
         //当前选择的时间
         var theCurrentDate = null;
 
+        var formateDateNumText = function (ele,date) {
+            var theDateText = date.year + '-' + FormateDateNum(date.month) + '-' + FormateDateNum(date.date);
+            var theDate = new Date(theDateText);
+            var theBeginDate=new Date('2019-01-20');
+            var theMaxDate=new Date('2019-03-02');
+            //debugger;
+            if(theDate.getTime()>theMaxDate.getTime()||theBeginDate.getTime()>theDate.getTime()){
+                $(ele).closest('.date-text').hide();
+            }
+            if(theBeginDate.getTime()<theDate.getTime()){
+                var theDays=Date.daysBetween(theBeginDate,theDate)+1;
+                //debugger;
+                var theText=theDays;
+                $(ele).text(theText);
+            }
+        }
+        //格式化为中文的数字
+       /* var formateCnNum = function (num) {
+            var theNums = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+            if (num > 0 && num < 100) {
+                if (num <= 10) {
+                    return theNums[num - 1];
+                }
+                var theNumStrs = [];
+                var theSourceStrNum = num + "";
+                if (theSourceStrNum.length >= 2) {
+                    for (var i = 0; i < theSourceStrNum.length; i++) {
+                        var theNumVal = parseInt(theSourceStrNum[i]);
+                        if (theNumVal == 0) {
+                            theNumStrs.push('十');
+                        } else {
+                            theNumStrs.push(theSourceStrNum[theNumVal - 1]);
+                        }
+                    }
+                }
+            }
+            return theNumStrs.join('');
+
+        }*/
         var formateDate = function () {
             if (!theCurrentDate) {
                 var theDate = new Date();// GetYesterdayDate();
@@ -42,6 +81,10 @@ $(function () {
         }
         PageViewModel.prototype.initEvent = function () {
             //this.updateDate();
+             var theMaxDate=new Date('2019-03-01');
+             if(GetTodayDate().getTime()>theMaxDate.getTime()){
+                 $('.date-text').hide();
+             }
             laydate.render({
                 elem: '#date1', //指定元素
                 trigger: 'click',
@@ -50,12 +93,13 @@ $(function () {
                 max: GetTodayDate().formate(),
                 done: function (value, date, endDate) {
                     //debugger;
-                    console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
-                    console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-                    console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                    formateDateNumText('.date1-num', date);
+                    //console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
+                    //console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                    //console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
                     if (theCurrentDate != date) {
                         theCurrentDate = date;
-                        me.loadPredict();
+                        //me.loadPredict();
                     }
 
                 }
@@ -68,12 +112,10 @@ $(function () {
                 max: GetTodayDate().formate(),
                 done: function (value, date, endDate) {
                     //debugger;
-                    console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
-                    console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-                    console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                    formateDateNumText('.date2-num', date);
                     if (theCurrentDate != date) {
                         theCurrentDate = date;
-                        me.loadPredict();
+                        //me.loadPredict();
                     }
 
                 }
@@ -86,12 +128,10 @@ $(function () {
                 max: GetTodayDate().formate(),
                 done: function (value, date, endDate) {
                     //debugger;
-                    console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
-                    console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
-                    console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                    formateDateNumText('.date3-num', date);
                     if (theCurrentDate != date) {
                         theCurrentDate = date;
-                        me.loadPredict();
+                        //me.loadPredict();
                     }
 
                 }
@@ -178,8 +218,8 @@ $(function () {
 
                     legend: {
                         //align:'right',//
-                        top:30,
-                        right:320,
+                        top: 30,
+                        right: 320,
                         textStyle: {
                             color: '#557398',
                         },

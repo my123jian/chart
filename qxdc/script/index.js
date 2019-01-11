@@ -80,13 +80,13 @@ $(function () {
     //获取当前的日期数据
     var formateDate = function () {
         if (!theCurrentDate) {
-           return GetTodayDate().before(3).formate();
+            return GetTodayDate().before(3).formate();
         }
         return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
     }
     var formateDate1 = function () {
         if (!theCurrentDate) {
-            var theDate =GetTodayDate().before(3);// GetFromDate();
+            var theDate = GetTodayDate().before(3);// GetFromDate();
             //theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "年" + FormateDateNum(theDate.getMonth() + 1) + "月" + FormateDateNum(theDate.getDate()) + '日';
         }
@@ -243,7 +243,7 @@ $(function () {
             format: 'yyyy年MM月dd日',
             //range: true,//范围选择
             value: formateDate1(),
-            max:GetTodayDate().formate(),
+            max: GetTodayDate().formate(),
             done: function (value, date, endDate) {
                 //debugger;
                 console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
@@ -675,7 +675,7 @@ $(function () {
                             me.refreshPage(me.currentTable, theCurrentView, me.selectItem);
                         }
                         else {
-                            me.selectItem=null;
+                            me.selectItem = null;
                             me.refreshPage(me.currentTable, theCurrentView);
                         }
                         //debugger;
@@ -769,6 +769,7 @@ $(function () {
                         "sourceType": sourceType,
                         "value": 0
                     };
+
                     theRow['area'] = theDataItem.area;
                     //debugger;
                     if (seeType == ViewType.OUT) {
@@ -799,16 +800,24 @@ toCity: "深圳"
                     for (var j = 0; j < theDataItem.list.length; j++) {
                         var theCellItem = theDataItem.list[j];
                         theRow[theChannelMap[theCellItem.outChannel || theCellItem.inChannel || theCellItem.migChannel]] = (theCellItem.outPercentage || theCellItem.inPercentage || theCellItem.oPercentage);
+                       //debugger;
+
                     }
                     theTableList.push(theRow);
                 }
                 var theIndex = seeType;
                 me.currentTable = theTableList;
-                if( seeType == ViewType.PROVINCE){
-                    me.refreshPage(me.currentTable, theCurrentView,  me.selectItem );
+                if (seeType == ViewType.PROVINCE) {
+                    me.refreshPage(me.currentTable, theCurrentView, me.selectItem);
                 }
-                else{
-                    me.refreshPage(me.currentTable, theCurrentView, );
+                else {
+                    //debugger;
+                    if(sourceType==DirectionType.JW&&me.currentTable){
+                        for(var i=0;i<me.currentTable.length;i++){
+                            me.currentTable[i]['minhang']=100;
+                        }
+                    }
+                    me.refreshPage(me.currentTable, theCurrentView,null);
                 }
 
                 me.loadTemplateTable('table-' + theIndex, theTableList);
