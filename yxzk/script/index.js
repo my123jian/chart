@@ -284,8 +284,8 @@ $(function () {
         }
         var theItemConfig= [
             {name: '总旅客', textStyle: {color: "#cfccfc"}},
-            {name: '发送', textStyle: {color: "#ffdc6f"}},
-            {name: '到达', textStyle: {color: "#32ff4a"}}];
+            {name: '发送',  textStyle: {color: "#ffdc6f"}},
+            {name: '到达',  textStyle: {color: "#32ff4a"}}];
         var theBeginDate = new Date('2019-01-21');
         var theXData = [];
         theXData.push(theBeginDate.getTime());
@@ -297,6 +297,7 @@ $(function () {
             /*title: {
                 text: '折线图堆叠'
             },*/
+            color:['#cfccfc','#ffdc6f','#32ff4a'],
             tooltip: {
                 trigger: 'axis',
                 //show:true,
@@ -332,6 +333,7 @@ $(function () {
             },
 
             legend: {
+                show:true,
                 textStyle: {
                     color: '#557398',
                 },

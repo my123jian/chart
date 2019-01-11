@@ -177,17 +177,28 @@ html body {
 #form_1{
     /* width: 458px; */
     width: 258px;
-    height: 150px;
+    height: 120px;
     position: absolute;
-    top: 220px;
-    left: 855px;
+    top: -47px;
+    left: 90px;
 }
 .left-w-left{
     position: absolute;
-    width: 750px;
+   /* width: 750px;*/
+    width: 393px;
     height: 150px;
     top: 294px;
     left: 40px;
+    font-size: 16px;
+}
+
+.left-w-left1{
+    position: absolute;
+    /* width: 750px; */
+    width: 393px;
+    height: 150px;
+    top: 294px;
+    left: 780px;
     font-size: 16px;
 }
 .newcome{
@@ -208,8 +219,9 @@ html body {
     width: 100px;
     position: absolute;
     text-align: center;
-    top: 294px;
-    left: 760px;
+    padding-left: 16px;
+    /* top: 294px; */
+    /* left: 760px; */
 }
 .left-weather{
     width: 1070px;
@@ -838,4 +850,12 @@ iframe {
     width:1071px ;
     height: 90px;
     background-image: url("img/weath.png");
+}
+.form_tab_box{
+    /*background: red;*/
+    width: 358px;
+    height: 100px;
+    position: absolute;
+    top: 294px;
+    left: 422px;
 }

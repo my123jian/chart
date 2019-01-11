@@ -1210,8 +1210,8 @@ $(function () {
         var option = {
 
             grid: {
-                left: '3%',
-                right: '4%',
+                left: 0,
+                right: 0,
                 bottom: '3%',
                 containLabel: true
             },
