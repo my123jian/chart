@@ -268,12 +268,12 @@ $(function () {
 
         $('#' + theFromCityId + ",#" + theToCityId).each(function () {
             $(this).empty();
-            // $(this).append('<option value="">' + '请选择' + '</option>')
+            $(this).append('<option value="">' + '请选择' + '</option>')
             for (var theCityName in theCitys) {
                 $(this).append('<option value="' + theCityName + '">' + theCityName + '</option>')
             }
-            $('#' + theFromCityId).val('广州');
-            $('#' + theToCityId).val('深圳');
+            //$('#' + theFromCityId).val('广州');
+            //$('#' + theToCityId).val('深圳');
         });
         $('#' + theFromCityId + ",#" + theToCityId).change(function () {
             var theFromCityValue = $('#' + theFromCityId).val();

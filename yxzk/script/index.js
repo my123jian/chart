@@ -96,6 +96,26 @@ $(function () {
 
                 }
             });
+            $('.btn-contain .btn').click(function (item) {
+                if ($(this).hasClass('active')) {
+                    return;
+                }
+                $('.btn-contain .btn').removeClass('active');
+                $(this).addClass('active');
+            });
+            $('.part2 .item').click(function () {
+                if ($(this).hasClass('active')) {
+                    return;
+                }
+                $('.part2 .item').removeClass('active');
+                $(this).addClass('active');
+                var theModel = $(this).data('mode');
+                $('.part2').removeClass('active');
+                if (theModel == 2) {
+                    $('.part2').addClass('active');
+                }
+                $('.part2').data('mode', theModel);
+            });
         }
 
 
@@ -119,115 +139,148 @@ $(function () {
                 theXData.push(theBeginDate.getTime());
             }
             var option = {
-                /*title: {
-                    text: '折线图堆叠'
-                },*/
-                tooltip: {
-                    trigger: 'axis',
-                    //show:true,
-                    axisPointer: {
-                        type: 'line',
-                        show: true,
-                        label: {
-                            show: true
-                        }
-                    },
-                    backgroundColor: 'transparent',
-                    formatter: function (params) {
-                        var theIndex = 0;
-                        var theDatas = [];
-                        //var theText = "";
-                        if (params.length > 4) {
-                            for (var i = 0; i < params.length; i = i + 2) {
-                                theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
-                            }
-                        }
-                        else {
-                            for (var i = 0; i < params.length; i = i + 1) {
-                                theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
-                            }
-                        }
-                        /* while (theIndex < params.length - 1) {
-
-                             theText += params[theIndex].data + "<br />";
-                             theIndex += 2;
-                         }*/
-                        return theDatas.join('<br />');
-                    }
-                },
-
-                legend: {
-                    textStyle: {
-                        color: '#557398',
-                    },
-                    data: theItemConfig
-                },
-
-                grid: {
-                    left: 30,
-                    right: 30,
-                    top: 30,
-                    bottom: 10,
-                    width: 1740,
-                    height: 210,
-                    containLabel: true
-                },
-                xAxis: {
-                    type: 'category',
-                    boundaryGap: false,
-                    name: '(日期)',
-                    axisLine: {
-                        lineStyle: {
-                            color: '#557398'
-                        }
-                    },
-                    axisPointer: {
-                        label: {
-
-                            color: '#05cffa',
-                            formatter: function (arg) {
-                                //debugger;
-                                var theDate = new Date();
-                                theDate.setTime(arg.value);
-                                return theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                    /*title: {
+                        text: '折线图堆叠'
+                    },*/
+                    tooltip: {
+                        trigger: 'axis',
+                        //show:true,
+                        axisPointer: {
+                            type: 'line',
+                            show: true,
+                            label: {
+                                show: true
                             }
                         },
-                        lineStyle: {
-                            color: '#05cffa',
-                            shadowBlur: {
-                                shadowColor: '#05cffa',
-                                shadowBlur: 10
-                            }
-                        }
-                    },
-                    axisLabel: {
-                        rotate: 30,
-                        formatter: function (value, idx) {
-                            var theDate = new Date();
-                            theDate.setTime(parseInt(value));
-                            console.log(theDate);
-                            if (idx % 4 == 0) {
-                                return theDate.getMonth() + 1 + '月' + theDate.getDate() + "日";
+                        backgroundColor: 'transparent',
+                        formatter: function (params) {
+                            var theIndex = 0;
+                            var theDatas = [];
+                            //var theText = "";
+                            if (params.length > 4) {
+                                for (var i = 0; i < params.length; i = i + 2) {
+                                    theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
+                                }
                             }
                             else {
-                                return "";
+                                for (var i = 0; i < params.length; i = i + 1) {
+                                    theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
+                                }
                             }
+                            /* while (theIndex < params.length - 1) {
+
+                                 theText += params[theIndex].data + "<br />";
+                                 theIndex += 2;
+                             }*/
+                            return theDatas.join('<br />');
                         }
                     },
-                    data: theXData
-                },
-                yAxis: {
-                    type: 'value',
-                    name: '(人数/万)',
-                    splitLine: {show: false},
-                    axisLine: {
-                        lineStyle: {
-                            color: '#557398'
+
+                    legend: {
+                        //align:'right',//
+                        top:30,
+                        right:320,
+                        textStyle: {
+                            color: '#557398',
+                        },
+                        data: theItemConfig
+                    },
+                    color: theItemConfig.map(function (item) {
+                        return item.textStyle.color;
+                    }),
+                    grid: {
+                        left: 40,
+                        right:
+                            30,
+                        top:
+                            40,
+                        bottom:
+                            10,
+                        width:
+                            1740,
+                        height:
+                            210,
+                        containLabel:
+                            true
+                    }
+                    ,
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap:
+                            false,
+                        name:
+                            '(日期)',
+                        axisLine:
+                            {
+                                lineStyle: {
+                                    color: '#557398'
+                                }
+                            }
+                        ,
+                        axisPointer: {
+                            label: {
+
+                                color: '#05cffa',
+                                formatter:
+
+                                    function (arg) {
+                                        //debugger;
+                                        var theDate = new Date();
+                                        theDate.setTime(arg.value);
+                                        return theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                                    }
+                            }
+                            ,
+                            lineStyle: {
+                                color: '#05cffa',
+                                shadowBlur:
+                                    {
+                                        shadowColor: '#05cffa',
+                                        shadowBlur:
+                                            10
+                                    }
+                            }
+                        }
+                        ,
+                        axisLabel: {
+                            rotate: 30,
+                            formatter:
+
+                                function (value, idx) {
+                                    var theDate = new Date();
+                                    theDate.setTime(parseInt(value));
+                                    console.log(theDate);
+                                    if (idx % 4 == 0) {
+                                        return theDate.getMonth() + 1 + '月' + theDate.getDate() + "日";
+                                    }
+                                    else {
+                                        return "";
+                                    }
+                                }
+                        }
+                        ,
+                        data: theXData
+                    }
+                    ,
+                    yAxis: {
+                        type: 'value',
+                        name:
+                            '(人数/万)',
+                        splitLine:
+                            {
+                                show: false
+                            }
+                        ,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#557398'
+                            }
                         }
                     }
-                },
-                series: []
-            };
+                    ,
+                    series: []
+                }
+            ;
             var series = [];
             var getSeries = function (name, color, data) {
                 var theSeries = {
@@ -342,11 +395,11 @@ $(function () {
                         data: theItemConfig
                     },
                     grid: {
-                        left: 30,
+                        left: 40,
                         right:
                             30,
                         top:
-                            30,
+                            40,
                         bottom:
                             10,
                         width:
@@ -368,7 +421,7 @@ $(function () {
                         boundaryGap:
                             false,
                         name:
-                            '(时间/点)',
+                            '(日期)',
                         axisLine:
                             {
                                 lineStyle: {

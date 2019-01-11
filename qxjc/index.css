@@ -337,6 +337,7 @@ html body {
 }
 
 .btn {
+    cursor: pointer;
     width: 115px;
     text-align: center;
     display: inline-block;
