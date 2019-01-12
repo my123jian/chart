@@ -76,6 +76,9 @@ html, body {
     background-position-y: 9px;
     background-size: 14px 8px;
 }
+.date.readonly{
+    background: transparent!important;
+}
 
 .part1 .date, .part2 .date {
     margin-left: 218px !important;
@@ -301,7 +304,7 @@ table > td {
     font-weight: bold;
 }
 
-#chart1, #chart2 {
+#chart1, #chart2,#chart3 {
     width: 1850px;
     height: 250px;
 }
