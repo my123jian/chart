@@ -308,13 +308,18 @@ html body {
     border-width: 0px;
 }
 
-#chart1, #chart2, #chart3 {
+/*#chart1, #chart2, #chart3 {
     width: 560px;
     height: 150px !important;
     margin-left: 20px;
     margin-right: 20px;
+}*/
+#chart1,#chart5{
+    width: 560px;
+    height: 225px !important;
+    margin-left: 20px;
+    margin-right: 20px;
 }
-
 #chart4 {
     width: 1194px;
     height: 246px;
@@ -350,4 +355,11 @@ html body {
 
 .btn.active {
     background: url("img/btn_01.png");
+}
+
+.red{
+    color: red;
+}
+.green{
+    color: green;
 }

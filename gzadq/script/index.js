@@ -1215,7 +1215,6 @@ $(function () {
             data = data.slice(0, 4);
         }
         var option = {
-
             grid: {
                 left: 0,
                 right: 0,
@@ -1265,7 +1264,11 @@ $(function () {
                     label: {
                         normal: {
                             show: true,
-                            'position': 'top'
+                            'position': 'top',
+                            formatter: function (arg) {
+                                return arg.value + '%';
+                                //return arg;
+                            },
                         }
                     },
                     name: '累积',
@@ -1419,7 +1422,7 @@ $(function () {
                 //var theStationNewPeople = res.data["StationNewPeople"][0] || {};
                 var theStationTollStay = res.data["stay"];// res.data["StationNewPeople"];//实时驻留时长
                 var theDatas = theStationTollStay.map(function (item) {
-                    return item.subscribercount;//(item.subscribercount / 10000).toFixed(2);
+                    return ((item.ratio||0)*100).toFixed(2);//(item.subscribercount / 10000).toFixed(2);
                 })
                 me.loadChartBar(theDatas);
                 var unitText = "万";

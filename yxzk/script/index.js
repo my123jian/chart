@@ -12,7 +12,8 @@ $(function () {
             var theMaxDate=new Date('2019-03-02');
             //debugger;
             if(theDate.getTime()>theMaxDate.getTime()||theBeginDate.getTime()>theDate.getTime()){
-                $(ele).closest('.date-text').hide();
+                //$(ele).closest('.date-text').hide();
+                $(ele).text(0);
             }
             if(theBeginDate.getTime()<theDate.getTime()){
                 var theDays=Date.daysBetween(theBeginDate,theDate)+1;

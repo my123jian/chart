@@ -310,3 +310,7 @@ select option {
     /*font-size: 12px;*/
     background: #0f265c;
 }
+.date-part{
+    display: inline-block;
+    margin-left: 90px;
+}

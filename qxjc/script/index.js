@@ -50,7 +50,7 @@ $(function () {
             top: 30,
             bottom: 10,
             width: 480,
-            height: 100,
+            height: 175,
             containLabel: true
         },
         /*toolbox: {
@@ -569,6 +569,7 @@ $(function () {
         //debugger;
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
+        //theCurrentOption.yAxis.axisLine.onZero=true;
         theCurrentOption.series = [
 
             {
@@ -975,11 +976,62 @@ $(function () {
         };
         this.Chart4.setOption(option);
     }
+    PageViewModel.prototype.loadChart5 = function (xData, data1) {
+        if (!this.Chart5) {
+            this.Chart5 = echarts.init(document.getElementById('chart5'));
+        }
+        //debugger;
+        data1 = data1 || [];
+        //debugger;
+        var theCurrentOption = {};
+        $.extend(true, theCurrentOption, option1);
+        theCurrentOption.yAxis.axisLine.onZero=true;
+        theCurrentOption.series = [
+
+            {
+                // name: '搜索引擎',
+                type: 'line',
+                //stack: '总量',
+                smooth: true,
+                symbol: 'none',
+                data: data1.map(function (item) {
+                    return (item / 10000).toFixed(2);
+                }),
+                lineStyle: {
+                    normal: {
+                        color: '#4293f2' //rgba(66,147,242
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: 'rgba(66,147,242,0.3)'
+                            }, {
+                                offset: 0.5, color: 'rgba(66,147,242,0.15)'
+                            }, {
+                                offset: 1, color: 'rgba(66,147,242,0)'
+                            }]
+                        }
+                    }
+                },
+            },
+        ];
+
+        this.Chart5.setOption(theCurrentOption);
+
+    }
     PageViewModel.prototype.initCharts = function () {
         this.loadChart1()
-        this.loadChart2()
-        this.loadChart3()
-        this.loadChart4()
+        //this.loadChart2()
+        //this.loadChart3()
+        this.loadChart4();
+        this.loadChart5();
 
     }
 
@@ -1015,7 +1067,27 @@ $(function () {
                     theViewData.populationGd = (theViewData.populationGd || 0) / 10000;
                     theViewData.populationIn = ((theViewData.populationIn || 0) / 10000).toFixed(2); //保留两位小数
                     theViewData.populationOut = ((theViewData.populationOut || 0) / 10000).toFixed(2); //保留两位小数
+               // ↑↓
+                    var theSuStr="↑";
+                    if(theViewData.populationIn<0){
+                        theSuStr="↓";
+                    }
+                    else{
+                        if(theViewData.populationIn==0){
+                            theSuStr="";
+                        }
+                    }
                     theViewData['populationGd'] = formateNum1(theViewData.populationGd);
+                    theViewData.populationIn=theSuStr+ Math.abs(theViewData.populationIn);
+                    //theSuStr+
+                    $('#populationOut').removeClass('red');
+                    $('#populationOut').removeClass('green');
+                    if(theSuStr=='↑'){
+                        $('#populationOut').addClass('green');
+                    }
+                    if(theSuStr=='↓'){
+                        $('#populationOut').addClass('red');
+                    }
                 }
                 me.bind('.numpart', theViewData);
             }
@@ -1146,6 +1218,8 @@ $(function () {
         var me = this;
         this.load(theCallUrl, theCallArgument, function (data) {
             //debugger;
+            var theDataList=[];
+            var theLastData=null;
             if (data && data.isSuccess) {
                 var theResultDatas = data.data;//数据长度
                 var dataMigOut1 = [];
@@ -1170,11 +1244,19 @@ $(function () {
                     dataMigOut2.push(theDataItem.outNum);
                     dataMigIn2.push(theDataItem.inNum);
                     dataPopulationGd2.push(theDataItem.countNum);
+                    if(theLastData==null){
+                        theDataList.push(0);
+                    }
+                    else{
+                        theDataList.push(theDataItem.countNum-theLastData);
+                    }
+                    theLastData=theDataItem.countNum;
                 }
                 //debugger;
                 me.loadChart1(theXData, dataPopulationGd1, dataPopulationGd2);
-                me.loadChart2(theXData,dataMigOut1, dataMigOut2 );
-                me.loadChart3(theXData, dataMigIn1, dataMigIn2);
+                me.loadChart5(theXData,theDataList);
+                //me.loadChart2(theXData,dataMigOut1, dataMigOut2 );
+                //me.loadChart3(theXData, dataMigIn1, dataMigIn2);
             }
             else {
                 console.log("loadCurrent错误:" + data);
