@@ -1421,10 +1421,19 @@ $(function () {
                 //var theProCountPeople = res.data["ProCountPeople"][0] || {};
                 //var theStationNewPeople = res.data["StationNewPeople"][0] || {};
                 var theStationTollStay = res.data["stay"];// res.data["StationNewPeople"];//实时驻留时长
+                var theDefualtData=[0,0,0,0];
                 var theDatas = theStationTollStay.map(function (item) {
-                    return ((item.ratio||0)*100).toFixed(2);//(item.subscribercount / 10000).toFixed(2);
+                    if(item.staytimespan<=4){
+                        if(item.staytimespan==0){
+                            theDefualtData[item.staytimespan-1]=((item.ratio||0)*100).toFixed(2);
+                        }
+                        else{
+                            theDefualtData[item.staytimespan-1]=((item.ratio||0)*100).toFixed(2);
+                        }
+
+                    }//(item.subscribercount / 10000).toFixed(2);
                 })
-                me.loadChartBar(theDatas);
+                me.loadChartBar(theDefualtData);
                 var unitText = "万";
                 var inPeople = (res.data["inPeople"] || 0);
                 if (inPeople < 1000) {

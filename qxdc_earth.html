@@ -841,7 +841,7 @@
             blendMode: 'lighter',
             lineStyle: {
                 color: '#00c7ff',
-                width: 6
+                width: 4//width: 6
             },
             data: [],
             silent: false
@@ -889,7 +889,8 @@
         var theData = [];
         var theOptions = mapChart.getOption();
         theOptions.series[0].data=[];
-        var theColors = ['rgb(132, 187, 45)', 'orange', 'yellow', 'lime', 'aqua'];
+        var theColors =['#faeebe','#bcb9e7','#20e3df','#acebd5','#6fc1dc',
+        '#fdb269','#ff8c83','#c3ff76','#f7fe86','#8398fe'];// ['rgb(132, 187, 45)', 'orange', 'yellow', 'lime', 'aqua'];
         for (var i = 0; i < data.length; i++) {
             var theItem = data[i];
             var theFromName = theItem.from;
@@ -898,7 +899,7 @@
                 console.log('未找到坐标:' + theToName);
                 continue;
             }
-            if (i < 5) {
+            if (i < theColors.length) {
                 theOptions.series[0].data.push({
                     name: theCountryMap[theToName],
                     itemStyle: {
@@ -929,7 +930,7 @@
 
                     ],
                     value: theItem.value || theItem.num || 0,
-                    lineStyle:{color:theColors[i<5?i:5]}
+                    lineStyle:{color:theColors[i<10?i:9]}
                 });
         }
         option.series[0].data = theData;

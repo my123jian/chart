@@ -19,7 +19,7 @@ $(function () {
     }
     var formateDate1 = function () {
         if (!theCurrentDate) {
-            var theDate = GetYesterdayDate();
+            var theDate =GetTodayDate ();
             // theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "年" + FormateDateNum(theDate.getMonth() + 1) + "月" + FormateDateNum(theDate.getDate()) + '日';
         }
@@ -217,7 +217,7 @@ $(function () {
                     //1 人口总量 2  迁入迁出
                     var theMode = $('#chart4').data('mode') || 1;
                     if (theMode == 1) {
-                        me.showChart4(theXData, theData['dataPopulationGd1'] || [], theData['dataPopulationGd2'] || [], theData['dataResi1'] || [], theData['dataResi2'] || [], theMode);
+                        me.showChart4(theXData, theData['dataResi1'] || [], theData['dataResi2'] || [], theData['dataPopulationGd1'] || [], theData['dataPopulationGd2'] || [], theMode);
                     }
                     else {
                         me.showChart4(theXData, theData['dataMigOut1'] || [], theData['dataMigOut2'] || [], theData['dataMigIn1'] || [], theData['dataMigIn2'] || [], theMode);
@@ -237,7 +237,7 @@ $(function () {
         var me = this;
         //var theDate=new Date();
         // theDate.setDate(theDate.getDate()-1);
-        /* laydate.render({
+        laydate.render({
              elem: '#date-input', //指定元素
              trigger: 'click',
              format: 'yyyy年MM月dd日',
@@ -254,7 +254,7 @@ $(function () {
                  }
 
              }
-         });*/
+         });
         /*$('#date-input').change(function(){
             theCurrentDate=$(this).val();
             console.log('日期变化:'+theCurrentDate);
@@ -718,7 +718,7 @@ $(function () {
         //1 人口总量 2  迁入迁出
         var theMode = $('#chart4').data('mode') || 1;
         if (theMode == 1) {
-            this.showChart4(theXData, dataPopulationGd1, dataPopulationGd2, dataResi1, dataResi2, theMode);
+            this.showChart4(theXData, dataResi1, dataResi2, dataPopulationGd1, dataPopulationGd2, theMode);
         }
         else {
             this.showChart4(theXData, dataMigOut1, dataMigOut2, dataMigIn1, dataMigIn2, theMode);
@@ -1078,8 +1078,9 @@ $(function () {
                         }
                     }
                     theViewData['populationGd'] = formateNum1(theViewData.populationGd);
-                    theViewData.populationIn=theSuStr+ Math.abs(theViewData.populationIn);
+
                     //theSuStr+
+                    //debugger;
                     $('#populationOut').removeClass('red');
                     $('#populationOut').removeClass('green');
                     if(theSuStr=='↑'){
@@ -1088,6 +1089,7 @@ $(function () {
                     if(theSuStr=='↓'){
                         $('#populationOut').addClass('red');
                     }
+                    theViewData.populationOut=theSuStr+ Math.abs(theViewData.populationOut);
                 }
                 me.bind('.numpart', theViewData);
             }

@@ -234,3 +234,58 @@ html body {
     color:transparent;
     z-index: 9;
 }
+
+/*第三版的图片*/
+.topbutton_1{
+    /*margin-top: 30px;*/
+    margin-right: 0px;
+    /*margin-left: -10px;*/
+    width: 210px;
+    height: 144px;
+    line-height: 144px;
+    text-align: center;
+    font-size: 32px;
+    color: #94d1ff;
+    position: relative;
+    pointer-events:painted;
+    display: inline-block;
+    margin-left: -16px;
+}
+
+
+.topbutton_1.yxzk.active,.topbutton_1.yxzk:hover{
+    background-image: url("img/1_03.png");
+    background-position: center center;
+    color:transparent;
+    z-index: 9;
+}
+.topbutton_1.lkyw.active,.topbutton_1.lkyw:hover{
+    background-image: url("img/2_03.png");
+    background-position: center center;
+    color:transparent;
+    z-index: 9;
+}
+.topbutton_1.test.active,.topbutton_1.test:hover{
+    background-image: url("img/3_03.png");
+    background-position: center center;
+    color:transparent;
+    z-index: 9;
+}
+.topbutton_1.insight.active,.topbutton_1.insight:hover{
+    background-image: url("img/4_03.png");
+    background-position: center center;
+    color:transparent;
+    z-index: 9;
+}
+.topbutton_1.bridge.active,.topbutton_1.bridge:hover{
+    background-image: url("img/5_03.png");
+    background-position: center center;
+    color:transparent;
+    z-index: 9;
+}
+.topbutton_1.strait.active,.topbutton_1.strait:hover{
+    background-image: url("img/6_03.png");
+    background-position: center center;
+    color:transparent;
+    z-index: 9;
+}
