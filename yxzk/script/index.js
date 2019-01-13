@@ -97,7 +97,7 @@ $(function () {
             if (GetTodayDate().getTime() > theMaxDate.getTime()) {
                 //$('.date-text').hide();
             }
-            $('#date2,#date3').val(formateDate1());
+            //$('#date2,#date3').val(formateDate1());
             laydate.render({
                 elem: '#date1', //指定元素
                 trigger: 'click',
@@ -112,6 +112,7 @@ $(function () {
                     //console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
                     if (theCurrentDate != date) {
                         theCurrentDate = date;
+                        me.loadData1();
                         //me.loadPredict();
                     }
 
@@ -493,7 +494,7 @@ $(function () {
                     yAxis: {
                         type: 'value',
                         name:
-                            '(人数/万)',
+                            '(列次)',
                         splitLine:
                             {
                                 show: false
@@ -521,7 +522,7 @@ $(function () {
                         position: 'left',
                     },
                     data: data.map(function (item) {
-                        return (item / 10000).toFixed(2)
+                        return item
                     }),
                     areaStyle: {
                         normal: {
@@ -839,6 +840,9 @@ $(function () {
                 else {
                     theNum1 = num1;
                 }
+                if (num2 == 0) {
+                    theNum2 = "";
+                }
 //debugger;
                 var theText = `${theNum1}<span class="${theColor}">${theNum2}</span>`;
                 return theText;
@@ -901,44 +905,44 @@ $(function () {
         PageViewModel.prototype.loadData1 = function () {
             var theLeft1 = {
                 'postion_type1_total': 0, //同比发送总量
-                'send_count_total': 0.11,//发送量同比
+                'send_count_total': 0,//发送量同比
                 'postion_type1_total_text': '',
                 //750.86万<span class="green">↑1.56%</span>
                 'postion_type1_gonglu': 0, //公路
-                'send_count_gonglu': -0.11,//发送量同比
+                'send_count_gonglu': 0,//发送量同比
                 'postion_type1_gonglu_text': '',
 
                 'postion_type1_tielu': 0,//铁路
-                'send_count_tielu': 0.11,//发送量同比
+                'send_count_tielu': 0,//发送量同比
                 'postion_type1_tielu_text': '',
 
                 'postion_type1_shuilu': 0,//水路
-                'send_count_shuilu': 0.11,//发送量同比
+                'send_count_shuilu': 0,//发送量同比
                 'postion_type1_shuilu_text': '',
 
                 'postion_type1_minhang': 0,//民航
-                'send_count_minhang': 0.11,//发送量同比
+                'send_count_minhang': 0,//发送量同比
                 'postion_type1_minhang_text': '',
 
 
                 'postion_type2_total': 0,//累计同比发送总量
-                'total_count_total': 0.22,//累计发送量同比
+                'total_count_total': 0,//累计发送量同比
                 'postion_type2_total_text': '',
 
                 'postion_type2_gonglu': 0,//公路
-                'total_count_gonglu': 0.22,//累计发送量同比
+                'total_count_gonglu': 0,//累计发送量同比
                 'postion_type2_gonglu_text': '',
 
                 'postion_type2_tielu': 0,//铁路
-                'total_count_tielu': 0.22,//累计发送量同比
+                'total_count_tielu': 0,//累计发送量同比
                 'postion_type2_tielu_text': '',
 
                 'postion_type2_shuilu': 0,//水路
-                'total_count_shuilu': 0.22,//累计发送量同比
+                'total_count_shuilu': 0,//累计发送量同比
                 'postion_type2_shuilu_text': '',
 
                 'postion_type2_minhang': 0,//民航
-                'total_count_minhang': 0.22,//累计发送量同比
+                'total_count_minhang': 0,//累计发送量同比
                 'postion_type2_minhang_text': '',
 
             };
@@ -958,9 +962,12 @@ $(function () {
                 delay_train: 0,//延误列次
                 delay_gd: 0,//延误旅客数
             };
+
             this.loadPart11(theLeft1);
             this.loadPart12(theLeft2);
             this.loadPart13(theLeft3);
+
+
             //输入日期 旅客发送趋势
             var theData1 = {
                 stat_date: '',
@@ -970,82 +977,363 @@ $(function () {
                 total_count_zb: '',//累计发送量同比
                 send_count_zb: '',//发送量同比
             };//
-            //航班
-            var theData2 = {
-                stat_date: '',//统计时间（YYYY-MM-dd
-                send_flight: '',//发送航班数
-                reach_flight: '',//到达航班数
-                delay_flight: '',//延误航班数
-                delay_gd: '',//延误旅客数
-            };
-            //列车
-            var theData3 = {
-                stat_date: '',//统计时间（YYYY-MM-dd
-                send_train: '',//发送列次
-                send_high_train: '',//高铁发送列次
-                reach_train: '',//到
-                reach_high_train: '',//高
-                delay_train: '',//延误列次
-                delay_gd: '',//延误旅客数
-            }
 
-            var theCallUrl = "migrant/predict.do ";
+            //var theCallUrl = "migrant/predict.do ";
             var theDate = formateDate();
             var theCallArgument = {
-                date: new Date().formate()
+                date: theDate
             };
 
             var me = this;
-            this.load(theCallUrl, theCallArgument, function (data) {
+            //debugger;
+            var theCallUrl1 = "cw/getSendTrend.do";
+            this.load(theCallUrl1, theCallArgument, function (data) {
+                /* data = {
+                     "isSuccess": true,
+                     "msg": "success",
+                     "data": [{
+                         "postionType": "公路",
+                         "sendCount": 0,
+                         "sendCountZb": 0,
+                         "statDate": "2019-01-11",
+                         "sumsend": 823932,
+                         "sumsendzb": -0.94,
+                         "totalCount": 0,
+                         "totalCountZb": -1
+                     }, {
+                         "postionType": "民航",
+                         "sendCount": 0,
+                         "sendCountZb": -1,
+                         "statDate": "2019-01-11",
+                         "sumsend": 823932,
+                         "sumsendzb": -0.94,
+                         "totalCount": 0,
+                         "totalCountZb": -1
+                     }, {
+                         "postionType": "水路",
+                         "sendCount": 0,
+                         "sendCountZb": 0,
+                         "statDate": "2019-01-11",
+                         "sumsend": 823932,
+                         "sumsendzb": -0.94,
+                         "totalCount": 0,
+                         "totalCountZb": -1
+                     }, {
+                         "postionType": "铁路",
+                         "sendCount": 823932,
+                         "sendCountZb": 0.06,
+                         "statDate": "2019-01-11",
+                         "sumsend": 823932,
+                         "sumsendzb": -0.94,
+                         "totalCount": 2280700,
+                         "totalCountZb": -0.03
+                     }]
+                 };*/
+                if (data && data.isSuccess) {
+                    var theDataList = data.data || [];
+                    var keyMap = {
+                        "tielu": "铁路",
+                        "gonglu": "公路",
+                        "shuilu": "水路",
+                        "minhang": "民航",
+                        "铁路": "tielu",
+                        "公路": "gonglu",
+                        "水路": "shuilu",
+                        "民航": "minhang",
+                        "总量": "total",
+                    };
+                    for (var i = 0; i < theDataList.length; i++) {
+                        var theItem = theDataList[i];
+                        var theKey = keyMap[theItem.postionType];
+                        if (theKey) {
+                            theLeft1['postion_type1_' + theKey] = theItem.sendCount || 0;
+                            theLeft1['send_count_' + theKey] = theItem.sendCountZb || 0;
+                            theLeft1['postion_type2_' + theKey] = theItem.totalCount || 0;
+                            theLeft1['total_count_' + theKey] = theItem.totalCountZb || 0;
 
-
+                            //统计总的数目
+                           /* theKey = 'total';
+                            theLeft1['postion_type1_' + theKey] = theItem.sumsend || 0;//theItem.send_count;
+                            theLeft1['send_count_' + theKey] = theItem.sumsendzb || 0;//theItem.sendCountZb;
+                            theLeft1['postion_type2_' + theKey] = theItem.sumstotal || 0;//theItem.totalCount;
+                            theLeft1['total_count_' + theKey] = theItem.sumtotalzb || 0;//theItem.totalCountZb;*/
+                        }
+                    }
+                    me.loadPart11(theLeft1);
+                }
+                else {
+                    console.log('请求错误!');
+                }
             });
+
+            var theCallUrl2 = "cw/getFlyTrain.do";
+            this.load(theCallUrl2, theCallArgument, function (data) {
+                /* data = {
+                     "data": {
+                         "fly": {
+                             "delayFlight": 0,
+                             "delayGd": 0,
+                             "reachFlight": 0,
+                             "sendFlight": 0,
+                             "statDate": "2019-01-11"
+                         },
+                         "train": {
+                             "delayGd": 0,
+                             "delayTrain": 0,
+                             "reachHighTrain": 981,
+                             "reachTrain": 1124,
+                             "sendHighTrain": 982,
+                             "sendTrain": 1122,
+                             "statDate": "2019-01-11"
+                         }
+                     }, "isSuccess": true, "msg": "success"
+                 };*/
+
+                //航班
+                var theData2Map = {
+                    statDate: 'stat_date',//统计时间（YYYY-MM-dd
+                    sendFlight: 'send_flight',//发送航班数
+                    reachFlight: 'reach_flight',//到达航班数
+                    delayFlight: 'delay_flight',//延误航班数
+                    delayGd: 'delay_gd',//延误旅客数
+                };
+                //列车
+                var theData3Map = {
+                    statDate: 'stat_date',//统计时间（YYYY-MM-dd
+                    sendTrain: 'send_train',//发送列次
+                    sendHighTrain: 'send_high_train',//高铁发送列次
+                    reachTrain: 'reach_train',//到
+                    reachHighTrain: 'reach_high_train',//高
+                    delayTrain: 'delay_train',//延误列次
+                    delayGd: 'delay_gd',//延误旅客数
+                }
+
+                if (data && data.isSuccess && data.data) {
+                    if (data.data.fly) {
+                        var theFly = {};
+                        for (var key in theData2Map) {
+                            theFly[theData2Map[key]] = data.data.fly[key];
+
+                        }
+                        me.loadPart12(theFly);
+                    }
+                    if (data.data.train) {
+                        var theTrain = {};
+                        for (var key in theData3Map) {
+                            theTrain[theData3Map[key]] = data.data.train[key];
+
+                        }
+                        me.loadPart13(theTrain);
+                    }
+
+
+                }
+                else {
+                    console.log("请求错误");
+                }
+            });
+
+
         }
 
         PageViewModel.prototype.loadData2 = function () {
 
-            var theCallUrl = "migrant/predict.do ";
+
             var me = this;
             var theMode = $('.part2').data('mode') || 1;
             var theValue = $('.btn' + theMode + ".active").data('value');
             //debugger;
             if (theMode == 1) {
                 me.loadChart1();
+                var theCallUrl = "cw/getPassengerTend.do ";
+                this.load(theCallUrl, {}, function (data) {
+                    /*data = {
+                        "isSuccess": true,
+                        "msg": "success",
+                        "data": [
+                            {
+                            "postionType": "公路",
+                            "sendCount": 0,
+                            "sendCountZb": 0,
+                            "statDate": "2019-01-11",
+                            "sumsend": 0,
+                            "sumsendzb": 0,
+                            "totalCount": 0,
+                            "totalCountZb": 0
+                        }, {
+                            "postionType": "民航",
+                            "sendCount": 0,
+                            "sendCountZb": 0,
+                            "statDate": "2019-01-11",
+                            "sumsend": 0,
+                            "sumsendzb": 0,
+                            "totalCount": 0,
+                            "totalCountZb": 0
+                        }, {
+                            "postionType": "水路",
+                            "sendCount": 0,
+                            "sendCountZb": 0,
+                            "statDate": "2019-01-11",
+                            "sumsend": 0,
+                            "sumsendzb": 0,
+                            "totalCount": 0,
+                            "totalCountZb": 0
+                        }, {
+                            "postionType": "铁路",
+                            "sendCount": 823932,
+                            "sendCountZb": 0,
+                            "statDate": "2019-01-11",
+                            "sumsend": 0,
+                            "sumsendzb": 0,
+                            "totalCount": 2280700,
+                            "totalCountZb": 0
+                        }]
+                    };*/
+                    //debugger;
+                    var theDataArray = [];
+                    var theKeys = ["总量", "公路", "铁路", "水路", "民航"];
+                    var theDates = [];
+                    var theDateMap = {};
+                    if (data && data.isSuccess && data.data) {
+                        for (var i = 0; i < data.data.length; i++) {
+                            var theItem = data.data[i];
+                            var theDate = theItem.statDate;
+                            if (!theDateMap[theDate]) {
+                                theDateMap[theDate] = {};
+                                theDates.push(theDate);
+                            }
+                            //当天日期的数量
+                            var theNewItem = theDateMap[theDate];
+                            theNewItem[theItem.postionType] = {
+                                sendCount: theItem.sendCount,
+                                totalCount: theItem.totalCount
+                            };
+                           /* theNewItem['总量'] = {
+                                sendCount: theItem.sumsend,
+                                totalCount: theItem.sumstotal
+                            }*/
+                        }
+                    }
+                    var theXData = [];
+                    for (var i = 0; i < theKeys.length; i++) {
+                        var theReuslt = [];
+                        var theKey = theKeys[i];
+                        for (var j = 0; j < theDates.length; j++) {
+                            var theCurrentDate = theDates[j];
+                            var theMapItem = theDateMap[theCurrentDate] || {};
+                            if (theMapItem[theKey]) {
+                                var theDataItem = theMapItem[theKey];
+                                theReuslt.push(theValue == "发送量" ? (theDataItem.sendCount || 0) : (theDataItem.totalCount || 0));
+                            }
+                            else {
+                                theReuslt.push(0);
+                            }
+                        }
+                        theDataArray.push(theReuslt);
+                    }
+                    me.loadChart1(theXData, theDataArray);
+                });
+
             }
             else {
                 me.loadChart3();
-            }
-            this.load(theCallUrl, {}, function (data) {
+                var theDataArray = [];
+                var theCallUrl = "cw/getFlyTrainTrend.do ";
+                this.load(theCallUrl, {}, function (data) {
+                    //debugger;
+                   /* var theLeft3 = {
+                        stat_date: '',//统计时间（YYYY-MM-dd
+                        send_train: 0,//发送列次
+                        send_high_train: 0,//高铁发送列次
+                        reach_train: 0,//到
+                        reach_high_train: 0,//高
+                        delay_train: 0,//延误列次
+                        delay_gd: 0,//延误旅客数
+                    };*/
+                    var theResult1 = [];
+                    var theResult2 = [];
+                    var theResult3 = [];
+                    if (data && data.isSuccess && data.data) {
+                        for (var i = 0; i < data.data.length; i++) {
+                            var theItem = data.data[i];
+                            var theFly=theItem.fly;
+                            var theTrain=theItem.train;
+                            if(theValue=="Flight"){
+                                theResult1.push(theFly['send'+theValue] || 0);
+                                theResult2.push(theFly['reach'+theValue] || 0);
+                                theResult3.push(theFly['delay'+theValue] || 0);
+                            }
+                            else{
+                                theResult1.push(theTrain['send'+theValue] || 0);
+                                theResult2.push(theTrain['reach'+theValue] || 0);
+                                theResult3.push(theTrain['delay'+theValue] || 0);
+                            }
 
-                if (theMode == 1) {
-                    me.loadChart1();
-                }
-                else {
-                    me.loadChart3();
-                }
-            });
+
+                        }
+                        theDataArray.push(theResult1);
+                        theDataArray.push(theResult2);
+                        theDataArray.push(theResult3);
+                        me.loadChart3([], theDataArray);
+                    }
+                });
+            }
+
 
         }
         PageViewModel.prototype.loadData3 = function () {
             var me = this;
             //重点场站旅客趋势
             //一个参数 统计日期
-            var theData = {
+           /* var theData = {
                 "stat_date": "2019-01-21",//统计时间（YYYY-MM-
                 "postion_type": "公路",//运输方式(公路/水路/铁路/民航
                 "position_name": "省汽车站",//场站名称
                 "send_count": 26031,//发送旅客
                 "reach_count": 0//到达旅客
-            };
-            var theCallUrl = "migrant/predict.do ";
+            };*/
+            var theCallUrl = "cw/getTerminalTend.do";
             var thePosition = $('.select').val();
             var theCallArgument = {
-                date: new Date().formate()
+                name: thePosition
             };
             me.loadChart2();
-
             this.load(theCallUrl, theCallArgument, function (data) {
-                me.loadChart2();
+                var theDataArray = [];
+                if (data && data.isSuccess && data.data) {
+                    var theDataArray = [];
+                    // var theKeys = ["发送", "到达"];
+                    var theDates = [];
+                    var theDateMap = {};
+                    if (data && data.isSuccess && data.data) {
+                        for (var i = 0; i < data.data.length; i++) {
+                            var theItem = data.data[i];
+                            var theDate = theItem.statDate;
+                            if (!theDateMap[theDate]) {
+                                theDateMap[theDate] = {};
+                                theDates.push(theDate);
+                            }
+                            var theNewItem = theDateMap[theDate];
+                            theNewItem[theItem.postionType] = {
+                                sendCount: theItem.sendCount,
+                                reachCount: theItem.reachCount
+                            };
+
+                        }
+                    }
+                    var theXData = [];
+                    var theReuslt1 = [];
+                    var theReuslt2 = [];
+                    for (var j = 0; j < theDates.length; j++) {
+                        var theCurrentDate = theDates[j];
+                        var theMapItem = theDateMap[theCurrentDate] || {};
+                        theReuslt1.push((theMapItem.sendCount || 0));
+                        theReuslt2.push((theMapItem.reachCount || 0));
+                    }
+                    theDataArray.push(theReuslt1);
+                    theDataArray.push(theReuslt2);
+                    me.loadChart2(theXData, theDataArray);
+                }
             });
 
         }

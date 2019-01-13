@@ -148,6 +148,7 @@ html, body {
     /* padding-right: 15px; */
     /* margin-left: 680px; */
     width: 237px;
+    padding-left: 34px;
     color: #d9f1ff;
     display: inline-block;
     cursor: pointer;
