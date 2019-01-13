@@ -365,15 +365,16 @@ html body {
     margin-top: 52px;
     height: 100px;
     margin-right: 58px;
+    padding-left: 12px;
 }
 
 .chart-panel .chart-item {
     width: 108px;
     height: 100px;
-    margin-left: 49px;
+    margin-left: 78px;
     float: left;
-    /* border: red solid 1px;*/
-    /*background-color: red;*/
+    /* border: red solid 1px; */
+    /* background-color: red; */
 }
 
 .chart-panel .chart-item:first-child {

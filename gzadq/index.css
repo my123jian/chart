@@ -185,7 +185,8 @@ html body {
 .left-w-left{
     position: absolute;
    /* width: 750px;*/
-    width: 393px;
+    /*width: 393px;*/
+    width: 432px;
     height: 150px;
     top: 294px;
     left: 40px;
@@ -857,5 +858,5 @@ iframe {
     height: 100px;
     position: absolute;
     top: 294px;
-    left: 422px;
+    left: 440px;
 }
