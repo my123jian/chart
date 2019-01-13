@@ -176,7 +176,7 @@ $(function () {
                     }
                 }
             },
-            data: ['0', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00']
+            data: ['6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00','23:00']
             //data: theXData
         },
         yAxis: {
@@ -955,12 +955,18 @@ $(function () {
             if (data && data.isSuccess) {
                 var theResultDatas = data.data;//{"isSuccess":true,"msg":"success","data":[{"id":1,"postionName":"港珠澳大桥","postionType":"港珠澳大桥","statDate":"2018-12-12","tTime":"6:00","tTimePass":15}]}
                 //debugger
+
                 for (var i = 0; i < theResultDatas.length; i++) {
                     var theItem = theResultDatas[i];
+                    if(theItem.tTime<6){
+                        continue;
+                    }
                     var theStayTime = theItem.tTimePass;
                     chart1Data.push(theStayTime)
                 }
+                //debugger;
             }
+
             else {
                 console.log("loadCurrent错误:" + data);
             }

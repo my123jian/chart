@@ -4,7 +4,16 @@ $(function () {
 
         //当前选择的时间
         var theCurrentDate = null;
-
+        var formateRgba = function (colorName, num) {
+            // var theRgbaString = 'rgba';
+            if (colorName.indexOf('#') >= 0) {
+                var r = eval('0x' + colorName.substr(1, 2));
+                var g = eval('0x' + colorName.substr(3, 2));//colorName.substr(3, 2);
+                var b = eval('0x' + colorName.substr(5, 2)); //colorName.substr(5, 2);
+                var theResult = `rgba(${r},${g},${b},${num})`;
+                return theResult;
+            }
+        };
         var formateDateNumText = function (ele, date) {
             var theDateText = date.year + '-' + FormateDateNum(date.month) + '-' + FormateDateNum(date.date);
             var theDate = new Date(theDateText);
@@ -108,45 +117,13 @@ $(function () {
 
                 }
             });
-            /*laydate.render({
-                elem: '#date2', //指定元素
-                trigger: 'click',
-                format: 'yyyy年MM月dd日',
-                value: formateDate1(),
-                max: GetTodayDate().formate(),
-                done: function (value, date, endDate) {
-                    //debugger;
-                    formateDateNumText('.date2-num', date);
-                    if (theCurrentDate != date) {
-                        theCurrentDate = date;
-                        //me.loadPredict();
-                    }
-
-                }
-            });
-            laydate.render({
-                elem: '#date3', //指定元素
-                trigger: 'click',
-                format: 'yyyy年MM月dd日',
-                value: formateDate1(),
-                max: GetTodayDate().formate(),
-                done: function (value, date, endDate) {
-                    //debugger;
-                    formateDateNumText('.date3-num', date);
-                    if (theCurrentDate != date) {
-                        theCurrentDate = date;
-                        //me.loadPredict();
-                    }
-
-                }
-            });
-            */
             $('.btn-contain .btn1').click(function (item) {
                 if ($(this).hasClass('active')) {
                     return;
                 }
                 $('.btn-contain .btn1').removeClass('active');
                 $(this).addClass('active');
+                me.loadData2();
             });
             $('.btn-contain .btn2').click(function (item) {
                 if ($(this).hasClass('active')) {
@@ -154,6 +131,7 @@ $(function () {
                 }
                 $('.btn-contain .btn2').removeClass('active');
                 $(this).addClass('active');
+                me.loadData2();
             });
             $('.part2 .item').click(function () {
                 if ($(this).hasClass('active')) {
@@ -173,6 +151,9 @@ $(function () {
                 $('.part2').data('mode', theModel);
                 //debugger;
                 me.loadData2();
+            });
+            $('.select').change(function () {
+                me.loadData3();
             });
         }
 
@@ -215,21 +196,9 @@ $(function () {
                             var theIndex = 0;
                             var theDatas = [];
                             //var theText = "";
-                            if (params.length > 4) {
-                                for (var i = 0; i < params.length; i = i + 2) {
-                                    theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
-                                }
+                            for (var i = 0; i < params.length; i = i + 1) {
+                                theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
                             }
-                            else {
-                                for (var i = 0; i < params.length; i = i + 1) {
-                                    theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
-                                }
-                            }
-                            /* while (theIndex < params.length - 1) {
-
-                                 theText += params[theIndex].data + "<br />";
-                                 theIndex += 2;
-                             }*/
                             return theDatas.join('<br />');
                         }
                     },
@@ -362,11 +331,11 @@ $(function () {
                                 x2: 0,
                                 y2: 1,
                                 colorStops: [{
-                                    offset: 0, color: 'rgba(255,220,111,0.3)'
+                                    offset: 0, color: formateRgba(color, 0.3)// 'rgba(255,220,111,0.3)'
                                 }, {
-                                    offset: 0.5, color: 'rgba(255,220,111,0.15)'
+                                    offset: 0.5, color: formateRgba(color, 0.15)// 'rgba(255,220,111,0.15)'
                                 }, {
-                                    offset: 1, color: 'rgba(255,220,111,0)'
+                                    offset: 1, color: formateRgba(color, 0)//  'rgba(255,220,111,0)'
                                 }]
                             }
                         }
@@ -423,15 +392,8 @@ $(function () {
                             var theIndex = 0;
                             var theDatas = [];
                             //var theText = "";
-                            if (params.length > 4) {
-                                for (var i = 0; i < params.length; i = i + 2) {
-                                    theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
-                                }
-                            }
-                            else {
-                                for (var i = 0; i < params.length; i = i + 1) {
-                                    theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
-                                }
+                            for (var i = 0; i < params.length; i = i + 1) {
+                                theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
                             }
                             /* while (theIndex < params.length - 1) {
 
@@ -570,11 +532,11 @@ $(function () {
                                 x2: 0,
                                 y2: 1,
                                 colorStops: [{
-                                    offset: 0, color: 'rgba(255,220,111,0.3)'
+                                    offset: 0, color: formateRgba(color, 0.3)//  'rgba(255,220,111,0.3)'
                                 }, {
-                                    offset: 0.5, color: 'rgba(255,220,111,0.15)'
+                                    offset: 0.5, color: formateRgba(color, 0.15)//  'rgba(255,220,111,0.15)'
                                 }, {
-                                    offset: 1, color: 'rgba(255,220,111,0)'
+                                    offset: 1, color: formateRgba(color, 0)// 'rgba(255,220,111,0)'
                                 }]
                             }
                         }
@@ -615,152 +577,139 @@ $(function () {
                 theXData.push(theBeginDate.getTime());
             }
             var option = {
-                    /*title: {
-                        text: '折线图堆叠'
-                    },*/
-                    color: ['#cfccfc', '#ffdc6f', '#32ff4a'],
-                    tooltip: {
-                        trigger: 'axis',
-                        //show:true,
-                        axisPointer: {
-                            type: 'line',
-                            show: true,
-                            label: {
-                                show: true
-                            }
-                        },
-                        backgroundColor: 'transparent',
-                        formatter: function (params) {
-                            var theIndex = 0;
-                            var theDatas = [];
-                            //var theText = "";
-                            if (params.length > 4) {
-                                for (var i = 0; i < params.length; i = i + 2) {
-                                    theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
-                                }
-                            }
-                            else {
-                                for (var i = 0; i < params.length; i = i + 1) {
-                                    theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
-                                }
-                            }
-                            /* while (theIndex < params.length - 1) {
-
-                                 theText += params[theIndex].data + "<br />";
-                                 theIndex += 2;
-                             }*/
-                            return theDatas.join('<br />');
-                        }
-                    },
-
-                    legend: {
+                /*title: {
+                    text: '折线图堆叠'
+                },*/
+                color: ['#cfccfc', '#ffdc6f', '#32ff4a'],
+                tooltip: {
+                    trigger: 'axis',
+                    //show:true,
+                    axisPointer: {
+                        type: 'line',
                         show: true,
-                        textStyle: {
-                            color: '#557398',
-                        },
-                        top: 10,
-                        right: 320,
-                        data: theItemConfig
+                        label: {
+                            show: true
+                        }
                     },
-                    grid: {
-                        left: 40,
-                        right:
-                            30,
-                        top:
-                            40,
-                        bottom:
-                            10,
-                        width:
-                            1740,
-                        height:
-                            210,
-                        containLabel:
-                            true
+                    backgroundColor: 'transparent',
+                    formatter: function (params) {
+                        var theIndex = 0;
+                        var theDatas = [];
+                        //var theText = "";
+                        for (var i = 0; i < params.length; i = i + 1) {
+                            theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
+                        }
+                        return theDatas.join('<br />');
                     }
-                    ,
-                    /*toolbox: {
-                        feature: {
-                            saveAsImage: {}
-                        }
-                    },*/
+                },
 
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap:
-                            false,
-                        name:
-                            '(日期)',
-                        axisLine:
-                            {
-                                lineStyle: {
-                                    color: '#557398'
-                                }
-                            }
-                        ,
-                        axisPointer: {
-                            label: {
-
-                                color: '#05cffa',
-                                formatter:
-
-                                    function (arg) {
-                                        //debugger;
-                                        var theDate = new Date();
-                                        theDate.setTime(arg.value);
-                                        return theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
-                                    }
-                            }
-                            ,
-                            lineStyle: {
-                                color: '#05cffa',
-                                shadowBlur:
-                                    {
-                                        shadowColor: '#05cffa',
-                                        shadowBlur:
-                                            10
-                                    }
-                            }
-                        }
-                        ,
-                        axisLabel: {
-                            rotate: 30,
-                            formatter:
-
-                                function (value, idx) {
-                                    var theDate = new Date();
-                                    theDate.setTime(parseInt(value));
-                                    console.log(theDate);
-                                    if (idx % 4 == 0) {
-                                        return theDate.getMonth() + 1 + '月' + theDate.getDate() + "日";
-                                    }
-                                    else {
-                                        return "";
-                                    }
-                                }
-                        }
-                        ,
-                        data: theXData
+                legend: {
+                    show: true,
+                    textStyle: {
+                        color: '#557398',
+                    },
+                    top: 10,
+                    right: 320,
+                    data: theItemConfig
+                },
+                grid: {
+                    left: 40,
+                    right:
+                        30,
+                    top:
+                        40,
+                    bottom:
+                        10,
+                    width:
+                        1740,
+                    height:
+                        210,
+                    containLabel:
+                        true
+                }
+                ,
+                /*toolbox: {
+                    feature: {
+                        saveAsImage: {}
                     }
-                    ,
-                    yAxis: {
-                        type: 'value',
-                        name:
-                            '(人数/万)',
-                        splitLine:
-                            {
-                                show: false
-                            }
-                        ,
-                        axisLine: {
+                },*/
+
+                xAxis: {
+                    type: 'category',
+                    boundaryGap:
+                        false,
+                    name:
+                        '(日期)',
+                    axisLine:
+                        {
                             lineStyle: {
                                 color: '#557398'
                             }
                         }
+                    ,
+                    axisPointer: {
+                        label: {
+
+                            color: '#05cffa',
+                            formatter:
+
+                                function (arg) {
+                                    //debugger;
+                                    var theDate = new Date();
+                                    theDate.setTime(arg.value);
+                                    return theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                                }
+                        }
+                        ,
+                        lineStyle: {
+                            color: '#05cffa',
+                            shadowBlur:
+                                {
+                                    shadowColor: '#05cffa',
+                                    shadowBlur:
+                                        10
+                                }
+                        }
                     }
                     ,
-                    series: []
+                    axisLabel: {
+                        rotate: 30,
+                        formatter:
+
+                            function (value, idx) {
+                                var theDate = new Date();
+                                theDate.setTime(parseInt(value));
+                                console.log(theDate);
+                                if (idx % 4 == 0) {
+                                    return theDate.getMonth() + 1 + '月' + theDate.getDate() + "日";
+                                }
+                                else {
+                                    return "";
+                                }
+                            }
+                    }
+                    ,
+                    data: theXData
                 }
-            ;
+                ,
+                yAxis: {
+                    type: 'value',
+                    name:
+                        '(人数/万)',
+                    splitLine:
+                        {
+                            show: false
+                        }
+                    ,
+                    axisLine: {
+                        lineStyle: {
+                            color: '#557398'
+                        }
+                    }
+                }
+                ,
+                series: []
+            };
             var series = [];
             var getSeries = function (name, color, data) {
                 var theSeries = {
@@ -784,11 +733,11 @@ $(function () {
                                 x2: 0,
                                 y2: 1,
                                 colorStops: [{
-                                    offset: 0, color: 'rgba(255,220,111,0.3)'
+                                    offset: 0, color: formateRgba(color, 0.3)//  'rgba(255,220,111,0.3)'
                                 }, {
-                                    offset: 0.5, color: 'rgba(255,220,111,0.15)'
+                                    offset: 0.5, color: formateRgba(color, 0.15)// 'rgba(255,220,111,0.15)'
                                 }, {
-                                    offset: 1, color: 'rgba(255,220,111,0)'
+                                    offset: 1, color: formateRgba(color, 0)//  'rgba(255,220,111,0)'
                                 }]
                             }
                         }
@@ -801,9 +750,12 @@ $(function () {
                 };
                 return theSeries;
             }
+            dataArray = dataArray || [];
             for (var i = 0; i < theItemConfig.length; i++) {
                 var theItem = theItemConfig[i];
-                series.push(getSeries(theItem.name, theItem.textStyle.color, []));
+                //debugger;
+                var thheData = dataArray[i] || [];
+                series.push(getSeries(theItem.name, theItem.textStyle.color, thheData));
             }
             option.series = series;
 
@@ -820,38 +772,223 @@ $(function () {
             this.loadData2();
             this.loadData3();
         }
+        /**
+         * 加载第一部分数据的1
+         * @param data1
+         */
+        PageViewModel.prototype.loadPart11 = function (data1) {
+            var theLeft1 = {
+                'postion_type1_total': 0, //同比发送总量
+                'send_count_total': 0,//发送量同比
+                'postion_type1_total_text': '',
+                //750.86万<span class="green">↑1.56%</span>
+                'postion_type1_gonglu': 0, //公路
+                'send_count_gonglu': 0,//发送量同比
+                'postion_type1_gonglu_text': '',
+
+                'postion_type1_tielu': 0,//铁路
+                'send_count_tielu': 0,//发送量同比
+                'postion_type1_tielu_text': '',
+
+                'postion_type1_shuilu': 0,//水路
+                'send_count_shuilu': 0,//发送量同比
+                'postion_type1_shuilu_text': '',
+
+                'postion_type1_minhang': 0,//民航
+                'send_count_minhang': 0,//发送量同比
+                'postion_type1_minhang_text': '',
+
+
+                'postion_type2_total': 0,//累计同比发送总量
+                'total_count_total': 0,//累计发送量同比
+                'postion_type2_total_text': '',
+
+                'postion_type2_gonglu': 0,//公路
+                'total_count_gonglu': 0,//累计发送量同比
+                'postion_type2_gonglu_text': '',
+
+                'postion_type2_tielu': 0,//铁路
+                'total_count_tielu': 0,//累计发送量同比
+                'postion_type2_tielu_text': '',
+
+                'postion_type2_shuilu': 0,//水路
+                'total_count_shuilu': 0,//累计发送量同比
+                'postion_type2_shuilu_text': '',
+
+                'postion_type2_minhang': 0,//民航
+                'total_count_minhang': 0,//累计发送量同比
+                'postion_type2_minhang_text': '',
+
+            };
+            $.extend(theLeft1, data1);
+            var formateText = function (num1, num2) {
+                var theNum1 = num1;
+                var theNum2 = num2;
+                var theColor = "";//green
+                if (num2 > 0) {
+                    theNum2 = "↑" + (num2 * 100).toFixed(2) + '%';
+                    theColor = 'green';
+                }
+                if (num2 < 0) {
+                    theNum2 = "↓" + Math.abs(num2 * 100).toFixed(2) + '%';
+                    theColor = 'red';
+                }
+                if (num1 > 1000) {
+                    theNum1 = (num1 / 1000).toFixed(2) + '万';
+                }
+                else {
+                    theNum1 = num1;
+                }
+//debugger;
+                var theText = `${theNum1}<span class="${theColor}">${theNum2}</span>`;
+                return theText;
+            }
+
+            var formateLeft1 = function (data) {
+                data.postion_type1_total_text = formateText(data.postion_type1_total, data.send_count_total);
+                data.postion_type1_gonglu_text = formateText(data.postion_type1_gonglu, data.send_count_gonglu);
+                data.postion_type1_tielu_text = formateText(data.postion_type1_tielu, data.send_count_tielu);
+                data.postion_type1_shuilu_text = formateText(data.postion_type1_shuilu, data.send_count_shuilu);
+                data.postion_type1_minhang_text = formateText(data.postion_type1_minhang, data.send_count_minhang);
+
+                data.postion_type2_total_text = formateText(data.postion_type2_total, data.total_count_total);
+                data.postion_type2_gonglu_text = formateText(data.postion_type2_gonglu, data.total_count_gonglu);
+                data.postion_type2_tielu_text = formateText(data.postion_type2_tielu, data.total_count_tielu);
+                data.postion_type2_shuilu_text = formateText(data.postion_type2_shuilu, data.total_count_shuilu);
+                data.postion_type2_minhang_text = formateText(data.postion_type2_minhang, data.total_count_minhang);
+            }
+            formateLeft1(theLeft1);
+            this.bind('.part1', theLeft1);
+
+        }
+        /**
+         * 加载第一部分数据的2
+         * @param data1
+         */
+        PageViewModel.prototype.loadPart12 = function (data1) {
+            //debugger;
+            var theLeft2 = {
+                stat_date: '',//统计时间（YYYY-MM-dd
+                send_flight: 0,//发送航班数
+                reach_flight: 0,//到达航班数
+                delay_flight: 0,//延误航班数
+                delay_gd: 0,//延误旅客数
+            };
+            $.extend(theLeft2, data1);
+            this.bind('.part1', theLeft2);
+        }
+        /**
+         * 加载第一部分数据的3
+         * @param data1
+         */
+        PageViewModel.prototype.loadPart13 = function (data1) {
+            var theLeft3 = {
+                stat_date: '',//统计时间（YYYY-MM-dd
+                send_train: '',//发送列次
+                send_high_train: '',//高铁发送列次
+                reach_train: '',//到
+                reach_high_train: '',//高
+                delay_train: '',//延误列次
+                delay_gd: '',//延误旅客数
+            }
+            $.extend(theLeft3, data1);
+            //debugger;
+            this.bind('.part1', theLeft3);
+        }
         /***
          * 加载第一部分数据
          */
         PageViewModel.prototype.loadData1 = function () {
+            var theLeft1 = {
+                'postion_type1_total': 0, //同比发送总量
+                'send_count_total': 0.11,//发送量同比
+                'postion_type1_total_text': '',
+                //750.86万<span class="green">↑1.56%</span>
+                'postion_type1_gonglu': 0, //公路
+                'send_count_gonglu': -0.11,//发送量同比
+                'postion_type1_gonglu_text': '',
 
+                'postion_type1_tielu': 0,//铁路
+                'send_count_tielu': 0.11,//发送量同比
+                'postion_type1_tielu_text': '',
+
+                'postion_type1_shuilu': 0,//水路
+                'send_count_shuilu': 0.11,//发送量同比
+                'postion_type1_shuilu_text': '',
+
+                'postion_type1_minhang': 0,//民航
+                'send_count_minhang': 0.11,//发送量同比
+                'postion_type1_minhang_text': '',
+
+
+                'postion_type2_total': 0,//累计同比发送总量
+                'total_count_total': 0.22,//累计发送量同比
+                'postion_type2_total_text': '',
+
+                'postion_type2_gonglu': 0,//公路
+                'total_count_gonglu': 0.22,//累计发送量同比
+                'postion_type2_gonglu_text': '',
+
+                'postion_type2_tielu': 0,//铁路
+                'total_count_tielu': 0.22,//累计发送量同比
+                'postion_type2_tielu_text': '',
+
+                'postion_type2_shuilu': 0,//水路
+                'total_count_shuilu': 0.22,//累计发送量同比
+                'postion_type2_shuilu_text': '',
+
+                'postion_type2_minhang': 0,//民航
+                'total_count_minhang': 0.22,//累计发送量同比
+                'postion_type2_minhang_text': '',
+
+            };
+            var theLeft2 = {
+                stat_date: '',//统计时间（YYYY-MM-dd
+                send_flight: 0,//发送航班数
+                reach_flight: 0,//到达航班数
+                delay_flight: 0,//延误航班数
+                delay_gd: 0,//延误旅客数
+            };
+            var theLeft3 = {
+                stat_date: '',//统计时间（YYYY-MM-dd
+                send_train: 0,//发送列次
+                send_high_train: 0,//高铁发送列次
+                reach_train: 0,//到
+                reach_high_train: 0,//高
+                delay_train: 0,//延误列次
+                delay_gd: 0,//延误旅客数
+            };
+            this.loadPart11(theLeft1);
+            this.loadPart12(theLeft2);
+            this.loadPart13(theLeft3);
             //输入日期 旅客发送趋势
-            var theData1={
-                stat_date:'',
-                postion_type:'',//运输方式(公路/水路/铁路/民航
-                total_count:'',//累
-                send_count:'',//发送量
-                total_count_zb:'',//累计发送量同比
-                send_count_zb:'',//发送量同比
+            var theData1 = {
+                stat_date: '',
+                postion_type: '',//运输方式(公路/水路/铁路/民航
+                total_count: '',//累
+                send_count: '',//发送量
+                total_count_zb: '',//累计发送量同比
+                send_count_zb: '',//发送量同比
             };//
             //航班
-            var theData2={
-                stat_date:'',//统计时间（YYYY-MM-dd
-                send_flight:'',//发送航班数
-                reach_flight:'',//到达航班数
-                delay_flight:'',//延误航班数
-                delay_gd:'',//延误旅客数
+            var theData2 = {
+                stat_date: '',//统计时间（YYYY-MM-dd
+                send_flight: '',//发送航班数
+                reach_flight: '',//到达航班数
+                delay_flight: '',//延误航班数
+                delay_gd: '',//延误旅客数
             };
             //列车
-            var theData3={
-                stat_date:'',//统计时间（YYYY-MM-dd
-                send_train:'',//发送列次
-                send_high_train:'',//高铁发送列次
-                reach_train:'',//到
-                reach_high_train:'',//高
-                delay_train:'',//延误列次
-                delay_gd:'',//延误旅客数
+            var theData3 = {
+                stat_date: '',//统计时间（YYYY-MM-dd
+                send_train: '',//发送列次
+                send_high_train: '',//高铁发送列次
+                reach_train: '',//到
+                reach_high_train: '',//高
+                delay_train: '',//延误列次
+                delay_gd: '',//延误旅客数
             }
+
             var theCallUrl = "migrant/predict.do ";
             var theDate = formateDate();
             var theCallArgument = {
@@ -871,6 +1008,13 @@ $(function () {
             var me = this;
             var theMode = $('.part2').data('mode') || 1;
             var theValue = $('.btn' + theMode + ".active").data('value');
+            //debugger;
+            if (theMode == 1) {
+                me.loadChart1();
+            }
+            else {
+                me.loadChart3();
+            }
             this.load(theCallUrl, {}, function (data) {
 
                 if (theMode == 1) {
@@ -883,9 +1027,10 @@ $(function () {
 
         }
         PageViewModel.prototype.loadData3 = function () {
+            var me = this;
             //重点场站旅客趋势
             //一个参数 统计日期
-            var theData={
+            var theData = {
                 "stat_date": "2019-01-21",//统计时间（YYYY-MM-
                 "postion_type": "公路",//运输方式(公路/水路/铁路/民航
                 "position_name": "省汽车站",//场站名称
@@ -897,8 +1042,8 @@ $(function () {
             var theCallArgument = {
                 date: new Date().formate()
             };
+            me.loadChart2();
 
-            var me = this;
             this.load(theCallUrl, theCallArgument, function (data) {
                 me.loadChart2();
             });
