@@ -9,6 +9,7 @@ $(function () {
     //当前选择的时间
     var theCurrentDate = null;
     var theCurrentDate1 = null;
+    var theCurrentDate3 = null;
     //当前的区域名称
     var theAreaNmae = "";
     var belongType = 2;
@@ -109,6 +110,12 @@ $(function () {
         }
         return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
     }
+    var formateDate3 = function () {
+        if (!theCurrentDate3) {
+            return GetTodayDate().before(2).formate();
+        }
+        return theCurrentDate3.year + '-' + FormateDateNum(theCurrentDate3.month) + '-' + FormateDateNum(theCurrentDate3.date);//
+    }
 
     var formateNum = function (num) {
         var theNumString = num + "";
@@ -171,6 +178,25 @@ $(function () {
                 if (theCurrentDate != date) {
                     theCurrentDate = date;
                     me.loadPart1();
+                }
+
+            }
+        });
+
+        laydate.render({
+            elem: '#date-input3', //指定元素
+            trigger: 'click',
+            max: GetTodayDate().formate(),
+            value: formateDate3(),
+            done: function (value, date, endDate) {
+                //debugger;
+                console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
+                console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                if (theCurrentDate != date) {
+                    theCurrentDate3 = date;
+                    //me.loadPart1();
+                    me.loadQzFlowTrend();
                 }
 
             }
@@ -263,6 +289,7 @@ $(function () {
     PageViewModel.prototype.loadData = function () {
         if (theViewType == 1) {
             this.loadPart1();
+            this.loadQzFlowTrend();
         }
         else {
             this.loadPart2();
@@ -279,8 +306,11 @@ $(function () {
         //debugger;
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
-        theCurrentOption.grid.height = 100;
-        theCurrentOption.grid.bottom = 10;
+        theCurrentOption.grid.height = 170;
+        theCurrentOption.grid.width = 1000;
+        theCurrentOption.grid.left=30;
+        theCurrentOption.grid.top=40;
+        theCurrentOption.grid.bottom = 30;
         var theXData = [];
         //var theTodayDate=new Date();
         for (var i = 0; i <= 24; i++) {
@@ -343,7 +373,7 @@ $(function () {
                     textStyle: {color: "#357acb"}
                     //textStyle: {color: "#85a8b8"}
                 }],
-            x: 'right',
+            x: 'center',
             y: 'top'
         };
 
@@ -701,7 +731,7 @@ $(function () {
                 top: 30,
                 bottom: 0,
                 width: 560,
-                height: 80,
+                height: 160,
                 containLabel: true
             },
             xAxis: [
@@ -956,7 +986,7 @@ $(function () {
      */
     PageViewModel.prototype.loadQzFlowTrend = function () {
         var theCallUrl = "qz/qzFlowTrend.do";
-        var theParamter = {date: formateDate()};
+        var theParamter = {date: formateDate3()};
         var me = this;
 
         this.load(theCallUrl, theParamter, function (res) {
@@ -1437,7 +1467,7 @@ $(function () {
         this.loadQzRatio();
         this.loadQzStay();
 
-        this.loadQzFlowTrend();
+
     }
     /***
      * 加载第二部分数据

@@ -165,6 +165,7 @@
      */
     function refresh(data,type, selectItem) {
         option = null;
+        var theColors =['#ff5555','#ff8155','#ffc955','#cafd4f','#4ffd5f','#4ffdca','#4fe2fd','#4f99fd','#3b4dff','#644cdb']
         var geoCoordMap = theCitys;
         var theSourceData = data || [];
         data = [];
@@ -206,13 +207,13 @@
                         toName: dataItem[1].name,
                         coords: [fromCoord, toCoord],
                         //设置线段颜色
-                        /* lineStyle: {
+                        lineStyle: {
                              normal: {
-                                 color: color[i],
-                                 width: 0,
+                                 color: theColors[i>10?9:i],
+                                 width: 2,
                                  curveness: 0.2
                              }
-                         }*/
+                         }
                     };
                     if (selectItem && theLine.fromName == selectItem.from && theLine.toName == selectItem.to) {
                         theLine.lineStyle = {

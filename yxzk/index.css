@@ -12,7 +12,7 @@ html, body {
     width: 1920px;
     height: 1080px;
     overflow: hidden;
-    background-image: url("img/bg.png");
+    /*background-image: url("img/bg.png");*/
 }
 
 .part1 {
@@ -207,6 +207,13 @@ html, body {
 
 .btn.active {
     background: url("img/btn_01.png");
+}
+
+.btn2{
+    width: 75px;
+}
+.btn2.active {
+    background: url("img/btn_samll.png");
 }
 
 table {

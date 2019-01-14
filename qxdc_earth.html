@@ -127,7 +127,11 @@
         "latitude": "17.189877",
         "longitude": "-88.49765",
         "name": "Belize"
-    }, {"country": "CA", "latitude": "56.130366", "longitude": "-106.346771", "name": "Canada"}, {
+    }, {"country": "CA",
+        //"latitude": "56.130366", "longitude": "-106.346771",
+        "latitude": "48.9993861251", "longitude": "-105.2634365234",
+        "name": "Canada"},
+        {
         "country": "CC",
         "latitude": "-12.164165",
         "longitude": "96.870956",
@@ -637,7 +641,11 @@
         "latitude": "",
         "longitude": "",
         "name": "U.S. Minor Outlying Islands"
-    }, {"country": "US", "latitude": "37.09024", "longitude": "-95.712891", "name": "United States"}, {
+    }, {"country": "US",
+       // "latitude": "37.09024", "longitude": "-95.712891",
+        "latitude": "48.9993861251", "longitude": "-105.2634365234",
+        "name": "United States"},
+        {
         "country": "UY",
         "latitude": "-32.522779",
         "longitude": "-55.765835",
@@ -889,12 +897,15 @@
         var theData = [];
         var theOptions = mapChart.getOption();
         theOptions.series[0].data=[];
-        var theColors =['#faeebe','#bcb9e7','#20e3df','#acebd5','#6fc1dc',
-        '#fdb269','#ff8c83','#c3ff76','#f7fe86','#8398fe'];// ['rgb(132, 187, 45)', 'orange', 'yellow', 'lime', 'aqua'];
+        var theColors =['#ff5555','#ff8155','#ffc955','#cafd4f','#4ffd5f','#4ffdca','#4fe2fd','#4f99fd','#3b4dff','#644cdb']
+            /*['#faeebe','#bcb9e7','#20e3df','#acebd5','#6fc1dc',
+        '#fdb269','#ff8c83','#c3ff76','#f7fe86','#8398fe'];// ['rgb(132, 187, 45)', 'orange', 'yellow', 'lime', 'aqua'];*/
         for (var i = 0; i < data.length; i++) {
             var theItem = data[i];
             var theFromName = theItem.from;
-            var theToName = theItem.area;
+            var theMap={"美国和加拿大":"美国"};
+            var theToName = theMap[theItem.area]||theItem.area;
+
             if (!theCountryGps[theToName]) {
                 console.log('未找到坐标:' + theToName);
                 continue;
@@ -909,6 +920,17 @@
                         fontSize:20
                     }
                 });
+                if(theToName=='美国'){
+                    theOptions.series[0].data.push({
+                        name: theCountryMap['加拿大'],
+                        itemStyle: {
+                            areaColor: theColors[i]
+                        },
+                        label:{
+                            fontSize:20
+                        }
+                    });
+                }
             }
             else{
                 theOptions.series[0].data.push({
@@ -920,6 +942,17 @@
                         fontSize:18
                     }
                 });
+                if(theToName=='美国'){
+                    theOptions.series[0].data.push({
+                        name: theCountryMap['加拿大'],
+                        /*itemStyle: {
+                            areaColor: theColors[i]
+                        },*/
+                        label:{
+                            fontSize:18
+                        }
+                    });
+                }
             }
             //debugger;
             theData.push(

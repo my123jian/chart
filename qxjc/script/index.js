@@ -9,6 +9,16 @@ $(function () {
     var theCurrentDate = null;
     //当前的区域名称
     var theAreaNmae = "";
+    var formateRgba = function (colorName, num) {
+        // var theRgbaString = 'rgba';
+        if (colorName.indexOf('#') >= 0) {
+            var r = eval('0x' + colorName.substr(1, 2));
+            var g = eval('0x' + colorName.substr(3, 2));//colorName.substr(3, 2);
+            var b = eval('0x' + colorName.substr(5, 2)); //colorName.substr(5, 2);
+            var theResult = `rgba(${r},${g},${b},${num})`;
+            return theResult;
+        }
+    };
     var formateDate = function () {
         if (!theCurrentDate) {
             var theDate = new Date();// GetYesterdayDate();
@@ -217,7 +227,7 @@ $(function () {
                     //1 人口总量 2  迁入迁出
                     var theMode = $('#chart4').data('mode') || 1;
                     if (theMode == 1) {
-                        me.showChart4(theXData, theData['dataResi1'] || [], theData['dataResi2'] || [], theData['dataPopulationGd1'] || [], theData['dataPopulationGd2'] || [], theMode);
+                        me.showChart4(theXData,  theData['dataPopulationGd1'] || [], theData['dataPopulationGd2'] || [], theData['dataResi1'] || [], theData['dataResi2'] || [],theMode);
                     }
                     else {
                         me.showChart4(theXData, theData['dataMigOut1'] || [], theData['dataMigOut2'] || [], theData['dataMigIn1'] || [], theData['dataMigIn2'] || [], theMode);
@@ -718,7 +728,7 @@ $(function () {
         //1 人口总量 2  迁入迁出
         var theMode = $('#chart4').data('mode') || 1;
         if (theMode == 1) {
-            this.showChart4(theXData, dataResi1, dataResi2, dataPopulationGd1, dataPopulationGd2, theMode);
+            this.showChart4(theXData,  dataPopulationGd1, dataPopulationGd2,dataResi1, dataResi2, theMode);
         }
         else {
             this.showChart4(theXData, dataMigOut1, dataMigOut2, dataMigIn1, dataMigIn2, theMode);
@@ -749,14 +759,16 @@ $(function () {
         var theLegends = [
             {name: '人口总量', textStyle: {color: "#32ff4b"}},
             {name: '常驻人口', textStyle: {color: "#4293f2"}},
-            {name: '迁出', textStyle: {color: "#32ff4b"}},
-            {name: '迁入', textStyle: {color: "#4293f2"}}
         ];
         var theName1 = "人口总量";
         var theName2 = "常驻人口";
         if (theMode == 2) {
             theName1 = "迁出";
             theName2 = "迁入";
+            theLegends = [
+                {name: '迁出', textStyle: {color: "#32ff4b"}},
+                {name: '迁入', textStyle: {color: "#4293f2"}}
+            ];
         }
         theXData.push(theBeginDate.getTime());
         for (var i = 1; i < 40; i++) {
@@ -793,15 +805,7 @@ $(function () {
                 }
             },
             color: theColors,
-            legend: theLegends.filter(function (item) {
-                if (theMode == 1 && (item.name == "人口总量" || item.name == "常驻人口")) {
-                    return true;
-                }
-                else if (item.name == "迁出" || item.name == "迁入") {
-                    return true;
-                }
-                return false;
-            }),
+            legend: theLegends,
             grid: {
                 left: 0,
                 right: 30,
@@ -877,7 +881,7 @@ $(function () {
                     }),
                     lineStyle: {
                         normal: {
-                            color: '#4293f2' //rgba(66,147,242
+                            color: '#32ff4b' //rgba(66,147,242
                         }
                     },
                     areaStyle: {
@@ -889,11 +893,11 @@ $(function () {
                                 x2: 0,
                                 y2: 1,
                                 colorStops: [{
-                                    offset: 0, color: 'rgba(66,147,242,0.3)'
+                                    offset: 0, color: formateRgba('#32ff4b',0.3)//'rgba(66,147,242,0.3)'
                                 }, {
-                                    offset: 0.5, color: 'rgba(66,147,242,0.15)'
+                                    offset: 0.5, color: formateRgba('#32ff4b',0.15)//'rgba(66,147,242,0.15)'
                                 }, {
-                                    offset: 1, color: 'rgba(66,147,242,0)'
+                                    offset: 1, color:formateRgba('#32ff4b',0)// 'rgba(66,147,242,0)'
                                 }]
                             }
                         }
@@ -907,7 +911,7 @@ $(function () {
                         normal: {
                             lineStyle: {
                                 width: 2,
-                                color: '#4293f2',
+                                color: '#32ff4b',
                                 type: 'dotted'  //'dotted'虚线 'solid'实线
                             }
                         }
@@ -930,7 +934,7 @@ $(function () {
                     }),
                     lineStyle: {
                         normal: {
-                            color: '#32ff4b'//rgba(55,255,75
+                            color: '#4293f2'//rgba(55,255,75
                         }
                     },
                     areaStyle: {
@@ -942,11 +946,11 @@ $(function () {
                                 x2: 0,
                                 y2: 1,
                                 colorStops: [{
-                                    offset: 0, color: 'rgba(55,255,75,0.3)'
+                                    offset: 0, color:formateRgba('#4293f2',0.3)// 'rgba(55,255,75,0.3)'
                                 }, {
-                                    offset: 0.5, color: 'rgba(55,255,75,0.15)'
+                                    offset: 0.5, color:formateRgba('#4293f2',0.15)// 'rgba(55,255,75,0.15)'
                                 }, {
-                                    offset: 1, color: 'rgba(55,255,75,0)'
+                                    offset: 1, color:formateRgba('#4293f2',0)// 'rgba(55,255,75,0)'
                                 }]
                             }
                         }
@@ -961,7 +965,7 @@ $(function () {
                         normal: {
                             lineStyle: {
                                 width: 2,
-                                color: '#32ff4b',
+                                color: '#4293f2',
                                 type: 'dotted'  //'dotted'虚线 'solid'实线
                             }
                         }
@@ -974,6 +978,7 @@ $(function () {
                 },
             ]
         };
+        //debugger;
         this.Chart4.setOption(option);
     }
     PageViewModel.prototype.loadChart5 = function (xData, data1) {
@@ -1184,6 +1189,7 @@ $(function () {
                outNum: 4844850
                statDate: "2019-01-21"
                * */
+                           // debugger;
                             dataPopulationGd2.push((theItem.countNum || 0) * theRate);
                             dataMigIn2.push((theItem.inNum || 0) * theRate);
                             dataMigOut2.push((theItem.outNum || 0) * theRate);

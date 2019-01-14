@@ -56,7 +56,7 @@ $(function () {
          }*/
         var formateDate = function () {
             if (!theCurrentDate) {
-                var theDate = new Date();// GetYesterdayDate();
+                var theDate = GetYesterdayDate();// GetYesterdayDate();
                 //theDate.setDate(theDate.getDate()-1);
                 return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
             }
@@ -367,6 +367,8 @@ $(function () {
                 {
                     name: '延误', textStyle: {color: "#32ff4a"}
                 }];
+            dataArray&&(theItemConfig.length=dataArray.length);
+            //debugger;
             var theBeginDate = new Date('2019-01-21');
             var theXData = [];
             theXData.push(theBeginDate.getTime());
@@ -827,15 +829,15 @@ $(function () {
                 var theNum2 = num2;
                 var theColor = "";//green
                 if (num2 > 0) {
-                    theNum2 = "↑" + (num2 * 100).toFixed(2) + '%';
+                    theNum2 = "↑" + (num2).toFixed(2) + '%';
                     theColor = 'green';
                 }
                 if (num2 < 0) {
-                    theNum2 = "↓" + Math.abs(num2 * 100).toFixed(2) + '%';
+                    theNum2 = "↓" + Math.abs(num2).toFixed(2) + '%';
                     theColor = 'red';
                 }
                 if (num1 > 1000) {
-                    theNum1 = (num1 / 1000).toFixed(2) + '万';
+                    theNum1 = (num1 / 10000).toFixed(2) + '万';
                 }
                 else {
                     theNum1 = num1;
@@ -1052,11 +1054,11 @@ $(function () {
                             theLeft1['total_count_' + theKey] = theItem.totalCountZb || 0;
 
                             //统计总的数目
-                           /* theKey = 'total';
-                            theLeft1['postion_type1_' + theKey] = theItem.sumsend || 0;//theItem.send_count;
-                            theLeft1['send_count_' + theKey] = theItem.sumsendzb || 0;//theItem.sendCountZb;
-                            theLeft1['postion_type2_' + theKey] = theItem.sumstotal || 0;//theItem.totalCount;
-                            theLeft1['total_count_' + theKey] = theItem.sumtotalzb || 0;//theItem.totalCountZb;*/
+                            /* theKey = 'total';
+                             theLeft1['postion_type1_' + theKey] = theItem.sumsend || 0;//theItem.send_count;
+                             theLeft1['send_count_' + theKey] = theItem.sumsendzb || 0;//theItem.sendCountZb;
+                             theLeft1['postion_type2_' + theKey] = theItem.sumstotal || 0;//theItem.totalCount;
+                             theLeft1['total_count_' + theKey] = theItem.sumtotalzb || 0;//theItem.totalCountZb;*/
                         }
                     }
                     me.loadPart11(theLeft1);
@@ -1208,10 +1210,10 @@ $(function () {
                                 sendCount: theItem.sendCount,
                                 totalCount: theItem.totalCount
                             };
-                           /* theNewItem['总量'] = {
-                                sendCount: theItem.sumsend,
-                                totalCount: theItem.sumstotal
-                            }*/
+                            /* theNewItem['总量'] = {
+                                 sendCount: theItem.sumsend,
+                                 totalCount: theItem.sumstotal
+                             }*/
                         }
                     }
                     var theXData = [];
@@ -1241,39 +1243,44 @@ $(function () {
                 var theCallUrl = "cw/getFlyTrainTrend.do ";
                 this.load(theCallUrl, {}, function (data) {
                     //debugger;
-                   /* var theLeft3 = {
-                        stat_date: '',//统计时间（YYYY-MM-dd
-                        send_train: 0,//发送列次
-                        send_high_train: 0,//高铁发送列次
-                        reach_train: 0,//到
-                        reach_high_train: 0,//高
-                        delay_train: 0,//延误列次
-                        delay_gd: 0,//延误旅客数
-                    };*/
+                    /* var theLeft3 = {
+                         stat_date: '',//统计时间（YYYY-MM-dd
+                         send_train: 0,//发送列次
+                         send_high_train: 0,//高铁发送列次
+                         reach_train: 0,//到
+                         reach_high_train: 0,//高
+                         delay_train: 0,//延误列次
+                         delay_gd: 0,//延误旅客数
+                     };*/
                     var theResult1 = [];
                     var theResult2 = [];
                     var theResult3 = [];
                     if (data && data.isSuccess && data.data) {
                         for (var i = 0; i < data.data.length; i++) {
                             var theItem = data.data[i];
-                            var theFly=theItem.fly;
-                            var theTrain=theItem.train;
-                            if(theValue=="Flight"){
-                                theResult1.push(theFly['send'+theValue] || 0);
-                                theResult2.push(theFly['reach'+theValue] || 0);
-                                theResult3.push(theFly['delay'+theValue] || 0);
+                            var theFly = theItem.fly;
+                            var theTrain = theItem.train;
+                            if (theValue == "Flight") {
+                                theResult1.push(theFly['send' + theValue] || 0);
+                                theResult2.push(theFly['reach' + theValue] || 0);
+                                theResult3.push(theFly['delay' + theValue] || 0);
                             }
-                            else{
-                                theResult1.push(theTrain['send'+theValue] || 0);
-                                theResult2.push(theTrain['reach'+theValue] || 0);
-                                theResult3.push(theTrain['delay'+theValue] || 0);
+                            else {
+                                theResult1.push(theTrain['send' + theValue] || 0);
+                                theResult2.push(theTrain['reach' + theValue] || 0);
+                                if (theValue == "Train") {
+                                    theResult3.push(theTrain['delay' + theValue] || 0);
+                                }
                             }
 
 
                         }
                         theDataArray.push(theResult1);
                         theDataArray.push(theResult2);
-                        theDataArray.push(theResult3);
+                        if(theValue!='HighTrain'){
+                            theDataArray.push(theResult3);
+                        }
+
                         me.loadChart3([], theDataArray);
                     }
                 });
@@ -1285,13 +1292,13 @@ $(function () {
             var me = this;
             //重点场站旅客趋势
             //一个参数 统计日期
-           /* var theData = {
-                "stat_date": "2019-01-21",//统计时间（YYYY-MM-
-                "postion_type": "公路",//运输方式(公路/水路/铁路/民航
-                "position_name": "省汽车站",//场站名称
-                "send_count": 26031,//发送旅客
-                "reach_count": 0//到达旅客
-            };*/
+            /* var theData = {
+                 "stat_date": "2019-01-21",//统计时间（YYYY-MM-
+                 "postion_type": "公路",//运输方式(公路/水路/铁路/民航
+                 "position_name": "省汽车站",//场站名称
+                 "send_count": 26031,//发送旅客
+                 "reach_count": 0//到达旅客
+             };*/
             var theCallUrl = "cw/getTerminalTend.do";
             var thePosition = $('.select').val();
             var theCallArgument = {

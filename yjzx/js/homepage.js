@@ -421,6 +421,7 @@ $(function () {
           ,closeStop: '#tab2-li3-cld-box' //这里代表的意思是：点击 test1 所在元素阻止关闭事件冒泡。如果不设定，则无法弹出控件
           ,done: function(value, date, endDate){
             // console.log(value,date,endDate);
+                debugger;
             var dateObj = calDate(value);
             $('#tab2-li3-cld').val(dateObj.start+" - "+dateObj.end);
             tab2Li4EchartReqData(dateObj);

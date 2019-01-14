@@ -105,7 +105,12 @@
                 continue;
             }
             values.push( theItem.value ||theItem.num|| 0);
-            theData.push({name: theItem.to, value: theItem.value ||theItem.num|| 0});
+           if(theItem.from=='广州'){
+               theData.push({name: theItem.to, value: theItem.value ||theItem.num|| 0});
+           }
+            else{
+               theData.push({name: theItem.from, value: theItem.value ||theItem.num|| 0});
+           }
             theLineData.push([{name: theItem.from}, {name: theItem.to, value: theItem.value||theItem.num || 0}]);
         }
 
@@ -225,7 +230,7 @@
                     markPoint: {
                         symbol: 'emptyCircle',
                         symbolSize: function (v) {
-                            return 10 + v / 10000
+                            return Math.min( 10 + v / 10000,40);
                         },
                         effect: {
                             show: true,

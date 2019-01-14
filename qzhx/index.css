@@ -13,7 +13,7 @@ html body {
     padding: 0px;
     width: 1920px;
     height: 1080px;
-    background-image: url("img/bg.png");
+    /*background-image: url("img/bg.png");*/
 
 }
 .map-box{
@@ -762,7 +762,7 @@ html body {
     font-size: 12px;
 }
 
-.datediv,.datediv1 {
+.datediv,.datediv1,.datediv3 {
     /*position: absolute;*/
     margin-top: 14px;
     margin-left:20px;
@@ -775,7 +775,7 @@ html body {
 }
 .datediv1,.dateline1{display: none;}
 
-#date-input ,#date-input1{
+#date-input ,#date-input1,#date-input3{
     /*position: absolute;*/
     float: left;
     background: transparent;
@@ -795,7 +795,7 @@ html body {
 
 }
 
-#date-icon,#date-icon1 {
+#date-icon,#date-icon1,#date-icon3 {
     float: left;
     /*position: absolute;*/
     background-image: url("img/icon1.png");
@@ -805,7 +805,7 @@ html body {
     margin-top: 5px;
 }
 
-#date-action,#date-action1 {
+#date-action,#date-action1,#date-action3 {
     float: left;
     background-size: auto 32px;
     /*position: absolute;*/
@@ -840,10 +840,13 @@ iframe {
     /*margin-right: 20px;*/
 }
 #form_1{
-    height: 110px !important;
+    height: 180px !important;
 }
 #chart1{
-    height: 130px !important;
+    margin-top: 36px;
+    width: 1089px!important;
+    height: 220px !important;
+
 }
 #chart3,#form_2,#chart4,#chart2{
     margin-top:24px;
@@ -860,6 +863,19 @@ iframe {
 .datediv2 #date-input1{
     width:230px;
 }
+
+.datediv3{
+    width: 248px!important;
+    /* float: right; */
+    left: 817px;
+    position: absolute;
+    margin-top: 0px;
+}
+
+.datediv3 #date-input3{
+    width:141px;
+}
+
 .marker-marker-point{
     background-image: url("img/icon_point.png");
     width: 80px;
@@ -947,4 +963,12 @@ iframe {
 }
 .sex-name{
     color: #80ddfe;
+}
+.left-11{
+    position: absolute;
+    left: 1px;
+    top: 787px;
+    width: 1089px;
+    height: 252px;
+    background: url(img/left_11.png);
 }
