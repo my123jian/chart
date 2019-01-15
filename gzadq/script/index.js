@@ -863,7 +863,7 @@ $(function () {
         this.loadChart2()
         this.loadChart3()
         this.loadChart4()
-        this.loadChartBar();
+        //this.loadChartBar();
 
     }
 
@@ -1439,7 +1439,7 @@ $(function () {
 
                     }//(item.subscribercount / 10000).toFixed(2);
                 })
-                me.loadChartBar(theDefualtData);
+               // me.loadChartBar(theDefualtData);
                 var unitText = "万";
                 var inPeople = (res.data["inPeople"] || 0);
                 if (inPeople < 1000) {

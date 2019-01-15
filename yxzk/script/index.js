@@ -94,9 +94,15 @@ $(function () {
             var me = this;
 
             var theMaxDate = new Date('2019-03-01');
-            if (GetTodayDate().getTime() > theMaxDate.getTime()) {
+            var theMinDate=new Date('2019-02-21');
+            if (GetTodayDate().getTime() > theMaxDate.getTime()||GetTodayDate().getTime()<theMinDate.getTime()) {
                 //$('.date-text').hide();
             }
+            else{
+                formateDateNumText('#date2',GetTodayDate());
+                formateDateNumText('#date3',GetTodayDate());
+            }
+
             //$('#date2,#date3').val(formateDate1());
             laydate.render({
                 elem: '#date1', //指定元素
@@ -163,6 +169,7 @@ $(function () {
             if (!this.Chart1) {
                 this.Chart1 = echarts.init(document.getElementById('chart1'));
             }
+            //debugger;
 
             var theItemConfig = [{name: '发送总量', textStyle: {color: "#cfccfc"}},
                 {name: '公路发送', textStyle: {color: "#ffdc6f"}},
@@ -198,7 +205,7 @@ $(function () {
                             var theDatas = [];
                             //var theText = "";
                             for (var i = 0; i < params.length; i = i + 1) {
-                                theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
+                                theDatas.push(params[i].seriesName + ':' + (params[i].data ) + '万');
                             }
                             return theDatas.join('<br />');
                         }
@@ -311,6 +318,7 @@ $(function () {
             ;
             var series = [];
             var getSeries = function (name, color, data) {
+                data=data||[];
                 var theSeries = {
                     name: name,
                     type: 'line',
@@ -349,9 +357,10 @@ $(function () {
                 };
                 return theSeries;
             }
+            dataArray=dataArray||[];
             for (var i = 0; i < theItemConfig.length; i++) {
                 var theItem = theItemConfig[i];
-                series.push(getSeries(theItem.name, theItem.textStyle.color, []));
+                series.push(getSeries(theItem.name, theItem.textStyle.color, dataArray[i]||[]));
             }
             option.series = series;
             this.Chart1.setOption(option);
@@ -396,7 +405,7 @@ $(function () {
                             var theDatas = [];
                             //var theText = "";
                             for (var i = 0; i < params.length; i = i + 1) {
-                                theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
+                                theDatas.push(params[i].seriesName + ':' + (params[i].data ) + '万');
                             }
                             /* while (theIndex < params.length - 1) {
 
@@ -496,7 +505,7 @@ $(function () {
                     yAxis: {
                         type: 'value',
                         name:
-                            '(列次)',
+                            '(次)',
                         splitLine:
                             {
                                 show: false
@@ -514,6 +523,7 @@ $(function () {
             ;
             var series = [];
             var getSeries = function (name, color, data) {
+                data=data||[];
                 var theSeries = {
                     name: name,
                     type: 'line',
@@ -552,9 +562,10 @@ $(function () {
                 };
                 return theSeries;
             }
+            dataArray=dataArray||[];
             for (var i = 0; i < theItemConfig.length; i++) {
                 var theItem = theItemConfig[i];
-                series.push(getSeries(theItem.name, theItem.textStyle.color, []));
+                series.push(getSeries(theItem.name, theItem.textStyle.color, dataArray[i]||[]));
             }
             option.series = series;
             this.Chart3.setOption(option);
@@ -600,7 +611,7 @@ $(function () {
                         var theDatas = [];
                         //var theText = "";
                         for (var i = 0; i < params.length; i = i + 1) {
-                            theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
+                            theDatas.push(params[i].seriesName + ':' + (params[i].data) + '万');
                         }
                         return theDatas.join('<br />');
                     }
@@ -757,8 +768,8 @@ $(function () {
             for (var i = 0; i < theItemConfig.length; i++) {
                 var theItem = theItemConfig[i];
                 //debugger;
-                var thheData = dataArray[i] || [];
-                series.push(getSeries(theItem.name, theItem.textStyle.color, thheData));
+                var theData = dataArray[i] || [];
+                series.push(getSeries(theItem.name, theItem.textStyle.color, theData));
             }
             option.series = series;
 
@@ -1233,6 +1244,14 @@ $(function () {
                         }
                         theDataArray.push(theReuslt);
                     }
+                   /* if(theDataArray){
+                        for(var i=0;i<theDataArray.length;i++){
+                            var theItem=theDataArray[i];
+                            for(var j=0;j<10;j++){
+                                theItem.push(i*10000);
+                            }
+                        }
+                    }*/
                     me.loadChart1(theXData, theDataArray);
                 });
 
