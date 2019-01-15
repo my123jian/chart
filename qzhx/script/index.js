@@ -139,8 +139,8 @@ $(function () {
         if (!theCurrentDate1) {
             var theDate = GetFromDate();
             var theBeginDay = theDate.getDay();
-            var theBeginDate = theDate.addDays(-theBeginDay);
-            var theEndDate = theBeginDate.addDays(6);
+            var theBeginDate = theDate.addDays(-7);
+            var theEndDate = theBeginDate.addDays(7);
             return theBeginDate.getFullYear() + "-" + FormateDateNum(theBeginDate.getMonth() + 1) + "-" + FormateDateNum(theBeginDate.getDate()) + " - " +
                 theEndDate.getFullYear() + "-" + FormateDateNum(theEndDate.getMonth() + 1) + "-" + FormateDateNum(theEndDate.getDate());
         }

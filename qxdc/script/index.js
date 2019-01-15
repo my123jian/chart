@@ -392,7 +392,7 @@ $(function () {
         var theTitle = theSelectData.name + theSubString;
         // this.loadMigrantOutType(formateDate());
         //this.updateNum('迁出洞察人数', "");
-        this.updateNum('迁出洞察人数', $("#num2").data('value'));
+        this.updateNum('迁出人数', $("#num2").data('value'));
         var me = this;
         this.loadMigrantDirectType(theCurrentView, theSelectData.type, formateDate());
         /*this.loadMigrantCountNum(theCurrentView, theSelectData.type, formateDate(), function (num) {
@@ -410,7 +410,7 @@ $(function () {
         var theSelectData = $(theSelectDiv).find('.tab-direction .select').data();
         var theTitle = theSelectData.name + theSubString;
         //this.updateNum(theTitle, "");
-        this.updateNum('迁入洞察人数', $("#num1").data('value'));
+        this.updateNum('迁入人数', $("#num1").data('value'));
         var me = this;
         this.loadMigrantDirectType(theCurrentView, theSelectData.type, formateDate());
         /*this.loadMigrantCountNum(theCurrentView, theSelectData.type, formateDate(), function (num) {

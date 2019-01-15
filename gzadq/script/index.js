@@ -82,8 +82,8 @@ $(function () {
         if (!theCurrentDate1) {
             var theDate1 = GetFromDate();
             var theBeginDay1 = theDate1.getDay();
-            var theBeginDate1 = theDate1.addDays(-theBeginDay1);
-            var theEndDate1 = theBeginDate1.addDays(6);
+            var theBeginDate1 = theDate1.addDays(-7);
+            var theEndDate1 = theBeginDate1.addDays(7);
             datebegin = theBeginDate1.getFullYear() + "-" + FormateDateNum(theBeginDate1.getMonth() + 1) + "-" + FormateDateNum(theBeginDate1.getDate());
             dateend = theEndDate1.getFullYear() + "-" + FormateDateNum(theEndDate1.getMonth() + 1) + "-" + FormateDateNum(theEndDate1.getDate());
             return theBeginDate1.getFullYear() + "-" + FormateDateNum(theBeginDate1.getMonth() + 1) + "-" + FormateDateNum(theBeginDate1.getDate()) + " - " +
@@ -1469,7 +1469,7 @@ $(function () {
                 }
 
 
-                $('.newcome-num.add').html('<span class="newcome-people">' + addPeople + '</span>' + unitText);//新增
+                $('.newcome-num.add').html('<span class="newcome-people">' + addPeople + '</span>' + unitText+'/分钟');//新增
                 //$('.newcome.out').text(( / 10000).toFixed(1));//离开
                 //$('.newcome.add').text(( / 10000).toFixed(1));//新增
             }
