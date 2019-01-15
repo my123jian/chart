@@ -928,6 +928,7 @@ $(function () {
             if (res && res.isSuccess && res.data) {
                 var theAges = res.data.age;
                 // var theGenders = res.data.gender;
+                //debugger;
                 theAgeObj.man = Math.ceil((res.data.man || 0) * 100);
                 theAgeObj.woman = 100 - theAgeObj.man;
                 /*for (var i = 0; i < theGenders.length; i++) {

@@ -647,6 +647,7 @@ $(function () {
                 if (seeType == 3) {
                     $('#direction-num').text(0);
                 }
+                //debugger;
                 if (theData && theData.length > 0) {
                     var theDataList = theData;
                     var theTotalNum = 0;
@@ -654,7 +655,8 @@ $(function () {
                         var theItem = theDataList[i];
                         if (theCharts[theItem.outChannel || theItem.inType || theItem.migChannel]) {
                             theTotalNum += (theItem.migNum || 0);
-                            theCharts[theItem.outChannel || theItem.inType || theItem.migChannel].refresh('', (theItem.outPercentage || theItem.inPercentage || theItem.oPercentage));
+                         // debugger;
+                          theCharts[theItem.outChannel || theItem.inType || theItem.migChannel].refresh('', (theItem.outPercentage || theItem.inPercentage || theItem.oPercentage));
                         }
                     }
                     //debugger;
