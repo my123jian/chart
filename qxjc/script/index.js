@@ -1089,10 +1089,10 @@ $(function () {
                     $('#populationOut').removeClass('red');
                     $('#populationOut').removeClass('green');
                     if(theSuStr=='↑'){
-                        $('#populationOut').addClass('green');
+                        $('#populationOut').addClass('red');
                     }
                     if(theSuStr=='↓'){
-                        $('#populationOut').addClass('red');
+                        $('#populationOut').addClass('green');
                     }
                     theViewData.populationOut=theSuStr+ Math.abs(theViewData.populationOut);
                 }

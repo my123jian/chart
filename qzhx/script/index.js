@@ -112,7 +112,7 @@ $(function () {
     }
     var formateDate3 = function () {
         if (!theCurrentDate3) {
-            return GetTodayDate().before(2).formate();
+            return GetTodayDate().formate();
         }
         return theCurrentDate3.year + '-' + FormateDateNum(theCurrentDate3.month) + '-' + FormateDateNum(theCurrentDate3.date);//
     }
@@ -370,7 +370,7 @@ $(function () {
             },
                 {
                     name: '海安港',
-                    textStyle: {color: "#357acb"}
+                    textStyle: {color: "#32ff4b"}
                     //textStyle: {color: "#85a8b8"}
                 }],
             x: 'center',
@@ -418,13 +418,30 @@ $(function () {
                 //name: '搜索引擎',
                 type: 'line',
                 name: '海安港',
-
+                areaStyle: {
+                    normal: {
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: 'rgba(50,255,75,0.3)'
+                            }, {
+                                offset: 0.5, color: 'rgba(50,255,75,0.15)'
+                            }, {
+                                offset: 1, color: 'rgba(50,255,75,0)'
+                            }]
+                        }
+                    }
+                },
                 itemStyle: {
                     normal: {
-                        color: '#357acb',
+                        color: '#32ff4b',
                         lineStyle: {
                             width: 2,
-                            color: '#357acb',
+                            color: '#32ff4b',
                             type: 'solid'  //'dotted'虚线 'solid'实线
                         }
                     }
