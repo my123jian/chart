@@ -119,14 +119,14 @@ $(function () {
             trigger: 'axis',
             backgroundColor: 'transparent',
             formatter: function (params) {
-                var theDatas=[];
-                if(params.length>1){
-                    for(var i=0;i<params.length;i++){
-                        theDatas.push(params[i].seriesName+':'+params[i].data+'万');
+                var theDatas = [];
+                if (params.length > 1) {
+                    for (var i = 0; i < params.length; i++) {
+                        theDatas.push(params[i].seriesName + ':' + params[i].data + '万');
                     }
-                }else{
-                    for(var i=0;i<params.length;i++){
-                        theDatas.push(params[i].data+'万');
+                } else {
+                    for (var i = 0; i < params.length; i++) {
+                        theDatas.push(params[i].data + '万');
                     }
                 }
                 return theDatas.join('<br />');
@@ -162,10 +162,10 @@ $(function () {
             },
             axisPointer: {
                 label: {
-                    show:true,
+                    show: true,
                     color: '#05cffa',
                     formatter: function (arg) {
-                       return arg.value;
+                        return arg.value;
                     }
                 },
                 lineStyle: {
@@ -176,7 +176,7 @@ $(function () {
                     }
                 }
             },
-            data: ['6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00','23:00']
+            data: ['6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
             //data: theXData
         },
         yAxis: {
@@ -392,7 +392,7 @@ $(function () {
             trigger: 'click',
             //range: true,//范围选择
             //format:'yyyy年MM月dd日',
-            max:GetTodayDate().formate(),
+            max: GetTodayDate().formate(),
             value: formateDate(),
             done: function (value, date, endDate) {
                 //debugger;
@@ -416,7 +416,7 @@ $(function () {
             //show: true,
             range: true,//范围选择
             value: formateDate1(),
-            max:GetTodayDate().formate(),
+            max: GetTodayDate().formate(),
             done: function (value, date, endDate) {
                 //debugger;
                 //console.log('日期变化:' + value); //得到日期生成的值，如：2017-08-18
@@ -464,15 +464,15 @@ $(function () {
         }
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
-        theCurrentOption.tooltip.formatter=function (params) {
-            var theDatas=[];
-            if(params.length>1){
-                for(var i=0;i<params.length;i++){
-                    theDatas.push(params[i].seriesName+':'+params[i].data+'分钟');
+        theCurrentOption.tooltip.formatter = function (params) {
+            var theDatas = [];
+            if (params.length > 1) {
+                for (var i = 0; i < params.length; i++) {
+                    theDatas.push(params[i].seriesName + ':' + params[i].data + '分钟');
                 }
-            }else{
-                for(var i=0;i<params.length;i++){
-                    theDatas.push(params[i].data+'分钟');
+            } else {
+                for (var i = 0; i < params.length; i++) {
+                    theDatas.push(params[i].data + '分钟');
                 }
             }
             return theDatas.join('<br />');
@@ -541,32 +541,55 @@ $(function () {
         data3 = data3 || [];
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
-        theCurrentOption.xAxis.name="(日期)";
+        theCurrentOption.xAxis.name = "(日期)";
         var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
         var theBeginDate = new Date(datebegin);
         var theEndDate = new Date(dateend);
         var theXData = [];
-        while (theEndDate.getTime() > theBeginDate.getTime()) {
+        //debugger;
+        if(xData){
+            for(var i=0;i<xData.length;i++){
+                var theDate=this.parserDate(xData[i]);
+                theXData.push((theDate.getMonth() + 1) + '-' + FormateDateNum(theDate.getDate()))
+            }
+        }
+        /*while (theEndDate.getTime() > theBeginDate.getTime()) {
             theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
             theBeginDate.setDate(theBeginDate.getDate() + 1);
-        }
+        }*/
+        /*if (xData) {
+
+            var theMinDate = xData.min(function (a, b) {
+                return parseInt(a) < parseInt(b);
+            });
+            if (theMinDate) {
+                var theDataBeginDate = this.parserDate(theMinDate);
+                var theXBeginDate = new Date(datebegin);
+                var theOtherData
+                while (theBeginDate.getTime() < theXBeginDate.getTime()) {
+
+                }
+            }
+        }*/
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.xAxis.axisLabel.rotate = 0;
         theCurrentOption.legend = {
-            data: [{name: '每日客流',
+            data: [{
+                name: '每日客流',
                 textStyle: {color: "#d1b96b"}
                 //textStyle: {color: "#85a8b8"}
+            },
+                {
+                    name: '香港>>珠海澳门',
+                    textStyle: {color: "#357acb"}
+                    //textStyle: {color: "#85a8b8"}
                 },
                 {
-                name: '香港>>珠海澳门',
-                    textStyle: {color: "#357acb"}
-                //textStyle: {color: "#85a8b8"}
-            },
-                {name: '珠海澳门>>香港',
+                    name: '珠海澳门>>香港',
                     textStyle: {color: "#219553"}
-                   // textStyle: {color: "#85a8b8"}
+                    // textStyle: {color: "#85a8b8"}
                 }
                 // x:'left',
                 //padding:50,
@@ -574,17 +597,17 @@ $(function () {
         },
             theCurrentOption.yAxis = [
                 {
-                name: '（人数/万）',
-                type: 'value',
-                nameLocation: 'end',
-                splitLine: {show: false},
+                    name: '（人数/万）',
+                    type: 'value',
+                    nameLocation: 'end',
+                    splitLine: {show: false},
 
-                axisLine: {
-                    lineStyle: {
-                        color: '#557398'
+                    axisLine: {
+                        lineStyle: {
+                            color: '#557398'
+                        }
                     }
-                }
-            }]
+                }]
         theCurrentOption.series = [
 
             {
@@ -687,16 +710,22 @@ $(function () {
         data2 = data2 || [];
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
-        theCurrentOption.xAxis.name="(日期)";
+        theCurrentOption.xAxis.name = "(日期)";
         var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
         var dateend = theDate1String.split(" - ")[1];
         var theBeginDate = new Date(datebegin);
         var theEndDate = new Date(dateend);
         var theXData = [];
-        while (theEndDate.getTime() > theBeginDate.getTime()) {
+       /* while (theEndDate.getTime() > theBeginDate.getTime()) {
             theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
             theBeginDate.setDate(theBeginDate.getDate() + 1);
+        }*/
+        if(xData){
+            for(var i=0;i<xData.length;i++){
+                var theDate=this.parserDate(xData[i]);
+                theXData.push((theDate.getMonth() + 1) + '-' + FormateDateNum(theDate.getDate()))
+            }
         }
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.xAxis.axisLabel.rotate = 0;
@@ -713,12 +742,14 @@ $(function () {
             }
         }]
         theCurrentOption.legend = {
-            data: [{name: '每日客流',
-                textStyle:{color:'#d1b96b'}
+            data: [{
+                name: '每日客流',
+                textStyle: {color: '#d1b96b'}
                 //textStyle: {color: "#85a8b8"}
-                },
-                {name: '观光客流',
-                    textStyle:{color:'#357acb'}
+            },
+                {
+                    name: '观光客流',
+                    textStyle: {color: '#357acb'}
                     //textStyle: {color: "#85a8b8"}
                 }]
         },
@@ -787,22 +818,22 @@ $(function () {
             ];
         this.Chart3.setOption(theCurrentOption);
     }
-    PageViewModel.prototype.loadChart4 = function (data) {
+    PageViewModel.prototype.loadChart4 = function (xData, data) {
         if (!this.Chart4) {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
         }
         var theCurrentOption = {};
         $.extend(true, theCurrentOption, option1);
-        theCurrentOption.xAxis.name="(日期)";
-        theCurrentOption.tooltip.formatter=function (params) {
-            var theDatas=[];
-            if(params.length>1){
-                for(var i=0;i<params.length;i++){
-                    theDatas.push(params[i].seriesName+':'+params[i].data+'分钟');
+        theCurrentOption.xAxis.name = "(日期)";
+        theCurrentOption.tooltip.formatter = function (params) {
+            var theDatas = [];
+            if (params.length > 1) {
+                for (var i = 0; i < params.length; i++) {
+                    theDatas.push(params[i].seriesName + ':' + params[i].data + '分钟');
                 }
-            }else{
-                for(var i=0;i<params.length;i++){
-                    theDatas.push(params[i].data+'分钟');
+            } else {
+                for (var i = 0; i < params.length; i++) {
+                    theDatas.push(params[i].data + '分钟');
                 }
             }
             return theDatas.join('<br />');
@@ -813,9 +844,15 @@ $(function () {
         var theBeginDate = new Date(datebegin);
         var theEndDate = new Date(dateend);
         var theXData = [];
-        while (theEndDate.getTime() > theBeginDate.getTime()) {
+        /*while (theEndDate.getTime() > theBeginDate.getTime()) {
             theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
             theBeginDate.setDate(theBeginDate.getDate() + 1);
+        }*/
+        if(xData){
+            for(var i=0;i<xData.length;i++){
+                var theDate=this.parserDate(xData[i]);
+                theXData.push((theDate.getMonth() + 1) + '-' + FormateDateNum(theDate.getDate()))
+            }
         }
         //debugger;
         theCurrentOption.xAxis.data = theXData;
@@ -958,7 +995,7 @@ $(function () {
 
                 for (var i = 0; i < theResultDatas.length; i++) {
                     var theItem = theResultDatas[i];
-                    if(theItem.tTime<6){
+                    if (theItem.tTime < 6) {
                         continue;
                     }
                     var theStayTime = theItem.tTimePass;
@@ -1012,17 +1049,17 @@ $(function () {
 
                 //debugger;
                 var theDataMap = {};
-                var keyMap={"港澳台":"省外"};
-               // debugger;
+                var keyMap = {"港澳台": "省外"};
+                // debugger;
                 for (var i = 0; i < data.data.length; i++) {
                     var theItem = data.data[i];
-                    var theFromType=theItem.fromType;
-                    if(keyMap[theItem.fromType]){
-                        theFromType=keyMap[theItem.fromType];
+                    var theFromType = theItem.fromType;
+                    if (keyMap[theItem.fromType]) {
+                        theFromType = keyMap[theItem.fromType];
 
                     }
 
-                    theDataMap[theFromType]=(theDataMap[theFromType]||0)+theItem.percent;
+                    theDataMap[theFromType] = (theDataMap[theFromType] || 0) + theItem.percent;
 
                 }
                 //debugger;
@@ -1195,18 +1232,20 @@ $(function () {
         // debugger;
         this.load(theCallUrl, theCallArgument, function (data) {
             var chart1Data = []
+            var theXdata=[];
             if (data && data.isSuccess) {
                 var theDatas = data.data;
                 for (var i = 0; i < theDatas.length; i++) {
                     var theItem = theDatas[i];
                     var theStayTime = theItem.avePassTime;
                     chart1Data.push(theStayTime)
+                    theXdata.push(theItem.statDate);
                 }
             }
             else {
                 console.log("loadCurrent错误:" + data);
             }
-            me.loadChart4(chart1Data);
+            me.loadChart4(theXdata,chart1Data);
         });
     }
 
@@ -1227,7 +1266,7 @@ $(function () {
                 bottom: '3%',
                 containLabel: true
             },
-            barWidth:30,
+            barWidth: 30,
             xAxis: [
                 {
 //                        type : 'category',
@@ -1297,7 +1336,7 @@ $(function () {
     /***
      * 穿梭巴士数据
      */
-    PageViewModel.prototype.loadBridgeBus=function(){
+    PageViewModel.prototype.loadBridgeBus = function () {
         var theCallUrl = "bridge/bridgeBus.do";
 
         /*{
@@ -1312,17 +1351,17 @@ $(function () {
         this.load(theCallUrl, {}, function (res) {
             //debugger;
             if (res && res.isSuccess && res.data) {
-                var theClassCount=res.data.classCount||0;//巴士数量
-                var theCheckCount=res.data.checkCount||0;//旅客数量
+                var theClassCount = res.data.classCount || 0;//巴士数量
+                var theCheckCount = res.data.checkCount || 0;//旅客数量
 
                 var unitText = "";
-             /*   if (theClassCount < 1000) {
-                    unitText = "";
-                }
-                else {
-                    unitText = "万";
-                    theClassCount = (theClassCount / 10000).toFixed(2);
-                }*/
+                /*   if (theClassCount < 1000) {
+                       unitText = "";
+                   }
+                   else {
+                       unitText = "万";
+                       theClassCount = (theClassCount / 10000).toFixed(2);
+                   }*/
                 $('.newcome-num.class').html('<span class="newcome-people">' + theClassCount + '</span>' + unitText);
                 if (theCheckCount < 1000) {
                     unitText = "";
@@ -1347,9 +1386,9 @@ $(function () {
         var bridgeBounds = [[113.730068, 22.278834], [113.711688, 22.274786], [113.695492, 22.264382], [113.678056, 22.251648], [113.643183, 22.240596], [113.63326, 22.23637], [113.594097, 22.20946], [113.591794, 22.211593], [113.636709, 22.24112], [113.669761, 22.252132], [113.685975, 22.259945], [113.701248, 22.273654], [113.714493, 22.279067], [113.728361, 22.28102], [113.755533, 22.28275], [113.787706, 22.280576]];
         var me = this;
         //debugger;
-        var theNameMap={
-            "珠海公路口岸":"港珠澳大桥起点（珠澳口岸人工岛）",
-            "港珠澳大桥境内段":"港珠澳大桥终点（桥面）"
+        var theNameMap = {
+            "珠海公路口岸": "港珠澳大桥起点（珠澳口岸人工岛）",
+            "港珠澳大桥境内段": "港珠澳大桥终点（桥面）"
         };
         me.addMarker2("珠海公路口岸", 113.581696, 22.203582);
         me.addMarker2("港珠澳大桥境内段", 113.728361, 22.28002);
@@ -1427,19 +1466,19 @@ $(function () {
                 //var theProCountPeople = res.data["ProCountPeople"][0] || {};
                 //var theStationNewPeople = res.data["StationNewPeople"][0] || {};
                 var theStationTollStay = res.data["stay"];// res.data["StationNewPeople"];//实时驻留时长
-                var theDefualtData=[0,0,0,0];
+                var theDefualtData = [0, 0, 0, 0];
                 var theDatas = theStationTollStay.map(function (item) {
-                    if(item.staytimespan<=4){
-                        if(item.staytimespan==0){
-                            theDefualtData[item.staytimespan-1]=((item.ratio||0)*100).toFixed(2);
+                    if (item.staytimespan <= 4) {
+                        if (item.staytimespan == 0) {
+                            theDefualtData[item.staytimespan - 1] = ((item.ratio || 0) * 100).toFixed(2);
                         }
-                        else{
-                            theDefualtData[item.staytimespan-1]=((item.ratio||0)*100).toFixed(2);
+                        else {
+                            theDefualtData[item.staytimespan - 1] = ((item.ratio || 0) * 100).toFixed(2);
                         }
 
                     }//(item.subscribercount / 10000).toFixed(2);
                 })
-               // me.loadChartBar(theDefualtData);
+                // me.loadChartBar(theDefualtData);
                 var unitText = "万";
                 var inPeople = (res.data["inPeople"] || 0);
                 if (inPeople < 1000) {
@@ -1469,7 +1508,7 @@ $(function () {
                 }
 
 
-                $('.newcome-num.add').html('<span class="newcome-people">' + addPeople + '</span>' + unitText+'/分钟');//新增
+                $('.newcome-num.add').html('<span class="newcome-people">' + addPeople + '</span>' + unitText + '/分钟');//新增
                 //$('.newcome.out').text(( / 10000).toFixed(1));//离开
                 //$('.newcome.add').text(( / 10000).toFixed(1));//新增
             }

@@ -308,8 +308,8 @@ $(function () {
         $.extend(true, theCurrentOption, option1);
         theCurrentOption.grid.height = 170;
         theCurrentOption.grid.width = 1000;
-        theCurrentOption.grid.left=30;
-        theCurrentOption.grid.top=40;
+        theCurrentOption.grid.left = 30;
+        theCurrentOption.grid.top = 40;
         theCurrentOption.grid.bottom = 30;
         var theXData = [];
         //var theTodayDate=new Date();
@@ -479,7 +479,7 @@ $(function () {
             theMap[xData[i]] = data1[i];
         }
         //debugger;
-        var me=this;
+        var me = this;
 
         while (theEndDate.getTime() > theBeginDate.getTime()) {
 
@@ -746,9 +746,9 @@ $(function () {
                 left: 92,
                 right: 5,
                 top: 30,
-                bottom: 0,
+                bottom: 20,
                 width: 560,
-                height: 160,
+                height: 150,
                 containLabel: true
             },
             xAxis: [
@@ -987,7 +987,7 @@ $(function () {
         $('.man-icon').text(man + '%');
         $('.woman-icon').text(woman + '%');
         // debugger;
-        var theDegaer =man * 360 / 100
+        var theDegaer = man * 360 / 100
         var thePath = this.drawArcByRadiusDeg(118, 59, 59, (theDegaer || 0), 1);
         ;$('#per-path').attr('d', thePath);
         var theDatas = [];
@@ -1051,6 +1051,11 @@ $(function () {
                     "statDate": "2018-12-12"
                 }]], "isSuccess": true, "msg": "success"
             };*/
+            //debugger;
+            /*for (var i = 0; i < 24; i++) {
+                theData1.push(0);
+                theData2.push(0);
+            }*/
             if (res && res.isSuccess) {
                 if (res.data.length > 1) {
                     var theItems = res.data[0];
@@ -1075,7 +1080,12 @@ $(function () {
             for (var i = 0; i < theTmpArray.length; i++) {
                 if (!theHash[theTmpArray[i]]) {
                     theHash[theTmpArray[i]] = true;
+                    var theDate = theTmpArray[i];
+                    //2019-01-15 00
+                    var theIndexStr = eval(theDate.split(' ')[1]);
                     theX.push(theTmpArray[i]);
+                    //theData1[theIndexStr] = theX1Obj[theTmpArray[i]] || 0;
+                    //theData2[theIndexStr] = theX2Obj[theTmpArray[i]] || 0;
                     theData1.push(theX1Obj[theTmpArray[i]] || 0);
                     theData2.push(theX2Obj[theTmpArray[i]] || 0);
                 }
