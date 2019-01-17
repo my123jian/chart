@@ -12,7 +12,7 @@ html, body {
     width: 1920px;
     height: 1080px;
     overflow: hidden;
-   /* background-image: url("img/bg.png");*/
+    /* background-image: url("img/bg.png");*/
 }
 
 .part1 {
@@ -26,21 +26,21 @@ html, body {
 .part2 {
     width: 1850px;
     height: 290px;
-    margin-left: 35px;
+    /*margin-left: 35px;*/
     margin-top: 20px;
-    background-image: url("img/bg_02.png");
+    /*background-image: url("img/bg_02.png");*/
 }
 
 .part2.active {
-    background-image: url("img/bg_03.png");
+    /*background-image: url("img/bg_03.png");*/
 }
 
 .part3 {
     width: 1850px;
-    height: 290px;
-    margin-left: 35px;
-    margin-top: 20px;
-    background-image: url("img/bg_04.png");
+    height: 280px;
+    /*margin-left: 35px;*/
+    margin-top: 36px;
+    /*background-image: url("img/bg_04.png");*/
 }
 
 .title {
@@ -76,17 +76,29 @@ html, body {
     background-position-y: 9px;
     background-size: 14px 8px;
     margin-bottom: 3px;
+    position: absolute;
+    right: 0px;
+    margin-right: 43px;
+    margin-top: -23px;
+    /*background: #0e6694;*/
+    border-radius: 5px;
+    border: #3296b9 solid 1px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
-.date.readonly{
-    background: transparent!important;
+
+.date.readonly {
+    background: transparent !important;
 }
 
 .part1 .date, .part2 .date {
     margin-left: 218px !important;
 }
-#date3{
-    margin-left: 110px!important;
+
+#date3 {
+    margin-left: 110px !important;
 }
+
 .date-text {
     line-height: 30px;
     color: #ddf3ff;
@@ -141,6 +153,12 @@ html, body {
     background-position-y: 13px;
     background-size: 14px 8px;
     font-size: 24px;
+    background: #0e6694;
+    border-radius: 5px;
+    border: #3296b9 solid 1px;
+    z-index: 1000;
+    position: absolute;
+    right: 23px;
 }
 
 .right-title1 {
@@ -152,8 +170,10 @@ html, body {
     color: #d9f1ff;
     display: inline-block;
     cursor: pointer;
-    position: absolute;
-    left: 1334px;
+    float: right;
+    text-align: center;
+    /*position: absolute;
+    left: 1334px;*/
 }
 
 .right-title2 {
@@ -164,54 +184,92 @@ html, body {
     color: #289ee5;
     display: inline-block;
     cursor: pointer;
-    position: absolute;
-    left: 1628px;
+    float: right;
+    text-align: center;
+    /*position: absolute;
+    left: 1628px;*/
 }
 
 .part2.active .right-title1 {
     color: #289ee5;
+
+}
+
+.right-title1.active, .right-title2.active {
+    /*background: url("img/btn_01.png");
+    background-repeat: no-repeat;*/
+    background: #0e6694;
+    border-radius: 5px;
+    border: #3296b9 solid 1px;
 }
 
 .part2.active .right-title2 {
     color: #d9f1ff;
+    /*background: url("img/btn_01.png");
+    background-repeat: no-repeat;*/
+    background: #0e6694;
+    border-radius: 5px;
+    border: #3296b9 solid 1px;
 }
 
-.btn-contain {
+/*.btn-contain {
     width: 300px;
     height: 30px;
     line-height: 30px;
     color: #ddf3ff;
     font-size: 18px;
     text-align: center;
-    /* float: right;
-    margin-right: 10px;
-    margin-top: 22px;*/
+    // float: right;
+    //margin-right: 10px;
+    //margin-top: 22px;
     z-index: 10;
     right: 44px;
-    /*top:56px;*/
+    //top:56px;
     position: absolute;
 
+}*/
+.btn-contain{
+    width: 300px;
+    /* height: 30px; */
+    line-height: 30px;
+    color: #ddf3ff;
+    font-size: 18px;
+    text-align: center;
+    z-index: 10;
+    right: 0px;
+    left: 608px;
+    position: relative;
 }
 
 .btn {
     cursor: pointer;
-    width: 115px;
+    /* width: 83px; */
+    line-height: 16px;
     text-align: center;
     display: inline-block;
-    margin-right: 10px;
-    margin-top: 22px;
+    /* margin-right: 10px; */
+    /* margin-top: 22px; */
     z-index: 10;
-    right: 44px;
-    /*top:56px;*/
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    /* right: 44px; */
+    font-size: 12px;
+    /* top: 56px; */
 }
 
 .btn.active {
-    background: url("img/btn_01.png");
+    /*background: url("img/btn_01.png");*/
+    background: #0e6694;
+    border-radius: 5px;
+    border: #3296b9 solid 1px;
 }
 
-.btn2{
+.btn2 {
     width: 75px;
 }
+
 .btn2.active {
     background: url("img/btn_samll.png");
 }
@@ -313,7 +371,7 @@ table > td {
     font-weight: bold;
 }
 
-#chart1, #chart2,#chart3 {
+#chart1, #chart2, #chart3 {
     width: 1850px;
     height: 250px;
 }
@@ -322,7 +380,162 @@ select option {
     /*font-size: 12px;*/
     background: #0f265c;
 }
-.date-part{
+
+.date-part {
     display: inline-block;
     margin-left: 90px;
+}
+
+.part1-content > div {
+    width: 350px;
+    height: 254px;
+    float: left;
+}
+
+
+.part1-content  .content {
+    margin-top: 30px;
+}
+
+.part1-content .content > div {
+    float: left;
+    width: 50%;
+    height: 89px;
+    text-align: center;
+}
+.part1-content .small-title{
+    /*padding-left: 34px;*/
+    font-size: 16px;
+    color:rgba(221,243,255,0.6);
+}
+.part1-content .field{
+    font-size: 26px;
+    color: white;
+    padding-top: 10px;
+    /*padding-left: 34px;*/
+}
+.part1-content .title {
+    margin-top: 10px;
+    padding-left: 43px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    font-size: 22px !important;
+}
+
+.part1-content .total {
+    background-image: url("img/pbg_1.png");
+}
+
+.total .title {
+    background-image: url("img/picon_1.png");
+}
+
+.part1-content .gonglu {
+    background-image: url("img/pbg_2.png");
+}
+
+.gonglu .title {
+    background-image: url("img/picon_2.png");
+}
+
+.part1-content .tielu {
+    background-image: url("img/pbg_3.png");
+}
+
+.tielu .title {
+    background-image: url("img/picon_3.png");
+}
+
+.part1-content .shuilu {
+    background-image: url("img/pbg_4.png");
+}
+
+.shuilu .title {
+    background-image: url("img/picon_4.png");
+}
+
+.part1-content .minhang {
+    background-image: url("img/pbg_5.png");
+}
+
+.minhang .title {
+    background-image: url("img/picon_5.png");
+}
+
+.title1-new {
+    background: url("img/title-icon.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    margin-left: 48px;
+    padding-left: 26px;
+    color: white;
+}
+
+.part1-new {
+    padding-top: 144px;
+    color: white;
+}
+
+.part1-new .part1-content {
+    margin-top: 30px;
+    margin-left: 48px;
+}
+
+.part1-content > div {
+    margin-right: 22px;
+}
+.part21{
+    float: left;
+    margin-top: 10px;
+    height: 282px!important;
+    width: 967px!important;
+}
+.chart-small{
+    width: 230px;
+    height: 282px;
+    float: left;
+    margin-top: 10px;
+    background: url("img/chart-small.png");
+}
+.chart-big{
+    height: 282px!important;
+    width: 914px!important;
+    background:transparent!important;
+    background-repeat: no-repeat;
+}
+.chart-big .btn-contain{
+    display: block!important;
+
+}
+.chart-small .chart{
+    /*background: red;*/
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    margin-top: 3px;
+}
+.chart-big .chart{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    margin-top: -27px!important;
+}
+.chart-title{
+    background: url(img/icon_6.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    color: white;
+    font-size: 12px;
+    padding-left: 7px;
+    position: absolute;
+    margin-left: 109px;
+    margin-top: 10px;
+}
+.chart-big .chart-title{
+    /*background: transparent;*/
+    margin-left: 829px!important;
 }

@@ -776,8 +776,8 @@ $(function () {
             '#4293f2'];
 
         var theLegends = [
-            {name: '人口总量', textStyle: {color: "#32ff4b"}},
-            {name: '常驻人口', textStyle: {color: "#4293f2"}},
+            {name: '人口总量', textStyle: {color: "#32ff4b",fontSize:16}},
+            {name: '常驻人口', textStyle: {color: "#4293f2",fontSize:16}},
         ];
         var theName1 = "人口总量";
         var theName2 = "常驻人口";
@@ -785,8 +785,8 @@ $(function () {
             theName1 = "迁出";
             theName2 = "迁入";
             theLegends = [
-                {name: '迁出', textStyle: {color: "#32ff4b"}},
-                {name: '迁入', textStyle: {color: "#4293f2"}}
+                {name: '迁出', textStyle: {color: "#32ff4b",fontSize:16}},
+                {name: '迁入', textStyle: {color: "#4293f2",fontSize:16}}
             ];
         }
         theXData.push(theBeginDate.getTime());
@@ -1014,7 +1014,7 @@ $(function () {
                 },
             ]
         };
-        debugger;
+       // debugger;
         this.Chart4.setOption(option);
     }
     PageViewModel.prototype.loadChart5 = function (xData, data1) {

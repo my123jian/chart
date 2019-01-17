@@ -371,12 +371,12 @@ $(function () {
         theCurrentOption.legend = {
             data: [{
                 name: '粤海铁路北港',
-                textStyle: {color: "#d1b96b"}
+                textStyle: {color: "#d1b96b",fontSize:16}
 //                textStyle: {color: "#85a8b8"}
             },
                 {
                     name: '海安港',
-                    textStyle: {color: "#32ff4b"}
+                    textStyle: {color: "#32ff4b",fontSize:16}
                     //textStyle: {color: "#85a8b8"}
                 }],
             x: 'center',
@@ -762,7 +762,7 @@ $(function () {
             },
             xAxis: [
                 {
-//                        type : 'category',
+//                 type : 'category',
                     data: ['0-1', '1-2', '2-3', '3-4', '4-5', '5-6', '6-7', '7-8', '8-24',],
                     "axisTick": {       //X轴刻度线
                         "show": false
@@ -1201,7 +1201,7 @@ $(function () {
                         theReliArrays.push({
                             bounds: haianBounds,
                             data: theItem.subscribercount || 0,
-                            max: 10000,
+                            max: 50,
                         });
                     }
                     if (theItem.positionName == "铁路北港" || "铁路北港" == theItem.positionName) {
@@ -1209,7 +1209,7 @@ $(function () {
                         theReliArrays.push({
                             bounds: yhbgBounds,
                             data: theItem.subscribercount || 0,
-                            max: 10000,
+                            max: 50,
                         });
                     }
                 }

@@ -96,7 +96,7 @@ $(function () {
             var theMaxDate = new Date('2019-03-01');
             var theMinDate = new Date('2019-02-21');
             if (GetTodayDate().getTime() > theMaxDate.getTime() || GetTodayDate().getTime() < theMinDate.getTime()) {
-                //$('.date-text').hide();
+                $('.date-text').hide();
             }
             else {
                 formateDateNumText('#date2', GetTodayDate());
@@ -124,32 +124,23 @@ $(function () {
 
                 }
             });
-            $('.btn-contain .btn1').click(function (item) {
-                if ($(this).hasClass('active')) {
-                    return;
-                }
-                $('.btn-contain .btn1').removeClass('active');
-                $(this).addClass('active');
-                me.loadData2();
-            });
-            $('.btn-contain .btn2').click(function (item) {
-                if ($(this).hasClass('active')) {
-                    return;
-                }
-                $('.btn-contain .btn2').removeClass('active');
-                $(this).addClass('active');
-                me.loadData2();
-            });
+
             $('.part2 .item').click(function () {
                 if ($(this).hasClass('active')) {
                     return;
                 }
+                //debugger;
                 $('.part2 .item').removeClass('active');
                 $(this).addClass('active');
                 var theModel = $(this).data('mode');
                 $('.part2').removeClass('active');
                 if (theModel == 2) {
-                    $('.part2').addClass('active');
+                    $('.part2').addClass('active')
+                    $('.chart-group1').hide();
+
+                }
+                else{
+                    $('.chart-group1').show();
                 }
                 $('.btn-contain .btn').hide();
                 $('#chart1,#chart3').hide();
@@ -157,28 +148,85 @@ $(function () {
                 $('.part2' + theModel).show();
                 $('.part2').data('mode', theModel);
                 //debugger;
+
                 me.loadData2();
             });
             $('.select').change(function () {
+
                 me.loadData3();
             });
+            $('.chart-small').click(function (item) {
+                if (!$(this).hasClass('chart-big')) {
+                    $('.chart-small').removeClass('chart-big');
+                    $(this).addClass('chart-big');
+                    me.ChartGonglu.resize();
+                    me.ChartTotal.resize();
+                    me.ChartTielu.resize();
+                    me.ChartShuilu.resize();
+                    me.ChartMinhang.resize();
+                }
+            });
+            var theInstance=this;
+            $('.chart-small').each(function () {
+                var me = this;
+                $(me).find('.btn-contain .btn1').click(function (item) {
+                    if ($(this).hasClass('active')) {
+                        return;
+                    }
+                    $(me).find('.btn-contain .btn1').removeClass('active');
+                    $(this).addClass('active');
+                    theInstance.loadData2();
+                });
+                $(me).find('.btn-contain .btn2').click(function (item) {
+                    if ($(this).hasClass('active')) {
+                        return;
+                    }
+                    $(me).find('.btn-contain .btn2').removeClass('active');
+                    $(this).addClass('active');
+                    theInstance.loadData2();
+                });
+            });
+
         }
 
 
         PageViewModel.prototype.loadChart1 = function (theXData, dataArray1, dataArray2) {
-            if (!this.Chart1) {
+            /*if (!this.Chart1) {
                 this.Chart1 = echarts.init(document.getElementById('chart1'));
+            }*/
+            if (!this.ChartTotal) {
+                this.ChartTotal = echarts.init(document.getElementById('chart-total'));
             }
+            if (!this.ChartGonglu) {
+                this.ChartGonglu = echarts.init(document.getElementById('chart-gonglu'));
+            }
+            if (!this.ChartTielu) {
+                this.ChartTielu = echarts.init(document.getElementById('chart-tielu'));
+            }
+            if (!this.ChartShuilu) {
+                this.ChartShuilu = echarts.init(document.getElementById('chart-shuilu'));
+            }
+            if (!this.ChartMinhang) {
+                this.ChartMinhang = echarts.init(document.getElementById('chart-minhang'));
+            }
+
+            var theValues = [];
+            $('.chart-group1').find('.btn.active').each(function () {
+                theValues.push($(this).data('value'));
+            });
+
+
+            var theCharts = [this.ChartTotal, this.ChartGonglu, this.ChartTielu, this.ChartShuilu, this.ChartMinhang];
             //debugger;
             dataArray1 = dataArray1 || [[], [], [], [], []];
             dataArray2 = dataArray2 || [[], [], [], [], []];
-            var theItemConfig = [{name: '发送总量', textStyle: {color: "#cfccfc"}},
-                {name: '公路发送', textStyle: {color: "#ffdc6f"}},
+            var theItemConfig = [{name:theValues[0]=='发送量'? '发送总量':'累计发送量', textStyle: {color: "#cfccfc"}},
+                {name: theValues[1]=='发送量'? '发送总量':'累计发送量', textStyle: {color: "#ffdc6f"}},
                 {
-                    name: '铁路发送', textStyle: {color: "#32ff4a"}
+                    name: theValues[2]=='发送量'? '发送总量':'累计发送量', textStyle: {color: "#32ff4a"}
                 },
-                {name: '水路发送', textStyle: {color: "#328eff"}}
-                , {name: '民航发送', textStyle: {color: "#e407e7"}}];
+                {name: theValues[3]=='发送量'? '发送总量':'累计发送量', textStyle: {color: "#328eff"}}
+                , {name: theValues[4]=='发送量'? '发送总量':'累计发送量', textStyle: {color: "#e407e7"}}];
             var theBeginDate = new Date('2019-01-21');
             var theXData = [];
             theXData.push(theBeginDate.getTime());
@@ -212,19 +260,19 @@ $(function () {
                             var theKeyMap = {};
                             for (var i = 0; i < params.length; i = i + 1) {
                                 if (!theKeyMap[params[i].seriesName]) {
-                                    var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
-                                    theDatas.push(theColorText+params[i].seriesName + ':' + (params[i].data) + '万');
+                                    var theColorText = "<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:" + params[i].color + ";\"></span>";
+                                    theDatas.push(theColorText + params[i].seriesName + ':' + (params[i].data) + '万');
                                     theKeyMap[params[i].seriesName] = true;
                                 }
                             }
-                            var theDate=new Date();
+                            var theDate = new Date();
                             theDate.setTime(params[0].name);
-                            var theNameText= theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
-                            return theNameText+'<br/>'+theDatas.join('<br />');
+                            var theNameText = theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                            return theNameText + '<br/>' + theDatas.join('<br />');
                         }
                     },
 
-                    legend: {
+                    /*legend: {
                         //align:'right',//
                         top: 30,
                         right: 320,
@@ -232,7 +280,7 @@ $(function () {
                             color: '#557398',
                         },
                         data: theItemConfig
-                    },
+                    },*/
                     color: theItemConfig.map(function (item) {
                         return item.textStyle.color;
                     }),
@@ -245,7 +293,7 @@ $(function () {
                         bottom:
                             10,
                         width:
-                            1740,
+                            814,
                         height:
                             210,
                         containLabel:
@@ -261,7 +309,7 @@ $(function () {
                         axisLine:
                             {
                                 lineStyle: {
-                                    color: '#557398'
+                                    color: 'white'//'#557398'
                                 }
                             }
                         ,
@@ -321,7 +369,7 @@ $(function () {
                         ,
                         axisLine: {
                             lineStyle: {
-                                color: '#557398'
+                                color: 'white'//'#557398'
                             }
                         }
                     }
@@ -392,10 +440,14 @@ $(function () {
             //dataArray = dataArray || [];
             for (var i = 0; i < theItemConfig.length; i++) {
                 var theItem = theItemConfig[i];
-                series = series.concat(getSeries(theItem.name, theItem.textStyle.color, [dataArray1[i], dataArray2[i]] || [[], []]));
+                var theOptions = {};
+                $.extend(true, theOptions, option);
+                series = getSeries(theItem.name, theItem.textStyle.color, [dataArray1[i], dataArray2[i]] || [[], []]);
+                theOptions.series = series;
+                theCharts[i].setOption(theOptions);
             }
-            option.series = series;
-            this.Chart1.setOption(option);
+
+            //this.Chart1.setOption(option);
         }
         PageViewModel.prototype.loadChart3 = function (theXData, dataArray) {
             if (!this.Chart3) {
@@ -441,18 +493,18 @@ $(function () {
                             var theDatas = [];
                             //var theText = "";
                             for (var i = 0; i < params.length; i = i + 1) {
-                                var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
-                                theDatas.push(theColorText+params[i].seriesName + ':' + (params[i].data) + '万');
+                                var theColorText = "<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:" + params[i].color + ";\"></span>";
+                                theDatas.push(theColorText + params[i].seriesName + ':' + (params[i].data) + '万');
                             }
                             /* while (theIndex < params.length - 1) {
 
                                      theText += params[theIndex].data + "<br />";
                                      theIndex += 2;
                                  }*/
-                            var theDate=new Date();
+                            var theDate = new Date();
                             theDate.setTime(params[0].name);
-                            var theNameText= theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
-                            return theNameText+'<br/>'+theDatas.join('<br />');
+                            var theNameText = theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                            return theNameText + '<br/>' + theDatas.join('<br />');
                         }
                     },
 
@@ -493,7 +545,7 @@ $(function () {
                         axisLine:
                             {
                                 lineStyle: {
-                                    color: '#557398'
+                                    color: 'white'//'#557398'
                                 }
                             }
                         ,
@@ -553,7 +605,7 @@ $(function () {
                         ,
                         axisLine: {
                             lineStyle: {
-                                color: '#557398'
+                                color: 'white'//'#557398'
                             }
                         }
                     }
@@ -626,7 +678,7 @@ $(function () {
             var theBeginDate = new Date('2019-01-21');
             var theXData = [];
             theXData.push(theBeginDate.getTime());
-            for (var i = 1; i < 40; i++) {
+            for (var i = 1; i < 41; i++) {
                 theBeginDate.setDate(theBeginDate.getDate() + 1);
                 theXData.push(theBeginDate.getTime());
             }
@@ -638,6 +690,7 @@ $(function () {
                     //'#cfccfc',
                     '#ffdc6f',
                     '#32ff4a'],
+
                 tooltip: {
                     trigger: 'axis',
                     //show:true,
@@ -660,15 +713,15 @@ $(function () {
                         var theKeyMap = {};
                         for (var i = 0; i < params.length; i = i + 1) {
                             if (!theKeyMap[params[i].seriesName]) {
-                                var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
-                                theDatas.push(theColorText+params[i].seriesName + ':' + (params[i].data) + '万');
+                                var theColorText = "<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:" + params[i].color + ";\"></span>";
+                                theDatas.push(theColorText + params[i].seriesName + ':' + (params[i].data) + '万');
                                 theKeyMap[params[i].seriesName] = true;
                             }
                         }
-                        var theDate=new Date();
+                        var theDate = new Date();
                         theDate.setTime(params[0].name);
-                        var theNameText= theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
-                        return theNameText+'<br/>'+theDatas.join('<br />');
+                        var theNameText = theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                        return theNameText + '<br/>' + theDatas.join('<br />');
                     }
                 },
 
@@ -692,7 +745,7 @@ $(function () {
                     width:
                         1740,
                     height:
-                        210,
+                        190,
                     containLabel:
                         true
                 }
@@ -705,27 +758,29 @@ $(function () {
 
                 xAxis: {
                     type: 'category',
-                    boundaryGap:
-                        false,
-                    name:
-                        '(日期)',
+                    //boundaryGap: false,
+                    name: '(日期)',
+                    axisTick: {       //X轴刻度线
+                        "show": false
+                    },
                     axisLine:
                         {
                             lineStyle: {
-                                color: '#557398'
+                                color: 'white'// '#557398'
                             }
                         }
                     ,
                     axisPointer: {
                         label: {
-
                             color: '#05cffa',
                             formatter:
-
                                 function (arg) {
                                     //debugger;
                                     var theDate = new Date();
                                     theDate.setTime(arg.value);
+                                    /*if(theDate.getTime()>new Date('2019-03-01').getTime()){
+                                        return "";
+                                    }*/
                                     return theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
                                 }
                         }
@@ -735,8 +790,7 @@ $(function () {
                             shadowBlur:
                                 {
                                     shadowColor: '#05cffa',
-                                    shadowBlur:
-                                        10
+                                    shadowBlur: 10
                                 }
                         }
                     }
@@ -772,7 +826,7 @@ $(function () {
                     ,
                     axisLine: {
                         lineStyle: {
-                            color: '#557398'
+                            color: 'white'// '#557398'
                         }
                     }
                 }
@@ -785,10 +839,14 @@ $(function () {
                 //debugger;
                 var theSeries1 = {
                     name: name,
-                    type: 'line',
-                    smooth: true,
-                    symbol: 'none',
-                    showSymbol: false,
+                    type: 'bar',
+                    //smooth: true,
+                    //symbol: 'none',
+                    //showSymbol: false,
+                    //barWidth: '50%',
+                    /*"axisTick": {       //X轴刻度线
+                        "show": false
+                    },*/
                     tooltip: {
                         position: 'left',
                     },
@@ -796,7 +854,7 @@ $(function () {
                         return (item / 10000).toFixed(2)
                     }),
                     color: color,
-                    areaStyle: {
+                    /*areaStyle: {
                         normal: {
                             color: {
                                 type: 'linear',
@@ -818,14 +876,19 @@ $(function () {
                         normal: {
                            // color: color
                         }
-                    }
+                    }*/
                 };
                 var theSeries2 = {
                     name: name,
-                    type: 'line',
-                    smooth: true,
-                    symbol: 'none',
-                    showSymbol: false,
+                    type: 'bar',
+                    /*barWidth: '50%',*/
+                    //barWidth: '50%',
+                    // smooth: true,
+                    //symbol: 'none',
+                    //showSymbol: false,
+                    /* "axisTick": {       //X轴刻度线
+                         "show": false
+                     },*/
                     tooltip: {
                         position: 'left',
                     },
@@ -935,10 +998,20 @@ $(function () {
                     theNum2 = "";
                 }
 //debugger;
-                var theText = `${theNum1}<span class="${theColor}">${theNum2}</span>`;
+                var theText = `<span class="${theColor}">${theNum2}</span>`;
                 return theText;
             }
 
+            var fromateNum=function (num1) {
+                var theNum1="";
+                if (num1 > 1000) {
+                   var theNum1 = (num1 / 10000).toFixed(2) + '万';
+                }
+                else {
+                   var theNum1 = num1;
+                }
+                return theNum1;
+            }
             var formateLeft1 = function (data) {
                 data.postion_type1_total_text = formateText(data.postion_type1_total, data.send_count_total);
                 data.postion_type1_gonglu_text = formateText(data.postion_type1_gonglu, data.send_count_gonglu);
@@ -946,14 +1019,26 @@ $(function () {
                 data.postion_type1_shuilu_text = formateText(data.postion_type1_shuilu, data.send_count_shuilu);
                 data.postion_type1_minhang_text = formateText(data.postion_type1_minhang, data.send_count_minhang);
 
+                data.postion_type1_total = fromateNum(data.postion_type1_total, data.send_count_total);
+                data.postion_type1_gonglu = fromateNum(data.postion_type1_gonglu, data.send_count_gonglu);
+                data.postion_type1_tielu = fromateNum(data.postion_type1_tielu, data.send_count_tielu);
+                data.postion_type1_shuilu = fromateNum(data.postion_type1_shuilu, data.send_count_shuilu);
+                data.postion_type1_minhang = fromateNum(data.postion_type1_minhang, data.send_count_minhang);
+
                 data.postion_type2_total_text = formateText(data.postion_type2_total, data.total_count_total);
                 data.postion_type2_gonglu_text = formateText(data.postion_type2_gonglu, data.total_count_gonglu);
                 data.postion_type2_tielu_text = formateText(data.postion_type2_tielu, data.total_count_tielu);
                 data.postion_type2_shuilu_text = formateText(data.postion_type2_shuilu, data.total_count_shuilu);
                 data.postion_type2_minhang_text = formateText(data.postion_type2_minhang, data.total_count_minhang);
+
+                data.postion_type2_total = fromateNum(data.postion_type2_total, data.send_count_total);
+                data.postion_type2_gonglu = fromateNum(data.postion_type2_gonglu, data.send_count_gonglu);
+                data.postion_type2_tielu = fromateNum(data.postion_type2_tielu, data.send_count_tielu);
+                data.postion_type2_shuilu = fromateNum(data.postion_type2_shuilu, data.send_count_shuilu);
+                data.postion_type2_minhang = fromateNum(data.postion_type2_minhang, data.send_count_minhang);
             }
             formateLeft1(theLeft1);
-            this.bind('.part1', theLeft1);
+            this.bind('.part1-content', theLeft1);
 
         }
         /**
@@ -1055,8 +1140,8 @@ $(function () {
             };
 
             this.loadPart11(theLeft1);
-            this.loadPart12(theLeft2);
-            this.loadPart13(theLeft3);
+           // this.loadPart12(theLeft2);
+           // this.loadPart13(theLeft3);
 
 
             //输入日期 旅客发送趋势
@@ -1157,6 +1242,7 @@ $(function () {
                 }
             });
 
+            return;
             var theCallUrl2 = "cw/getFlyTrain.do";
             this.load(theCallUrl2, theCallArgument, function (data) {
                 /* data = {
@@ -1227,10 +1313,12 @@ $(function () {
 
         }
 
+
         PageViewModel.prototype.loadData2 = function () {
 
 
             var me = this;
+
             var theMode = $('.part2').data('mode') || 1;
             var theValue = $('.btn' + theMode + ".active").data('value');
             //debugger;
@@ -1238,1483 +1326,1492 @@ $(function () {
                 me.loadChart1();
                 var theCallUrl = "cw/getPassengerTend.do ";
                 this.load(theCallUrl, {}, function (data) {
-                   /* var data = {
-                        "isSuccess": true,
-                        "msg": "success",
-                        "data": [
-                            {
-                                "passengerTendForecast":
-                                    [{
-                                        "postionType": "公路",
-                                        "sendCount": 510.8,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-21",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 531.36,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-22",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 532.93,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-23",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 528.53,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-24",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 519,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-25",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 516.53,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-26",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 509.84,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-27",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 509.15,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-28",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 504,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-29",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 497.05,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-30",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 486.75,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-31",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 471.39,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-01",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 453.05,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-02",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 422.53,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-03",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 351.99,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-04",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 314.88,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-05",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 365.36,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-06",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 369.77,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-07",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 389.83,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-08",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 400.2,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-09",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 424.29,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-10",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 443.48,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-11",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 450.26,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-12",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 457.14,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-13",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 464.49,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-14",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 469.98,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-15",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 463.62,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-16",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 474.72,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-17",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 485.44,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-18",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 498.15,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-19",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 519.58,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-20",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 529.21,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-21",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 525.21,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-22",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 525.5,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-23",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 530.08,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-24",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 534.5,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-25",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 538,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-26",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 546.78,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-27",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 545.64,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-28",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "公路",
-                                        "sendCount": 537.55,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-03-01",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.7,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-21",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.85,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-22",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.63,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-23",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.86,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-24",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.05,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-25",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.65,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-26",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.99,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-27",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 23.49,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-28",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 23.63,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-29",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 23.67,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-30",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 23.46,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-31",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 23.39,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-01",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.72,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-02",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.52,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-03",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 19.94,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-04",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 20.24,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-05",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.49,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-06",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.22,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-07",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.82,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-08",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 23.12,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-09",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 23.25,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-10",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.95,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-11",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.76,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-12",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.95,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-13",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.78,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-14",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.04,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-15",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.97,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-16",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.82,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-17",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.6,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-18",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 20.56,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-19",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.48,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-20",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.52,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-21",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.45,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-22",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.93,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-23",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.66,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-24",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.39,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-25",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.31,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-26",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.76,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-27",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 22.15,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-28",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "民航",
-                                        "sendCount": 21.96,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-03-01",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 10.16,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-21",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 12.93,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-22",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 13.04,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-23",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 12.45,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-24",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 12.4,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-25",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 13.63,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-26",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 13.49,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-27",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 12.67,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-28",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 13.45,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-29",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 16.45,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-30",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 19.4,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-31",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 19.89,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-01",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 19.23,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-02",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 13.83,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-03",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 11.81,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-04",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 20.74,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-05",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 26.9,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-06",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 27.29,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-07",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 23.91,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-08",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 22.02,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-09",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 14.06,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-10",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 11.75,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-11",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 14.27,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-12",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 13.91,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-13",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 14.29,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-14",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 13.21,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-15",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 12.46,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-16",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 10.76,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-17",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 9.78,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-18",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 10.73,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-19",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 14.83,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-20",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 14.69,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-21",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 13.19,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-22",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 13.05,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-23",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 10.51,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-24",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 10.5,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-25",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 12.76,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-26",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 14.77,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-27",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 14.57,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-28",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "水路",
-                                        "sendCount": 12.03,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-03-01",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 88.15,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-21",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 97.84,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-22",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 98.68,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-23",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 100.44,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-24",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 100.95,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-25",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 102.3,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-26",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 104.22,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-27",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 110.18,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-28",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 118.67,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-29",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 125.44,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-30",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 123.54,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-31",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 117.68,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-01",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 108.47,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-02",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 95.32,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-03",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 74.07,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-04",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 56.67,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-05",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 68.67,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-06",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 80.91,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-07",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 87.3,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-08",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 94.04,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-09",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 97.9,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-10",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 97.83,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-11",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 95.75,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-12",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 91.94,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-13",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 88.92,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-14",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 86.6,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-15",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 83.12,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-16",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 80.37,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-17",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 82.27,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-18",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 83.32,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-19",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 91.62,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-20",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 94.3,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-21",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 86.6,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-22",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 80.71,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-23",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 75.6,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-24",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 72.41,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-25",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 73.73,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-26",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 81.27,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-27",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 84.8,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-02-28",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "铁路",
-                                        "sendCount": 87.48,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-03-01",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }, {
-                                        "postionType": "总量",
-                                        "sendCount": 24299.18,
-                                        "sendCountZb": 0,
-                                        "statDate": "2019-01-21",
-                                        "sumsend": 0,
-                                        "sumsendzb": 0,
-                                        "totalCount": 0,
-                                        "totalCountZb": 0
-                                    }],
-                                "passengerTend": [{
-                                    "postionType": "总量",
-                                    "sendCount": 0,
-                                    "sendCountZb": 0,
-                                    "statDate": "",
-                                    "sumsend": 0,
-                                    "sumsendzb": 0,
-                                    "totalCount": 0,
-                                    "totalCountZb": 0
-                                }]
-                            }]
-                    }*/
+                    /* var data = {
+                         "isSuccess": true,
+                         "msg": "success",
+                         "data": [
+                             {
+                                 "passengerTendForecast":
+                                     [{
+                                         "postionType": "公路",
+                                         "sendCount": 510.8,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-21",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 531.36,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-22",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 532.93,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-23",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 528.53,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-24",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 519,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-25",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 516.53,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-26",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 509.84,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-27",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 509.15,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-28",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 504,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-29",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 497.05,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-30",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 486.75,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-31",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 471.39,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-01",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 453.05,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-02",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 422.53,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-03",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 351.99,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-04",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 314.88,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-05",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 365.36,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-06",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 369.77,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-07",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 389.83,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-08",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 400.2,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-09",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 424.29,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-10",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 443.48,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-11",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 450.26,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-12",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 457.14,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-13",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 464.49,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-14",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 469.98,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-15",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 463.62,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-16",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 474.72,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-17",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 485.44,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-18",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 498.15,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-19",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 519.58,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-20",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 529.21,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-21",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 525.21,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-22",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 525.5,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-23",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 530.08,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-24",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 534.5,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-25",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 538,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-26",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 546.78,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-27",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 545.64,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-28",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "公路",
+                                         "sendCount": 537.55,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-03-01",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.7,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-21",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.85,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-22",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.63,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-23",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.86,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-24",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.05,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-25",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.65,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-26",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.99,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-27",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 23.49,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-28",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 23.63,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-29",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 23.67,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-30",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 23.46,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-31",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 23.39,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-01",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.72,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-02",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.52,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-03",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 19.94,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-04",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 20.24,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-05",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.49,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-06",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.22,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-07",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.82,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-08",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 23.12,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-09",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 23.25,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-10",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.95,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-11",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.76,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-12",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.95,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-13",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.78,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-14",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.04,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-15",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.97,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-16",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.82,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-17",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.6,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-18",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 20.56,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-19",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.48,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-20",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.52,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-21",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.45,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-22",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.93,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-23",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.66,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-24",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.39,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-25",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.31,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-26",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.76,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-27",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 22.15,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-28",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "民航",
+                                         "sendCount": 21.96,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-03-01",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 10.16,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-21",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 12.93,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-22",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 13.04,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-23",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 12.45,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-24",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 12.4,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-25",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 13.63,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-26",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 13.49,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-27",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 12.67,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-28",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 13.45,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-29",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 16.45,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-30",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 19.4,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-31",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 19.89,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-01",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 19.23,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-02",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 13.83,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-03",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 11.81,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-04",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 20.74,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-05",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 26.9,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-06",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 27.29,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-07",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 23.91,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-08",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 22.02,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-09",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 14.06,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-10",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 11.75,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-11",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 14.27,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-12",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 13.91,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-13",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 14.29,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-14",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 13.21,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-15",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 12.46,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-16",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 10.76,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-17",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 9.78,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-18",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 10.73,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-19",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 14.83,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-20",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 14.69,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-21",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 13.19,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-22",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 13.05,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-23",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 10.51,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-24",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 10.5,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-25",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 12.76,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-26",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 14.77,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-27",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 14.57,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-28",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "水路",
+                                         "sendCount": 12.03,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-03-01",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 88.15,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-21",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 97.84,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-22",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 98.68,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-23",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 100.44,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-24",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 100.95,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-25",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 102.3,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-26",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 104.22,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-27",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 110.18,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-28",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 118.67,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-29",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 125.44,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-30",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 123.54,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-31",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 117.68,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-01",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 108.47,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-02",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 95.32,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-03",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 74.07,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-04",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 56.67,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-05",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 68.67,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-06",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 80.91,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-07",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 87.3,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-08",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 94.04,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-09",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 97.9,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-10",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 97.83,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-11",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 95.75,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-12",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 91.94,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-13",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 88.92,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-14",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 86.6,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-15",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 83.12,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-16",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 80.37,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-17",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 82.27,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-18",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 83.32,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-19",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 91.62,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-20",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 94.3,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-21",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 86.6,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-22",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 80.71,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-23",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 75.6,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-24",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 72.41,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-25",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 73.73,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-26",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 81.27,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-27",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 84.8,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-02-28",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "铁路",
+                                         "sendCount": 87.48,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-03-01",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }, {
+                                         "postionType": "总量",
+                                         "sendCount": 24299.18,
+                                         "sendCountZb": 0,
+                                         "statDate": "2019-01-21",
+                                         "sumsend": 0,
+                                         "sumsendzb": 0,
+                                         "totalCount": 0,
+                                         "totalCountZb": 0
+                                     }],
+                                 "passengerTend": [{
+                                     "postionType": "总量",
+                                     "sendCount": 0,
+                                     "sendCountZb": 0,
+                                     "statDate": "",
+                                     "sumsend": 0,
+                                     "sumsendzb": 0,
+                                     "totalCount": 0,
+                                     "totalCountZb": 0
+                                 }]
+                             }]
+                     }*/
                     //debugger;
                     var theDataArray1 = [[], [], [], [], []];
                     var theDataArray2 = [[], [], [], [], []];
                     var theKeys = ["总量", "公路", "铁路", "水路", "民航"];
+                    var theValues = [];
+                    $('.chart-group1').find('.btn.active').each(function () {
+                        theValues.push($(this).data('value'));
+                    });
+                    var theValueMao = {};
+                    for (var i = 0; i < theKeys.length; i++) {
+                        theValueMao[theKeys[i]] = theValues[i];
+                    }
                     var theDates1 = [];
                     var theDateMap1 = {};
                     var theDates2 = [];
                     var theDateMap2 = {};
                     if (data && data.isSuccess && data.data && data.data.length == 1) {
+                        $('.chart-group1').data('data', data);
                         var thepassengerTendForecast = data.data[0].passengerTendForecast;//预测
                         var thepassengerTend = data.data[0].passengerTend;//当前值
 
@@ -2759,8 +2856,8 @@ $(function () {
                             var theMapItem = theDateMap1[theCurrentDate] || {};
                             if (theMapItem[theKey]) {
                                 var theDataItem = theMapItem[theKey];
-                                theReuslt1.push(theValue == "发送量" ? (theDataItem.sendCount || 0) : (theDataItem.totalCount || 0));
-                                theReuslt2.push(theValue == "发送量" ? (theDataItem.sendCount || 0) : (theDataItem.totalCount || 0));
+                                theReuslt1.push(theValueMao[theKey] == "发送量" ? (theDataItem.sendCount || 0) : (theDataItem.totalCount || 0));
+                                theReuslt2.push(theValueMao[theKey] == "发送量" ? (theDataItem.sendCount || 0) : (theDataItem.totalCount || 0));
                             }
                             else {
                                 theReuslt1.push(0);
@@ -2778,7 +2875,7 @@ $(function () {
                             var theMapItem = theDateMap2[theCurrentDate] || {};
                             if (theMapItem[theKey]) {
                                 var theDataItem = theMapItem[theKey];
-                                theReuslt.push(theValue == "发送量" ? (theDataItem.sendCount || 0) : (theDataItem.totalCount || 0));
+                                theReuslt.push(theValueMao[theKey] == "发送量" ? (theDataItem.sendCount || 0) : (theDataItem.totalCount || 0));
                             }
                             else {
                                 theReuslt.push(0);

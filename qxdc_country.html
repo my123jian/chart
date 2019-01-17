@@ -230,7 +230,7 @@
                     markPoint: {
                         symbol: 'emptyCircle',
                         symbolSize: function (v) {
-                            return Math.min( 10 + v / 10000,40);
+                            return 10;//Math.min( 10 + v / 10000,40);
                         },
                         effect: {
                             show: true,
@@ -240,10 +240,11 @@
                         itemStyle: {
                             normal: {
                                 //color: '#1dd9ff',
-                                label: {show: false}
+
+                                label: {show: false, fontSize:20}
                             },
                             emphasis: {
-                                label: {position: 'top'}
+                                label: {position: 'top', fontSize:30}
                             }
                         },
                         data: theData

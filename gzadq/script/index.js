@@ -587,17 +587,17 @@ $(function () {
         theCurrentOption.legend = {
             data: [{
                 name: '每日客流',
-                textStyle: {color: "#d1b96b"}
+                textStyle: {color: "#d1b96b",fontSize:16}
                 //textStyle: {color: "#85a8b8"}
             },
                 {
                     name: '香港>>珠海澳门',
-                    textStyle: {color: "#357acb"}
+                    textStyle: {color: "#357acb",fontSize:16}
                     //textStyle: {color: "#85a8b8"}
                 },
                 {
                     name: '珠海澳门>>香港',
-                    textStyle: {color: "#219553"}
+                    textStyle: {color: "#219553",fontSize:16}
                     // textStyle: {color: "#85a8b8"}
                 }
                 // x:'left',
@@ -753,12 +753,12 @@ $(function () {
         theCurrentOption.legend = {
             data: [{
                 name: '每日客流',
-                textStyle: {color: '#d1b96b'}
+                textStyle: {color: '#d1b96b',fontSize:16}
                 //textStyle: {color: "#85a8b8"}
             },
                 {
                     name: '观光客流',
-                    textStyle: {color: '#357acb'}
+                    textStyle: {color: '#357acb',fontSize:16}
                     //textStyle: {color: "#85a8b8"}
                 }]
         },
@@ -1425,7 +1425,7 @@ $(function () {
                 me.addMarker2("珠海公路口岸", 113.581696, 22.203582, ((thelandsUser || 0)));
                 me.addMarker2("港珠澳大桥境内段", 113.728361, 22.28002, ((theBridgeUser || 0)));
                 var theReliArrays = [];
-                theReliArrays.push({bounds: landsBounds, data: thelandsUser || 0, max: 1000});
+                theReliArrays.push({bounds: landsBounds, data: thelandsUser || 0, max: 25});
                 theReliArrays.push({bounds: bridgeBounds, data: theBridgeUser || 0, max: 1000});
                 //me.drawReli(landsBounds, thelandsUser || 0);
                 //me.drawReli(bridgeBounds, theBridgeUser || 0);

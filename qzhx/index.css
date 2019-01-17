@@ -904,10 +904,12 @@ iframe {
 }
 .sex-chart .title-new{
     margin-left: 40px;
+    font-size:20px;
     margin-bottom: 18px;
 }
 .age-chart .title-new{
     margin-left: 10px;
+    font-size:20px;
     margin-bottom: 18px;
 }
 .sex-chart .content div{

@@ -179,7 +179,8 @@ html body {
 .toppart .rightpart_new{
     position: absolute;
     width: 1238px;
-    left: 656px;
+    /*left: 656px;*/
+    left:60px;
     top: 0px;
     height: 111px;
     border-bottom-color: #356ddc;
@@ -288,4 +289,11 @@ html body {
     background-position: center center;
     color:transparent;
     z-index: 9;
+}
+.right-title{
+    background: url("img/left.png");
+    width: 658px;
+    height: 154px;
+    position: absolute;
+    right: 0px;
 }

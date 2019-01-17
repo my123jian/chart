@@ -184,10 +184,9 @@ html body {
 }
 .left-w-left{
     position: absolute;
-
-    /*width: 393px;*/
-    /* width: 432px;*/
-    width: 750px;
+    /* width: 393px; */
+    /* width: 432px; */
+    width: 1051px;
     height: 150px;
     top: 294px;
     left: 40px;
@@ -206,7 +205,8 @@ html body {
 }
 .newcome{
     float: left;
-    margin-right: 18px;
+    margin-right: 129px;
+    /*margin-right: 18px;*/
 }
 .newcome .newcome-text{
     font-size: 16px;
