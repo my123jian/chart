@@ -197,7 +197,7 @@ $(function () {
                             type: 'line',
                             show: true,
                             label: {
-                                show: true
+                                //show: true
                             }
                         },
                         backgroundColor: 'rgba(0,0,0,0.5)',
@@ -428,7 +428,7 @@ $(function () {
                             type: 'line',
                             show: true,
                             label: {
-                                show: true
+                                //show: true
                             }
                         },
                         backgroundColor: 'rgba(0,0,0,0.5)',
@@ -645,7 +645,7 @@ $(function () {
                         type: 'line',
                         show: true,
                         label: {
-                            show: true
+                            //show: true
                         }
                     },
                     backgroundColor: 'rgba(0,0,0,0.5)',
