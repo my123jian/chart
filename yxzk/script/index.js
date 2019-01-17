@@ -212,11 +212,15 @@ $(function () {
                             var theKeyMap = {};
                             for (var i = 0; i < params.length; i = i + 1) {
                                 if (!theKeyMap[params[i].seriesName]) {
-                                    theDatas.push(params[i].seriesName + ':' + (params[i].data) + '万');
+                                    var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
+                                    theDatas.push(theColorText+params[i].seriesName + ':' + (params[i].data) + '万');
                                     theKeyMap[params[i].seriesName] = true;
                                 }
                             }
-                            return theDatas.join('<br />');
+                            var theDate=new Date();
+                            theDate.setTime(params[0].name);
+                            var theNameText= theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                            return theNameText+'<br/>'+theDatas.join('<br />');
                         }
                     },
 
@@ -437,14 +441,18 @@ $(function () {
                             var theDatas = [];
                             //var theText = "";
                             for (var i = 0; i < params.length; i = i + 1) {
-                                theDatas.push(params[i].seriesName + ':' + (params[i].data) + '万');
+                                var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
+                                theDatas.push(theColorText+params[i].seriesName + ':' + (params[i].data) + '万');
                             }
                             /* while (theIndex < params.length - 1) {
 
                                      theText += params[theIndex].data + "<br />";
                                      theIndex += 2;
                                  }*/
-                            return theDatas.join('<br />');
+                            var theDate=new Date();
+                            theDate.setTime(params[0].name);
+                            var theNameText= theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                            return theNameText+'<br/>'+theDatas.join('<br />');
                         }
                     },
 
@@ -626,7 +634,10 @@ $(function () {
                 /*title: {
                         text: '折线图堆叠'
                     },*/
-                color: ['#cfccfc', '#ffdc6f', '#32ff4a'],
+                color: [
+                    //'#cfccfc',
+                    '#ffdc6f',
+                    '#32ff4a'],
                 tooltip: {
                     trigger: 'axis',
                     //show:true,
@@ -649,11 +660,15 @@ $(function () {
                         var theKeyMap = {};
                         for (var i = 0; i < params.length; i = i + 1) {
                             if (!theKeyMap[params[i].seriesName]) {
-                                theDatas.push(params[i].seriesName + ':' + (params[i].data) + '万');
+                                var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
+                                theDatas.push(theColorText+params[i].seriesName + ':' + (params[i].data) + '万');
                                 theKeyMap[params[i].seriesName] = true;
                             }
                         }
-                        return theDatas.join('<br />');
+                        var theDate=new Date();
+                        theDate.setTime(params[0].name);
+                        var theNameText= theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                        return theNameText+'<br/>'+theDatas.join('<br />');
                     }
                 },
 
@@ -780,6 +795,7 @@ $(function () {
                     data: data[0].map(function (item) {
                         return (item / 10000).toFixed(2)
                     }),
+                    color: color,
                     areaStyle: {
                         normal: {
                             color: {
@@ -800,7 +816,7 @@ $(function () {
                     },
                     lineStyle: {
                         normal: {
-                            color: color
+                           // color: color
                         }
                     }
                 };
@@ -816,10 +832,10 @@ $(function () {
                     data: data[1].map(function (item) {
                         return (item / 10000).toFixed(2)
                     }),
-
+                    color: color,
                     lineStyle: {
                         normal: {
-                            color: color,
+                            //color: color,
                             type: 'dotted'
                         }
                     }

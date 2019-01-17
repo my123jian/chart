@@ -567,6 +567,7 @@ $(function () {
                 //name: '搜索引擎',
                 type: 'line',
                 color: '#ffdc6f',
+                symbol: 'none',
                 itemStyle: {
                     normal: {
                         lineStyle: {
@@ -772,7 +773,6 @@ $(function () {
         var theBeginDate = new Date('2019-01-21');
         var theXData = [];
         var theColors = ['#32ff4b',
-            '#4293f2','#32ff4b',
             '#4293f2'];
 
         var theLegends = [
@@ -835,8 +835,9 @@ $(function () {
                     return   theNameText+"<br/>"+theDatas.join('<br />');
                 }
             },
-            color: theColors,
+
             legend: theLegends,
+            color: theColors,
             grid: {
                 left: 0,
                 right: 30,
@@ -1013,7 +1014,7 @@ $(function () {
                 },
             ]
         };
-        //debugger;
+        debugger;
         this.Chart4.setOption(option);
     }
     PageViewModel.prototype.loadChart5 = function (xData, data1) {
