@@ -817,7 +817,7 @@ $(function () {
                     if (params.length > 4) {
                         for (var i = 0; i < params.length; i = i + 2) {
 
-                            var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#"+params[i].color+";\"></span>";
+                            var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
                             theDatas.push(theColorText+params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
                         }
                     }

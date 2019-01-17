@@ -33,14 +33,16 @@ $(function () {
                 var theDatas = [];
                 if (params.length > 1) {
                     for (var i = 0; i < params.length; i++) {
-                        theDatas.push(params[i].seriesName + ':' + params[i].data + "万");
+                        var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
+                        theDatas.push(theColorText+params[i].seriesName + ':' + params[i].data + "万");
                     }
                 } else {
                     for (var i = 0; i < params.length; i++) {
-                        theDatas.push(params[i].data + "万");
+                        var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
+                        theDatas.push(theColorText+params[i].data + "万");
                     }
                 }
-                return theDatas.join('<br />');
+                return params[0].name+'<br/>'+theDatas.join('<br />');
             }
         },
         grid: {
@@ -520,6 +522,7 @@ $(function () {
                 }
             }
         }]
+        theCurrentOption.color='#d1b96b';
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',
@@ -610,6 +613,7 @@ $(function () {
             theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
         data1 = theValidData;
+        theCurrentOption.color='#357acb';
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.series = [
             {
@@ -622,7 +626,7 @@ $(function () {
                 data: data1.map(function (item) {
                     return (item / 10000).toFixed(2);
                 }),// || [11, 14, 22, 15, 7, 8],
-                itemStyle: {color: '#d1b96b'},
+                itemStyle: {color: '#357acb'},
                 lineStyle: {
                     normal: {
                         color: '#357acb'//rgba(50,255,75
@@ -695,6 +699,7 @@ $(function () {
         }
         data1 = theValidData;
         theCurrentOption.xAxis.data = theXData;
+        theCurrentOption.color='#32ff4b';
         theCurrentOption.series = [
             {
                 // name: '搜索引擎',

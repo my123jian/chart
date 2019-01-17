@@ -126,14 +126,16 @@ $(function () {
                 var theDatas = [];
                 if (params.length > 1) {
                     for (var i = 0; i < params.length; i++) {
-                        theDatas.push(params[i].seriesName + ':' + params[i].data + '万');
+                        var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
+                        theDatas.push(theColorText+params[i].seriesName + ':' + params[i].data + '万');
                     }
                 } else {
                     for (var i = 0; i < params.length; i++) {
-                        theDatas.push(params[i].data + '万');
+                        var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
+                        theDatas.push(theColorText+params[i].data + '万');
                     }
                 }
-                return theDatas.join('<br />');
+                return params[0].name+'<br/>'+theDatas.join('<br />');
             }
         },
         grid: {
@@ -145,7 +147,7 @@ $(function () {
             height: 130,
             containLabel: true
         },
-
+        color: '#05cffa',
         xAxis: {
             type: 'category',
             name: '(时点)',
@@ -173,7 +175,7 @@ $(function () {
                     }
                 },
                 lineStyle: {
-                    color: '#05cffa',
+
                     shadowBlur: {
                         shadowColor: '#05cffa',
                         shadowBlur: 10
@@ -472,17 +474,20 @@ $(function () {
             var theDatas = [];
             if (params.length > 1) {
                 for (var i = 0; i < params.length; i++) {
-                    theDatas.push(params[i].seriesName + ':' + params[i].data + '分钟');
+                    var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
+                    theDatas.push(theColorText+params[i].seriesName + ':' + params[i].data + '分钟');
                 }
             } else {
                 for (var i = 0; i < params.length; i++) {
-                    theDatas.push(params[i].data + '分钟');
+                    var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
+                    theDatas.push(theColorText+params[i].data + '分钟');
                 }
             }
-            return theDatas.join('<br />');
+            return params[0].name+'<br/>'+theDatas.join('<br />');
         };
 
 //debugger;
+        theCurrentOption.color='#FEDC6E';
         theCurrentOption.series = [
 
             {
@@ -833,14 +838,16 @@ $(function () {
             var theDatas = [];
             if (params.length > 1) {
                 for (var i = 0; i < params.length; i++) {
-                    theDatas.push(params[i].seriesName + ':' + params[i].data + '分钟');
+                    var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
+                    theDatas.push(theColorText+params[i].seriesName + ':' + params[i].data + '分钟');
                 }
             } else {
                 for (var i = 0; i < params.length; i++) {
-                    theDatas.push(params[i].data + '分钟');
+                    var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
+                    theDatas.push(theColorText+params[i].data + '分钟');
                 }
             }
-            return theDatas.join('<br />');
+            return params[0].name+'<br/>'+theDatas.join('<br />');
         };
         var theDate1String = formateDate1();
         var datebegin = theDate1String.split(" - ")[0];
@@ -859,6 +866,7 @@ $(function () {
             }
         }
         //debugger;
+        theCurrentOption.color='#32ff4b';
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.xAxis.axisLabel.rotate = 0;
         theCurrentOption.series = [
