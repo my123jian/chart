@@ -796,7 +796,7 @@ PageViewBase.prototype.getRandomPoints = function (bounds, value, max) {
     return theShowList;
 }
 PageViewBase.prototype.drawRelis = function (reliDatas, r) {
-    if (!this.heartLayer) {
+    /*if (!this.heartLayer) {
         var map = Loca.create(this.theMap);
         this.heartLayer = Loca.visualLayer({
             container: map,
@@ -805,7 +805,8 @@ PageViewBase.prototype.drawRelis = function (reliDatas, r) {
             shape: 'normal',
             zIndex: 1000
         });
-    }
+    }*/
+    //debugger;
     var theShowList = [];
     if (reliDatas && reliDatas.length > 0) {
         for (var i = 0; i < reliDatas.length; i++) {
@@ -816,12 +817,18 @@ PageViewBase.prototype.drawRelis = function (reliDatas, r) {
             theShowList = theShowList.concat(this.getRandomPoints(theBounds, theData, theMaxPoint));
         }
     }
-    this.heartLayer.setData(theShowList, {
+    var theDataList=theShowList.map(function (item) {
+        return {lng:item.coordinate[0],lat:item.coordinate[0],count:item.count};
+    });
+    debugger;
+    this.heartLayer.setDataSet(theDataList);
+
+    /*this.heartLayer.setDataSet(theShowList, {
         lnglat: 'coordinate',
         value: 'count'
-    });
+    });*/
 
-    this.heartLayer.setOptions({
+    /*this.heartLayer.setOptions({
         style: {
             radius: r || 10,
             color: {
@@ -834,7 +841,7 @@ PageViewBase.prototype.drawRelis = function (reliDatas, r) {
         }
     });
     //this.heartLayer.setZIndex(1000);
-    this.heartLayer.render();
+    this.heartLayer.render();*/
 
 }
 PageViewBase.prototype.drawReli = function (bounds, data) {
@@ -976,6 +983,15 @@ PageViewBase.prototype.initMap = function (id) {
         theMap.setLimitBounds(bounds);
         // console.log("地图加载完成!");
     });
+
+    map.plugin(["AMap.Heatmap"], function () {
+        //初始化heatmap对象
+        this.heartLayer = new AMap.Heatmap(theMap, {
+            radius: 25, //给定半径
+            opacity: [0, 0.8]
+        });
+    });
+
     //监听放大缩小事件
     theMap.on('zoom', function (arg) {
         var theZoom = theMap.getZoom();

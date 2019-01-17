@@ -56,7 +56,15 @@ $(function () {
             },
             formatter: function (params) {
                 //debugger;
-                return params[params.length - 1].data + '万';
+                var theTimeValue = parseInt(params[params.length - 1].name);
+                var theHours = Math.floor(theTimeValue / 12) + "点" + (theTimeValue % 12) * 5 + '分';
+                //debugger;
+                var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[params.length - 1].color+";\"></span>";
+
+                //var theDate = new Date();
+                //theDate.setTime(arg.value);
+                //return theHours;//theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                return theHours+'<br/>'+theColorText+params[params.length - 1].data + '万';
             }
         },
         grid: {
@@ -530,6 +538,7 @@ $(function () {
                 data: data1.map(function (item) {
                     return (item / 10000).toFixed(2);
                 }),
+                color: '#ffdc6f',
                 areaStyle: {
                     normal: {
                         color: {
@@ -548,20 +557,21 @@ $(function () {
                         }
                     }
                 },
-                lineStyle: {
+                /*lineStyle: {
                     normal: {
                         color: '#ffdc6f'
                     }
-                }
+                }*/
             },
             {
                 //name: '搜索引擎',
                 type: 'line',
+                color: '#ffdc6f',
                 itemStyle: {
                     normal: {
                         lineStyle: {
                             width: 2,
-                            color: '#ffdc6f',
+
                             type: 'dotted'  //'dotted'虚线 'solid'实线
                         }
                     }
@@ -659,12 +669,13 @@ $(function () {
                 //stack: '总量',
                 smooth: true,
                 symbol: 'none',
+                color: '#32ff4b',
                 data: data1.map(function (item) {
                     return (item / 10000).toFixed(2);
                 }),
                 lineStyle: {
                     normal: {
-                        color: '#32ff4b'//rgba(50,255,75
+                       //rgba(50,255,75
                     }
                 },
 
@@ -690,11 +701,12 @@ $(function () {
             {
                 //name: '搜索引擎',
                 type: 'line',
+                color: '#32ff4b',
                 itemStyle: {
                     normal: {
                         lineStyle: {
                             width: 2,
-                            color: '#32ff4b',
+
                             type: 'dotted'  //'dotted'虚线 'solid'实线
                         }
                     }
@@ -804,16 +816,23 @@ $(function () {
                     //var theText = "";
                     if (params.length > 4) {
                         for (var i = 0; i < params.length; i = i + 2) {
-                            theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
+
+                            var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:#"+params[i].color+";\"></span>";
+                            theDatas.push(theColorText+params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
                         }
                     }
                     else {
                         for (var i = 0; i < params.length; i = i + 1) {
-                            theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
+                           // debugger;
+                            var theColorText="<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:"+params[i].color+";\"></span>";
+                            theDatas.push(theColorText+params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
                         }
                     }
+                    var theDate=new Date();
+                    theDate.setTime(params[0].name);
+                    var theNameText= theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
                     //debugger;
-                    return   theDatas.join('<br />');
+                    return   theNameText+"<br/>"+theDatas.join('<br />');
                 }
             },
             color: theColors,
@@ -887,13 +906,14 @@ $(function () {
                     type: 'line',
                     symbol: 'none',
                     //stack: '总量',
+                    color: '#32ff4b',
                     smooth: true,
                     data: data11.map(function (item) {
                         return (item / 10000).toFixed(2)
                     }),
                     lineStyle: {
                         normal: {
-                            color: '#32ff4b' //rgba(66,147,242
+                            //rgba(66,147,242
                         }
                     },
                     areaStyle: {
@@ -919,11 +939,12 @@ $(function () {
                     name: theName1,
                     type: 'line',
                     symbol: 'none',
+                    color: '#32ff4b',
                     itemStyle: {
                         normal: {
                             lineStyle: {
                                 width: 2,
-                                color: '#32ff4b',
+
                                 type: 'dotted'  //'dotted'虚线 'solid'实线
                             }
                         }
@@ -939,6 +960,7 @@ $(function () {
                     type: 'line',
                     symbol: 'none',
                     z: 1,
+                    color: '#4293f2',
                     //stack: '总量',
                     smooth: true,
                     data: data21.map(function (item) {
@@ -946,7 +968,7 @@ $(function () {
                     }),
                     lineStyle: {
                         normal: {
-                            color: '#4293f2'//rgba(55,255,75
+                           //rgba(55,255,75
                         }
                     },
                     areaStyle: {
@@ -973,11 +995,12 @@ $(function () {
                     symbol: 'none',
                     z: 2,
                     type: 'line',
+                    color: '#4293f2',
                     itemStyle: {
                         normal: {
                             lineStyle: {
                                 width: 2,
-                                color: '#4293f2',
+
                                 type: 'dotted'  //'dotted'虚线 'solid'实线
                             }
                         }
@@ -1010,13 +1033,14 @@ $(function () {
                 type: 'line',
                 //stack: '总量',
                 smooth: true,
+                color: '#4293f2',
                 symbol: 'none',
                 data: data1.map(function (item) {
                     return (item / 10000).toFixed(2);
                 }),
                 lineStyle: {
                     normal: {
-                        color: '#4293f2' //rgba(66,147,242
+                       // color: '#4293f2' //rgba(66,147,242
                     }
                 },
                 areaStyle: {
@@ -1170,6 +1194,11 @@ $(function () {
                         dataPopulationGd1.push(theDataItem.populationGd || 0);
                         dataResi1.push(theDataItem.populationResi || 0);
                     }
+                    /*dataMigOut2.push('-');
+                    dataMigIn2.push('-');
+                    dataPopulationGd2.push('-');
+                    dataResi2.push('-');*/
+
                     dataMigOut2.push(theDataItem.migOut || 0);
                     dataMigIn2.push(theDataItem.migIn || 0);
                     dataPopulationGd2.push(theDataItem.populationGd || 0);
