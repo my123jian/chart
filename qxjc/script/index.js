@@ -49,8 +49,13 @@ $(function () {
 
         tooltip: {
             trigger: 'axis',
-            backgroundColor: 'transparent',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            position: function (point, params, dom, rect, size) {
+                // 固定在顶部
+                return [point[0], '10%'];
+            },
             formatter: function (params) {
+                //debugger;
                 return params[params.length - 1].data + '万';
             }
         },
@@ -89,7 +94,7 @@ $(function () {
                     }
                 }
             },
-            axisPointer: {
+            /*axisPointer: {
                 label: {
                     show: true,
                     color: '#05cffa',
@@ -109,11 +114,11 @@ $(function () {
                         shadowBlur: 10
                     }
                 }
-            },
+            },*/
             boundaryGap: false,
             axisLine: {
                 lineStyle: {
-                    color: '#557398'
+                    color:'white'// '#557398'
                 }
             },
             data: theXData
@@ -125,7 +130,7 @@ $(function () {
             splitLine: {show: false},
             axisLine: {
                 lineStyle: {
-                    color: '#557398'
+                    color:'white'// '#557398'
                 }
             }
         }
@@ -754,7 +759,9 @@ $(function () {
 
         var theBeginDate = new Date('2019-01-21');
         var theXData = [];
-        var theColors = ['#32ff4b', '#4293f2'];
+        var theColors = ['#32ff4b',
+            '#4293f2','#32ff4b',
+            '#4293f2'];
 
         var theLegends = [
             {name: '人口总量', textStyle: {color: "#32ff4b"}},
@@ -783,10 +790,14 @@ $(function () {
                     type: 'line',
                     show: true,
                     label: {
-                        show: true
+                       // show: true
                     }
                 },
-                backgroundColor: 'transparent',
+                backgroundColor: 'rgba(0,0,0,0.5)',
+                position: function (point, params, dom, rect, size) {
+                    // 固定在顶部
+                    return [point[0], '10%'];
+                },
                 formatter: function (params) {
                     var theIndex = 0;
                     var theDatas = [];
@@ -801,7 +812,8 @@ $(function () {
                             theDatas.push(params[i].seriesName + ':' + (params[i].data || params[i + 1].data) + '万');
                         }
                     }
-                    return theDatas.join('<br />');
+                    //debugger;
+                    return   theDatas.join('<br />');
                 }
             },
             color: theColors,
@@ -821,10 +833,10 @@ $(function () {
                 name: '(日期)',
                 axisLine: {
                     lineStyle: {
-                        color: '#557398'
+                        color:'white'// '#557398'
                     }
                 },
-                axisPointer: {
+                /*axisPointer: {
                     label: {
                         color: '#05cffa',
                         formatter: function (arg) {
@@ -841,7 +853,7 @@ $(function () {
                             shadowBlur: 10
                         }
                     }
-                },
+                },*/
                 axisLabel: {
                     rotate: 30,
                     formatter: function (value, idx) {
@@ -864,7 +876,7 @@ $(function () {
                 splitLine: {show: false},
                 axisLine: {
                     lineStyle: {
-                        color: '#557398'
+                        color:'white'// '#557398'
                     }
                 }
             },

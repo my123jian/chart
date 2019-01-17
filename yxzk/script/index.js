@@ -200,7 +200,11 @@ $(function () {
                                 show: true
                             }
                         },
-                        backgroundColor: 'transparent',
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        position: function (point, params, dom, rect, size) {
+                            // 固定在顶部
+                            return [point[0], '10%'];
+                        },
                         formatter: function (params) {
                             var theIndex = 0;
                             var theDatas = [];
@@ -423,7 +427,11 @@ $(function () {
                                 show: true
                             }
                         },
-                        backgroundColor: 'transparent',
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        position: function (point, params, dom, rect, size) {
+                            // 固定在顶部
+                            return [point[0], '10%'];
+                        },
                         formatter: function (params) {
                             var theIndex = 0;
                             var theDatas = [];
@@ -629,7 +637,11 @@ $(function () {
                             show: true
                         }
                     },
-                    backgroundColor: 'transparent',
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    position: function (point, params, dom, rect, size) {
+                        // 固定在顶部
+                        return [point[0], '10%'];
+                    },
                     formatter: function (params) {
                         var theIndex = 0;
                         var theDatas = [];

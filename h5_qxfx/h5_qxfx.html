@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>迁徙分析</title>
+  <link rel="stylesheet" type="text/css" href="mobile/qxfx/css/qxfx.css">
+  <script src="mobile/utils/jquery-1.8.2.min.js"></script>
+  <script src="mobile/utils/base.js"></script>
+  <script src="lib/laydate.js"></script>
+  <script src="mobile/utils/rem.js"></script>
+
+  <!--<script src="lib/echarts2.js"></script>-->
+  <!--<script src="lib/echarts.min.js"></script>-->
+
+  <!--<script src="lib/guangdong.js"></script>-->
+  <!--<script src="lib/lat.js"></script>-->
+</head>
+<body>
+<!--<div class="bg">-->
+  <!--<div class="parallax"-->
+       <!--style="transform: translate3d(0px, 0px, 0px); transform-style: preserve-3d; backface-visibility: hidden;">-->
+    <!--<li class="layer" data-depth="0.20"-->
+        <!--style="position: relative; display: block; left: 0px; top: 0px; transform: translate3d(6.69595px, 16.1181px, 0px); transform-style: preserve-3d; backface-visibility: hidden;"></li>-->
+  <!--</div>-->
+<!--</div>-->
+<div class="main">
+  <header class="header">
+    <div class="title">广东省人口迁徙监测分析</div>
+    <div class="cal-box">
+      <div class="calender">
+        <input id="date" />
+      </div>
+      <img src="mobile/qxfx/img/icon_day.png" alt="">
+    </div>
+  </header>
+
+  <div class="tab-box">
+    <div id="domestic" class="active">国内迁徙</div>
+    <div id="province">省内迁徙</div>
+  </div>
+
+  <iframe src="h5_country.html" class="inner-page" id="inner-page">
+
+  </iframe>
+
+  <div class="btm-box" style="padding-top:0.1rem;">
+    <!--<div class="btm-box-header">
+      <section class="active">省内迁徙</section>
+      <section>国内迁徙</section>
+      <section>国际迁徙</section>
+    </div>-->
+
+    <div class="btm-box-body">
+    <!--<div class="body-header">-->
+    <!--<section>地区</section>-->
+    <!--<section>总人口</section>-->
+    <!--<section>迁入</section>-->
+    <!--<section>迁出</section>-->
+    <!--</div>-->
+    <!--<div class="body-header-font">-->
+    <!--<section>广东省</section>-->
+    <!--<section>12345万</section>-->
+    <!--<section>45</section>-->
+    <!--<section>444</section>-->
+    <!--</div>-->
+    <!--<div class="body-main">-->
+    <!--<ul>-->
+    <!--<li>-->
+    <!--<section>1</section>-->
+    <!--<section>-->
+    <!--<div class="pillar"></div>-->
+    <!--<div class="pillar-num" id="pillar-num">1234</div>-->
+    <!--</section>-->
+    <!--<section>3</section>-->
+    <!--<section>4</section>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="btm-box-body2">-->
+    <!--<ul class="tab-ul">-->
+    <!--<li class="active">省内</li>-->
+    <!--<li>国内</li>-->
+    <!--<li>国际</li>-->
+    <!--</ul>-->
+      <div class="tab-name" id="tab-name">
+        省内迁徙路线Top10
+      </div>
+      <div class="tab-main">
+        <div class="col1-header-line1"></div>
+        <div class="col1-header-line2"></div>
+        <div class="col1">
+          <div class="col1-header-outer">
+            <div class="col1-header">
+              <span>排名</span>
+              <span>路线</span>
+            </div>
+          </div>
+
+          <ul id="col1-list" class="col1-list">
+            <li>
+              <i>1</i>
+              <span>广州----深圳深圳深圳深圳</span>
+            </li>
+          </ul>
+
+        </div>
+        <div class="col2">
+          <div class="col2-header-outer">
+            <div class="col2-header">
+              <span>人数</span>
+            </div>
+          </div>
+          <ul>
+            <li>12345</li>
+          </ul>
+        </div>
+        <div class="col3">
+          <div class="col3-header-outer">
+            <div class="col3-header">
+              <section>铁路</section>
+              <section>公路</section>
+              <section>水路</section>
+              <section>民航</section>
+            </div>
+          </div>
+          <div class="col3-list">
+            <ul>
+              <li>
+                <section>
+                  <div class="pillar"></div>
+                  <div class="num">33%</div>
+                </section>
+                <section>
+                  <div class="pillar"></div>
+                  <div class="num">33%</div>
+                </section>
+                <section>
+                  <div class="pillar"></div>
+                  <div class="num">33%</div>
+                </section>
+                <section>
+                  <div class="pillar"></div>
+                  <div class="num">33%</div>
+                </section>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<div id="country" style="height:1049px;width: 965px;"></div>-->
+<!--<div id="province" style="    width: 1280px;-->
+<!--height: 1040px;-->
+<!--margin-top: 40px;-->
+<!--position: absolute;-->
+<!--left: 0px;-->
+<!--top: 0px;"></div>-->
+
+
+<script src="mobile/qxfx/js/qxfx.js"></script>
+
+</body>
+</html>

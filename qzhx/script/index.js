@@ -24,7 +24,11 @@ $(function () {
         },*/
         tooltip: {
             trigger: 'axis',
-            backgroundColor: 'transparent',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            position: function (point, params, dom, rect, size) {
+                // 固定在顶部
+                return [point[0], '10%'];
+            },
             formatter: function (params) {
                 var theDatas = [];
                 if (params.length > 1) {
@@ -64,10 +68,10 @@ $(function () {
 
             axisLine: {
                 lineStyle: {
-                    color: '#557398'
+                    color: 'white',//'#557398'
                 }
             },
-            axisPointer: {
+            /*axisPointer: {
                 label: {
                     show: true,
                     color: '#05cffa',
@@ -82,7 +86,7 @@ $(function () {
                         shadowBlur: 10
                     }
                 }
-            },
+            },*/
             data: ['0', '12-28', '12-29', '12-30', '1-01', '1-02', '1-03', '1-04']
             //data: theXData
         },
@@ -96,7 +100,7 @@ $(function () {
 
             axisLine: {
                 lineStyle: {
-                    color: '#557398'
+                    color: 'white'//'#557398'
                 }
             }
         }
@@ -337,7 +341,7 @@ $(function () {
                     }
                 }
             },
-            axisPointer: {
+            /*axisPointer: {
                 label: {
                     show: true,
                     color: '#05cffa',
@@ -352,11 +356,11 @@ $(function () {
                         shadowBlur: 10
                     }
                 }
-            },
+            },*/
             boundaryGap: false,
             axisLine: {
                 lineStyle: {
-                    color: '#557398'
+                    color: 'white'//'#557398'
                 }
             },
             data: theXData
@@ -512,7 +516,7 @@ $(function () {
 
             axisLine: {
                 lineStyle: {
-                    color: '#557398'
+                    color:'white'// '#557398'
                 }
             }
         }]
@@ -765,7 +769,7 @@ $(function () {
                     axisLine: {
 //                    show:false,
                         lineStyle: {
-                            color: '#557398'
+                            color: 'white',//'#557398'
                         }
 
                     }
@@ -787,7 +791,7 @@ $(function () {
                     axisLine: {
 //                    show:false,
                         lineStyle: {
-                            color: '#557398'
+                            color:'white'// '#557398'
 
                         }
 
@@ -1307,7 +1311,7 @@ $(function () {
                     axisLine: {
                         show: false,
                         lineStyle: {
-                            color: '#d9f1ff',
+                            color: 'white'//'#d9f1ff',
 
                         }
 

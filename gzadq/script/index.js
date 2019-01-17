@@ -117,7 +117,11 @@ $(function () {
         },*/
         tooltip: {
             trigger: 'axis',
-            backgroundColor: 'transparent',
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            position: function (point, params, dom, rect, size) {
+                // 固定在顶部
+                return [point[0], '10%'];
+            },
             formatter: function (params) {
                 var theDatas = [];
                 if (params.length > 1) {
@@ -157,12 +161,12 @@ $(function () {
 
             axisLine: {
                 lineStyle: {
-                    color: '#557398'
+                    color: 'white'//'#557398'
                 }
             },
             axisPointer: {
                 label: {
-                    show: true,
+                   // show: true,
                     color: '#05cffa',
                     formatter: function (arg) {
                         return arg.value;
@@ -187,7 +191,7 @@ $(function () {
 
             axisLine: {
                 lineStyle: {
-                    color: '#557398'
+                    color:'white'// '#557398'
                 }
             }
         }
@@ -604,7 +608,7 @@ $(function () {
 
                     axisLine: {
                         lineStyle: {
-                            color: '#557398'
+                            color: 'white'//'#557398'
                         }
                     }
                 }]
@@ -737,7 +741,7 @@ $(function () {
 
             axisLine: {
                 lineStyle: {
-                    color: '#557398'
+                    color:'white'// '#557398'
                 }
             }
         }]
@@ -1280,7 +1284,7 @@ $(function () {
                     axisLine: {
                         show: false,
                         lineStyle: {
-                            color: '#d9f1ff',
+                            color: 'white'//'#d9f1ff',
 
                         }
 

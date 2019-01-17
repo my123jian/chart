@@ -210,13 +210,20 @@ html body {
 }
 
 .huan-chart-text {
-    height: 100px;
+    /*height: 100px;
     width: 108px;
     z-index: -1;
     display: inline-block;
     position: absolute;
     text-align: center;
-    padding-top: 32px;
+    padding-top: 32px;*/
+    height: 140px;
+    width: 148px;
+    z-index: -1;
+    display: inline-block;
+    position: absolute;
+    text-align: center;
+    padding-top: 48px;
 }
 
 .huan_chart_contain {
@@ -369,12 +376,19 @@ html body {
 }
 
 .chart-panel .chart-item {
-    width: 108px;
+    /*width: 108px;
     height: 100px;
     margin-left: 78px;
-    float: left;
+    float: left;*/
     /* border: red solid 1px; */
     /* background-color: red; */
+    width: 148px;
+    height: 140px;
+    margin-left: 48px;
+    margin-top: -14px;
+    float: left;
+    /* border: red solid 1px; */
+    /*background-color: red;*/
 }
 
 .chart-panel .chart-item:first-child {
@@ -385,6 +399,7 @@ html body {
     height: 20px;
     text-align: center;
     padding-top: 10px;
+    display: none;
 }
 
 .page .page-item {

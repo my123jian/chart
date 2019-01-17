@@ -1,0 +1,237 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>国内迁徙</title>
+  <link rel="stylesheet" type="text/css" href="mobile/qxfx/css/h5_country.css">
+  <script src="lib/jquery-1.8.2.min.js"></script>
+  <script src="lib/base.js"></script>
+  <script src="lib/echarts2.js"></script>
+  <script src="lib/lat.js"></script>
+  <script src="mobile/utils/rem.js"></script>
+</head>
+
+<body>
+<div id="mainMap" style="height:12rem;width: 100%;">
+</div>
+<script type="text/javascript">
+    $('#document').ready(function () {
+        $('#mainMap').height($(document.body).height());
+        getEcharts();
+    });
+</script>
+
+<script type="text/javascript">
+    var theChart = null;
+
+    function getEcharts() {
+        // Step:3 conifg ECharts's path, link to echarts.js from current page.
+        // Step:3 为模块加载器配置echarts的路径，从当前页面链接到echarts.js，定义所需图表路径
+        require.config({
+            paths: {
+                echarts: 'lib'
+            }
+        });
+
+        // Step:4 require echarts and use it in the callback.
+        // Step:4 动态加载echarts然后在回调函数中开始使用，注意保持按需加载结构定义图表路径
+        require(
+            [
+                'echarts',
+                'echarts/chart/map'
+            ],
+            function (ec) {
+                // --- 地图 ---
+                var myChart2 = ec.init(document.getElementById('mainMap'));
+                theChart = myChart2;
+                refresh([]);
+                // refresh([]);
+            });
+    }
+
+    /***
+     * 刷新展示信息
+     * @param data
+     */
+    function refresh(data) {
+        //debugger;
+        var colors = [
+            '#ff3333',
+            'orange',
+            'yellow',
+            'lime',
+            'aqua',
+            '#00c7ff'];
+        var theData = [
+            /*{name: '上海', value: 95},
+            {name: '广州', value: 90},
+            {name: '大连', value: 80},
+            {name: '南宁', value: 70},
+            {name: '南昌', value: 60},
+            {name: '拉萨', value: 50},
+            {name: '长春', value: 40},
+            {name: '包头', value: 30},
+            {name: '重庆', value: 20},
+            {name: '常州', value: 10}*/
+        ];
+        var theLineData = [];
+        data = data || [];
+        //debugger;
+        var values=[];
+        for (var i = 0; i < data.length; i++) {
+            var theItem = data[i];
+            if(!theItem.from||!theItem.to){
+                continue;
+            }
+            theItem.from=theItem.from.trim();
+            theItem.to=theItem.to.trim();
+            if (!theCitys[theItem.from] || !theCitys[theItem.to]) {
+
+                console.log('未找到' + theItem.from + ":" + theItem.to);
+                continue;
+            }
+            values.push( theItem.value ||theItem.num|| 0);
+            if(theItem.from=='广州'){
+                theData.push({name: theItem.to, value: theItem.value ||theItem.num|| 0});
+            }
+            else{
+                theData.push({name: theItem.from, value: theItem.value ||theItem.num|| 0});
+            }
+            theLineData.push([{name: theItem.from}, {name: theItem.to, value: theItem.value||theItem.num || 0}]);
+        }
+
+        var theSplits=[];
+        values.sort(function (a,b) {
+            return a<=b;
+        });
+        var values1=values.reverse();
+        //debugger;
+        var theIndex=0;
+        for(var i=values1.length-1;i>=0;i--){
+            if(theIndex<5){
+                theSplits.push({start: values1[i],end:values1[i]});
+            }
+            if(theIndex==5){
+                theSplits.push({end:values1[i],start:0});
+            }
+            theIndex++;
+            if(theIndex>=5){
+                continue;
+            }
+        }
+        if(theSplits.length<=0){
+            theSplits.push({start:0,end:0});
+        }
+        //debugger;
+        var theOptions = {
+            dataRange: {
+                show:false,
+                //min :theMin.toFixed(0) ,
+                //max :theMax.toFixed(0) ,
+                splitList: theSplits,
+
+                //calculable : true,
+                color:colors,// ['#ff3333', 'orange', 'yellow','lime','aqua'],
+                textStyle:{
+                    color:'#fff'
+                }
+            },
+            series: [
+                {
+                    name: '全国',
+                    type: 'map',
+                    roam: false,//不启用缩放
+                    hoverable: false,//点击不反应
+                    mapType: 'china',
+                    /*mapLocation: {
+                        x: 31,
+                        y: 200,
+                        //width:965
+                    },*/
+                    scaleLimit: {
+                        min: 1
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            textStyle: {
+                                color: 'white',
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            //areaColor: '#0040a3',
+                            //borderColor: '#49ffff'
+                            borderColor: '#25a8bc',
+                            borderWidth: 1,
+                            areaStyle: {
+                                color: 'rgba(31,70,143,0.8)',//#1f468f'
+                            },
+                            label: {
+                                show: true,
+                                textStyle: {
+                                    color: 'white'
+                                },
+                            },
+                        }
+                    },
+                    data: [],
+                    markLine: {
+                        smooth: true,
+                        symbol: 'none',
+                        effect: {
+                            show: true,
+                            scaleSize: 1,
+                            period: 30,
+                            //color: '#00c7ff',
+                            shadowBlur: 10
+                        },
+                        itemStyle: {
+                            normal: {
+                                label: {show: false},
+                                borderWidth: 2,
+                                lineStyle: {
+                                    //color:'#00c7ff',
+                                    type: 'solid',
+                                    shadowBlur: 10
+                                }
+                            }
+                        },
+                        data: theLineData
+                    },
+                    geoCoord: theCitys,
+                    markPoint: {
+                        symbol: 'emptyCircle',
+                        symbolSize: function (v) {
+                            return Math.min( 10 + v / 10000,40);
+                        },
+                        effect: {
+                            show: true,
+                            // type: 'bounce',
+                            shadowBlur: 0
+                        },
+                        itemStyle: {
+                            normal: {
+                                //color: '#1dd9ff',
+                                label: {show: false}
+                            },
+                            emphasis: {
+                                label: {position: 'top'}
+                            }
+                        },
+                        data: theData
+                    }
+
+                },
+
+            ]
+        };
+        theChart.clear();
+        theChart.setOption(theOptions);
+    }
+</script>
+</body>
+</html>
