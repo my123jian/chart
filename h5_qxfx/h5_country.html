@@ -161,6 +161,7 @@
                     label: {
                         normal: {
                             show: true,
+                            fontSize:10,
                             textStyle: {
                                 color: 'white',
                             }
@@ -211,7 +212,7 @@
                     markPoint: {
                         symbol: 'emptyCircle',
                         symbolSize: function (v) {
-                            return Math.min( 10 + v / 10000,40);
+                            return Math.min( 10 + v / 100000,20);
                         },
                         effect: {
                             show: true,
