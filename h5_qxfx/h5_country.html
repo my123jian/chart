@@ -46,8 +46,13 @@
                 // --- 地图 ---
                 var myChart2 = ec.init(document.getElementById('mainMap'));
                 theChart = myChart2;
-                refresh([]);
-                // refresh([]);
+                if (parent  && parent.currentTable) {
+
+                    refresh(parent.currentTable,'',null);
+                }
+                else {
+                    refresh([]);
+                }
             });
     }
 

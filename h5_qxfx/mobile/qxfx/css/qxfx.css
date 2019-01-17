@@ -130,11 +130,19 @@ html, body {
       width: 0.48rem;
       height: 0.48rem; }
   .header .calender {
-    width: 4rem;
+    /*width: 4rem;
     font-size: 0.48rem;
     padding-left: 1.16rem;
     border-left: 1px solid #28eefb;
-    height: 100%; }
+    height: 100%;*/
+    width: 4rem;
+    font-size: 0.48rem;
+    padding-left: 0.16rem;
+    padding-top: 0.10rem;
+    /* line-height: 0.48rem; */
+    border-left: 1px solid #28eefb;
+    height: 100%;
+  }
 
 .tab-box {
   display: -webkit-box;
@@ -276,7 +284,9 @@ html, body {
   .col2 .col2-header {
     text-align: center; }
   .col2 li {
-    text-align: center; }
+    text-align: center;
+    margin-bottom: 0.8rem;
+  }
 
 .col3 {
   width: 6.4rem;
@@ -296,6 +306,7 @@ html, body {
   .col3 li {
     display: -webkit-box;
     display: -ms-flexbox;
+    margin-bottom: 0.8rem;
     display: flex; }
     .col3 li section {
       min-width: 2.5rem;

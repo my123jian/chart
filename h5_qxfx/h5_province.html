@@ -147,9 +147,9 @@
             theChartMap = echarts.init(document.getElementById(theMapId));
         }
         //debugger;
-        if (parent && parent.PageView && parent.PageView.currentTable) {
+        if (parent  && parent.currentTable) {
 
-            refresh(parent.PageView.currentTable,'',parent.PageView.selectItem);
+            refresh(parent.currentTable,'',null);
         }
         else {
             refresh([]);
