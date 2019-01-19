@@ -124,7 +124,14 @@ $(function () {
 
                 }
             });
-
+            $('.part22-btn .btn').click(function () {
+                if ($(this).hasClass('active')) {
+                    return;
+                }
+                $('.part22-btn .btn').removeClass('active');
+                $(this).addClass('active');
+                me.loadData2();
+            });
             $('.part2 .item').click(function () {
                 if ($(this).hasClass('active')) {
                     return;
@@ -139,7 +146,8 @@ $(function () {
                     $('.chart-group1').hide();
 
                 }
-                else{
+                else {
+                    $('.part22').hide();
                     $('.chart-group1').show();
                 }
                 $('.btn-contain .btn').hide();
@@ -166,7 +174,7 @@ $(function () {
                     me.ChartMinhang.resize();
                 }
             });
-            var theInstance=this;
+            var theInstance = this;
             $('.chart-small').each(function () {
                 var me = this;
                 $(me).find('.btn-contain .btn1').click(function (item) {
@@ -220,13 +228,13 @@ $(function () {
             //debugger;
             dataArray1 = dataArray1 || [[], [], [], [], []];
             dataArray2 = dataArray2 || [[], [], [], [], []];
-            var theItemConfig = [{name:theValues[0]=='发送量'? '发送总量':'累计发送量', textStyle: {color: "#cfccfc"}},
-                {name: theValues[1]=='发送量'? '发送总量':'累计发送量', textStyle: {color: "#ffdc6f"}},
+            var theItemConfig = [{name: theValues[0] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#cfccfc"}},
+                {name: theValues[1] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#ffdc6f"}},
                 {
-                    name: theValues[2]=='发送量'? '发送总量':'累计发送量', textStyle: {color: "#32ff4a"}
+                    name: theValues[2] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#32ff4a"}
                 },
-                {name: theValues[3]=='发送量'? '发送总量':'累计发送量', textStyle: {color: "#328eff"}}
-                , {name: theValues[4]=='发送量'? '发送总量':'累计发送量', textStyle: {color: "#e407e7"}}];
+                {name: theValues[3] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#328eff"}}
+                , {name: theValues[4] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#e407e7"}}];
             var theBeginDate = new Date('2019-01-21');
             var theXData = [];
             theXData.push(theBeginDate.getTime());
@@ -260,6 +268,7 @@ $(function () {
                             var theKeyMap = {};
                             for (var i = 0; i < params.length; i = i + 1) {
                                 if (!theKeyMap[params[i].seriesName]) {
+                                    //debugger;
                                     var theColorText = "<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:" + params[i].color + ";\"></span>";
                                     theDatas.push(theColorText + params[i].seriesName + ':' + (params[i].data) + '万');
                                     theKeyMap[params[i].seriesName] = true;
@@ -385,6 +394,7 @@ $(function () {
                     type: 'line',
                     symbol: 'none',
                     smooth: true,
+                    color: color,
                     showSymbol: false,
                     tooltip: {
                         position: 'left',
@@ -420,6 +430,7 @@ $(function () {
                     name: name,
                     type: 'line',
                     symbol: 'none',
+                    color: color,
                     smooth: true,
                     showSymbol: false,
                     tooltip: {
@@ -443,6 +454,7 @@ $(function () {
                 var theOptions = {};
                 $.extend(true, theOptions, option);
                 series = getSeries(theItem.name, theItem.textStyle.color, [dataArray1[i], dataArray2[i]] || [[], []]);
+                //debugger;
                 theOptions.series = series;
                 theCharts[i].setOption(theOptions);
             }
@@ -671,14 +683,15 @@ $(function () {
             if (!this.Chart2) {
                 this.Chart2 = echarts.init(document.getElementById('chart2'));
             }
+            //debugger;
             var theItemConfig = [
                 /*{name: '总旅客', textStyle: {color: "#cfccfc"}},*/
-                {name: '发送', textStyle: {color: "#ffdc6f"}},
-                {name: '到达', textStyle: {color: "#32ff4a"}}];
+                {name: '发送', textStyle: {color1: "#f0d94b", color2: "#6a6d06"}},
+                {name: '到达', textStyle: {color1: "#1bf955", color2: "#22b347"}}];
             var theBeginDate = new Date('2019-01-21');
             var theXData = [];
             theXData.push(theBeginDate.getTime());
-            for (var i = 1; i < 41; i++) {
+            for (var i = 1; i < 45; i++) {
                 theBeginDate.setDate(theBeginDate.getDate() + 1);
                 theXData.push(theBeginDate.getTime());
             }
@@ -688,9 +701,9 @@ $(function () {
                     },*/
                 color: [
                     //'#cfccfc',
-                    '#ffdc6f',
-                    '#32ff4a'],
-
+                    '#6a6d06',
+                    '#0441a7'],
+                //align: 'left',
                 tooltip: {
                     trigger: 'axis',
                     //show:true,
@@ -711,7 +724,12 @@ $(function () {
                         var theDatas = [];
                         //var theText = "";
                         var theKeyMap = {};
-                        for (var i = 0; i < params.length; i = i + 1) {
+                        //debugger;
+                        var step = 1;
+                        if (params.length >= 4) {
+                            step = 2;
+                        }
+                        for (var i = 0; i < params.length; i = i + step) {
                             if (!theKeyMap[params[i].seriesName]) {
                                 var theColorText = "<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:" + params[i].color + ";\"></span>";
                                 theDatas.push(theColorText + params[i].seriesName + ':' + (params[i].data) + '万');
@@ -725,7 +743,7 @@ $(function () {
                     }
                 },
 
-                legend: {
+                /*legend: {
                     show: true,
                     textStyle: {
                         color: '#557398',
@@ -733,7 +751,7 @@ $(function () {
                     top: 10,
                     right: 320,
                     data: theItemConfig
-                },
+                },*/
                 grid: {
                     left: 40,
                     right:
@@ -778,9 +796,10 @@ $(function () {
                                     //debugger;
                                     var theDate = new Date();
                                     theDate.setTime(arg.value);
-                                    /*if(theDate.getTime()>new Date('2019-03-01').getTime()){
+
+                                    if (theDate.getTime() > new Date('2019-03-01').getTime()) {
                                         return "";
-                                    }*/
+                                    }
                                     return theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
                                 }
                         }
@@ -803,6 +822,10 @@ $(function () {
                                 var theDate = new Date();
                                 theDate.setTime(parseInt(value));
                                 console.log(theDate);
+
+                                if (theDate.getTime() > new Date('2019-03-02').getTime()) {
+                                    return "";
+                                }
                                 if (idx % 4 == 0) {
                                     return theDate.getMonth() + 1 + '月' + theDate.getDate() + "日";
                                 }
@@ -834,16 +857,27 @@ $(function () {
                 series: []
             };
             var series = [];
-            var getSeries = function (name, color, data) {
+            var getSeries = function (name, color1, color2, data) {
                 data = data || [[], []];
+                /*if (data[0].length <= 0) {
+                    for (var i = 0; i < 20; i++) {
+                        data[0].push(100000 * Math.random().toFixed(2));
+                    }
+                    if (data[1].length > 0) {
+                        for (var i = 0; i < 20; i++) {
+                            data[1][i]=0;//.push(100000 * Math.random().toFixed(2));
+                        }
+                    }
+                }*/
                 //debugger;
                 var theSeries1 = {
                     name: name,
                     type: 'bar',
+                    barGap: 0,
                     //smooth: true,
                     //symbol: 'none',
                     //showSymbol: false,
-                    //barWidth: '50%',
+                    barWidth: '25%',
                     /*"axisTick": {       //X轴刻度线
                         "show": false
                     },*/
@@ -853,7 +887,7 @@ $(function () {
                     data: data[0].map(function (item) {
                         return (item / 10000).toFixed(2)
                     }),
-                    color: color,
+                    color: color1,
                     /*areaStyle: {
                         normal: {
                             color: {
@@ -881,7 +915,7 @@ $(function () {
                 var theSeries2 = {
                     name: name,
                     type: 'bar',
-                    /*barWidth: '50%',*/
+                    barWidth: '25%',
                     //barWidth: '50%',
                     // smooth: true,
                     //symbol: 'none',
@@ -895,7 +929,7 @@ $(function () {
                     data: data[1].map(function (item) {
                         return (item / 10000).toFixed(2)
                     }),
-                    color: color,
+                    color: color2,
                     lineStyle: {
                         normal: {
                             //color: color,
@@ -910,7 +944,7 @@ $(function () {
                 var theItem = theItemConfig[i];
                 //debugger;
                 var theData = dataArray[i] || [[], []];
-                series = series.concat(getSeries(theItem.name, theItem.textStyle.color, theData));
+                series = series.concat(getSeries(theItem.name, theItem.textStyle.color1, theItem.textStyle.color2, theData));
             }
             option.series = series;
 
@@ -1002,13 +1036,13 @@ $(function () {
                 return theText;
             }
 
-            var fromateNum=function (num1) {
-                var theNum1="";
+            var fromateNum = function (num1) {
+                var theNum1 = "";
                 if (num1 > 1000) {
-                   var theNum1 = (num1 / 10000).toFixed(2) + '万';
+                    var theNum1 = (num1 / 10000).toFixed(2) + '万';
                 }
                 else {
-                   var theNum1 = num1;
+                    var theNum1 = num1;
                 }
                 return theNum1;
             }
@@ -1140,8 +1174,8 @@ $(function () {
             };
 
             this.loadPart11(theLeft1);
-           // this.loadPart12(theLeft2);
-           // this.loadPart13(theLeft3);
+            // this.loadPart12(theLeft2);
+            // this.loadPart13(theLeft3);
 
 
             //输入日期 旅客发送趋势
@@ -3269,8 +3303,11 @@ $(function () {
                             theReuslt10.push((theMapItem.sendCount || 0));
                             theReuslt20.push((theMapItem.reachCount || 0));
 
-                            theReuslt11.push((theMapItem.sendCount || 0));
-                            theReuslt21.push((theMapItem.reachCount || 0));
+                            theReuslt11.push(0);
+                            theReuslt21.push(0);
+
+                            //theReuslt11.push((theMapItem.sendCount || 0));
+                            //theReuslt21.push((theMapItem.reachCount || 0));
                         }
 
                         for (var j = 0; j < theDates2.length; j++) {
