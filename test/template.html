@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .num-contain{
+            width: 1em;
+            height:1em;
+            line-height: 1em;
+            text-align: center;
+            background: red;
+            color: white;
+            display: inline-block;
+            margin: 1px;
+            border: 1px green solid;
+            overflow: hidden;
+        }
+        .num-contain >div>div{
+            width: 1em;
+            height:1em;
+            line-height: 1em;
+            text-align: center;
+            color: white;
+        }
+
+
+    </style>
+    <script type="text/javascript" src="../lib/jquery-1.8.2.min.js"></script>
+</head>
+<body>
+<div class="num-contain">
+
+
+</div>
+<div class="num-contain">
+
+</div>
+<div  class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<script type="text/javascript">
+
+
+
+
+   function showNums() {
+       $('.num-contain').each(function () {
+           var theNumChildren="<div class='nums'>";
+           for(var i=0;i<10;i++){
+               theNumChildren+='<div>'+i+'</div>';
+           }
+           theNumChildren+='</div>';
+           $(this).empty();
+           $(this).append($(theNumChildren));
+       });
+
+       var theMax=10;
+       var theIndex=0;
+       var theTimer= setInterval(function () {
+           //debugger;
+           $('.nums').css('margin-top',-theIndex+'em');
+           theIndex=(theIndex+0.2)%theMax;
+       },100);
+   }
+   showNums();
+</script>
+</body>
+</html>
