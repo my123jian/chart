@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .num-contain{
+        .num-contain {
             width: 1em;
-            height:1em;
+            height: 1em;
             line-height: 1em;
             text-align: center;
             background: red;
@@ -16,9 +16,10 @@
             border: 1px green solid;
             overflow: hidden;
         }
-        .num-contain >div>div{
+
+        .num-contain > div {
             width: 1em;
-            height:1em;
+            height: 1em;
             line-height: 1em;
             text-align: center;
             color: white;
@@ -29,14 +30,14 @@
     <script type="text/javascript" src="../lib/jquery-1.8.2.min.js"></script>
 </head>
 <body>
-<div class="num-contain">
+<div class="num-contain" data-num="2" style="position:absolute;left:100px;top:100px;">
 
 
 </div>
 <div class="num-contain">
 
 </div>
-<div  class="num-contain">
+<div class="num-contain">
 
 </div>
 <div class="num-contain">
@@ -48,28 +49,51 @@
 <script type="text/javascript">
 
 
+    function showNums() {
+        var theNumMap = [];
+        $('.num-contain').each(function () {
+            var theNumChildren = "<div class='nums'>";
+            for (var i = 0; i < 10; i++) {
+                theNumChildren += '<div>' + i + '</div>';
+            }
+            theNumChildren += '</div>';
+            $(this).empty();
+            $(this).append($(theNumChildren));
+            var theNum = $(this).data('num') || 9;
+            var theStart = $(this).data('start', 0);
+            theNumMap.push({
+                obj: this,
+                num: theNum,
+                start: 0
+            });
+        });
+
+        var theMax = 10;
+        var theIndex = 0;
+        var theTimer = setInterval(function () {
+            var hasFinish = true;
+            for (var item of theNumMap) {
+                var theCur = item;
+                var theElement=item.obj;
+                var theNum = theCur.num;
+                var theStart = theCur.start;
+                if (theStart <= theNum) {
+                    $(theElement).find('.nums').css('margin-top', -theStart + 'em');
+                    theStart = (theStart + 0.2);
+                    theCur.start=theStart;
+                    $(theElement).data('start', theStart);
+                    hasFinish = false;
+                }
+            }
+            if (hasFinish) {
+                clearInterval(theTimer);
+            }
 
 
-   function showNums() {
-       $('.num-contain').each(function () {
-           var theNumChildren="<div class='nums'>";
-           for(var i=0;i<10;i++){
-               theNumChildren+='<div>'+i+'</div>';
-           }
-           theNumChildren+='</div>';
-           $(this).empty();
-           $(this).append($(theNumChildren));
-       });
+        }, 50);
+    }
 
-       var theMax=10;
-       var theIndex=0;
-       var theTimer= setInterval(function () {
-           //debugger;
-           $('.nums').css('margin-top',-theIndex+'em');
-           theIndex=(theIndex+0.2)%theMax;
-       },100);
-   }
-   showNums();
+    showNums();
 </script>
 </body>
 </html>
