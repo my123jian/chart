@@ -17,13 +17,17 @@
             overflow: hidden;
         }
 
-        .num-contain > div {
+        .num-contain {
+            overflow: hidden;
+        }
+
+        /*.num-contain > div {
             width: 1em;
             height: 1em;
             line-height: 1em;
             text-align: center;
             color: white;
-        }
+        }*/
 
 
     </style>
@@ -46,10 +50,228 @@
 <div class="num-contain">
 
 </div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div><div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div><div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div><div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div><div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div><div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div><div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div><div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+<div class="num-contain">
+
+</div>
+
+
+
+
+
+
+
 <script type="text/javascript">
 
+    /*
+    * 1：设置当前的元素的值 自己设置
+    * 2：动画进行初始化操作 开始动画操作，结束动画操作
+    * 3：开始滚动动画操作 动画结束 定时结束
+    * */
 
-    function showNums() {
+    function NumbersEffect(ele) {
+        this.timer = null;
+        this.ele = ele;
+        this.init(this.ele);
+    }
+    NumbersEffect.prototype.restart=function(){
+
+        if(this.ele){
+            this.init(this.ele);
+        }
+        else{
+            console.log('初始化错误！');
+        }
+    }
+    NumbersEffect.prototype.resume=function(){
+        this.isPause=false;
+    }
+    NumbersEffect.prototype.pause=function(){
+        this.isPause=true;
+    }
+    NumbersEffect.prototype.addNums = function (ele) {
+        var theNumChildren = "<div class='nums'>";
+        for (var i = 0; i < 10; i++) {
+            theNumChildren += '<div>' + i + '</div>';
+        }
+        theNumChildren += '</div>';
+        $(ele).empty();
+        $(ele).append($(theNumChildren));
+    }
+    NumbersEffect.prototype.init = function (ele) {
+        if(this.timer){
+            this.end();
+        }
+        this.theNumMap = [];
+        var me = this;
+        $('.num-contain').each(function () {
+            me.addNums(this);
+            var theNum = $(this).data('num') || 9;
+            var theStart = $(this).data('start', 0);
+            me.theNumMap.push({
+                obj: this,
+                num: theNum,
+                start: 0
+            });
+        });
+
+        this.timer=setInterval(function () {
+            if(!me.isPause&& me.next()){
+                me.end();
+            }
+        },50);
+    }
+    NumbersEffect.prototype.next = function () {
+        var hasFinish = true;
+        if (!this.theNumMap || this.theNumMap.length == 0) {
+            return true;
+        }
+        for (var item of this.theNumMap) {
+            var theCur = item;
+            var theElement = item.obj;
+            var theNum = theCur.num;
+            var theStart = theCur.start;
+            if (theStart <= theNum) {
+                $(theElement).find('.nums').css('margin-top', -theStart + 'em');
+                theStart = (theStart + 0.2);
+                theCur.start = theStart;
+                $(theElement).data('start', theStart);
+                hasFinish = false;
+            }
+        }
+        return hasFinish;
+    }
+
+    NumbersEffect.prototype.end = function () {
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+        this.isPause=false;
+    }
+
+    /*function showNums() {
         var theNumMap = [];
         $('.num-contain').each(function () {
             var theNumChildren = "<div class='nums'>";
@@ -74,13 +296,13 @@
             var hasFinish = true;
             for (var item of theNumMap) {
                 var theCur = item;
-                var theElement=item.obj;
+                var theElement = item.obj;
                 var theNum = theCur.num;
                 var theStart = theCur.start;
                 if (theStart <= theNum) {
                     $(theElement).find('.nums').css('margin-top', -theStart + 'em');
                     theStart = (theStart + 0.2);
-                    theCur.start=theStart;
+                    theCur.start = theStart;
                     $(theElement).data('start', theStart);
                     hasFinish = false;
                 }
@@ -93,7 +315,8 @@
         }, 50);
     }
 
-    showNums();
+    showNums();*/
+   var theEffect= new NumbersEffect(document.body);
 </script>
 </body>
 </html>
