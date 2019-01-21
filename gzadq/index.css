@@ -429,10 +429,10 @@ html body {
 
 }
 .guishu .tab-item span{
-    color: #3e75a0;
+    color: #6adcff;
 }
 .guishu .active span{
-    color:#ddf3ff;
+    color:white;/*#ddf3ff;*/
 }
 .guishu .active{
     background-image: url('./img/btn_2.png');

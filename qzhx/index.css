@@ -417,10 +417,10 @@ html body {
 
 }
 .guishu .tab-item span{
-    color: #3e75a0;
+    color: #6adcff;
 }
 .guishu .active span{
-    color:#ddf3ff;
+    color:white;/*#ddf3ff;*/
 }
 .guishu .active{
     background-image: url('./img/btn_2.png');
@@ -780,6 +780,7 @@ html body {
 .datediv3{
     border-radius: 5px;
     border:#3296b9 solid 1px;
+    background: #0e6694;
     width: 222px!important;
     /* float: right; */
     left: 817px;
@@ -866,6 +867,9 @@ iframe {
     margin-top: 36px;
     width: 1089px!important;
     height: 220px !important;
+    background: url(img/bottom.png);
+    background-size: 100% 100%;
+    background-position-x: 30px;
 
 }
 #chart3,#form_2,#chart4,#chart2{
@@ -992,7 +996,7 @@ iframe {
     top: 787px;
     width: 1089px;
     height: 252px;
-    /*background: url(img/left_11.png);*/
+
 }
 .chart-title1{
     background: url("img/title-icon.png");
