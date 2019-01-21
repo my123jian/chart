@@ -108,7 +108,8 @@ html body {
 }
 
 .fixdiv * {
-    color: #ddf3ff;
+    color: white;
+    /*color: #ddf3ff;*/
 }
 
 .fixdiv > div {
@@ -219,7 +220,7 @@ html body {
     padding-top: 32px;*/
     height: 140px;
     width: 148px;
-    z-index: -1;
+    z-index: 1;
     display: inline-block;
     position: absolute;
     text-align: center;
@@ -538,7 +539,7 @@ html body {
     /* border: none; */
     border-width: 0px;
     font-size: 18px;
-    color: #ddf3ff;
+    /*color: #ddf3ff;*/
     height: 32px;
     line-height: 32px;
     /* padding-right: 32px; */

@@ -14,6 +14,7 @@ $(function () {
                 return theResult;
             }
         };
+
         var formateDateNumText = function (ele, date) {
             var theDateText = date.year + '-' + FormateDateNum(date.month) + '-' + FormateDateNum(date.date);
             var theDate = new Date(theDateText);
@@ -85,6 +86,7 @@ $(function () {
          */
         PageViewModel.prototype.onTimer = function () {
             console.log("开始刷新数据!");
+            this.loadData1();
         }
         PageViewModel.prototype.updateDate = function () {
             $('.date').val(formateDate1());
@@ -144,16 +146,18 @@ $(function () {
                 if (theModel == 2) {
                     $('.part2').addClass('active')
                     $('.chart-group1').hide();
-
+                    $('.chart-group2').show();
                 }
                 else {
-                    $('.part22').hide();
+                    //$('.part22').hide();
                     $('.chart-group1').show();
+                    $('.chart-group2').hide();
+                    //$('.chart-2').show();
                 }
-                $('.btn-contain .btn').hide();
-                $('#chart1,#chart3').hide();
-                $('.btn-contain .btn' + theModel).show();
-                $('.part2' + theModel).show();
+                // $('.btn-contain .btn').hide();
+                // $('#chart1,#chart3').hide();
+                //$('.btn-contain .btn' + theModel).show();
+                //$('.part2' + theModel).show();
                 $('.part2').data('mode', theModel);
                 //debugger;
 
@@ -163,9 +167,9 @@ $(function () {
 
                 me.loadData3();
             });
-            $('.chart-small').click(function (item) {
+            $('.chart-group1 .chart-small').click(function (item) {
                 if (!$(this).hasClass('chart-big')) {
-                    $('.chart-small').removeClass('chart-big');
+                    $('.chart-group1 .chart-small').removeClass('chart-big');
                     $(this).addClass('chart-big');
                     me.ChartGonglu.resize();
                     me.ChartTotal.resize();
@@ -174,8 +178,18 @@ $(function () {
                     me.ChartMinhang.resize();
                 }
             });
+
+            $('.chart-group2 .chart-small').click(function (item) {
+                if (!$(this).hasClass('chart-big')) {
+                    $('.chart-group2 .chart-small').removeClass('chart-big');
+                    $(this).addClass('chart-big');
+                    me.chart2Hangban.resize();
+                    me.chart2Lieche.resize();
+                    me.chart2Gaotie.resize();
+                }
+            });
             var theInstance = this;
-            $('.chart-small').each(function () {
+            $('.chart-group1 .chart-small').each(function () {
                 var me = this;
                 $(me).find('.btn-contain .btn1').click(function (item) {
                     if ($(this).hasClass('active')) {
@@ -193,6 +207,26 @@ $(function () {
                     $(this).addClass('active');
                     theInstance.loadData2();
                 });
+            });
+
+            $('.chart-group2 .chart-small').each(function () {
+                var me = this;
+                $(me).find('.btn-contain .btn1').click(function (item) {
+                    if ($(this).hasClass('active')) {
+                        return;
+                    }
+                    $(me).find('.btn-contain .btn1').removeClass('active');
+                    $(this).addClass('active');
+                    theInstance.loadData2();
+                });
+                /* $(me).find('.btn-contain .btn2').click(function (item) {
+                     if ($(this).hasClass('active')) {
+                         return;
+                     }
+                     $(me).find('.btn-contain .btn2').removeClass('active');
+                     $(this).addClass('active');
+                     theInstance.loadData2();
+                 });*/
             });
 
         }
@@ -294,17 +328,17 @@ $(function () {
                         return item.textStyle.color;
                     }),
                     grid: {
-                        left: 40,
+                        left: 20,
                         right:
                             30,
                         top:
                             40,
                         bottom:
-                            10,
+                            20,
                         width:
-                            814,
+                            680,
                         height:
-                            210,
+                            190,
                         containLabel:
                             true
                     }
@@ -462,12 +496,262 @@ $(function () {
             //this.Chart1.setOption(option);
         }
         PageViewModel.prototype.loadChart3 = function (theXData, dataArray) {
+            //发送 到达 延误
+            var theItemConfig = [
+                {name: '发送', textStyle: {color: "#cfccfc"}},
+                {name: '到达', textStyle: {color: "#ffdc6f"}},
+                {
+                    name: '延误', textStyle: {color: "#32ff4a"}
+                }];
+            var theChartMap = {};
+            var theValues = ["Flight", "Train", "HighTrain"];
+            if (!this.chart2Hangban) {
+                this.chart2Hangban = echarts.init(document.getElementById('chart2-hangban'));
+
+            }
+            theChartMap['Flight'] = this.chart2Hangban;
+            if (!this.chart2Lieche) {
+                this.chart2Lieche = echarts.init(document.getElementById('chart2-lieche'));
+
+            }
+            theChartMap['Train'] = this.chart2Lieche;
+            if (!this.chart2Gaotie) {
+                this.chart2Gaotie = echarts.init(document.getElementById('chart2-gaotie'));
+
+            }
+            theChartMap['HighTrain'] = this.chart2Gaotie;
+            //debugger;
+            var theBeginDate = new Date('2019-01-21');
+            var theXData = [];
+            theXData.push(theBeginDate.getTime());
+            for (var i = 1; i < 40; i++) {
+                theBeginDate.setDate(theBeginDate.getDate() + 1);
+                theXData.push(theBeginDate.getTime());
+            }
+            var option = {
+                    /*title: {
+                            text: '折线图堆叠'
+                        },*/
+                    tooltip: {
+                        trigger: 'axis',
+                        //show:true,
+                        axisPointer: {
+                            type: 'line',
+                            show: true,
+                            label: {
+                                //show: true
+                            }
+                        },
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        position: function (point, params, dom, rect, size) {
+                            // 固定在顶部
+                            return [point[0], '10%'];
+                        },
+                        formatter: function (params) {
+                            var theIndex = 0;
+                            var theDatas = [];
+                            //var theText = "";
+                            for (var i = 0; i < params.length; i = i + 1) {
+                                if(params[i].data==undefined){
+                                    continue;
+                                }
+                                var theColorText = "<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:" + params[i].color + ";\"></span>";
+                                theDatas.push(theColorText + params[i].seriesName + ':' + (params[i].data) + '次');
+                            }
+                            /* while (theIndex < params.length - 1) {
+
+                                     theText += params[theIndex].data + "<br />";
+                                     theIndex += 2;
+                                 }*/
+                            var theDate = new Date();
+                            theDate.setTime(params[0].name);
+                            var theNameText = theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                            return theNameText + '<br/>' + theDatas.join('<br />');
+                        }
+                    },
+
+                    legend: {
+                        //align:'right',//
+                        top: 30,
+                        right: 320,
+                        textStyle: {
+                            color: '#557398',
+                        },
+                        data: theItemConfig
+                    },
+                    color: theItemConfig.map(function (item) {
+                        return item.textStyle.color;
+                    }),
+                    grid: {
+                        left: 40,
+                        right:
+                            30,
+                        top:
+                            40,
+                        bottom:
+                            10,
+                        width:
+                            630,
+                        height:
+                            210,
+                        containLabel:
+                            true
+                    }
+                    ,
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap:
+                            false,
+                        name:
+                            '(日期)',
+                        axisLine:
+                            {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            }
+                        ,
+                        axisPointer: {
+                            label: {
+
+                                color: '#05cffa',
+                                formatter:
+
+                                    function (arg) {
+                                        //debugger;
+                                        var theDate = new Date();
+                                        theDate.setTime(arg.value);
+                                        return theDate.getMonth() + 1 + "月" + theDate.getDate() + "日";
+                                    }
+                            }
+                            ,
+                            lineStyle: {
+                                color: '#05cffa',
+                                shadowBlur:
+                                    {
+                                        shadowColor: '#05cffa',
+                                        shadowBlur:
+                                            10
+                                    }
+                            }
+                        }
+                        ,
+                        axisLabel: {
+                            rotate: 30,
+                            formatter:
+
+                                function (value, idx) {
+                                    var theDate = new Date();
+                                    theDate.setTime(parseInt(value));
+                                    console.log(theDate);
+                                    if (idx % 4 == 0) {
+                                        return theDate.getMonth() + 1 + '月' + theDate.getDate() + "日";
+                                    }
+                                    else {
+                                        return "";
+                                    }
+                                }
+                        }
+                        ,
+                        data: theXData
+                    }
+                    ,
+                    yAxis: {
+                        type: 'value',
+                        name:
+                            '(次)',
+                        splitLine:
+                            {
+                                show: false
+                            }
+                        ,
+                        axisLine: {
+                            lineStyle: {
+                                color: 'white'//'#557398'
+                            }
+                        }
+                    }
+                    ,
+                    series: []
+                }
+            ;
+            // var series = [];
+            var getSeries = function (name, color, data) {
+                data = data || [];
+                var theSeries = {
+                    name: name,
+                    type: 'line',
+                    symbol: 'none',
+                    smooth: true,
+                    showSymbol: false,
+                    tooltip: {
+                        position: 'left',
+                    },
+                    data: data.map(function (item) {
+                        return item
+                    }),
+                    areaStyle: {
+                        normal: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0, color: formateRgba(color, 0.3)//  'rgba(255,220,111,0.3)'
+                                }, {
+                                    offset: 0.5, color: formateRgba(color, 0.15)//  'rgba(255,220,111,0.15)'
+                                }, {
+                                    offset: 1, color: formateRgba(color, 0)// 'rgba(255,220,111,0)'
+                                }]
+                            }
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            color: color
+                        }
+                    }
+                };
+                return theSeries;
+            }
+            dataArray = dataArray || [];
+            var theDataKeys = ['send', 'reach', 'delay'];
+            for (var i = 0; i < theValues.length; i++) {
+                var theValue = theValues[i];
+                var theOptions = {};
+                $.extend(true, theOptions, option);
+                var theSeries = [];
+                var theLength = 3;
+                if (theValue == "HighTrain") {
+                    theLength = 2;
+                }
+
+                for (var j = 0; j < theLength; j++) {
+                    var theItem = theItemConfig[j];
+                    theSeries.push(getSeries(theItem.name, theItem.textStyle.color, (dataArray[i] || []).map(
+                        function (item) {
+                            return item[theDataKeys[j]];
+                        }
+                    ) || []));
+                }
+                theOptions.series = theSeries;
+                theChartMap[theValue].setOption(theOptions);
+            }
+            /*this.chart2Hangban.setOption(option);
+            this.chart2Lieche.setOption(option);
+            this.chart2Gaotie.setOption(option);*/
+
+        }
+        PageViewModel.prototype.loadChart3Old = function (theXData, dataArray) {
             if (!this.Chart3) {
                 this.Chart3 = echarts.init(document.getElementById('chart3'));
             }
 
             //发送 到达 延误
-            var theItemConfig = [{name: '发送', textStyle: {color: "#cfccfc"}},
+            var theItemConfig = [
+                {name: '发送', textStyle: {color: "#cfccfc"}},
                 {name: '到达', textStyle: {color: "#ffdc6f"}},
                 {
                     name: '延误', textStyle: {color: "#32ff4a"}
@@ -686,8 +970,8 @@ $(function () {
             //debugger;
             var theItemConfig = [
                 /*{name: '总旅客', textStyle: {color: "#cfccfc"}},*/
-                {name: '发送', textStyle: {color1: "#f0d94b", color2: "#6a6d06"}},
-                {name: '到达', textStyle: {color1: "#1bf955", color2: "#22b347"}}];
+                {name: '发送', textStyle: {color1: "#ffff88", color2: "#c9ce07"}},
+                {name: '到达', textStyle: {color1: "#4ffeff", color2: "#058fff"}}];
             var theBeginDate = new Date('2019-01-21');
             var theXData = [];
             theXData.push(theBeginDate.getTime());
@@ -1038,13 +1322,29 @@ $(function () {
 
             var fromateNum = function (num1) {
                 var theNum1 = "";
+                var theEndStr="<div>万</div>";
                 if (num1 > 1000) {
-                    var theNum1 = (num1 / 10000).toFixed(2) + '万';
+                    var theNum1 = (num1 / 10000).toFixed(2) ;
                 }
                 else {
-                    var theNum1 = num1;
+                    var theNum1 = num1+"";
+                    theEndStr="";
                 }
-                return theNum1;
+                var theNumberStrArray = [];
+                for (var i = 0; i < theNum1.length; i++) {
+                    theNumberStrArray.push(theNum1[i]);
+                }
+                var theTemplate = "";
+                for (var i = 0; i < theNumberStrArray.length; i++) {
+                    var theCurrent = theNumberStrArray[i];
+                    if (theCurrent == '.') {
+                        theTemplate += '<div>'+theCurrent+'</div>';
+                    }
+                    else {
+                        theTemplate += "<div class='num-contain' data-num='"+theCurrent+"'>" + theCurrent + "</div>";
+                    }
+                }
+                return theTemplate+theEndStr;
             }
             var formateLeft1 = function (data) {
                 data.postion_type1_total_text = formateText(data.postion_type1_total, data.send_count_total);
@@ -1071,8 +1371,16 @@ $(function () {
                 data.postion_type2_shuilu = fromateNum(data.postion_type2_shuilu, data.send_count_shuilu);
                 data.postion_type2_minhang = fromateNum(data.postion_type2_minhang, data.send_count_minhang);
             }
+            //debugger;
             formateLeft1(theLeft1);
             this.bind('.part1-content', theLeft1);
+            if(!this.NumbersEffect){
+                this.NumbersEffect=  new NumbersEffect(document.body);
+            }
+            else{
+                this.NumbersEffect.restart();
+            }
+
 
         }
         /**
@@ -1089,7 +1397,7 @@ $(function () {
                 delay_gd: 0,//延误旅客数
             };
             $.extend(theLeft2, data1);
-            this.bind('.part1', theLeft2);
+            this.bind('.airinfo', theLeft2);
         }
         /**
          * 加载第一部分数据的3
@@ -1107,7 +1415,7 @@ $(function () {
             }
             $.extend(theLeft3, data1);
             //debugger;
-            this.bind('.part1', theLeft3);
+            this.bind('.traininfo', theLeft3);
         }
         /***
          * 加载第一部分数据
@@ -1174,8 +1482,8 @@ $(function () {
             };
 
             this.loadPart11(theLeft1);
-            // this.loadPart12(theLeft2);
-            // this.loadPart13(theLeft3);
+            this.loadPart12(theLeft2);
+            this.loadPart13(theLeft3);
 
 
             //输入日期 旅客发送趋势
@@ -1276,7 +1584,7 @@ $(function () {
                 }
             });
 
-            return;
+            //return;
             var theCallUrl2 = "cw/getFlyTrain.do";
             this.load(theCallUrl2, theCallArgument, function (data) {
                 /* data = {
@@ -2952,7 +3260,54 @@ $(function () {
                             var theItem = data.data[i];
                             var theFly = theItem.fly;
                             var theTrain = theItem.train;
-                            if (theValue == "Flight") {
+                            var theResult = {};
+                            //debugger;
+                            for (var j = 0; j < theFly.length; j++) {
+                                theResult1.push({
+                                    'send':(theFly[j]['sendFlight'] || 0),
+                                    'reach':(theFly[j]['reachFlight'] || 0),
+                                    'delay':(theFly[j]['delayFlight'] || 0),
+                                });
+                            }
+                            for (var j = 0; j < theTrain.length; j++) {
+                                theResult2.push({
+                                    'send':(theTrain[j]['sendTrain'] || 0),
+                                    'reach':(theTrain[j]['reachTrain'] || 0),
+                                    'delay':(theTrain[j]['delayTrain'] || 0),
+                                });
+                                theResult3.push({
+                                    'send':(theTrain[j]['sendHighTrain'] || 0),
+                                    'reach':(theTrain[j]['reachHighTrain'] || 0),
+                                });
+                            }
+                            theResult['Flight'] = theFly['sendFlight'] || 0;
+                            theResult['Train'] = theTrain['sendTrain'] || 0;
+                            theResult['HightTrain'] = theTrain['sendHighTrain'] || 0;
+                            theResult1.push(theResult);
+
+                            /*theResult2.push({
+                                Flight: (theFly['reachFlight'] || 0),
+                                Train: (theTrain['reachTrain'] || 0),
+                                HightTrain: (theTrain['reachHighTrain'] || 0)
+                            });*/
+                            theResult = {};
+                            theResult['Flight'] = theFly['reachFlight'] || 0;
+                            theResult['Train'] = theTrain['reachTrain'] || 0;
+                            theResult['HightTrain'] = theTrain['reachHighTrain'] || 0;
+                            theResult2.push(theResult);
+
+                            /*theResult3.push({
+                                Flight: (theFly['delayFlight'] || 0),
+                                Train: (theTrain['delayTrain'] || 0),
+                                //HightTrain:(theTrain['delay' + theValue] || 0)
+                            });*/
+                            theResult = {};
+                            theResult['Flight'] = theFly['delayFlight'] || 0;
+                            theResult['Train'] = theTrain['delayTrain'] || 0;
+                            //theResult['HightTrain']=theTrain['sendHighTrain'] || 0;
+                            theResult3.push(theResult);
+
+                            /*if (theValue == "Flight") {
                                 theResult1.push(theFly['send' + theValue] || 0);
                                 theResult2.push(theFly['reach' + theValue] || 0);
                                 theResult3.push(theFly['delay' + theValue] || 0);
@@ -2963,16 +3318,13 @@ $(function () {
                                 if (theValue == "Train") {
                                     theResult3.push(theTrain['delay' + theValue] || 0);
                                 }
-                            }
+                            }*/
 
 
                         }
                         theDataArray.push(theResult1);
                         theDataArray.push(theResult2);
-                        if (theValue != 'HighTrain') {
-                            theDataArray.push(theResult3);
-                        }
-
+                        theDataArray.push(theResult3);
                         me.loadChart3([], theDataArray);
                     }
                 });

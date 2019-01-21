@@ -12,7 +12,7 @@ html, body {
     width: 1920px;
     height: 1080px;
     overflow: hidden;
-    /* background-image: url("img/bg.png");*/
+    background-image: url("img/bg.png");
 }
 
 .part1 {
@@ -39,13 +39,13 @@ html, body {
     width: 1850px;
     height: 280px;
     /*margin-left: 35px;*/
-    margin-top: 36px;
+    margin-top: 30px;
     /*background-image: url("img/bg_04.png");*/
 }
 
 .title {
     margin-left: 40px;
-    color: #d9f1ff;
+    color: white;
     font-size: 24px;
     line-height: 33px;
     display: inline-block;
@@ -61,7 +61,7 @@ html, body {
     /* border: none; */
     border-width: 0px;
     font-size: 18px;
-    color: #ddf3ff;
+    /*color: #ddf3ff;*/
     height: 30px;
     line-height: 33px;
     /* padding-right: 32px; */
@@ -72,19 +72,19 @@ html, body {
     margin-left: 141px;
     margin-right: 14px;
     background: url(img/icon_down.png) no-repeat transparent;
-    background-position-x: 141px;
-    background-position-y: 9px;
+    background-position-x: 148px;
+    background-position-y: 12px;
     background-size: 14px 8px;
     margin-bottom: 3px;
     position: absolute;
     right: 0px;
     margin-right: 43px;
     margin-top: -23px;
-    /*background: #0e6694;*/
+    /* background: #0e6694; */
     border-radius: 5px;
     border: #3296b9 solid 1px;
     padding-left: 5px;
-    padding-right: 5px;
+    padding-right: 10px;
 }
 
 .date.readonly {
@@ -117,18 +117,31 @@ html, body {
     height: 100%;
 }
 
-.airinfo {
+/*.airinfo {
     float: left;
     width: 248px;
     border-left: solid #1a75ac 1px;
     height: 100%;
+}*/
+.airinfo{
+    float: left;
+    width: 248px;
+    height: 240px;
+    border-right: solid #1a75ac 1px;
+    /* height: 100%; */
 }
-
-.traininfo {
+/*.traininfo {
     float: left;
     width: 328px;
     border-left: solid #1a75ac 1px;
     height: 100%;
+}*/
+.traininfo {
+    float: left;
+    width: 328px;
+    height: 240px;
+    border-right: solid #1a75ac 1px;
+
 }
 
 .select {
@@ -149,11 +162,11 @@ html, body {
     padding-left: 24px;
     background: transparent;
     background: url(img/icon_down.png) no-repeat transparent;
-    background-position-x: 217px;
+    background-position-x: 218px;
     background-position-y: 13px;
     background-size: 14px 8px;
     font-size: 24px;
-    /*background: #0e6694;*/
+    /* background: #0e6694; */
     border-radius: 5px;
     border: #3296b9 solid 1px;
     z-index: 1000;
@@ -181,35 +194,41 @@ html, body {
     /* padding-right: 15px; */
     /* margin-left: 20px; */
     width: 237px;
-    color: #289ee5;
+    color: #3bffff;
     display: inline-block;
     cursor: pointer;
     float: right;
     text-align: center;
     /*position: absolute;
     left: 1628px;*/
+    margin-right: 39px;
 }
 
 .part2.active .right-title1 {
-    color: #289ee5;
+    color: #3bffff;
 
 }
 
 .right-title1.active, .right-title2.active {
     /*background: url("img/btn_01.png");
     background-repeat: no-repeat;*/
-    background: #0e6694;
+    background: #12c2ff ;
     border-radius: 5px;
-    border: #3296b9 solid 1px;
+    font-weight:bolder ;
+    color: white;
+    border: white solid 1px;
 }
 
 .part2.active .right-title2 {
     color: #d9f1ff;
+    font-weight:bolder ;
+    color: white;
     /*background: url("img/btn_01.png");
     background-repeat: no-repeat;*/
-    background: #0e6694;
+    background: #12c2ff;
     border-radius: 5px;
-    border: #3296b9 solid 1px;
+    border: white solid 1px;
+    margin-right: 39px;
 }
 
 /*.btn-contain {
@@ -237,7 +256,7 @@ html, body {
     text-align: center;
     z-index: 10;
     right: 0px;
-    left: 608px;
+    left: 453px;
     position: relative;
 }
 
@@ -261,9 +280,9 @@ html, body {
 
 .btn.active {
     /*background: url("img/btn_01.png");*/
-    background: #0e6694;
+    background: #12c2ff;
     border-radius: 5px;
-    border: #3296b9 solid 1px;
+    border: white solid 1px;
 }
 
 .btn2 {
@@ -358,12 +377,12 @@ table > td {
 }
 
 .red {
-    color: #fd1e28;
+    color:#1eff1e ;
     margin-left: 6px;
 }
 
 .green {
-    color: #1eff1e;
+    color: #fd1e28;
     margin-left: 6px;
 }
 
@@ -389,7 +408,7 @@ select option {
 
 .part1-content > div {
     width: 350px;
-    height: 254px;
+    height: 255px;
     float: left;
 }
 
@@ -407,11 +426,12 @@ select option {
 .part1-content .small-title {
     /*padding-left: 34px;*/
     font-size: 16px;
-    color: rgba(221, 243, 255, 0.6);
+    color:white;/* rgba(221, 243, 255, 0.6);*/
 }
 
 .part1-content .field {
     font-size: 26px;
+    line-height: 26px;
     color: white;
     padding-top: 10px;
     /*padding-left: 34px;*/
@@ -472,6 +492,10 @@ select option {
     margin-left: 48px;
     padding-left: 26px;
     color: white;
+    width: 100%;
+    /*width:200px;*/
+    font-size: 26px;
+    display: inline-block;
 }
 
 .part1-new {
@@ -480,7 +504,7 @@ select option {
 }
 
 .part1-new .part1-content {
-    margin-top: 30px;
+    margin-top: 15px;
     margin-left: 48px;
 }
 
@@ -496,16 +520,19 @@ select option {
 }
 
 .chart-small {
-    width: 230px;
-    height: 282px;
+    width: 270px;
+    height: 240px;
     float: left;
     margin-top: 10px;
-    background: url("img/chart-small.png");
+    margin-left: 2px;
+    background: url(img/chart-small.png);
 }
-
+.chart-small:hover{
+    background: url(img/chart-small-hover.png);
+}
 .chart-big {
-    height: 282px !important;
-    width: 914px !important;
+    height: 240px !important;
+    width: 752px !important;
     background: transparent !important;
     background-repeat: no-repeat;
 }
@@ -548,12 +575,13 @@ select option {
 
 .chart-big .chart-title {
     /*background: transparent;*/
-    margin-left: 829px !important;
+    margin-left: 682px !important;
 }
 
 .part3 .title1-new {
-    margin-top: 5px;
+    /* margin-top: 5px; */
     margin-bottom: 5px;
+    width: 300px;
 }
 
 .part22-btn {
@@ -568,4 +596,19 @@ select option {
     text-align: center;
     z-index: 10;
 
+}
+.chart-group2 .chart-big{
+    width: 719px !important;
+
+}
+.chart-group2 .chart-big .chart{
+    top:28px;
+}
+.chart-group2 .chart-big .chart-title{
+    margin-left: 650px !important;
+}
+.field>*{
+    display: inline-block;
+    height: 26px;
+    overflow: hidden;
 }

@@ -160,7 +160,7 @@ html body {
     width: 640px;
     height: 592px;
 
-    background-image: url("img/bg_s.png");
+    /*background-image: url("img/bg_s.png");*/
 
 }
 
@@ -185,15 +185,20 @@ html body {
     right: 50px;
     height: 321px;
     width: 1256px;
-    background-image: url("img/bg_c.png");
+    /*background-image: url("img/bg_c.png");*/
 }
 
 .rightbottom .chart {
-    margin-top: 54px;
+    /*margin-top: 54px;
     margin-left: 24px;
     height: 267px;
 
-    width: 1208px;
+    width: 1208px;*/
+    /*width: 100%;*/
+    height: 266px;
+    padding-top: 16px;
+   /* margin-top: 35px;*/
+    /*height: 100%;*/
 }
 
 .numpart {
@@ -216,7 +221,7 @@ html body {
     line-height: 64px;
     text-align: center;
     margin-top: 10px;
-    color: #27d2f5;
+    color: #13ffff;
 
 }
 
@@ -236,6 +241,7 @@ html body {
     margin-left: 4px;
     height: 69px;
     line-height: 69px;
+    background: #1573e0;
 }
 
 .numpart .content2 {
@@ -255,9 +261,12 @@ html body {
 
 .datediv {
     position: absolute;
-    width: 640px;
+    width: 235px;
     height: 32px;
     line-height: 32px;
+    border-radius: 5px;
+    left: 379px;
+    border: #3296b9 solid 1px;
 }
 
 #date-input {
@@ -296,12 +305,13 @@ html body {
 #date-action {
     float: right;
     cursor: pointer;
-    background-size: auto 32px;
-    /*position: absolute;*/
-    background-image: url("img/icon3.png");
-    width: 56px;
-    height: 54px;
+    background-position: right;
+    /* position: absolute; */
+    background-image: url(img/icon3.png);
+    width: 34px;
+    height: 33px;
     right: 0px;
+    /* background: red; */
 }
 
 #date-input:focus {
@@ -321,7 +331,7 @@ html body {
     margin-right: 20px;
 }
 #chart4 {
-    width: 1194px;
+    /*width: 1194px;*/
     height: 246px;
 }
 .btn-contain {
@@ -375,6 +385,9 @@ html body {
     background-position: left center;
     font-size: 24px;
     padding-left: 20px;
+    width: 100%;
+    color: white;
+    float: left;
 }
 
 .chart-title2{
@@ -387,6 +400,56 @@ html body {
 .chart-small{
     width: 230px;
     height: 282px;
+    /*padding-top:29px;*/
+    /*display: inline-block;*/
     background: url("img/chart-small.png");
+    background-repeat: no-repeat;
+    float: left;
 
+}
+.chart-small:hover{
+    background: url("img/chart-small-hover.png");
+    background-repeat: no-repeat;
+
+}
+.chart-big,.chart-big:hover{
+    background:transparent;
+    width: 1002px!important;
+    margin-top: 0px!important;
+}
+.chart-title {
+    background: url(img/icon2-title.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    color: white;
+    font-size: 12px;
+    padding-left: 7px;
+    position: absolute;
+    margin-left: 93px;
+    margin-top: 19px;
+    font-size: 16px;
+}
+
+.chart-big .chart-title {
+    /*background: transparent;*/
+    margin-left: 829px !important;
+    margin-top: 31px;
+}
+
+.sr-ul {
+    width: 100%;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.sr-num {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+.sr-li {
+    width: 52px;
+    height: 69px;
 }
