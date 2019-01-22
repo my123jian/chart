@@ -303,6 +303,7 @@ html body {
     margin-top: 20px;
     display: inline-block;
     font-size: 24px;
+
 }
 
 .tab-main > .tab-item .secondline {
@@ -310,7 +311,12 @@ html body {
     display: inline-block;
     font-size: 24px;
 }
-
+.tab-main >.tab-item *{
+    color: #1fddff!important;
+}
+.tab-main >.tab-item.select *{
+    color: white!important;
+}
 .tab-main:after {
     clear: both;
 }
@@ -348,10 +354,13 @@ html body {
     text-align: center;
     background-image: url("img/btn_2.png");
     cursor: pointer;
+    font-size: 20px;
+    color: #1fddff;
 }
 
 .tab-direction > div.select {
     background-image: url("img/btn_1.png");
+    color: white;
 }
 
 .round-div {

@@ -779,8 +779,8 @@ html body {
 }
 .datediv3{
     border-radius: 5px;
-    border:#3296b9 solid 1px;
-    background: #0e6694;
+    border: white solid 1px;
+    /* background: #0e6694; */
     width: 222px!important;
     /* float: right; */
     left: 817px;
@@ -1008,4 +1008,8 @@ iframe {
     color: white;
     float: left;
     margin-left: 20px;
+}
+
+.guishu-content ul{
+    clear: both;
 }

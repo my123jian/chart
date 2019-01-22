@@ -863,7 +863,7 @@ $(function () {
                 right: 40,
                 top: 30,
                 bottom: 5,
-                width: 954,
+                width: 914,
                 height: 216,
                 containLabel: true
             },
@@ -1121,10 +1121,11 @@ $(function () {
                 right: 40,
                 top: 30,
                 bottom: 5,
-                width: 924,
+                width: 884,
                 height: 216,
                 containLabel: true
             },
+
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
