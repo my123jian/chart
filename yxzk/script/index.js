@@ -269,13 +269,14 @@ $(function () {
             //debugger;
             dataArray1 = dataArray1 || [[], [], [], [], []];
             dataArray2 = dataArray2 || [[], [], [], [], []];
-            var theItemConfig = [{name: theValues[0] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#cfccfc"}},
+            var theItemConfig = [
+                {name: theValues[0] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#ffdc6f"}},
                 {name: theValues[1] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#ffdc6f"}},
                 {
-                    name: theValues[2] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#32ff4a"}
+                    name: theValues[2] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#ffdc6f"}
                 },
-                {name: theValues[3] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#328eff"}}
-                , {name: theValues[4] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#e407e7"}}];
+                {name: theValues[3] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#ffdc6f"}}
+                , {name: theValues[4] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#ffdc6f"}}];
             var theBeginDate = new Date('2019-01-21');
             var theXData = [];
             theXData.push(theBeginDate.getTime());
@@ -480,6 +481,24 @@ $(function () {
                     data: data[1].map(function (item) {
                         return (item / 10000).toFixed(2)
                     }),
+                    areaStyle: {
+                        normal: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0, color: formateRgba('#916C49', 0.3)// 'rgba(255,220,111,0.3)'
+                                }, {
+                                    offset: 0.5, color: formateRgba('#916C49', 0.15)// 'rgba(255,220,111,0.15)'
+                                }, {
+                                    offset: 1, color: formateRgba('#916C49', 0)//  'rgba(255,220,111,0)'
+                                }]
+                            }
+                        }
+                    },
                     lineStyle: {
                         normal: {
                             color: color,
@@ -596,11 +615,11 @@ $(function () {
                         top:
                             40,
                         bottom:
-                            10,
+                            20,
                         width:
                             630,
                         height:
-                            210,
+                            190,
                         containLabel:
                             true
                     }
@@ -1043,6 +1062,7 @@ $(function () {
                     right: 320,
                     data: theItemConfig
                 },*/
+
                 grid: {
                     left: 40,
                     right:
@@ -1050,11 +1070,11 @@ $(function () {
                     top:
                         40,
                     bottom:
-                        10,
+                        20,
                     width:
                         1740,
                     height:
-                        190,
+                        180,
                     containLabel:
                         true
                 }

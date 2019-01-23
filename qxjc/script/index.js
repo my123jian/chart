@@ -1087,7 +1087,7 @@ $(function () {
                     var theIndex = 0;
                     var theDatas = [];
                     //var theText = "";
-                    if (params.length > 4) {
+                    if (params.length >= 4) {
                         for (var i = 0; i < params.length; i = i + 2) {
 
                             var theColorText = "<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:" + params[i].color + ";\"></span>";

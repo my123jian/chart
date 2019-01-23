@@ -212,7 +212,7 @@ html, body {
 .right-title1.active, .right-title2.active {
     /*background: url("img/btn_01.png");
     background-repeat: no-repeat;*/
-    background: #12c2ff ;
+    background: #1495d8 ;
     border-radius: 5px;
     font-weight:bolder ;
     color: white;
@@ -280,7 +280,7 @@ html, body {
 
 .btn.active {
     /*background: url("img/btn_01.png");*/
-    background: #12c2ff;
+    background: #1495d8;
     border-radius: 5px;
     border: white solid 1px;
 }
@@ -377,12 +377,12 @@ table > td {
 }
 
 .red {
-    color:#1eff1e ;
+    color:#2aee2a ;
     margin-left: 6px;
 }
 
 .green {
-    color: #fd1e28;
+    color: #ff1b1b;
     margin-left: 6px;
 }
 

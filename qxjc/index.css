@@ -266,7 +266,7 @@ html body {
 
 .datediv {
     position: absolute;
-    width: 235px;
+    width: 218px;
     height: 32px;
     line-height: 32px;
     border-radius: 5px;
@@ -315,6 +315,7 @@ html body {
     background-image: url(img/icon3.png);
     width: 34px;
     height: 33px;
+    margin-right: -16px;
     right: 0px;
     /* background: red; */
 }
