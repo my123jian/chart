@@ -1306,11 +1306,11 @@ $(function () {
                 var theNum2 = num2;
                 var theColor = "";//green
                 if (num2 > 0) {
-                    theNum2 = "↑" + (num2).toFixed(2) + '%';
+                    theNum2 = "" + (num2).toFixed(2) + '% ↑';
                     theColor = 'green';
                 }
                 if (num2 < 0) {
-                    theNum2 = "↓" + Math.abs(num2).toFixed(2) + '%';
+                    theNum2 = "" + Math.abs(num2).toFixed(2) + '% ↓';
                     theColor = 'red';
                 }
                 if (num1 > 1000) {
