@@ -158,6 +158,7 @@ $(function () {
         this.initCharts();
         this.initMap(2);
         this.loadData();
+        this.start();
     }
 
 
@@ -167,6 +168,10 @@ $(function () {
      */
     PageViewModel.prototype.onTimer = function () {
         console.log("开始刷新数据!");
+        this.loadzFlow();
+        this.loadSelectNewOne();
+        this.loadWeather('湛江/徐闻');
+        //this.loadWeatherView();
     }
 
     PageViewModel.prototype.initEvent = function () {
@@ -490,7 +495,7 @@ $(function () {
         while (theEndDate.getTime() > theBeginDate.getTime()) {
 
             var thekey = theBeginDate.getFullYear() + '' + FormateDateNum(theBeginDate.getMonth() + 1) + '' + FormateDateNum(theBeginDate.getDate());
-            theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
+            theXData.push((theBeginDate.getMonth() + 1) + '月' + FormateDateNum(theBeginDate.getDate())+'日');
 
             if (maxDate) {
                 if (theBeginDate.getTime() > me.parserDate(maxDate).getTime()) {
@@ -507,6 +512,7 @@ $(function () {
             theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
         data1 = theValidData;
+        theCurrentOption.xAxis.axisTick.show='true';
         theCurrentOption.xAxis.data = theXData;
 
         //theCurrentOption.xAxis.data = xData || theCurrentOption.xAxis.data;
@@ -596,7 +602,7 @@ $(function () {
         while (theEndDate.getTime() > theBeginDate.getTime()) {
 
             var thekey = theBeginDate.getFullYear() + '' + FormateDateNum(theBeginDate.getMonth() + 1) + '' + FormateDateNum(theBeginDate.getDate());
-            theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
+            theXData.push((theBeginDate.getMonth() + 1) + '月' + FormateDateNum(theBeginDate.getDate())+'日');
 
             if (maxDate) {
                 if (theBeginDate.getTime() > this.parserDate(maxDate).getTime()) {
@@ -613,6 +619,7 @@ $(function () {
             theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
         data1 = theValidData;
+        theCurrentOption.xAxis.axisTick.show='true';
         theCurrentOption.color='#357acb';
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.series = [
@@ -681,7 +688,7 @@ $(function () {
         while (theEndDate.getTime() > theBeginDate.getTime()) {
 
             var thekey = theBeginDate.getFullYear() + '' + FormateDateNum(theBeginDate.getMonth() + 1) + '' + FormateDateNum(theBeginDate.getDate());
-            theXData.push((theBeginDate.getMonth() + 1) + '-' + FormateDateNum(theBeginDate.getDate()));
+            theXData.push((theBeginDate.getMonth() + 1) + '月' + FormateDateNum(theBeginDate.getDate())+'日');
 
             if (maxDate) {
                 if (theBeginDate.getTime() > this.parserDate(maxDate).getTime()) {
@@ -698,6 +705,7 @@ $(function () {
             theBeginDate.setDate(theBeginDate.getDate() + 1);
         }
         data1 = theValidData;
+        theCurrentOption.xAxis.axisTick.show='true';
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.color='#32ff4b';
         theCurrentOption.series = [
@@ -829,7 +837,7 @@ $(function () {
                     }),//[4, 5, 6, 13, 14, 11, 8.5, 11, 12],
                     itemStyle: {
                         normal: {
-                            color: '#80ddfe'
+                            color: '#ffdc6f'
                         }
                     }
                 },
@@ -1358,7 +1366,7 @@ $(function () {
                     data: data,// || [4, 5, 6, 3, 4.2, 3.5],
                     itemStyle: {
                         normal: {
-                            color: '#80ddfe'
+                            color: '#7fdd98'
                         }
                     }
                 },

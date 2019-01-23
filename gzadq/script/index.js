@@ -40,6 +40,7 @@ $(function () {
         });
         this.drawRoad(thePaths);
         this.loadData();
+        this.start();
 
     }
 
@@ -264,6 +265,12 @@ $(function () {
      */
     PageViewModel.prototype.onTimer = function () {
         console.log("开始刷新数据！");
+       // debugger;
+        this.loadBridgeFlow();
+        this.loadBridgeBus();
+        this.loadBridgeRealTimeNumber();
+        this.loadWeather('珠海/珠海');
+
     }
 
     PageViewModel.prototype.initEvent = function () {
@@ -561,7 +568,7 @@ $(function () {
         if(xData){
             for(var i=0;i<xData.length;i++){
                 var theDate=this.parserDate(xData[i]);
-                theXData.push((theDate.getMonth() + 1) + '-' + FormateDateNum(theDate.getDate()))
+                theXData.push((theDate.getMonth() + 1) + '月' + FormateDateNum(theDate.getDate())+'日')
             }
         }
         /*while (theEndDate.getTime() > theBeginDate.getTime()) {
@@ -582,6 +589,7 @@ $(function () {
                 }
             }
         }*/
+        theCurrentOption.xAxis.axisTick.show='true';
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.xAxis.axisLabel.rotate = 0;
         theCurrentOption.legend = {
@@ -733,9 +741,10 @@ $(function () {
         if(xData){
             for(var i=0;i<xData.length;i++){
                 var theDate=this.parserDate(xData[i]);
-                theXData.push((theDate.getMonth() + 1) + '-' + FormateDateNum(theDate.getDate()))
+                theXData.push((theDate.getMonth() + 1) + '月' + FormateDateNum(theDate.getDate())+'日')
             }
         }
+        theCurrentOption.xAxis.axisTick.show='true';
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.xAxis.axisLabel.rotate = 0;
         theCurrentOption.yAxis = [{
@@ -862,10 +871,11 @@ $(function () {
         if(xData){
             for(var i=0;i<xData.length;i++){
                 var theDate=this.parserDate(xData[i]);
-                theXData.push((theDate.getMonth() + 1) + '-' + FormateDateNum(theDate.getDate()))
+                theXData.push((theDate.getMonth() + 1) + '月' + FormateDateNum(theDate.getDate())+'日')
             }
         }
         //debugger;
+        theCurrentOption.xAxis.axisTick.show='true';
         theCurrentOption.color='#32ff4b';
         theCurrentOption.xAxis.data = theXData;
         theCurrentOption.xAxis.axisLabel.rotate = 0;

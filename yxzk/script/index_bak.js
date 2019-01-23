@@ -59,7 +59,6 @@ $(function () {
             if (!theCurrentDate) {
                 var theDate = GetYesterdayDate();// GetYesterdayDate();
                 //theDate.setDate(theDate.getDate()-1);
-
                 var theCurrentDate = new Date();
                 if (theCurrentDate.getHours() >= 12) {
                     theDate = theCurrentDate;
@@ -71,10 +70,6 @@ $(function () {
         var formateDate1 = function () {
             if (!theCurrentDate) {
                 var theDate = GetYesterdayDate();
-                var theCurrentDate = new Date();
-                if (theCurrentDate.getHours() >= 12) {
-                    theDate = theCurrentDate;
-                }
                 // theDate.setDate(theDate.getDate()-1);
                 return theDate.getFullYear() + "年" + FormateDateNum(theDate.getMonth() + 1) + "月" + FormateDateNum(theDate.getDate()) + '日';
             }
@@ -245,6 +240,7 @@ $(function () {
             /*if (!this.Chart1) {
                 this.Chart1 = echarts.init(document.getElementById('chart1'));
             }*/
+            var theKeys = ["总量", "公路", "铁路", "水路", "民航"];
             if (!this.ChartTotal) {
                 this.ChartTotal = echarts.init(document.getElementById('chart-total'));
             }
@@ -269,9 +265,10 @@ $(function () {
 
             var theCharts = [this.ChartTotal, this.ChartGonglu, this.ChartTielu, this.ChartShuilu, this.ChartMinhang];
             //debugger;
-            dataArray1 = dataArray1 || [[], [], [], [], []];
-            dataArray2 = dataArray2 || [[], [], [], [], []];
-            var theItemConfig = [{name: theValues[0] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#cfccfc"}},
+            dataArray1 = dataArray1 ||{};
+            dataArray2 = dataArray2 || {};
+            var theItemConfig = [
+                {name: theValues[0] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#cfccfc"}},
                 {name: theValues[1] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#ffdc6f"}},
                 {
                     name: theValues[2] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#32ff4a"}
@@ -280,10 +277,10 @@ $(function () {
                 , {name: theValues[4] == '发送量' ? '发送总量' : '累计发送量', textStyle: {color: "#e407e7"}}];
             var theBeginDate = new Date('2019-01-21');
             var theXData = [];
-            theXData.push(theBeginDate.getTime());
+            theXData.push(theBeginDate.formate());
             for (var i = 1; i < 40; i++) {
                 theBeginDate.setDate(theBeginDate.getDate() + 1);
-                theXData.push(theBeginDate.getTime());
+                theXData.push(theBeginDate.formate());
             }
             var option = {
                     /*title: {
@@ -305,6 +302,7 @@ $(function () {
                             return [point[0], '10%'];
                         },
                         formatter: function (params) {
+                            debugger;
                             var theIndex = 0;
                             var theDatas = [];
                             //var theText = "";
@@ -392,11 +390,12 @@ $(function () {
                         ,
                         axisLabel: {
                             rotate: 30,
-                            formatter:
+                            /*formatter:
 
                                 function (value, idx) {
-                                    var theDate = new Date();
-                                    theDate.setTime(parseInt(value));
+                                    var theDate = new Date(value);
+                                    debugger;
+                                    //theDate.setTime(parseInt(value));
                                     console.log(theDate);
                                     if (idx % 4 == 0) {
                                         return theDate.getMonth() + 1 + '月' + theDate.getDate() + "日";
@@ -404,10 +403,9 @@ $(function () {
                                     else {
                                         return "";
                                     }
-                                }
-                        }
-                        ,
-                        data: theXData
+                                }*/
+                        },
+                        //data: theXData
                     }
                     ,
                     yAxis: {
@@ -426,12 +424,34 @@ $(function () {
                         }
                     }
                     ,
-                    series: []
+                    series: [],
+                    dataset: {
+                        // 这里指定了维度名的顺序，从而可以利用默认的维度到坐标轴的映射。
+                        // 如果不指定 dimensions，也可以通过指定 series.encode 完成映射，参见后文。
+                        dimensions: theXData,
+                        source: []
+                    }
                 }
             ;
             var series = [];
-            var getSeries = function (name, color, data) {
-                data = data || [];
+            var getSources = function (name, type, dataMap1, dataMap2) {
+                var theSources = [];
+                var theCurrent={};
+                var thePreData={};
+                theSources.push(theCurrent);
+                for(var key in dataMap1){
+                    var theItem=dataMap1[key];
+                    theCurrent[key]=type=="发送量"?theItem[name].sendCount:theItem[name].totalCount;
+                }
+                theSources.push(thePreData);
+                for(var key in dataMap2){
+                    var theItem=dataMap2[key];
+                    thePreData[key]=type=="发送量"?theItem[name].sendCount:theItem[name].totalCount;
+                }
+                return theSources;
+            };
+            var getSeries = function (name, color) {
+                //data = data || [];
                 var theSeries1 = {
                     name: name,
                     type: 'line',
@@ -442,9 +462,9 @@ $(function () {
                     tooltip: {
                         position: 'left',
                     },
-                    data: data[0].map(function (item) {
+                   /* data: data[0].map(function (item) {
                         return (item / 10000).toFixed(2)
-                    }),
+                    }),*/
                     areaStyle: {
                         normal: {
                             color: {
@@ -479,9 +499,9 @@ $(function () {
                     tooltip: {
                         position: 'left',
                     },
-                    data: data[1].map(function (item) {
+                    /*data: data[1].map(function (item) {
                         return (item / 10000).toFixed(2)
-                    }),
+                    }),*/
                     lineStyle: {
                         normal: {
                             color: color,
@@ -496,8 +516,10 @@ $(function () {
                 var theItem = theItemConfig[i];
                 var theOptions = {};
                 $.extend(true, theOptions, option);
-                series = getSeries(theItem.name, theItem.textStyle.color, [dataArray1[i], dataArray2[i]] || [[], []]);
+                var theSource = getSources(theKeys[i],theItem.name,dataArray1,dataArray2);
+                var series = getSeries(theItem.name, theItem.textStyle.color);
                 //debugger;
+                theOptions.dataset.source = theSource;
                 theOptions.series = series;
                 theCharts[i].setOption(theOptions);
             }
@@ -561,7 +583,7 @@ $(function () {
                             var theDatas = [];
                             //var theText = "";
                             for (var i = 0; i < params.length; i = i + 1) {
-                                if(params[i].data==undefined){
+                                if (params[i].data == undefined) {
                                     continue;
                                 }
                                 var theColorText = "<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:" + params[i].color + ";\"></span>";
@@ -1308,11 +1330,11 @@ $(function () {
                 var theNum2 = num2;
                 var theColor = "";//green
                 if (num2 > 0) {
-                    theNum2 = "↑" + (num2).toFixed(2) + '%';
+                    theNum2 = (num2).toFixed(2) + '% ↑ ';
                     theColor = 'green';
                 }
                 if (num2 < 0) {
-                    theNum2 = "↓" + Math.abs(num2).toFixed(2) + '%';
+                    theNum2 = "" + Math.abs(num2).toFixed(2) + '% ↓';
                     theColor = 'red';
                 }
                 if (num1 > 1000) {
@@ -1331,13 +1353,13 @@ $(function () {
 
             var fromateNum = function (num1) {
                 var theNum1 = "";
-                var theEndStr="<div>万</div>";
+                var theEndStr = "<div>万</div>";
                 if (num1 > 1000) {
-                    var theNum1 = (num1 / 10000).toFixed(2) ;
+                    var theNum1 = (num1 / 10000).toFixed(2);
                 }
                 else {
-                    var theNum1 = num1+"";
-                    theEndStr="";
+                    var theNum1 = num1 + "";
+                    theEndStr = "";
                 }
                 var theNumberStrArray = [];
                 for (var i = 0; i < theNum1.length; i++) {
@@ -1347,13 +1369,13 @@ $(function () {
                 for (var i = 0; i < theNumberStrArray.length; i++) {
                     var theCurrent = theNumberStrArray[i];
                     if (theCurrent == '.') {
-                        theTemplate += '<div>'+theCurrent+'</div>';
+                        theTemplate += '<div>' + theCurrent + '</div>';
                     }
                     else {
-                        theTemplate += "<div class='num-contain' data-num='"+theCurrent+"'>" + theCurrent + "</div>";
+                        theTemplate += "<div class='num-contain' data-num='" + theCurrent + "'>" + theCurrent + "</div>";
                     }
                 }
-                return theTemplate+theEndStr;
+                return theTemplate + theEndStr;
             }
             var formateLeft1 = function (data) {
                 data.postion_type1_total_text = formateText(data.postion_type1_total, data.send_count_total);
@@ -1383,10 +1405,10 @@ $(function () {
             //debugger;
             formateLeft1(theLeft1);
             this.bind('.part1-content', theLeft1);
-            if(!this.NumbersEffect){
-                this.NumbersEffect=  new NumbersEffect(document.body);
+            if (!this.NumbersEffect) {
+                this.NumbersEffect = new NumbersEffect(document.body);
             }
-            else{
+            else {
                 this.NumbersEffect.restart();
             }
 
@@ -1490,6 +1512,7 @@ $(function () {
                 delay_gd: 0,//延误旅客数
             };
 
+            //debugger;
             this.loadPart11(theLeft1);
             this.loadPart12(theLeft2);
             this.loadPart13(theLeft3);
@@ -3166,16 +3189,21 @@ $(function () {
                         var thepassengerTendForecast = data.data[0].passengerTendForecast;//预测
                         var thepassengerTend = data.data[0].passengerTend;//当前值
 
+                        //debugger;
+                        // var theBeginDate=new Date('2019-01-21');
+                        //var theDate=new Date();
+
                         for (var i = 0; i < thepassengerTend.length; i++) {
                             var theItem = thepassengerTend[i];
                             var theDate = theItem.statDate;
                             if (!theDateMap1[theDate]) {
-                                theDateMap1[theDate] = {};
+                                theDateMap1[theDate] = theDateMap1[theDate] || {};
                                 theDates1.push(theDate);
                             }
                             //当天日期的数量
                             var theNewItem = theDateMap1[theDate];
                             theNewItem[theItem.postionType] = {
+                                //date: theDate,
                                 sendCount: theItem.sendCount,
                                 totalCount: theItem.totalCount
                             };
@@ -3191,6 +3219,7 @@ $(function () {
                             //当天日期的数量
                             var theNewItem = theDateMap2[theDate];
                             theNewItem[theItem.postionType] = {
+                                //date: theDate,
                                 sendCount: theItem.sendCount,
                                 totalCount: theItem.totalCount
                             };
@@ -3198,7 +3227,8 @@ $(function () {
                     }
                     var theXData = [];
                     //历史数据
-                    for (var i = 0; i < theKeys.length; i++) {
+                    //debugger;
+                    /*for (var i = 0; i < theKeys.length; i++) {
                         var theReuslt1 = theDataArray1[i];
                         var theReuslt2 = theDataArray2[i];
                         var theKey = theKeys[i];
@@ -3208,24 +3238,11 @@ $(function () {
                             if (theMapItem[theKey]) {
                                 var theDataItem = theMapItem[theKey];
                                 theReuslt1.push(theValueMao[theKey] == "发送量" ? (theDataItem.sendCount || 0) : (theDataItem.totalCount || 0));
-                                if(j==theDates1.length-1){
-                                    theReuslt2.push(theValueMao[theKey] == "发送量" ? (theDataItem.sendCount || 0) : (theDataItem.totalCount || 0));
-                                }
-                                else{
-                                    theReuslt2.push('-');
-                                }
-
-                                //theReuslt2.push(theValueMao[theKey] == "发送量" ? (theDataItem.sendCount || 0) : (theDataItem.totalCount || 0));
+                                theReuslt2.push(theValueMao[theKey] == "发送量" ? (theDataItem.sendCount || 0) : (theDataItem.totalCount || 0));
                             }
                             else {
                                 theReuslt1.push(0);
-                                if(j==theDates1.length-1){
-                                    theReuslt2.push(theValueMao[theKey] == "发送量" ? (theDataItem.sendCount || 0) : (theDataItem.totalCount || 0));
-                                }
-                                else{
-                                    theReuslt2.push('-');
-                                }
-                                //theReuslt2.push(0);
+                                theReuslt2.push(0);
                             }
                         }
                         // theDataArray.push(theReuslt);
@@ -3245,7 +3262,7 @@ $(function () {
                                 theReuslt.push(0);
                             }
                         }
-                    }
+                    }*/
 
                     /* if(theDataArray){
                              for(var i=0;i<theDataArray.length;i++){
@@ -3255,7 +3272,7 @@ $(function () {
                                  }
                              }
                          }*/
-                    me.loadChart1(theXData, theDataArray1, theDataArray2);
+                    me.loadChart1(theXData, theDateMap1, theDateMap2);
                 });
 
             }
@@ -3286,20 +3303,20 @@ $(function () {
                             //debugger;
                             for (var j = 0; j < theFly.length; j++) {
                                 theResult1.push({
-                                    'send':(theFly[j]['sendFlight'] || 0),
-                                    'reach':(theFly[j]['reachFlight'] || 0),
-                                    'delay':(theFly[j]['delayFlight'] || 0),
+                                    'send': (theFly[j]['sendFlight'] || 0),
+                                    'reach': (theFly[j]['reachFlight'] || 0),
+                                    'delay': (theFly[j]['delayFlight'] || 0),
                                 });
                             }
                             for (var j = 0; j < theTrain.length; j++) {
                                 theResult2.push({
-                                    'send':(theTrain[j]['sendTrain'] || 0),
-                                    'reach':(theTrain[j]['reachTrain'] || 0),
-                                    'delay':(theTrain[j]['delayTrain'] || 0),
+                                    'send': (theTrain[j]['sendTrain'] || 0),
+                                    'reach': (theTrain[j]['reachTrain'] || 0),
+                                    'delay': (theTrain[j]['delayTrain'] || 0),
                                 });
                                 theResult3.push({
-                                    'send':(theTrain[j]['sendHighTrain'] || 0),
-                                    'reach':(theTrain[j]['reachHighTrain'] || 0),
+                                    'send': (theTrain[j]['sendHighTrain'] || 0),
+                                    'reach': (theTrain[j]['reachHighTrain'] || 0),
                                 });
                             }
                             theResult['Flight'] = theFly['sendFlight'] || 0;

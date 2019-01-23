@@ -829,7 +829,7 @@ $(function () {
                     var theIndex = 0;
                     var theDatas = [];
                     //var theText = "";
-                    if (params.length > 4) {
+                    if (params.length >= 4) {
                         for (var i = 0; i < params.length; i = i + 2) {
 
                             var theColorText = "<span style=\"display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:" + params[i].color + ";\"></span>";
@@ -1459,25 +1459,35 @@ $(function () {
 
                     thePreditDate = theDate;
                     // if (theDate.getTime() <= new Date().getTime())
-                    {
+                    //{
                         dataMigOut1.push(theDataItem.migOut || 0);
                         dataMigIn1.push(theDataItem.migIn || 0);
                         dataPopulationGd1.push(theDataItem.populationGd || 0);
                         dataResi1.push(theDataItem.populationResi || 0);
-                    }
+                    //}
                     /*dataMigOut2.push('-');
                     dataMigIn2.push('-');
                     dataPopulationGd2.push('-');
                     dataResi2.push('-');*/
 
-                    dataMigOut2.push(theDataItem.migOut || 0);
-                    dataMigIn2.push(theDataItem.migIn || 0);
-                    dataPopulationGd2.push(theDataItem.populationGd || 0);
-                    dataResi2.push(theDataItem.populationResi || 0);
+                    if(i<theResultDatas.length-1){
+                        dataMigOut2.push('-');
+                        dataMigIn2.push('-');
+                        dataPopulationGd2.push('-');
+                        dataResi2.push('-');
+                    }
+                    else{
+                        dataMigOut2.push(theDataItem.migOut || 0);
+                        dataMigIn2.push(theDataItem.migIn || 0);
+                        dataPopulationGd2.push(theDataItem.populationGd || 0);
+                        dataResi2.push(theDataItem.populationResi || 0);
+                    }
+
                 }
                 if (thePreditDate) {
                     thePreditDate = thePreditDate.next(1);
                 }
+                //debugger;
                 var theRate = 1;
                 if (thePredictCityRatioList && theAreaNmae) {
                     for (var i = 0; i < thePredictCityRatioList.length; i++) {
