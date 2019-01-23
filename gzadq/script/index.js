@@ -154,7 +154,7 @@ $(function () {
             name: '(时点)',
             nameLocation: 'end',
             //splitNumber: 5,
-            axisTick: {show: false},
+            axisTick: {show: true},
             axisLabel: {
                 interval: 0,
                 rotate: 40,

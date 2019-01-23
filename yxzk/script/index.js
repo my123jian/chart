@@ -59,10 +59,8 @@ $(function () {
             if (!theCurrentDate) {
                 var theDate = GetYesterdayDate();// GetYesterdayDate();
                 //theDate.setDate(theDate.getDate()-1);
-
-                var theCurrentDate = new Date();
-                if (theCurrentDate.getHours() >= 12) {
-                    theDate = theCurrentDate;
+                if (theDate.getHours() < 12) {
+                    theDate = theDate.addDays(-1);
                 }
                 return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
             }
@@ -71,9 +69,9 @@ $(function () {
         var formateDate1 = function () {
             if (!theCurrentDate) {
                 var theDate = GetYesterdayDate();
-                var theCurrentDate = new Date();
-                if (theCurrentDate.getHours() >= 12) {
-                    theDate = theCurrentDate;
+                //var theCurrentDate = new Date();
+                if (theDate.getHours() < 12) {
+                    theDate = theDate.addDays(-1);
                 }
                 // theDate.setDate(theDate.getDate()-1);
                 return theDate.getFullYear() + "年" + FormateDateNum(theDate.getMonth() + 1) + "月" + FormateDateNum(theDate.getDate()) + '日';
