@@ -1396,7 +1396,9 @@ $(function () {
                     if (theSuStr == '↓') {
                         $('#populationOut').addClass('green');
                     }
-                    theViewData.populationOut = theSuStr + Math.abs(theViewData.populationOut);
+                    var theUnitText="<span\n" +
+                        "                    class=\"last\" style='color:white'>万</span>";
+                    theViewData.populationOut =  Math.abs(theViewData.populationOut)+theUnitText+" "+theSuStr;
                 }
                 me.bind('.numpart', theViewData);
                 //

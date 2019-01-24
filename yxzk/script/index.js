@@ -3281,7 +3281,9 @@ $(function () {
                 me.loadChart3();
                 var theDataArray = [];
                 var theCallUrl = "cw/getFlyTrainTrend.do ";
-                this.load(theCallUrl, {}, function (data) {
+                this.load(theCallUrl, {
+                    date:'2019-01-21'
+                }, function (data) {
                     //debugger;
                     /* var theLeft3 = {
                              stat_date: '',//统计时间（YYYY-MM-dd
