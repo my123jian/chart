@@ -1429,6 +1429,7 @@ $(function () {
                 var theResultDatas = data.data.dataList || data.data;//数据长度设置
                 //provinceCity， ratio
                 var thePredictCityRatioList = eval(data.data.predictCityRatio);//比例设置
+               // debugger;
                 var thePredictList = data.data.predictList;//预测数据
                 /*
                 countNum: 151289016
@@ -1450,6 +1451,29 @@ $(function () {
                 var theXData = [];
                 var thePreditDate = new Date('2019-01-20');
                 var theBeginDate = new Date('2019-01-21');
+                var theCurrentDate=new Date();
+                var theLastDate=theBeginDate;
+                if(theResultDatas&&theResultDatas.length>0){
+                    theLastDate=me.parserDate(theResultDatas[theResultDatas.length-1]['statDate']).next(1);
+                    if (thePredictList && thePredictList.length > 0) {
+                        for (var i = 0; i < thePredictList.length; i++) {
+                            var theItem = thePredictList[i];
+                            var theDate = new Date(theItem.statDate);
+                            if (theDate.getTime() >= theLastDate.getTime()&&theLastDate.getTime()<theCurrentDate.getTime()) {
+                                var theItem=thePredictList[i];
+                                theResultDatas.push({
+                                    statDate:theItem.statDate,
+                                    migOut:theItem.outNum,
+                                    migIn:theItem.inNum,
+                                    populationGd:theItem.countNum,
+                                    populationResi:theItem.populationResi,
+                                });
+                                //debugger;
+                                theLastDate=theLastDate.next(1);
+                            }
+                        }
+                    }
+                }
                 for (var i = 0; i < theResultDatas.length; i++) {
                     var theDataItem = theResultDatas[i];
                     var tehDataDate = theDataItem['statDate'];

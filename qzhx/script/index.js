@@ -1278,7 +1278,7 @@ $(function () {
                         $('#qzBelong' + theItem.qzBelong).text('(100%)');
                     }
                     else {
-                        $('#qzBelong' + theItem.qzBelong).text('(' + ((theItem.qzBelongPercentage || 0) * 100 % 100).toFixed(2) + '%)');
+                        $('#qzBelong' + theItem.qzBelong).text('(' + ((theItem.qzBelongPercentage || 0) * 100).toFixed(2) + '%)');
                     }
 
                 }

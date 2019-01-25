@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>枢纽监测</title>
+
+  <link rel="stylesheet" href="mobile/snjc/css/snjc.css">
+</head>
+<body>
+<div class="search-box" id="search-box">
+  <div class="s-header">
+    <div id="back-icon" class="back-icon"></div>
+    <div class="input-box">
+      <img src="mobile/snjc/img/icon_search.png" alt="">
+      <input type="text" id="search" class="input" placeholder="请输入枢纽名称">
+    </div>
+  </div>
+  <div class="tab-box" id="tab-box">
+    <ul>
+      <li class="active">铁路</li>
+      <li>客运站</li>
+      <li>机场</li>
+      <li>服务区</li>
+    </ul>
+  </div>
+  <div class="result-list" id="rl-outer">
+    <ul id="result-list">
+      <!--<li>1</li>-->
+      <!--<li>2</li>-->
+    </ul>
+  </div>
+</div>
+<div id="basepage">
+  <header>
+    <div class="header-box">
+      <div class="place-sel" id="place-sel">
+        <input type="text" class="input1" id="input1" value="广州南站" readonly>
+        <div class="switch">
+          <span>切换</span>
+          <img src="mobile/snjc/img/icon_down.png" alt="">
+        </div>
+      </div>
+      <div class="weather-box">
+        <ul>
+          <li>
+            <section>
+              <img src="mobile/snjc/img/icon_1.png" alt="">
+            </section>
+            <section>
+              <p class="p1">平均温度</p>
+              <p class="p2" id="temperature"></p>
+            </section>
+          </li>
+          <li>
+            <section>
+              <img src="mobile/snjc/img/icon_2.png" alt="">
+            </section>
+            <section>
+              <p class="p1">风速</p>
+              <p class="p2" id="wind-speed"></p>
+            </section>
+          </li>
+          <li>
+            <section>
+              <img id="weather-img" src="mobile/snjc/img/icon_3.png" alt="">
+            </section>
+            <section>
+              <p class="p1">天气</p>
+              <p class="p2" id="weather"></p>
+            </section>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+    <div class="status-box">
+      <div class="status-l">
+        <div class="l1">
+          <img src="mobile/snjc/img/icon_4.png" alt="" class="status-icon">
+          <span>当前枢纽拥堵等级</span>
+        </div>
+        <div class="l2">
+          <div class="color-div" id="color-div"></div>
+          <div class="status-font" id="status-font"></div>
+        </div>
+
+      </div>
+      <div class="status-r">
+        <ul>
+          <li>舒适</li>
+          <li>适中</li>
+          <li>拥堵</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  <!--地图-->
+  <div class="container" id="container">
+    <!--楼层按钮-->
+    <div id="DivButton" class="DivButton"></div>
+    <!--楼层信息-->
+    <div class="floor-msg" id="floor-msg">
+
+    </div>
+  </div>
+
+  <div class="btm-box">
+    <div class="btm-box-header">
+      <span>今日实时客流</span>
+    </div>
+    <div class="btm-box-body">
+      <div class="chart" id="chart"></div>
+    </div>
+  </div>
+</div>
+
+<script src='http://webapi.amap.com/maps?v=1.4.11&key=e78eb14a0b3399d1733b27fb6835e460'></script>
+<script src="http://webapi.amap.com/loca?v=1.2.0&key=e78eb14a0b3399d1733b27fb6835e460"></script>
+<script src="mobile/lib/jquery-1.8.2.min.js"></script>
+<script src="mobile/lib/layer/layer.js"></script>
+<script src="mobile/snjc/js/ajax.js"></script>
+<script src="mobile/snjc/js/map.js"></script>
+
+<script src="mobile/snjc/js/data.js"></script>
+<script src="mobile/lib/moment/moment-with-locales.min.js"></script>
+<script src="mobile/lib/moment/zh-cn.js"></script>
+<script src="mobile/snjc/js/utils.js"></script>
+<script src="mobile/utils/rem.js"></script>
+<!--<script src="mobile/lib/echarts3.js"></script>-->
+<script src="mobile/lib/echarts4.simple.min.js"></script>
+<script src="mobile/lib/base.js"></script>
+<script src="mobile/snjc/js/h5_snjc.js"></script>
+
+</body>
+</html>

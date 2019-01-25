@@ -1,5 +1,5 @@
-@import "../../../style/common";
-@import "../../../style/mixin";
+@import "../../style/common";
+@import "../../style/mixin";
 
 html,body {
   height: 100%;
@@ -39,9 +39,12 @@ html,body {
   .calender {
     width: calRem(200);
     font-size: calRem(24);
-    padding-left:calRem(58);
+    padding-left:calRem(10);
     border-left: 1px solid #28eefb;
     height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
   }
 }
 .tab-box {
@@ -161,7 +164,8 @@ html,body {
     display: flex;
     align-items: center;
     //width: 250px;
-    margin-bottom: calRem(40);
+    margin-bottom: 0.9rem;
+    height:calRem(20);
 
     i {
       font-size: calRem(15);
@@ -207,6 +211,8 @@ html,body {
 
   li {
     text-align: center;
+    margin-bottom: 0.9rem;
+    height:calRem(20);
   }
 }
 .col3 {
@@ -231,6 +237,8 @@ html,body {
 
   li {
     display: flex;
+    margin-bottom: 0.9rem;
+    height:calRem(20);
 
     section {
       min-width: 2.5rem;
@@ -263,6 +271,7 @@ html,body {
       border-radius: calRem(10);
       height: calRem(15);
       width:30px;
+      display: none;
     }
   }
 }

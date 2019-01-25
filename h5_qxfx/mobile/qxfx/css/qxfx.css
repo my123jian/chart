@@ -130,19 +130,18 @@ html, body {
       width: 0.48rem;
       height: 0.48rem; }
   .header .calender {
-    /*width: 4rem;
-    font-size: 0.48rem;
-    padding-left: 1.16rem;
-    border-left: 1px solid #28eefb;
-    height: 100%;*/
     width: 4rem;
     font-size: 0.48rem;
-    padding-left: 0.16rem;
-    padding-top: 0.10rem;
-    /* line-height: 0.48rem; */
+    padding-left: 0.2rem;
     border-left: 1px solid #28eefb;
     height: 100%;
-  }
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
 
 .tab-box {
   display: -webkit-box;
@@ -218,7 +217,8 @@ html, body {
 
 .tab-name {
   font-size: 0.44rem;
-  margin-top: 1rem; }
+  margin-top: 1rem;
+  padding-top: 1rem; }
 
 .tab-main {
   margin-top: 0.68rem;
@@ -255,7 +255,8 @@ html, body {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    margin-bottom: 0.8rem; }
+    margin-bottom: 0.9rem;
+    height: 0.4rem; }
     .col1 li i {
       font-size: 0.3rem;
       color: #004b50;
@@ -285,8 +286,8 @@ html, body {
     text-align: center; }
   .col2 li {
     text-align: center;
-    margin-bottom: 0.8rem;
-  }
+    margin-bottom: 0.9rem;
+    height: 0.4rem; }
 
 .col3 {
   width: 6.4rem;
@@ -306,8 +307,9 @@ html, body {
   .col3 li {
     display: -webkit-box;
     display: -ms-flexbox;
-    margin-bottom: 0.8rem;
-    display: flex; }
+    display: flex;
+    margin-bottom: 0.9rem;
+    height: 0.4rem; }
     .col3 li section {
       min-width: 2.5rem;
       display: -webkit-box;
@@ -330,6 +332,7 @@ html, body {
     .col3 li .pillar {
       border-radius: 0.2rem;
       height: 0.3rem;
-      width: 30px; }
+      width: 30px;
+      display: none; }
 
-
+/*# sourceMappingURL=qxfx.css.map */

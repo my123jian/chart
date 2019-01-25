@@ -411,7 +411,7 @@ $(function () {
                         var theRow = theTableList[i];
                         var theNum = (theRow.value || theRow.num || 0);
                         if (theNum > 1000) {
-                            theNum = (theNum / 10000).toFixed(2) + '万';
+                            theNum = (theNum / 10000).toFixed(2) + '';
                         }
                         $('#col1-list').append($(' <li>\n' +
                             '              <i>' + (i + 1) + '</i>\n' +

@@ -1325,12 +1325,27 @@ $(function () {
                 var theNum1 = num1;
                 var theNum2 = num2;
                 var theColor = "";//green
+                //debugger;
                 if (num2 > 0) {
-                    theNum2 = "" + (num2).toFixed(2) + '% ↑';
+                    var theValue=num2*100;
+                    if(theValue!=100){
+                        theValue=((num2*100)%100*1.0);
+                    }
+                    else{
+                        theValue=theValue*1.0;
+                    }
+                    theNum2 = "" + theValue.toFixed(2) + '% ↑';
                     theColor = 'green';
                 }
                 if (num2 < 0) {
-                    theNum2 = "" + Math.abs(num2).toFixed(2) + '% ↓';
+                    var theValue=Math.abs(num2)*100;
+                    if(theValue!=100){
+                        theValue=((num2*100)%100*1.0);
+                    }
+                    else{
+                        theValue=theValue*1.0;
+                    }
+                    theNum2 = "" + theValue.toFixed(2) + '% ↓';
                     theColor = 'red';
                 }
                 if (num1 > 1000) {

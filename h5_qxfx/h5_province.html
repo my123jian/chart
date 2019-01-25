@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" type="text/css" href="mobile/qxfx/css/h5_province.css">
   <title>省内迁徙</title>
-  <script src="lib/jquery-1.8.2.min.js"></script>
-  <script src="lib/base.js"></script>
-  <script src="lib/echarts.min.js"></script>
-  <script src="lib/guangdong.js"></script>
-  <script src="lib/lat.js"></script>
+  <script src="mobile/lib/jquery-1.8.2.min.js"></script>
+  <script src="mobile/lib/base.js"></script>
+  <script src="mobile/lib/echarts.min.js"></script>
+  <script src="mobile/lib/guangdong.js"></script>
+  <script src="mobile/lib/lat.js"></script>
   <script src="mobile/utils/rem.js"></script>
 </head>
 
@@ -324,7 +324,7 @@
 
                 hoverAnimation: true,
                 coordinateSystem: 'geo',
-                zlevel: 2,
+                zlevel: 3,
                 rippleEffect: {
                     brushType: 'stroke'
                 },
@@ -335,9 +335,10 @@
                         formatter: '{b}'
                     }
                 },
-                symbolSize: function (val) {
-                    return 8+(val[2] / 10000);
-                },
+              symbolSize: 5,
+//                symbolSize: function (val) {
+//                    return 8+(val[2] / 10000);
+//                },
                 itemStyle: {
                     normal: {
                         color: color[0],
@@ -399,11 +400,11 @@
                 label: {
                     show: true,
                     color: 'white',
-                    fontSize:8,
                     emphasis: {
                         color: 'white',
                         show: false
-                    }
+                    },
+                    fontSize: 8
                 },
                 roam: false,//鼠标不可移动
                 itemStyle: {
