@@ -80,13 +80,13 @@ $(function () {
     //获取当前的日期数据
     var formateDate = function () {
         if (!theCurrentDate) {
-            return GetTodayDate().before(3).formate();
+            return GetTodayDate().before(2).formate();
         }
         return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
     }
     var formateDate1 = function () {
         if (!theCurrentDate) {
-            var theDate = GetTodayDate().before(3);// GetFromDate();
+            var theDate = GetTodayDate().before(2);// GetFromDate();
             //theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "年" + FormateDateNum(theDate.getMonth() + 1) + "月" + FormateDateNum(theDate.getDate()) + '日';
         }

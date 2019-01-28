@@ -2,7 +2,7 @@ var serviceBase = "http://localhost/gdcnymot";  // 基地址
 var hostbase="http://localhost";//
 // if(window.location.hostname==='localhost')
 // {
-    serviceBase = "http://192.168.3.123:80/gdcnymot/";///gdcnymot/";
+    serviceBase = "http://192.168.3.115:80/gdcnymot/";///gdcnymot/";
     hostbase="";
 // } else {
     // serviceBase = "http://14.23.164.13:7001/gdcnymot/";

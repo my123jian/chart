@@ -83,10 +83,10 @@ $(function () {
         window.theMap = theMap;
         theMap.plugin(["AMap.Heatmap"], function () {
             //初始化heatmap对象
-            me.heartMap = new AMap.Heatmap(theMap, {
+            /*me.heartMap = new AMap.Heatmap(theMap, {
                 radius: 10, //给定半径
                 opacity: [0, 0.8]
-            });
+            });*/
         });
         // AMap.plugin('AMap.DistrictSearch', function () {
         //   // 创建行政区查询对象
@@ -450,11 +450,13 @@ $(function () {
 
                 floorBindClick();
             }
-        }, 500);
+        }, 1000);
     }
 
     MapBase.prototype.hideReli = function () {
-        this.theHeartLayer && this.theHeartLayer.remove();
+        //this.theHeartLayer && this.theHeartLayer.remove();
+       //debugger;
+        //this.heartMap.hide();
         this.theHeartLayer = null;
     }
 
@@ -590,7 +592,7 @@ $(function () {
         // debugger
         console.log("开始导航到指定点!");
         var theZoom = theMap.getZoom();
-        var thePitchTimer = window.setInterval(function () {
+        /*var thePitchTimer = window.setInterval(function () {
             if (theZoom > maxZoom) {
                 window.clearInterval(thePitchTimer);
                 theMap.setPitch(45);
@@ -598,7 +600,9 @@ $(function () {
                 return;
             }
             theMap.setZoomAndCenter(theZoom++, lntlat);
-        }, 10);
+        }, 10);*/
+
+        theMap.setZoomAndCenter(maxZoom, lntlat);
         theMap.off('indoor_create');
         theMap.on('indoor_create', function (arg) {
         })
@@ -974,7 +978,23 @@ $(function () {
          layer.render();*/
         // theMap.setFitView(layer);
         // theMap.setZoom(theZoom)
-        this.drawReliInner(theShowList);
+        if (this.isDrawing == true) {
+            //alert("正在执行");
+            return;
+        }
+
+        try {
+            //alert(11);
+            this.isDrawing = true;
+            this.drawReliInner(theShowList);
+            //alert(22);
+
+        }
+        catch (e) {
+            alert(e.stack);
+        }
+
+        this.isDrawing = false;
     };
 
     MapBase.prototype.drawReliInner = function (theShowList) {
@@ -983,6 +1003,19 @@ $(function () {
             return {lng: item.coordinate[0], lat: item.coordinate[1], count: item.count};
         });
         //debugger;
+       // $('.heatmap-canvas').height($('.container').height());
+        //$('.heatmap-canvas').width($('.container').width());
+        //$('.heatmap-canvas').css({ top: '0px',left:'0px'});
+        //alert($('.heatmap-canvas').height()+":"+$('.heatmap-canvas').width())
+        //var theDataList=[theDataList[0]];
+        if(this.heartMap){
+            this.heartMap.setMap(null);
+            this.heartMap=null;
+        }
+        this.heartMap= new AMap.Heatmap(theMap, {
+            radius: 10, //给定半径
+            opacity: [0, 0.8]
+        });
         this.heartMap.setDataSet({data: theDataList});
 
     }

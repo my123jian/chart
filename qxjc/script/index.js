@@ -1451,7 +1451,7 @@ $(function () {
                 var theXData = [];
                 var thePreditDate = new Date('2019-01-20');
                 var theBeginDate = new Date('2019-01-21');
-                var theCurrentDate=new Date();
+                var theCurrentDate=new Date().addDays(-1);
                 var theLastDate=theBeginDate;
                 if(theResultDatas&&theResultDatas.length>0){
                     theLastDate=me.parserDate(theResultDatas[theResultDatas.length-1]['statDate']).next(1);

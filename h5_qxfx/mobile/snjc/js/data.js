@@ -4,7 +4,7 @@ function PlacePointView(theMap) {
     "公路|客运站|深圳罗湖汽车客运站|深圳罗湖汽车客运站:114.119196,22.530169;\n" +
     "民航|机场|深圳宝安国际机场|深圳宝安国际机场0:113.812956,22.625566;\n" +
     // "民航|机场|深圳宝安国际机场|深圳宝安国际机场0:113.813080,22.626400;\n" +
-    "铁路|铁路|深圳北站|深圳北站0:114.029177,22.609334;\n" +
+    "铁路|铁路|深圳北站|深圳北站0:114.029177,22.609592;\n" +
     "\"公路|客运站|深圳汽车站|\n" +
     "深圳汽车站0:114.08951,22.568788;\"\n" +
     "铁路|铁路|深圳西站|深圳西站0:113.907746,22.527855;\n" +
@@ -246,7 +246,7 @@ PlacePointView.prototype.MoveToPoint = function (lntlat, maxZoom) {
 
   // console.log(lntlat, maxZoom)
   var theZoom = this.theMap.getZoom();
-  var thePitchTimer = window.setInterval(function () {
+  /*var thePitchTimer = window.setInterval(function () {
     if (theZoom > maxZoom) {
       window.clearInterval(thePitchTimer);
       // this.theMap.setPitch(45);
@@ -255,7 +255,7 @@ PlacePointView.prototype.MoveToPoint = function (lntlat, maxZoom) {
     }
     this.theMap.setZoomAndCenter(theZoom++, lntlat);
     // console.log(theZoom,maxZoom)
-  }, 10);
+  }, 10);*/
   // debugger
   this.theMap.setZoomAndCenter(maxZoom, lntlat);
 
