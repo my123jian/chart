@@ -1073,12 +1073,18 @@ $(function () {
                 theData1.push(0);
                 theData2.push(0);
             }*/
+            //debugger;
+            var isSecondFirst=true;
             if (res && res.isSuccess) {
                 if (res.data.length > 1) {
                     var theItems = res.data[0];
                     for (var i = 0; i < theItems.length; i++) {
                         //theData1.push((theItems[i].allPeople/10000).toFixed(1));
                         theX1.push(theItems[i].statDate);
+                        if(theItems[i].positionName=="铁路北港"){
+                            isSecondFirst=false;
+                        }
+
                         theX1Obj[theItems[i].statDate] = (theItems[i].subscribercount / 10000).toFixed(2);
                     }
                 }
@@ -1108,7 +1114,13 @@ $(function () {
                 }
             }
             //debugger;
-            me.loadChart1(theX, theData1, theData2);
+            if(isSecondFirst){
+                me.loadChart1(theX, theData2, theData1);
+            }
+            else{
+                me.loadChart1(theX, theData1, theData2);
+            }
+
         });
     }
 
