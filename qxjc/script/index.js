@@ -781,6 +781,8 @@ $(function () {
         if (!this.Chart4) {
             this.Chart4 = echarts.init(document.getElementById('chart4'));
         }
+        var theCallAreaName = theAreaNmae;
+        var theCallAreaId = this.getAreaCode(theCallAreaName) || '广东省';
         //var theModel =;
         //1 人口总量 2  迁入迁出
         var theMode = $('.chart-big').data('mode');
@@ -804,6 +806,7 @@ $(function () {
                 {name: '迁入', textStyle: {color: "#4293f2", fontSize: 16}}
             ];
         }*/
+
         theXData.push(theBeginDate.getTime());
         for (var i = 1; i < 40; i++) {
             theBeginDate.setDate(theBeginDate.getDate() + 1);
@@ -913,6 +916,7 @@ $(function () {
             yAxis: {
                 type: 'value',
                 name: '(人数/万)',
+                min:theCallAreaId=="广东省"?5000:0,
                 splitLine: {show: false},
                 axisLine: {
                     lineStyle: {
@@ -1513,7 +1517,7 @@ $(function () {
                 if (thePreditDate) {
                     thePreditDate = thePreditDate.next(1);
                 }
-                //debugger;
+
                 var theRate = 1;
                 if (thePredictCityRatioList && theAreaNmae) {
                     for (var i = 0; i < thePredictCityRatioList.length; i++) {
