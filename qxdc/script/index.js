@@ -761,16 +761,16 @@ $(function () {
                 for (var i = 0; i < theData.length; i++) {
                     var theDataItem = theData[i];
                     var theRow = {
-                        "gonglu": 0,
-                        "minhang": 0,
-                        "shuilu": 0,
-                        "tielu": 0,
-                        "qita": 0,
+                        "gonglu": 0.00,
+                        "minhang":0.00,
+                        "shuilu": 0.00,
+                        "tielu": 0.00,
+                        "qita": 0.00,
                         "from": seeType == ViewType.OUT ? "广州" : "",
                         "to": seeType == ViewType.IN ? "广州" : "",
                         'type': seeType,
                         "sourceType": sourceType,
-                        "value": 0
+                        "value": 0.00
                     };
 
                     theRow['area'] = theDataItem.area;
@@ -803,13 +803,14 @@ toCity: "深圳"
                     for (var j = 0; j < theDataItem.list.length; j++) {
                         var theCellItem = theDataItem.list[j];
 
-                        theRow[theChannelMap[theCellItem.outChannel || theCellItem.inChannel || theCellItem.migChannel]] = ((theCellItem.outPercentage || theCellItem.inPercentage || theCellItem.oPercentage||0)*100).toFixed(2);
-                       //debugger;
+                        theRow[theChannelMap[theCellItem.outChannel || theCellItem.inChannel || theCellItem.migChannel]] = ((theCellItem.outPercentage || theCellItem.inPercentage || theCellItem.oPercentage||0.00)*100).toFixed(2);
+
 
                     }
                     theTableList.push(theRow);
                 }
                 var theIndex = seeType;
+               // debugger;
                 me.currentTable = theTableList;
                 if (seeType == ViewType.PROVINCE) {
                     me.refreshPage(me.currentTable, theCurrentView, me.selectItem);
