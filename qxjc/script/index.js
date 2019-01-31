@@ -188,7 +188,7 @@ $(function () {
                 theTemplate += theCurrent;
             }
             else {
-                theTemplate += "<div class='num-contain' data-num='"+theCurrent+"'>" + theCurrent + "</div>";
+                theTemplate += "<div class='num-contain' data-num='" + theCurrent + "'>" + theCurrent + "</div>";
             }
         }
         // theTemplate = theTemplate + "<span class=\"last\">万</span>";
@@ -383,7 +383,7 @@ $(function () {
                     emphasis: {
                         color: 'white',
                         fontSize: 20,
-                        fontWeight:'bold',
+                        fontWeight: 'bold',
 
                         show: false
                     }
@@ -560,11 +560,11 @@ $(function () {
                             x2: 0,
                             y2: 1,
                             colorStops: [{
-                                offset: 0, color: formateRgba('#ffff8b',0.3)// 'rgba(255,220,111,0.3)'
+                                offset: 0, color: formateRgba('#ffff8b', 0.3)// 'rgba(255,220,111,0.3)'
                             }, {
-                                offset: 0.5, color:formateRgba('#ffff8b',0.15)// 'rgba(255,220,111,0.15)'
+                                offset: 0.5, color: formateRgba('#ffff8b', 0.15)// 'rgba(255,220,111,0.15)'
                             }, {
-                                offset: 1, color: formateRgba('#ffff8b',0)//'rgba(255,220,111,0)'
+                                offset: 1, color: formateRgba('#ffff8b', 0)//'rgba(255,220,111,0)'
                             }]
                         }
                     }
@@ -854,11 +854,11 @@ $(function () {
                 }
             },
 
-            legend:  {
+            legend: {
                 //align:'right',//
                 top: 15,
                 left: 600,
-                data:theLegends
+                data: theLegends
             },
             color: theColors,
             grid: {
@@ -916,7 +916,7 @@ $(function () {
             yAxis: {
                 type: 'value',
                 name: '(人数/万)',
-                min:theCallAreaId=="广东省"?5000:0,
+                min: theCallAreaId == "广东省" ? 5000 : 0,
                 splitLine: {show: false},
                 axisLine: {
                     lineStyle: {
@@ -1113,12 +1113,12 @@ $(function () {
                 }
             },
 
-             legend:  {
-            //align:'right',//
-            top: 15,
+            legend: {
+                //align:'right',//
+                top: 15,
                 left: 600,
-                data:theLegends
-        },
+                data: theLegends
+            },
             color: theColors,
             grid: {
                 left: 30,
@@ -1322,11 +1322,11 @@ $(function () {
                             x2: 0,
                             y2: 1,
                             colorStops: [{
-                                offset: 0, color: formateRgba('#13ffff',0.3),// 'rgba(66,147,242,0.3)'
+                                offset: 0, color: formateRgba('#13ffff', 0.3),// 'rgba(66,147,242,0.3)'
                             }, {
-                                offset: 0.5, color:formateRgba('#13ffff',0.15),//
+                                offset: 0.5, color: formateRgba('#13ffff', 0.15),//
                             }, {
-                                offset: 1, color: formateRgba('#13ffff',0),//
+                                offset: 1, color: formateRgba('#13ffff', 0),//
                             }]
                         }
                     }
@@ -1400,14 +1400,14 @@ $(function () {
                     if (theSuStr == '↓') {
                         $('#populationOut').addClass('green');
                     }
-                    var theUnitText="<span\n" +
+                    var theUnitText = "<span\n" +
                         "                    class=\"last\" style='color:white'>万</span>";
-                    theViewData.populationOut =  Math.abs(theViewData.populationOut)+theUnitText+" "+theSuStr;
+                    theViewData.populationOut = Math.abs(theViewData.populationOut) + theUnitText + " " + theSuStr;
                 }
                 me.bind('.numpart', theViewData);
                 //
-                if(!me.NumbersEffect){
-                    me.NumbersEffect= new NumbersEffect('.numpart');
+                if (!me.NumbersEffect) {
+                    me.NumbersEffect = new NumbersEffect('.numpart');
                 }
                 me.NumbersEffect.restart();
             }
@@ -1433,7 +1433,7 @@ $(function () {
                 var theResultDatas = data.data.dataList || data.data;//数据长度设置
                 //provinceCity， ratio
                 var thePredictCityRatioList = eval(data.data.predictCityRatio);//比例设置
-               // debugger;
+                // debugger;
                 var thePredictList = data.data.predictList;//预测数据
                 /*
                 countNum: 151289016
@@ -1455,25 +1455,25 @@ $(function () {
                 var theXData = [];
                 var thePreditDate = new Date('2019-01-20');
                 var theBeginDate = new Date('2019-01-21');
-                var theCurrentDate=new Date().addDays(-1);
-                var theLastDate=theBeginDate;
-                if(theResultDatas&&theResultDatas.length>0){
-                    theLastDate=me.parserDate(theResultDatas[theResultDatas.length-1]['statDate']).next(1);
+                var theCurrentDate = new Date().addDays(-1);
+                var theLastDate = theBeginDate;
+                if (theResultDatas && theResultDatas.length > 0) {
+                    theLastDate = me.parserDate(theResultDatas[theResultDatas.length - 1]['statDate']).next(1);
                     if (thePredictList && thePredictList.length > 0) {
                         for (var i = 0; i < thePredictList.length; i++) {
                             var theItem = thePredictList[i];
                             var theDate = new Date(theItem.statDate);
-                            if (theDate.getTime() >= theLastDate.getTime()&&theLastDate.getTime()<theCurrentDate.getTime()) {
-                                var theItem=thePredictList[i];
+                            if (theDate.getTime() >= theLastDate.getTime() && theLastDate.getTime() < theCurrentDate.getTime()) {
+                                var theItem = thePredictList[i];
                                 theResultDatas.push({
-                                    statDate:theItem.statDate,
-                                    migOut:theItem.outNum,
-                                    migIn:theItem.inNum,
-                                    populationGd:theItem.countNum,
-                                    populationResi:theItem.populationResi,
+                                    statDate: theItem.statDate,
+                                    migOut: theItem.outNum,
+                                    migIn: theItem.inNum,
+                                    populationGd: theItem.countNum,
+                                    populationResi: theItem.populationResi,
                                 });
                                 //debugger;
-                                theLastDate=theLastDate.next(1);
+                                theLastDate = theLastDate.next(1);
                             }
                         }
                     }
@@ -1490,23 +1490,23 @@ $(function () {
                     thePreditDate = theDate;
                     // if (theDate.getTime() <= new Date().getTime())
                     //{
-                        dataMigOut1.push(theDataItem.migOut || 0);
-                        dataMigIn1.push(theDataItem.migIn || 0);
-                        dataPopulationGd1.push(theDataItem.populationGd || 0);
-                        dataResi1.push(theDataItem.populationResi || 0);
+                    dataMigOut1.push(theDataItem.migOut || 0);
+                    dataMigIn1.push(theDataItem.migIn || 0);
+                    dataPopulationGd1.push(theDataItem.populationGd || 0);
+                    dataResi1.push(theDataItem.populationResi || 0);
                     //}
                     /*dataMigOut2.push('-');
                     dataMigIn2.push('-');
                     dataPopulationGd2.push('-');
                     dataResi2.push('-');*/
 
-                    if(i<theResultDatas.length-1){
+                    if (i < theResultDatas.length - 1) {
                         dataMigOut2.push('-');
                         dataMigIn2.push('-');
                         dataPopulationGd2.push('-');
                         dataResi2.push('-');
                     }
-                    else{
+                    else {
                         dataMigOut2.push(theDataItem.migOut || 0);
                         dataMigIn2.push(theDataItem.migIn || 0);
                         dataPopulationGd2.push(theDataItem.populationGd || 0);
@@ -1579,7 +1579,23 @@ $(function () {
         this.load(theCallUrl, theCallArgument, function (data) {
             //debugger;
             var theDataList = [];
+            var theDefaultList = [];
             var theLastData = null;
+            var theDefaultListHash = {};
+            var theExitListHash = {};
+            var theBeginDate = new Date(theCallArgument.date + " 00:00:00");
+            var theCurrentDate = new Date();
+            var theEndDate = new Date(theCallArgument.date + " 23:55:00");
+            if (theEndDate.getTime() < theCurrentDate.getTime()) {
+                theCurrentDate = theEndDate;
+            }
+            while (theBeginDate.getTime() <= theCurrentDate.getTime()) {
+                theDefaultList.push(0);
+                theDefaultListHash[theBeginDate.getTime()] = theDefaultList.length - 1;
+                theExitListHash[theBeginDate.getTime()]=true;
+                theBeginDate = theBeginDate.nextMinutes(5);
+                //debugger;
+            }
             if (data && data.isSuccess) {
                 var theResultDatas = data.data;//数据长度
                 var dataMigOut1 = [];
@@ -1590,13 +1606,16 @@ $(function () {
                 var dataPopulationGd2 = [];
                 var theXData = [];
                 var data4 = [];
-                var theCurrentDate = new Date();
+                var theTotal = 0;
+                var theAvg=0;
                 for (var i = 0; i < theResultDatas.length; i++) {
                     var theDataItem = theResultDatas[i];
                     var tehDataDate = theDataItem['statDate'];
                     var theDate = me.parserDate(tehDataDate);
-
-                    if (theDate.getTime() <= theCurrentDate.getTime()) {
+                    theDefaultList[theDefaultListHash[theDate.getTime()]] = theDataItem.countNum;
+                    theExitListHash[theDate.getTime()]=false;
+                    theTotal+=(theDataItem.countNum||0);
+                    /*if (theDate.getTime() <= theCurrentDate.getTime()) {
                         dataMigOut1.push(theDataItem.outNum);
                         dataMigIn1.push(theDataItem.inNum);
                         dataPopulationGd1.push(theDataItem.countNum);
@@ -1610,13 +1629,52 @@ $(function () {
                     else {
                         theDataList.push(theDataItem.countNum - theLastData);
                     }
+                    theLastData = theDataItem.countNum;*/
+                }
+                theAvg=Math.floor(theTotal/theResultDatas.length);
+                for (var i = 0; i < theDefaultList.length; i++) {
+                    theDefaultList[i]=theAvg;
+                }
+                for (var i = 0; i < theResultDatas.length; i++) {
+                    var theDataItem = theResultDatas[i];
+                    var tehDataDate = theDataItem['statDate'];
+                    var theDate = me.parserDate(tehDataDate);
+                    theDefaultList[theDefaultListHash[theDate.getTime()]] = theDataItem.countNum;
+
+                    if (theLastData == null) {
+                        theDataList.push(0);
+                    }
+                    else {
+                        theDataList.push(theDataItem.countNum - theLastData);
+                    }
                     theLastData = theDataItem.countNum;
                 }
+                theDataList = [];
+                theLastData = null;
+                for (var i = 0; i < theDefaultList.length; i++) {
+                    if (theLastData == null) {
+                        theDataList.push(0);
+                    }
+                    else {
+                        theDataList.push(theDefaultList[i] - theLastData);
+                    }
+                    theLastData = theDefaultList[i];
+                }
                 //debugger;
-                me.loadChart1(theXData, dataPopulationGd1, dataPopulationGd2);
+                me.loadChart1(theXData, theDefaultList, []);
+                //me.loadChart1(theXData, dataPopulationGd1, dataPopulationGd2);
                 me.loadChart5(theXData, theDataList);
                 //me.loadChart2(theXData,dataMigOut1, dataMigOut2 );
                 //me.loadChart3(theXData, dataMigIn1, dataMigIn2);
+                var theArrays=[];
+                for(var key in theExitListHash){
+                    var theDate=new Date();
+                    theDate.setTime(key);
+                    if(theExitListHash[key]){
+                        theArrays.push(theDate);
+                    }
+                }
+                console.error("缺少日期数据:"+JSON.stringify(theArrays));
             }
             else {
                 console.log("loadCurrent错误:" + data);
