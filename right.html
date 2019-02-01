@@ -27,6 +27,7 @@
     }
   </style>
   <link rel="stylesheet" href="yjzx/css/homepage.css">
+  <script src="yjzx/js/stationCamData.js"></script>
 </head>
 <body>
 <div id="container" class="container">
@@ -35,11 +36,119 @@
   <div class="title" id="title">
     <div class="switch-btn" id="switch-btn"></div>
   </div>
+
+  <!--高速监测模块  开始-->
+  <div id="gaosujiance" class="gaosujiance">
+    <!--header-->
+    <div class="jiance-header" id="jiance-header">
+      <div class="header-time">
+        <div class="date" id="curDate">
+          12月23日
+        </div>
+        <div class="week" id="curWeek">
+          星期日
+        </div>
+        <div class="led" id="curTime">
+          11:02:12
+        </div>
+      </div>
+      <div class="header-tips">
+        <ul>
+          <li>通畅</li>
+          <li>基本通畅</li>
+          <!--<li>轻度拥堵</li>-->
+          <!--<li>中度拥堵</li>-->
+          <!--<li>重度拥堵</li> -->
+          <li>轻度缓行</li>
+          <li>中度缓行</li>
+          <li>重度缓行</li>
+        </ul>
+      </div>
+      <div class="tips-num">
+        <!--<div class="inner-num-box">-->
+        <span>0</span>
+        <span>2</span>
+        <span>4</span>
+        <span>6</span>
+        <span>8</span>
+        <span>10</span>
+        <!--</div>-->
+
+      </div>
+    </div>
+    <!--重点路段-->
+    <div class="jiance-key-box">
+      <div class="inner-box">
+        <div class="key-box-name">
+          重点路段监测
+        </div>
+        <div class="li-header">
+          <section>高速路段</section>
+          <section>交通指数</section>
+          <section>通行状态</section>
+          <section>平均车速</section>
+        </div>
+        <ul id="jiance-key-ul">
+          <!--<li>-->
+          <!--<section>111</section>-->
+          <!--<section>2</section>-->
+          <!--<section>-->
+          <!--<div class="tips-font">轻度拥堵</div>-->
+          <!--</section>-->
+          <!--<section>4</section>-->
+          <!--</li>-->
+        </ul>
+      </div>
+
+      <footer>
+        <div class="pagination" id="pagination">
+          <!--<span class="active">1</span>-->
+          <!--<span>2</span>-->
+        </div>
+      </footer>
+    </div>
+    <!--拥堵路段top10-->
+    <div class="jiance-top10-box">
+      <div class="inner-box">
+        <div class="top10-box-name">
+          缓行路段Top10
+        </div>
+        <div class="li-header">
+          <section>排名</section>
+          <section>高速路段</section>
+          <section>缓行长度</section>
+          <section>平均车速</section>
+        </div>
+        <ul id="jiance-top10-ul">
+          <!--<li>-->
+          <!--<section><span>1</span></section>-->
+          <!--<section>2222222</section>-->
+          <!--<section>kmkm</section>-->
+          <!--<section>kkkk</section>-->
+          <!--</li>-->
+        </ul>
+      </div>
+    </div>
+    <!--高速监测 控制面板-->
+    <div class="jiance_panel" id="jiance_panel">
+      <!--<div class="jiance_title">控制</div>-->
+      <div class="panel-list">
+        <ul>
+          <li>高速路段</li>
+          <li>收费站</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!--高速监测模块  结束-->
+
+  <!--返回div-->
   <div class="back-div" id="back-div"></div>
   <!--预警top3-->
   <div id="top3" class="top3">
     <!--拥挤预警-->
-    <div class="yongji">
+    <div class="top3-outer yongji">
       <div class="head">
         <p class="head-p">
           <img src="yjzx/img/icon_1.png" alt="">
@@ -56,7 +165,7 @@
     </div>
 
     <!--适中-->
-    <div class="shizhong">
+    <div class="top3-outer shizhong">
       <div class="head">
         <p class="head-p">
           <img src="yjzx/img/icon_2.png" alt="">
@@ -75,7 +184,7 @@
     </div>
 
     <!--舒适-->
-    <div class="shushi">
+    <div class="top3-outer shushi">
       <div class="head">
         <p class="head-p">
           <img src="yjzx/img/icon_3.png" alt="">
@@ -94,65 +203,319 @@
     </div>
 
   </div>
-  <!--高速路网-->
-  <div id="road-net" class="road-net">
-    <header>
-      <div>排名</div>
-      <div>道路名称</div>
-      <div>拥堵延时指数</div>
-      <div>速度(km/h)</div>
-      <div>旅行时间(min)</div>
-      <div>延迟时间(min)</div>
-    </header>
+
+  <!--天气-->
+  <div class="weather-box" id="left-weather">
     <ul>
       <li>
-        <div>1</div>
-        <div>道路名称</div>
-        <div>
-          <span>6.9</span>
+        <div class="tqfx">
+          <section>
+            <span>天气</span>
+          </section>
+          <section>
+            <p id="weather-date"></p>
+          </section>
         </div>
-        <div>10.4</div>
-        <div>100.2</div>
-        <div>100.2</div>
       </li>
+      <li>
+        <div>
+          <img src="./gzadq/img/icon_temperature.png" alt="">
+        </div>
+        <div class="temperature">
+          <p>温度</p>
+          <p id="temperature"></p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <img src="./gzadq/img/icon_wind.png" alt="">
+        </div>
+        <div class="wind">
+          <p>风向</p>
+          <p id="wind"></p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <img src="yjzx/img/weather/icon_fog.png" alt="">
+        </div>
+        <div class="wind">
+          <p>风速</p>
+          <span id="wind-speed"></span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <img id="weather-img" src="yjzx/img/weather/暴雨.png" alt="">
+        </div>
+        <div class="weather">
+          <p>天气状况</p>
+          <span id="weather"></span>
+        </div>
+      </li>
+    </ul>
+  </div>
 
-    </ul>
+
+
+  <!--航班信息-->
+  <div class="flight-box" id="flight-box">
+    <div class="flight-tab-box" id="flight-tab-box">
+      <div class="flight-tab flight-trend-tab" id="flight-trend-tab">
+        <p>航班趋势</p>
+        <p class="tre-date" id="tre-date"></p>
+      </div>
+      <div class="flight-tab flight-list-tab active" id="flight-list-tab">航班表</div>
+    </div>
+    <div class="flight-tab-box2 dn" id="flight-tab-box2">
+      <p>航班趋势</p>
+      <p class="tre-date" id="tre-date2"></p>
+    </div>
+    <div class="flight-data-box" id="flight-data-box">
+      <div class="flight-data-container-outer">
+        <div class="flight-data-container">
+          <div class="l-part">
+            <header>发送航班</header>
+            <div class="time-box">
+              <select name="" id="send-time-box">
+                <!--<option value="10:00-11:00">10:00-11:00</option>-->
+                <!--<option value="10:00-11:00">11:00-12:00</option>-->
+              </select>
+            </div>
+          </div>
+          <div class="r-part">
+            <header>
+              <ul class="header">
+                <li>航班号</li>
+                <li>开点</li>
+                <li>目的地</li>
+                <!--<li>发送旅客数</li>-->
+              </ul>
+            </header>
+            <div class="r-list">
+              <ul id="send-list-ul">
+                <!--<li>-->
+                  <!--<span>G4444</span>-->
+                  <!--<span>12:12</span>-->
+                  <!--<span title="">广州给中</span>-->
+                  <!--<span>3456</span>-->
+                <!--</li>-->
+
+              </ul>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <div class="paging" id="send-paging">
+            <!--<span class="active">1</span>-->
+            <!--<span>2</span>-->
+          </div>
+        </footer>
+      </div>
+      <div class="flight-data-container-outer">
+        <div class="flight-data-container">
+          <div class="l-part">
+            <header>到达航班</header>
+            <div class="time-box">
+              <select name="" id="arr-time-box">
+                <!--<option value="10:00-11:00">10:00-11:00</option>-->
+                <!--<option value="10:00-11:00">11:00-12:00</option>-->
+              </select>
+            </div>
+          </div>
+          <div class="r-part">
+            <header>
+              <ul class="header">
+                <li>航班号</li>
+                <li>到点</li>
+                <li>出发地</li>
+                <!--<li>到达旅客数</li>-->
+              </ul>
+            </header>
+            <div class="r-list">
+              <ul id="arr-list-ul">
+                <!--<li>-->
+                  <!--<span>G4444</span>-->
+                  <!--<span>12:12</span>-->
+                  <!--<span title="">广州给中</span>-->
+                  <!--<span>3456</span>-->
+                <!--</li>-->
+
+              </ul>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <div class="paging" id="arr-paging">
+            <!--<span class="active">1</span>-->
+            <!--<span>2</span>-->
+          </div>
+        </footer>
+      </div>
+
+    </div>
+    <div class="flight-data-box2" id="flight-data-box2">
+      <div class="chart-tab" id="fli-chart-tab">
+        <span class="active">航班趋势</span>
+        <span>旅客趋势</span>
+      </div>
+      <div class="chart-box" id="flight-chart-box1"></div>
+      <div class="chart-box" id="flight-chart-box2"></div>
+    </div>
   </div>
-  <div id="road-net-tips" class="road-net-tips">
-    <ul>
-      <li>严重拥堵</li>
-      <li>拥堵</li>
-      <li>缓行</li>
-      <li>畅通</li>
-    </ul>
+  <!--列车信息-->
+  <div class="train-box" id="train-box">
+    <div class="flight-tab-box" id="train-tab-box">
+      <div class="flight-tab flight-trend-tab" id="train-trend-tab">
+        <p>列车趋势</p>
+        <p class="tre-date" id="tre-date3"></p>
+      </div>
+      <div class="flight-tab flight-list-tab active" id="train-list-tab">列车表</div>
+    </div>
+    <div class="flight-data-box" id="train-data-box">
+      <div class="flight-data-container-outer">
+        <div class="flight-data-container">
+          <div class="l-part">
+            <header>发送列车</header>
+            <div class="time-box">
+              <select name="" id="send-time-box2">
+                <!--<option value="10:00-11:00">10:00-11:00</option>-->
+                <!--<option value="10:00-11:00">11:00-12:00</option>-->
+              </select>
+            </div>
+          </div>
+          <div class="r-part">
+            <header>
+              <ul class="header">
+                <li>列车号</li>
+                <li>开点</li>
+                <li>目的地</li>
+                <!--<li>发送旅客数</li>-->
+              </ul>
+            </header>
+            <div class="r-list">
+              <ul id="send-list-ul2">
+                <!--<li>-->
+                <!--<span>G4444</span>-->
+                <!--<span>12:12</span>-->
+                <!--<span title="">广州给中</span>-->
+                <!--<span>3456</span>-->
+                <!--</li>-->
+
+              </ul>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <div class="paging" id="send-paging2">
+            <!--<span class="active">1</span>-->
+            <!--<span>2</span>-->
+          </div>
+        </footer>
+      </div>
+      <div class="flight-data-container-outer">
+        <div class="flight-data-container">
+          <div class="l-part">
+            <header>到达列车</header>
+            <div class="time-box">
+              <select name="" id="arr-time-box2">
+                <!--<option value="10:00-11:00">10:00-11:00</option>-->
+                <!--<option value="10:00-11:00">11:00-12:00</option>-->
+              </select>
+            </div>
+          </div>
+          <div class="r-part">
+            <header>
+              <ul class="header">
+                <li>列车号</li>
+                <li>到点</li>
+                <li>出发地</li>
+                <!--<li>到达旅客数</li>-->
+              </ul>
+            </header>
+            <div class="r-list">
+              <ul id="arr-list-ul2">
+                <!--<li>-->
+                <!--<span>G4444</span>-->
+                <!--<span>12:12</span>-->
+                <!--<span title="">广州给中</span>-->
+                <!--<span>3456</span>-->
+                <!--</li>-->
+
+              </ul>
+            </div>
+          </div>
+        </div>
+        <footer>
+          <div class="paging" id="arr-paging2">
+            <!--<span class="active">1</span>-->
+            <!--<span>2</span>-->
+          </div>
+        </footer>
+      </div>
+
+    </div>
+    <div class="flight-data-box2" id="train-data-box2">
+      <div class="chart-tab" id="train-chart-tab">
+        <span class="active">列车趋势</span>
+        <!--<span>旅客趋势</span>-->
+      </div>
+      <div class="chart-box" id="train-chart-box1"></div>
+      <!--<div class="chart-box" id="train-chart-box2"></div>-->
+    </div>
   </div>
+
   <!--tab切换-->
   <div id="tab" class="tab">
     <div class="tab-box tab-box-active" data-name="客运站,铁路,机场,港口">
       <span>交通枢纽</span>
+      <div class="tab-arrow moveAndShow">
+        <img src="yjzx/img/menu/icon_lower_left.png" alt="">
+        <!--<img src="yjzx/img/menu/icon_lower_center.png" alt="">-->
+        <!--<img src="yjzx/img/menu/icon_lower_center.png" alt="">-->
+        <img class="" src="yjzx/img/menu/icon_lower_right_nor.png" alt="">
+      </div>
     </div>
     <div class="tab-box" data-name="服务区">
       <span>服务区</span>
+      <div class="tab-arrow">
+        <img src="yjzx/img/menu/icon_lower_left.png" alt="">
+        <!--<img src="yjzx/img/menu/icon_lower_center.png" alt="">-->
+        <!--<img src="yjzx/img/menu/icon_lower_center.png" alt="">-->
+        <img class="" src="yjzx/img/menu/icon_lower_right_nor.png" alt="">
+      </div>
     </div>
-    <div class="tab-box" data-name="收费站">
-      <span>收费站</span>
+    <!--<div class="tab-box" data-name="收费站">-->
+      <!--<span>收费站</span>-->
+      <!--<div class="tab-arrow">-->
+        <!--<img src="yjzx/img/menu/icon_lower_left.png" alt="">-->
+        <!--<img src="yjzx/img/menu/icon_lower_center.png" alt="">-->
+        <!--<img src="yjzx/img/menu/icon_lower_center.png" alt="">-->
+        <!--<img class="" src="yjzx/img/menu/icon_lower_right_nor.png" alt="">-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="tab-box" data-name="高速监测">
+      <span>高速监测</span>
+      <div class="tab-arrow">
+        <img src="yjzx/img/menu/icon_lower_left.png" alt="">
+        <!--<img src="yjzx/img/menu/icon_lower_center.png" alt="">-->
+        <!--<img src="yjzx/img/menu/icon_lower_center.png" alt="">-->
+        <img class="" src="yjzx/img/menu/icon_lower_right_nor.png" alt="">
+      </div>
     </div>
-    <!--<div class="tab-box" data-name="高速">
-      <span>高速路段</span>
-    </div>-->
-    <div class="tab-box" data-name="高速路网">
-      <span>高速路网</span>
-    </div>
+    <!--<div class="tab-box" data-name="两客一危">-->
+      <!--<span>两客一危</span>-->
+    <!--</div>-->
 
     <!--当前位置-->
-    <div class="tab-box-cur dn" id="tab-box-cur">
+    <div class="tab-box-cur" id="tab-box-cur">
       <div class="bg-div">
         <div>
           <img src="yjzx/img/menu/icon_lower_left.png" alt="">
         </div>
         <div id="center-img" class="center-img">
-          <img src="yjzx/img/menu/icon_lower_center.png" alt="">
-          <img src="yjzx/img/menu/icon_lower_center.png" alt="">
+          <!--<img src="yjzx/img/menu/icon_lower_center.png" alt="">-->
+          <!--<img src="yjzx/img/menu/icon_lower_center.png" alt="">-->
           <!--<img src="yjzx/img/menu/icon_lower_center.png" alt="">-->
         </div>
         <div class="dn arrow up">
@@ -160,7 +523,7 @@
           <div id="cur-pos-data-box" class="cur-pos-data-box">
             <!--重点枢纽-->
             <div class="key-pos">
-              <div class="name">重点枢纽：</div>
+              <!--<div class="name">重点枢纽：</div>-->
               <ul>
                 <!--<li>广州南</li>-->
                 <!--<li>广州南</li>-->
@@ -177,10 +540,10 @@
             </div>
 
             <!--场站-->
-            <div class="station-box">
+            <div class="station-box" id="station-box">
               <div class="station-box-1" id="station-box-1">
                 <header>
-                  火车站
+                  铁路
                 </header>
                 <ul>
 
@@ -207,92 +570,123 @@
         </div>
         <div class="arrow down">
           <img class="" src="yjzx/img/menu/icon_lower_right_nor.png" alt="">
-
         </div>
       </div>
-      <div class="tab-name" id="tab-name">广州南站</div>
+      <div class="tab-name" id="tab-name"></div>
     </div>
   </div>
 
   <!--交通枢纽tab-->
   <ul id="tab2" class="tab-box2 vh">
-    <li data-name="实时监控" class="tab-box2-li1 tab-box2-li">
+    <li data-name="实时监控" class="tab-box2-li1 tab-box2-li vh">
+      <div class="li-bg"></div>
       <div class="li-tab-box">
-        <div class="video-play-box">
-          <div class="add-box"></div>
-          <div class="full-screen"></div>
-        </div>
-        <div class="video-list" id="video-list">
+        <!--摄像头部分-->
+        <div class="camera-box" id="camera-box">
           <ul>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
+            <!--<li onclick="window.location.href='SHWGOIE:http://14.23.164.13:7001/video/?vid=44152103041312001198'">-->
+            <!--&lt;!&ndash;<li onclick="window.open('SHWGOIE:http://14.23.164.13:7001/video/?vid=44152103041312001198','newwindow','height=400,width=600,top=100,left=100,scrollbars=no,resizable=no,location=no, status=no')">&ndash;&gt;-->
+              <!--<section>-->
+                <!--<img src="yjzx/img/cam_nor.png" alt="">-->
+              <!--</section>-->
+              <!--<span>广州南站一号摄像头</span>-->
+            <!--</li>-->
           </ul>
         </div>
-        <div class="line-box">
-          <div class="line" id="line">
-            <div class="tuodong" id="tuodong"></div>
-          </div>
-        </div>
-        <div class="emp-box">
-          <div class="touxiang">
+        <!--链接中心-->
+          <!--<div class="zhongxin-box jkzx">-->
+            <!--<div class="zhongxin-name">视频监控中心</div>-->
+            <!--<div class="btm-part">-->
+              <!--<span>点击进入</span>-->
+              <!--<img src="yjzx/img/link-icon.png" alt="">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="zhongxin-box ddzx">-->
+            <!--<div class="zhongxin-name">紧急调度中心</div>-->
+            <!--<div class="btm-part">-->
+              <!--<span>点击进入</span>-->
+              <!--<img src="yjzx/img/link-icon.png" alt="">-->
+            <!--</div>-->
+          <!--</div>-->
 
-          </div>
-          <div class="emp-data-box">
-            <p>
-              <label for="">值班人:</label>
-              <span></span>
-            </p>
-            <p>
-              <label for="">预警电话:</label>
-              <span></span>
-            </p>
-          </div>
-          <div class="icon"></div>
-        </div>
 
-        <div class="video-play-box2">
-          <div class="box2-main">
-            <span>请选择摄像头</span>
-          </div>
-          <div class="video-list">
-            <ul>
-              <li>
-                <div class="footer"></div>
-              </li>
-              <li>
-                <div class="footer"></div>
-              </li>
-            </ul>
-          </div>
-          <div class="line-box">
-            <div class="line">
-              <div class="tuodong"></div>
-            </div>
-          </div>
-          <div class="close-icon"></div>
-        </div>
+        <!--<div class="video-play-box">-->
+          <!--<div class="add-box"></div>-->
+          <!--<div class="full-screen"></div>-->
+        <!--</div>-->
+        <!--<div class="video-list" id="video-list">-->
+          <!--<ul>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
+        <!--<div class="line-box">-->
+          <!--<div class="line" id="line">-->
+            <!--<div class="tuodong" id="tuodong"></div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="emp-box">-->
+          <!--<div class="touxiang">-->
+
+          <!--</div>-->
+          <!--<div class="emp-data-box">-->
+            <!--<p>-->
+              <!--<label>值班人:</label>-->
+              <!--<span></span>-->
+            <!--</p>-->
+            <!--<p>-->
+              <!--<label>预警电话:</label>-->
+              <!--<span></span>-->
+            <!--</p>-->
+          <!--</div>-->
+          <!--<div class="icon"></div>-->
+        <!--</div>-->
+
+        <!--<div class="video-play-box2">-->
+          <!--<div class="box2-main">-->
+            <!--<span>请选择摄像头</span>-->
+          <!--</div>-->
+          <!--<div class="video-list">-->
+            <!--<ul>-->
+              <!--<li>-->
+                <!--<div class="footer"></div>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<div class="footer"></div>-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</div>-->
+          <!--<div class="line-box">-->
+            <!--<div class="line">-->
+              <!--<div class="tuodong"></div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="close-icon"></div>-->
+        <!--</div>-->
       </div>
     </li>
     <li data-name="实时客流" class="tab-box2-li2 tab-box2-li">
+      <div class="li-bg"></div>
+
       <div class="li-tab-box">
         <header>
           <label>实时客流量</label>
@@ -312,16 +706,58 @@
               <label class="sskl-out"></label>
             </p>
           </div>
+          <!--<div>-->
+            <!--<p class="title-name">小时新增人数</p>-->
+            <!--<p>-->
+              <!--<label class="sskl-hour-add"></label>-->
+            <!--</p>-->
+          <!--</div>-->
+        </div>
+        <!--宝安机场 要显示的内容-->
+        <div class="header2 dn" id="bao-an">
           <div>
-            <p class="title-name">小时新增人数</p>
+            <p class="title-name">实时到达航班</p>
             <p>
-              <label class="sskl-hour-add"></label>
+              <label class="arrive"></label>
+            </p>
+          </div>
+          <div>
+            <p class="title-name">实时发送航班</p>
+            <p>
+              <label class="send"></label>
+            </p>
+          </div>
+          <div>
+            <p class="title-name">实时延误航班</p>
+            <p>
+              <label class="delay"></label>
+            </p>
+          </div>
+        </div>
+        <!--铁路场站 要显示的内容-->
+        <div class="header2 dn" id="tie-lu">
+          <div>
+            <p class="title-name">实时到达列车</p>
+            <p>
+              <label class="arrive"></label>
+            </p>
+          </div>
+          <div>
+            <p class="title-name">实时发送列车</p>
+            <p>
+              <label class="send"></label>
+            </p>
+          </div>
+          <div>
+            <p class="title-name">实时中转列车</p>
+            <p>
+              <label class="transfer"></label>
             </p>
           </div>
         </div>
         <div class="chart-box">
           <!--<div class="header">-->
-            <!--<label for="">实时客流趋势</label>-->
+          <!--<label>实时客流趋势</label>-->
           <!--</div>-->
           <div class="SSKL-cld-box" id="SSKL-cld-box">
             <input type="text" id="tab2-li2-cld" class="tab-li2-cld">
@@ -333,27 +769,46 @@
         </div>
         <div class="chart-box2">
           <div class="ZLSC1" id="ZLSC1"></div>
-          <!--<div class="header">-->
-
-          <!--<div class="KLHX-box">-->
-            <!--<div class="hm man">-->
-              <!--<span>12%</span>-->
-            <!--</div>-->
-            <!--<div class="hm woman">-->
-              <!--<span>12%</span>-->
-            <!--</div>-->
-            <!--<div class="KLHX" id="KLHX">-->
-
-            <!--</div>-->
-          <!--</div>-->
+        </div>
+        <!--客运站 要显示的内容-->
+        <div class="keyunzhan-data dn" id="keyunzhan">
+          <div class="hour-send">
+            <label>小时发送旅客</label><span>222</span><i>人</i>
+          </div>
+          <div class="list-container">
+            <div class="province-in">
+              <section>省内top5</section>
+              <ul>
+                <!--<li>-->
+                <!--<i class="index">1</i>-->
+                <!--<label title="">美国</label>-->
+                <!--<i class="line"></i>-->
+                <!--<span class="num" title="">234人</span>-->
+                <!--</li>-->
+              </ul>
+            </div>
+            <div class="province-out">
+              <section>省外top5</section>
+              <ul>
+                <!--<li>-->
+                <!--<i class="index">1</i>-->
+                <!--<label title="">美国</label>-->
+                <!--<i class="line"></i>-->
+                <!--<span class="num" title="">234人</span>-->
+                <!--</li>-->
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </li>
     <li data-name="旅客洞察" class="tab-box2-li4 tab-box2-li">
+      <div class="li-bg"></div>
+
       <div class="li-tab-box">
         <div class="calendar-box">
           <div class="calendar">
-            <div style="width: 280px;height: 40px;background-color: #114d8a;position: relative;" id="tab2-li4-cld-box">
+            <div style="width: 280px;height: 40px;background-color: #0a214b;position: relative;" id="tab2-li4-cld-box">
               <div class="cld-icon"></div>
               <input type="text" class="tab-li4-cld" id="tab2-li4-cld">
               <div class="arrow"></div>
@@ -383,9 +838,7 @@
               </div>
 
             </header>
-            <div class="chart-box1 ZLSC" id="ZLSC">
-
-            </div>
+            <!--<div class="chart-box1 ZLSC" id="ZLSC"></div>-->
 
             <div class="KLHX-box">
               <div class="hm man">
@@ -455,6 +908,8 @@
       </div>
     </li>
     <li data-name="旅客趋势" class="tab-box2-li3 tab-box2-li">
+      <div class="li-bg"></div>
+
       <div class="li-tab-box">
         <div class="calendar-box">
           <input type="text" id="tab2-li3-cld" class="tab-li3-cld">
@@ -472,87 +927,121 @@
         </div>
       </div>
     </li>
+    <!--<li data-name="" class="tab-box2-li5 tab-box2-li" onclick="window.open('http://10.0.64.217/layout/conference/template','newwindow','height=400,width=600,top=100,left=100,scrollbars=no,resizable=no,location=no, status=no')">-->
+      <!--<div class="li-bg"></div>-->
+
+    <!--</li>-->
   </ul>
   <!--服务区tab-->
   <ul id="tab3" class="tab-box3 vh">
-    <li data-name="实时监控" class="tab-box2-li1 tab-box2-li">
+    <li data-name="实时监控" class="tab-box2-li1 tab-box2-li vh">
+      <div class="li-bg"></div>
+
       <div class="li-tab-box">
-        <div class="video-play-box">
-          <div class="add-box"></div>
-          <div class="full-screen"></div>
-        </div>
-        <div class="video-list" id="video-list2">
+        <!--摄像头部分-->
+        <div class="camera-box">
           <ul>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
+            <!--<li onclick="window.location.href='SHWGOIE:http://14.23.164.13:7001/video/?vid=44152103041312001198'">-->
+              <!--<li onclick="">-->
+              <!--<section>-->
+                <!--<img src="yjzx/img/cam_nor.png" alt="">-->
+              <!--</section>-->
+              <!--<span>广州南站一号摄像头</span>-->
+            <!--</li>-->
           </ul>
         </div>
-        <div class="line-box">
-          <div class="line" id="line2">
-            <div class="tuodong" id="tuodong2"></div>
-          </div>
-        </div>
-        <div class="emp-box">
-          <div class="touxiang">
+        <!--<div class="zhongxin-box jkzx">-->
+          <!--<div class="zhongxin-name">视频监控中心</div>-->
+          <!--<div class="btm-part">-->
+            <!--<span>点击进入</span>-->
+            <!--<img src="yjzx/img/link-icon.png" alt="">-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="zhongxin-box ddzx">-->
+          <!--<div class="zhongxin-name">紧急调度中心</div>-->
+          <!--<div class="btm-part">-->
+            <!--<span>点击进入</span>-->
+            <!--<img src="yjzx/img/link-icon.png" alt="">-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="video-play-box">-->
+          <!--<div class="add-box"></div>-->
+          <!--<div class="full-screen"></div>-->
+        <!--</div>-->
+        <!--<div class="video-list" id="video-list2">-->
+          <!--<ul>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
+        <!--<div class="line-box">-->
+          <!--<div class="line" id="line2">-->
+            <!--<div class="tuodong" id="tuodong2"></div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="emp-box">-->
+          <!--<div class="touxiang">-->
 
-          </div>
-          <div class="emp-data-box">
-            <p>
-              <label for="">值班人:</label>
-              <span></span>
-            </p>
-            <p>
-              <label for="">预警电话:</label>
-              <span></span>
-            </p>
-          </div>
-          <div class="icon"></div>
-        </div>
+          <!--</div>-->
+          <!--<div class="emp-data-box">-->
+            <!--<p>-->
+              <!--<label>值班人:</label>-->
+              <!--<span></span>-->
+            <!--</p>-->
+            <!--<p>-->
+              <!--<label>预警电话:</label>-->
+              <!--<span></span>-->
+            <!--</p>-->
+          <!--</div>-->
+          <!--<div class="icon"></div>-->
+        <!--</div>-->
 
-        <div class="video-play-box2">
-          <div class="box2-main">
-            <span>请选择摄像头</span>
-          </div>
-          <div class="video-list">
-            <ul>
-              <li>
-                <div class="footer"></div>
-              </li>
-              <li>
-                <div class="footer"></div>
-              </li>
-            </ul>
-          </div>
-          <div class="line-box">
-            <div class="line">
-              <div class="tuodong"></div>
-            </div>
-          </div>
-          <div class="close-icon"></div>
-        </div>
+        <!--<div class="video-play-box2">-->
+          <!--<div class="box2-main">-->
+            <!--<span>请选择摄像头</span>-->
+          <!--</div>-->
+          <!--<div class="video-list">-->
+            <!--<ul>-->
+              <!--<li>-->
+                <!--<div class="footer"></div>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<div class="footer"></div>-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</div>-->
+          <!--<div class="line-box">-->
+            <!--<div class="line">-->
+              <!--<div class="tuodong"></div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="close-icon"></div>-->
+        <!--</div>-->
       </div>
 
     </li>
     <li data-name="实时客流" class="tab-box2-li2 tab-box2-li">
+      <div class="li-bg"></div>
+
       <div class="li-tab-box">
         <div class="header1">
           <label>实时客流量</label>
@@ -591,22 +1080,24 @@
         </div>
 
         <!--<div class="KLHX-box">-->
-          <!--<div class="KLHX" id="KLHX2">-->
-          <!--</div>-->
-          <!--<div class="hm man">-->
-            <!--<span>12%</span>-->
-          <!--</div>-->
-          <!--<div class="hm woman">-->
-            <!--<span>12%</span>-->
-          <!--</div>-->
+        <!--<div class="KLHX" id="KLHX2">-->
+        <!--</div>-->
+        <!--<div class="hm man">-->
+        <!--<span>12%</span>-->
+        <!--</div>-->
+        <!--<div class="hm woman">-->
+        <!--<span>12%</span>-->
+        <!--</div>-->
         <!--</div>-->
       </div>
     </li>
     <li data-name="旅客洞察" class="tab-box2-li4 tab-box2-li">
+      <div class="li-bg"></div>
+
       <div class="li-tab-box">
         <div class="calendar-box">
           <div class="calendar">
-            <div style="width: 280px;height: 40px;background-color: #114d8a;position: relative;" id="tab-li4-cld2-box">
+            <div style="width: 280px;height: 40px;background-color: #0a214b;position: relative;" id="tab-li4-cld2-box">
               <div class="cld-icon"></div>
               <input type="text" class="tab-li4-cld" id="tab-li4-cld2">
               <div class="arrow"></div>
@@ -615,8 +1106,8 @@
         </div>
         <div class="scroll-box">
           <div class="sb-container">
-            <div class="chart1" id="tab3li3-chart1">
-            </div>
+            <!--<div class="chart1" id="tab3li3-chart1">-->
+            <!--</div>-->
             <div class="KLHX-box">
               <div class="hm man">
                 <span></span>
@@ -666,101 +1157,143 @@
         <!--<div class="chart2" id="tab3li3-chart2"></div>-->
       </div>
     </li>
-    <li data-name="旅客趋势" class="tab-box2-li3 tab-box2-li">
-      <div class="li-tab-box">
-        <div class="calendar-box">
-          <input type="text" id="tab3-li3-cld2" class="tab-li3-cld">
-          <div class="calendar" id="tab3-li3-cld2-box">
-            <div class="cld-icon"></div>
-            <input type="text" id="tab3-li3-cld2-1" class="hidden-cld">
-            <div class="arrow"></div>
-          </div>
-        </div>
-        <div class="chart1" id="tab3li4-chart1"></div>
-        <!--<div class="chart2" id="tab3li4-chart2"></div>-->
-      </div>
-    </li>
+    <!--<li data-name="旅客趋势" class="tab-box2-li3 tab-box2-li">-->
+      <!--<div class="li-tab-box">-->
+        <!--<div class="calendar-box">-->
+          <!--<input type="text" id="tab3-li3-cld2" class="tab-li3-cld">-->
+          <!--<div class="calendar" id="tab3-li3-cld2-box">-->
+            <!--<div class="cld-icon"></div>-->
+            <!--<input type="text" id="tab3-li3-cld2-1" class="hidden-cld">-->
+            <!--<div class="arrow"></div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="chart1" id="tab3li4-chart1"></div>-->
+        <!--&lt;!&ndash;<div class="chart2" id="tab3li4-chart2"></div>&ndash;&gt;-->
+      <!--</div>-->
+    <!--</li>-->
+    <!--<li data-name="" class="tab-box2-li5 tab-box2-li" onclick="window.open('http://10.0.64.217/layout/conference/template','newwindow','height=400,width=600,top=100,left=100,scrollbars=no,resizable=no,location=no, status=no')">-->
+      <!--<div class="li-bg"></div>-->
+
+    <!--</li>-->
+
   </ul>
   <!--收费站tab-->
   <ul id="tab4" class="tab-box4 vh">
-    <li data-name="实时监控" class="tab-box2-li1 tab-box2-li">
+    <li data-name="实时监控" class="tab-box2-li1 tab-box2-li vh">
+      <div class="li-bg"></div>
+
       <div class="li-tab-box">
-        <div class="video-play-box">
-          <div class="add-box"></div>
-          <div class="full-screen"></div>
-        </div>
-        <div class="video-list" id="video-list3">
+        <!--摄像头部分-->
+        <div class="camera-box">
           <ul>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
+            <!--<li onclick="window.location.href='SHWGOIE:http://14.23.164.13:7001/video/?vid=18052907071310018378'">-->
+              <!--<section>-->
+                <!--<img src="yjzx/img/cam_nor.png" alt="">-->
+              <!--</section>-->
+              <!--<span>广州南站一号摄像头</span>-->
+            <!--</li>-->
+            <!--<li onclick="window.location.href='SHWGOIE:http://14.23.164.13:7001/video/?vid=18052907111310018970'">-->
+              <!--<section>-->
+                <!--<img src="yjzx/img/cam_nor.png" alt="">-->
+              <!--</section>-->
+              <!--<span>广州南站一号摄像头</span>-->
+            <!--</li>-->
           </ul>
         </div>
-        <div class="line-box">
-          <div class="line" id="line3">
-            <div class="tuodong" id="tuodong3"></div>
-          </div>
-        </div>
-        <div class="emp-box">
-          <div class="touxiang">
 
-          </div>
-          <div class="emp-data-box">
-            <p>
-              <label for="">值班人:</label>
-              <span></span>
-            </p>
-            <p>
-              <label for="">预警电话:</label>
-              <span></span>
-            </p>
-          </div>
-          <div class="icon"></div>
-        </div>
 
-        <div class="video-play-box2">
-          <div class="box2-main">
-            <span>请选择摄像头</span>
-          </div>
-          <div class="video-list">
-            <ul>
-              <li>
-                <div class="footer"></div>
-              </li>
-              <li>
-                <div class="footer"></div>
-              </li>
-            </ul>
-          </div>
-          <div class="line-box">
-            <div class="line">
-              <div class="tuodong"></div>
-            </div>
-          </div>
-          <div class="close-icon"></div>
-        </div>
+        <!--<div class="zhongxin-box jkzx">-->
+          <!--<div class="zhongxin-name">视频监控中心</div>-->
+          <!--<div class="btm-part">-->
+            <!--<span>点击进入</span>-->
+            <!--<img src="yjzx/img/link-icon.png" alt="">-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="zhongxin-box ddzx">-->
+          <!--<div class="zhongxin-name">紧急调度中心</div>-->
+          <!--<div class="btm-part">-->
+            <!--<span>点击进入</span>-->
+            <!--<img src="yjzx/img/link-icon.png" alt="">-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="video-play-box">-->
+          <!--<div class="add-box"></div>-->
+          <!--<div class="full-screen"></div>-->
+        <!--</div>-->
+        <!--<div class="video-list" id="video-list3">-->
+          <!--<ul>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="footer"></div>-->
+            <!--</li>-->
+          <!--</ul>-->
+        <!--</div>-->
+        <!--<div class="line-box">-->
+          <!--<div class="line" id="line3">-->
+            <!--<div class="tuodong" id="tuodong3"></div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="emp-box">-->
+          <!--<div class="touxiang">-->
+
+          <!--</div>-->
+          <!--<div class="emp-data-box">-->
+            <!--<p>-->
+              <!--<label>值班人:</label>-->
+              <!--<span></span>-->
+            <!--</p>-->
+            <!--<p>-->
+              <!--<label>预警电话:</label>-->
+              <!--<span></span>-->
+            <!--</p>-->
+          <!--</div>-->
+          <!--<div class="icon"></div>-->
+        <!--</div>-->
+
+        <!--<div class="video-play-box2">-->
+          <!--<div class="box2-main">-->
+            <!--<span>请选择摄像头</span>-->
+          <!--</div>-->
+          <!--<div class="video-list">-->
+            <!--<ul>-->
+              <!--<li>-->
+                <!--<div class="footer"></div>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<div class="footer"></div>-->
+              <!--</li>-->
+            <!--</ul>-->
+          <!--</div>-->
+          <!--<div class="line-box">-->
+            <!--<div class="line">-->
+              <!--<div class="tuodong"></div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="close-icon"></div>-->
+        <!--</div>-->
       </div>
 
     </li>
     <li data-name="实时客流" class="tab-box2-li2 tab-box2-li">
+      <div class="li-bg"></div>
+
       <div class="li-tab-box">
         <div class="header2">
           <div>
@@ -769,18 +1302,18 @@
               <label class="sskl-num"></label>
             </p>
           </div>
-          <div>
-            <p class="title-name">实时进入车辆</p>
-            <p>
-              <label class="sskl-in"></label>
-            </p>
-          </div>
-          <div>
-            <p class="title-name">实时离开车辆</p>
-            <p>
-              <label class="sskl-out"></label>
-            </p>
-          </div>
+          <!--<div>-->
+          <!--<p class="title-name">实时进入车辆</p>-->
+          <!--<p>-->
+          <!--<label class="sskl-in"></label>-->
+          <!--</p>-->
+          <!--</div>-->
+          <!--<div>-->
+          <!--<p class="title-name">实时离开车辆</p>-->
+          <!--<p>-->
+          <!--<label class="sskl-out"></label>-->
+          <!--</p>-->
+          <!--</div>-->
         </div>
         <div class="tab4-zlsc" id="tab4-zlsc"></div>
         <div class="tab4-klqs-box">
@@ -790,272 +1323,100 @@
           </div>
           <div class="tab4-klqs" id="tab4-klqs"></div>
         </div>
-        <div class="tab4-klhx-box">
-          <div class="hm man">
-            <span></span>
-          </div>
-          <div class="hm woman">
-            <span></span>
-          </div>
-          <div class="tab4-klhx" id="tab4-klhx"></div>
-        </div>
+        <!--<div class="tab4-klhx-box">-->
+        <!--<div class="hm man">-->
+        <!--<span></span>-->
+        <!--</div>-->
+        <!--<div class="hm woman">-->
+        <!--<span></span>-->
+        <!--</div>-->
+        <!--<div class="tab4-klhx" id="tab4-klhx"></div>-->
+        <!--</div>-->
       </div>
 
     </li>
-    <li data-name="旅客洞察" class="tab-box2-li4 tab-box2-li">
-      <div class="li-tab-box">
-        <div class="calendar-box">
-          <div class="calendar">
-            <div style="width: 280px;height: 40px;background-color: #114d8a;position: relative;" id="tab4-m-cld-box">
-              <div class="cld-icon"></div>
-              <input type="text" class="m-cld" id="tab4-m-cld">
-              <div class="arrow"></div>
-            </div>
-          </div>
-        </div>
-        <header>
-          <div>
-            <p class="title-name">全天客流量</p>
-            <p>
-              <label class="qtkl-num"></label>
-            </p>
-          </div>
-          <div>
-            <p class="title-name">全天进入车辆</p>
-            <p>
-              <label class="qtcl-in"></label>
-            </p>
-          </div>
-          <div>
-            <p class="title-name">全天离开车辆</p>
-            <p>
-              <label class="qtcl-out"></label>
-            </p>
-          </div>
+    <!--<li data-name="旅客洞察" class="tab-box2-li4 tab-box2-li">-->
+      <!--<div class="li-tab-box">-->
+        <!--<div class="calendar-box">-->
+          <!--<div class="calendar">-->
+            <!--<div style="width: 280px;height: 40px;background-color: #0a214b;position: relative;" id="tab4-m-cld-box">-->
+              <!--<div class="cld-icon"></div>-->
+              <!--<input type="text" class="m-cld" id="tab4-m-cld">-->
+              <!--<div class="arrow"></div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="scroll-box">-->
+          <!--<header>-->
+            <!--<div>-->
+              <!--<p class="title-name">全天客流量</p>-->
+              <!--<p>-->
+                <!--<label class="qtkl-num"></label>-->
+              <!--</p>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<p class="title-name">全天进入车辆</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;<p>&ndash;&gt;-->
+            <!--&lt;!&ndash;<label class="qtcl-in"></label>&ndash;&gt;-->
+            <!--&lt;!&ndash;</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<p class="title-name">全天离开车辆</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;<p>&ndash;&gt;-->
+            <!--&lt;!&ndash;<label class="qtcl-out"></label>&ndash;&gt;-->
+            <!--&lt;!&ndash;</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-        </header>
-        <div class="tab4-zlsc" id="tab4-zlsc-day"></div>
-        <div class="tab4-zlsc2" id="tab4-zlsc2"></div>
-      </div>
+          <!--</header>-->
+          <!--<div class="tab4-zlsc" id="tab4-zlsc-day"></div>-->
+          <!--<div class="tab4-zlsc2" id="tab4-zlsc2"></div>-->
+          <!--<div class="tab4-klhx-box">-->
+            <!--<div class="hm man">-->
+              <!--<span></span>-->
+            <!--</div>-->
+            <!--<div class="hm woman">-->
+              <!--<span></span>-->
+            <!--</div>-->
+            <!--<div class="tab4-klhx" id="tab4-klhx"></div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
 
-    </li>
-    <li data-name="旅客趋势" class="tab-box2-li3 tab-box2-li">
-      <div class="li-tab-box">
-        <div class="calendar-box">
-          <input type="text" id="tab4-big-cld" class="tab4-big-cld">
-          <div class="calendar" id="tab4-big-cld-box">
-            <div class="cld-icon"></div>
-            <input type="text" id="tab4-big-cld-1" class="hidden-cld">
-            <div class="arrow"></div>
-          </div>
-        </div>
-        <div class="chart-box" id="tab4-zklqs">
+    <!--</li>-->
+    <!--<li data-name="旅客趋势" class="tab-box2-li3 tab-box2-li">-->
+      <!--<div class="li-tab-box">-->
+        <!--<div class="calendar-box">-->
+          <!--<input type="text" id="tab4-big-cld" class="tab4-big-cld">-->
+          <!--<div class="calendar" id="tab4-big-cld-box">-->
+            <!--<div class="cld-icon"></div>-->
+            <!--<input type="text" id="tab4-big-cld-1" class="hidden-cld">-->
+            <!--<div class="arrow"></div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="chart-box" id="tab4-zklqs">-->
 
-        </div>
-        <div class="chart-box" id="tab4-clqs">
+        <!--</div>-->
+        <!--&lt;!&ndash;<div class="chart-box" id="tab4-clqs">&ndash;&gt;-->
 
-        </div>
-      </div>
-    </li>
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--</div>-->
+    <!--</li>-->
+    <!--<li data-name="" class="tab-box2-li5 tab-box2-li" onclick="window.open('http://10.0.64.217/layout/conference/template','newwindow','height=400,width=600,top=100,left=100,scrollbars=no,resizable=no,location=no, status=no')">-->
+      <!--<div class="li-bg"></div>-->
+
+    <!--</li>-->
+
   </ul>
-  <!--高速路段-->
-  <ul id="tab5" class="tab-box5 vh">
-    <li data-name="实时监控" class="tab-box2-li1 tab-box2-li">
-      <div class="li-tab-box">
-        <div class="video-play-box">
-          <div class="add-box"></div>
-          <div class="full-screen"></div>
-        </div>
-        <div class="video-list" id="video-list4">
-          <ul>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-            <li>
-              <div class="footer"></div>
-            </li>
-          </ul>
-        </div>
-        <div class="line-box">
-          <div class="line" id="line3">
-            <div class="tuodong" id="tuodong3"></div>
-          </div>
-        </div>
-        <div class="emp-box">
-          <div class="touxiang">
 
-          </div>
-          <div class="emp-data-box">
-            <p>
-              <label for="">值班人:</label>
-              <span></span>
-            </p>
-            <p>
-              <label for="">预警电话:</label>
-              <span></span>
-            </p>
-          </div>
-          <div class="icon"></div>
-        </div>
-
-        <div class="video-play-box2">
-          <div class="box2-main">
-            <span>请选择摄像头</span>
-          </div>
-          <div class="video-list">
-            <ul>
-              <li>
-                <div class="footer"></div>
-              </li>
-              <li>
-                <div class="footer"></div>
-              </li>
-            </ul>
-          </div>
-          <div class="line-box">
-            <div class="line">
-              <div class="tuodong"></div>
-            </div>
-          </div>
-          <div class="close-icon"></div>
-        </div>
-      </div>
-
-    </li>
-    <li data-name="实时客流" class="tab-box2-li2 tab-box2-li">
-      <div class="li-tab-box">
-        <div class="header2">
-          <div>
-            <p class="title-name">实时客流量</p>
-            <p>
-              <label class="sskl-num"></label>
-            </p>
-          </div>
-          <div>
-            <p class="title-name">实时进入车辆</p>
-            <p>
-              <label class="sskl-in"></label>
-            </p>
-          </div>
-          <div>
-            <p class="title-name">实时离开车辆</p>
-            <p>
-              <label class="sskl-out"></label>
-            </p>
-          </div>
-        </div>
-        <div class="chart-box">
-          <div class="tab5-klqs" id="tab5-klqs"></div>
-          <div class="calendar-box" id="tab5-cld1">
-            <input type="text" id="tab5-klqs-cld" class="sskl-cld2">
-            <div class="arrow"></div>
-          </div>
-        </div>
-        <div class="chart-box">
-          <div class="tab5-yxsd" id="tab5-yxsd"></div>
-          <div class="calendar-box"  id="tab5-cld2">
-            <input type="text" id="tab5-klqs-cld2" class="sskl-cld2">
-            <div class="arrow"></div>
-          </div>
-        </div>
-      </div>
-    </li>
-    <li data-name="旅客趋势" class="tab-box2-li3 tab-box2-li">
-      <div class="li-tab-box">
-        <div class="calendar-box">
-          <input type="text" id="tab5-big-cld" class="tab5-big-cld">
-          <div class="calendar" id="tab5-big-cld-box">
-            <div class="cld-icon"></div>
-            <input type="text" id="tab5-big-cld-1" class="hidden-cld">
-            <div class="arrow"></div>
-          </div>
-        </div>
-        <div class="chart-box" id="tab5-klqs-week">
-
-        </div>
-        <div class="chart-box" id="tab5-clqs-week">
-
-        </div>
-        <div class="chart-box" id="tab5-clfb-week">
-
-        </div>
-      </div>
-    </li>
-  </ul>
   <!--鹰眼-->
   <div id="container2" class="container container2" style="width: 386px;height: 300px;">
-      <div style="width: 200px;height: 100px;" class="yingyan" id="yingyan"></div>
+    <div style="width: 200px;height: 100px;" class="yingyan" id="yingyan"></div>
   </div>
 
-  <!--高速路网排行-->
-  <div class="luwang-box" id="luwang-box">
-    <div class="container">
-      <div class="profile">
-        <div class="date" id="curDate">
-          <!--12月23日 星期日-->
-        </div>
-        <div class="led" id="curTime">
-          <!--11:02:12-->
-        </div>
-      </div>
-
-      <div class="title-lw congest" style="margin-top: 12px;">
-        <p>拥堵路段</p>
-        <div class="headers">
-          <table>
-            <tbody>
-            <tr>
-              <td>排名</td>
-              <td>路线名称/桩号</td>
-              <td>拥堵长度/速度</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="multiPanel">
-        <div class="container">
-          <ul id="jam-rank">
-            <!--<li>-->
-              <!--<div class="idx">-->
-                <!--<span>1</span>-->
-              <!--</div>-->
-              <!--<div class="road-profile">-->
-                <!--<p>G4W2清连高速</p>-->
-                <!--<p>由南向北</p>-->
-              <!--</div>-->
-              <!--<div class="jam-data">-->
-                <!--<p>4.59km</p>-->
-                <!--<p>15km/h</p>-->
-              <!--</div>-->
-            <!--</li>-->
-
-          </ul>
-        </div>
-      </div>
-    </div>
-
-  </div>
 </div>
 
-<div id="DivButton" style="position:fixed;top:0px;right:0px;">
-
-</div>
+<!--楼层按钮-->
+<div id="DivButton" style="position:fixed;top:0px;right:0px;"></div>
 
 
 <script src="lib/jquery-1.8.2.min.js"></script>
@@ -1077,74 +1438,10 @@
   src="https://webapi.amap.com/ui/1.0/ui/geo/DistrictExplorer.js?v=1.0.11&mt=ui&key=e78eb14a0b3399d1733b27fb6835e460"></script>
 <script src="yjzx/js/map.js"></script>
 
-<!--<script type="text/javascript">-->
-<!--//  标注城市-->
-  <!--var theCitys = {-->
-    <!--"广州市": "113.264385,23.129112",-->
-    <!--"深圳市": "114.085947,22.547",-->
-    <!--"珠海市": "113.553986,22.224979",-->
-    <!--"汕头市": "116.708463,23.37102",-->
-    <!--"佛山市": "113.122717,23.028762",-->
-    <!--"韶关市": "113.597313,24.811094",-->
-    <!--"河源市": "114.697802,23.746266",-->
-    <!--"梅州市": "116.117582,24.299112",-->
-    <!--"惠州市": "114.412599,23.079404",-->
-    <!--"汕尾市": "115.364238,22.774485",-->
-    <!--"东莞市": "113.746262,23.046237",-->
-    <!--"中山市": "113.382391,22.521113",-->
-    <!--"江门市": "113.094942,22.590431",-->
-    <!--"阳江市": "111.982697,21.857415",-->
-    <!--"湛江市": "110.364977,21.274898",-->
-    <!--"茂名市": "110.919229,21.659751",-->
-    <!--"肇庆市": "112.472529,23.051546",-->
-    <!--"清远市": "113.051227,23.685022",-->
-    <!--"潮州市": "116.632301,23.661701",-->
-    <!--"揭阳市": "116.355733,23.543778",-->
-    <!--"云浮市": "112.044439,22.929801"-->
-  <!--};-->
-  <!--for (var theCityName in theCitys) {-->
-    <!--var thelngLat = theCitys[theCityName];-->
-    <!--var thelngLats = thelngLat.split(',');-->
-    <!--var marker = new AMap.Marker({-->
-      <!--position: new AMap.LngLat(parseFloat(thelngLats[0]), parseFloat(thelngLats[1])),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]-->
-      <!--title: theCityName,-->
-      <!--content: '<div style="color:white;width: 3em;font-size:20px;font-weight:bold">' + theCityName + '</div>'-->
-    <!--});-->
-    <!--theMap.add(marker);-->
-  <!--}-->
-
-
-  <!--var thePoints = {-->
-<!--//    "广州南站": {"latitude": 22.9874720000, "longitude": 113.2685860000, "type": "铁路", 'icon': 'tielu3.png'},-->
-    <!--// "深圳火车站": { "latitude": 22.5319900000, "longitude": 114.1176800000 },-->
-<!--//    "深圳北站": {"latitude": 22.6097250000, "longitude": 114.0291130000, "type": "铁路", 'icon': 'tielu3.png'},-->
-    <!--//"广州东站": { "latitude": 23.1505660000, "longitude": 113.3249000000 },-->
-    <!--//"广州火车站": { "latitude": 23.1494150000, "longitude": 113.2572910000 },-->
-    <!--//"广州北站": { "latitude": 23.3774050000, "longitude": 113.2037940000 },-->
-    <!--//"深圳西站": { "latitude": 22.5275730000, "longitude": 113.9073060000 },-->
-    <!--//"深圳东站": { "latitude": 22.6019860000, "longitude": 114.1199340000 },-->
-<!--//    "珠海站": {"latitude": 22.2153960000, "longitude": 113.5496410000, "type": "铁路", 'icon': 'tielu3.png'},-->
-    <!--//"白云国际机场": { "latitude": 23.3896270000, "longitude": 113.3076480000 },-->
-<!--//    "白云国际机场": {"latitude": 23.396544, "longitude": 113.306199, "type": "民航", 'maxLevel': 17, 'icon': 'feiji3.png'},-->
-    <!--//"宝安国际机场": { "latitude": 22.6333600000, "longitude": 113.8145490000 },-->
-<!--//    "宝安国际机场": {"latitude": 22.62506, "longitude": 113.812809, "type": "民航", 'icon': 'feiji3.png'},-->
-    <!--//"珠海金湾国际机场": { "latitude": 22.0057560000, "longitude": 113.3819450000 },-->
-    <!--//"揭阳潮汕国际机场": { "latitude": 23.5463610000, "longitude": 116.5092740000 }-->
-  <!--};-->
-
-  <!--for (var theCityName in thePoints) {-->
-    <!--var thelngLat = thePoints[theCityName];-->
-<!--//    debugger;-->
-    <!--var marker = new AMap.Marker({-->
-      <!--position: new AMap.LngLat(thelngLat.longitude, thelngLat.latitude),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]-->
-      <!--title: theCityName,-->
-      <!--content: '<div style="color:white;width: 3em;font-size:14px">' + theCityName + '</div>'-->
-    <!--});-->
-    <!--theMap.add(marker);-->
-  <!--}-->
-<!--</script>-->
+<script src="yjzx/js/stationCamData.js"></script>
 <script src="yjzx/js/data.js"></script>
 <script src="yjzx/js/LuDuanData.js"></script>
+<script src="yjzx/js/rectangleData.js"></script>
 <!--<script src="yjzx/js/tuodong.js"></script>-->
 <script src="lib/underscore-min.js"></script>
 <script src="lib/moment/moment-with-locales.min.js"></script>

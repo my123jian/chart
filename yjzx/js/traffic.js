@@ -79,6 +79,95 @@ TrafficView.prototype.drawRoads = function (paramters, nowTab) {
   this.showRoads();
 }
 
+/**
+ * 重点路段
+ * @param paramters
+ */
+TrafficView.prototype.drawKeyRoad = function (paramters) {
+  for (var i = 0; i < this.RoadPaths.length; i++) {
+    this.TheMap.remove(this.RoadPaths[i]);
+  }
+  this.RoadPaths = [];
+  // debugger
+  var pathArray = [];
+  for (var i = 0; i < paramters.length; i++) {
+    var p = paramters[i].split(',');
+    if (p.length < 2) {
+      console.log('数据不对', p)
+      continue
+    }
+    // console.log(p)
+    var a = new AMap.LngLat(parseFloat(p[0]), parseFloat(p[1]));
+    pathArray.push(a);
+  }
+
+  // debugger;
+  var RoadPath = new AMap.Polyline({
+    path: pathArray,
+    strokeColor: "#a61dff",
+    strokeOpacity: "0.6",
+    strokeWeight: "6",
+    strokeStyle: "solid",
+    zIndex: 1000,
+    strokeDasharray: [10, 5]
+  });
+
+  // this.TheMap.add(RoadPath);  // 不画线
+  this.RoadPaths.push(RoadPath);
+  this.showRoads();
+};
+
+TrafficView.prototype.drawLuDuan = function (paramter) {
+  // debugger
+  var theRoad = this.drawRoad(paramter);
+  this.RoadPaths.push(theRoad);
+  this.showRoads();
+
+};
+var RoadPath;
+/**
+ * 画站点的矩形
+ * @param paramters
+ */
+TrafficView.prototype.drawTheRectangle = function (paramters) {
+  for (var i = 0; i < this.RoadPaths.length; i++) {
+    this.TheMap.remove(this.RoadPaths[i]);
+  }
+  this.RoadPaths = [];
+  // debugger
+  var pathArray = [];
+  for (var i = 0; i < paramters.length; i++) {
+    var p = paramters[i];
+    if (p.length < 2) {
+      console.log('数据不对', p);
+      continue
+    }
+    // console.log(p)
+    var a = new AMap.LngLat(p[0], p[1]);
+    pathArray.push(a);
+  }
+  console.log('开始画线');
+  // debugger;
+  RoadPath = new AMap.Polygon ({
+    path: pathArray,
+    fillColor: '#4fbefc', // 多边形填充颜色
+    strokeWeight: 10, // 线条宽度，默认为 1
+    strokeColor: '#fff', // 线条颜色
+    strokeOpacity: 1, // 线条透明度
+    fillOpacity: 0,
+    zIndex: 10010,
+    // strokeDasharray: [10, 5]
+    isOutline: true,
+    borderWeight: 3,
+  });
+  RoadPath.setMap(theMap);
+  // 缩放地图到合适的视野级别
+  theMap.setFitView([ RoadPath ]);
+  // this.TheMap.add(RoadPath);  // 不画线
+  this.RoadPaths.push(RoadPath);
+  // this.showRoads();
+};
+
 TrafficView.prototype.drawLuDuan = function (paramter) {
   // debugger
   var theRoad = this.drawRoad(paramter);
@@ -109,24 +198,6 @@ TrafficView.prototype.drawRoad = function (paramter) {
     var a = new AMap.LngLat(parseFloat(p[0]), parseFloat(p[1]));
     pathArray.push(a);
   }
-  //   var pathArray = path.map(function (item) {
-  //       // debugger
-  //       var temp = item.split(',');
-  //       // console.log(temp)
-  //       if(temp.length===2) {
-  //           return new AMap.LngLat(parseFloat(temp[0]), parseFloat(temp[1]))
-  //
-  //       }
-  //       // debugger
-  //   });
-  // debugger
-  //   console.log('pathArr:',pathArray);
-  //   pathArray.map(function (i) {
-  //     me.pArr.push(i)
-  //   })
-  // console.log('parr',pArr)
-  var theStartPoint = path[0];
-  var theEndPoint = path[path.length - 1];
 
   // debugger;
   var RoadPath = new AMap.Polyline({
@@ -145,10 +216,10 @@ TrafficView.prototype.drawRoad = function (paramter) {
   // idx++;
   // console.log(idx)
 
-  if (this.nowTab === '高速') {
-    // console.log(1111)
-    this.TheMap.add(RoadPath);
-  }
+  // if (this.nowTab === '高速') {
+  // console.log(1111)
+  // this.TheMap.add(RoadPath);
+  // }
 
   //this.RoadPath.setPath(path);
   // this.drawStart(theStartPoint);
@@ -195,13 +266,11 @@ TrafficView.prototype.showRoads = function () {
     for (var i = 0; i < this.RoadPaths.length; i++) {
       this.RoadPaths[i].show();
     }
+    // console.log(this.RoadPaths)
     // debugger
     // this.TheMap.setFitView();
-    if (this.nowTab !== '高速') {
-      this.TheMap.setFitView(this.RoadPaths);
-    }
-    // this.TheMap.setFitView(this.RoadPaths);
-    // debugger
+    this.TheMap.setFitView(this.RoadPaths);
+
   }
 
   // map.setFitView([polyline,marker1]);
