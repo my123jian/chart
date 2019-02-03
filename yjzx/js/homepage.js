@@ -2266,9 +2266,7 @@ $(function () {
         return parseFloat(t)
       });  // 终点经纬度
 
-     /* var theTotalDatas= liDetailsArray.map(function(m){return m.xys}).join(";").split(";");
-
-      debugger*/
+      // debugger
       var angle = calcAngle(startLngLat, endLngLat);  // 角度
       var dir = judgeDirection(angle);  // 方向 todo 方向不准确
 
@@ -2447,6 +2445,10 @@ $(function () {
               });
               handleKeyRoadArr()
             }
+          } else {
+            alert(data.returnMsg);
+            location.reload()
+
           }
         },
         complete: function (XMLHttpRequest, status) {

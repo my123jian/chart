@@ -1584,18 +1584,9 @@ $(function () {
             var theDefaultListHash = {};
             var theExitListHash = {};
             var theBeginDate = new Date(theCallArgument.date + " 00:00:00");
-            var theCurrentDate = new Date();
+            var theCurrentDate = new Date().nextMinutes(-60);
             var theEndDate = new Date(theCallArgument.date + " 23:55:00");
-            if (theEndDate.getTime() < theCurrentDate.getTime()) {
-                theCurrentDate = theEndDate;
-            }
-            while (theBeginDate.getTime() <= theCurrentDate.getTime()) {
-                theDefaultList.push(0);
-                theDefaultListHash[theBeginDate.getTime()] = theDefaultList.length - 1;
-                theExitListHash[theBeginDate.getTime()]=true;
-                theBeginDate = theBeginDate.nextMinutes(5);
-                //debugger;
-            }
+
             if (data && data.isSuccess) {
                 var theResultDatas = data.data;//数据长度
                 var dataMigOut1 = [];
@@ -1608,6 +1599,28 @@ $(function () {
                 var data4 = [];
                 var theTotal = 0;
                 var theAvg=0;
+                var theMaxDate=null;
+
+                for (var i = 0; i < theResultDatas.length; i++){
+                    var theDataItem = theResultDatas[i];
+                    var tehDataDate = theDataItem['statDate'];
+                    var theDate = me.parserDate(tehDataDate);
+                    theMaxDate=theDate;
+                }
+                if (theEndDate.getTime() < theCurrentDate.getTime()) {
+                    theCurrentDate = theEndDate;
+                }
+                //debugger;
+                if(theMaxDate.getTime()>theCurrentDate.getTime()){
+                    theCurrentDate = theMaxDate;
+                }
+                while (theBeginDate.getTime() <= theCurrentDate.getTime()) {
+                    theDefaultList.push(0);
+                    theDefaultListHash[theBeginDate.getTime()] = theDefaultList.length - 1;
+                    theExitListHash[theBeginDate.getTime()]=true;
+                    theBeginDate = theBeginDate.nextMinutes(5);
+                    //debugger;
+                }
                 for (var i = 0; i < theResultDatas.length; i++) {
                     var theDataItem = theResultDatas[i];
                     var tehDataDate = theDataItem['statDate'];
@@ -1615,6 +1628,7 @@ $(function () {
                     theDefaultList[theDefaultListHash[theDate.getTime()]] = theDataItem.countNum;
                     theExitListHash[theDate.getTime()]=false;
                     theTotal+=(theDataItem.countNum||0);
+                    theMaxDate=theDate;
                     /*if (theDate.getTime() <= theCurrentDate.getTime()) {
                         dataMigOut1.push(theDataItem.outNum);
                         dataMigIn1.push(theDataItem.inNum);
@@ -1674,7 +1688,9 @@ $(function () {
                         theArrays.push(theDate);
                     }
                 }
-                console.error("缺少日期数据:"+JSON.stringify(theArrays));
+                console.error("缺少日期数据:"+JSON.stringify(theArrays.map(function(m){
+                    return m.getFullYear()+"-"+(m.getMonth()+1)+'-'+m.getDate()+" "+m.getHours()+":"+m.getMinutes()+":"+m.getSeconds();
+                })));
             }
             else {
                 console.log("loadCurrent错误:" + data);

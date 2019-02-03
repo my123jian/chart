@@ -324,7 +324,7 @@ $(function () {
         theCurrentOption.grid.bottom = 30;
         var theXData = [];
         //var theTodayDate=new Date();
-        for (var i = 0; i <= 24; i++) {
+        for (var i = 0; i < 24; i++) {
             theXData.push(i);
         }
         theCurrentOption.xAxis = {
