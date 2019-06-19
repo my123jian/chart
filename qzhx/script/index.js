@@ -112,13 +112,13 @@ $(function () {
     //获取当前的日期数据
     var formateDate = function () {
         if (!theCurrentDate) {
-            return GetTodayDate().before(2).formate();
+            return getInitDate('',GetTodayDate().before(2)).formate();
         }
         return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
     }
     var formateDate3 = function () {
         if (!theCurrentDate3) {
-            return GetTodayDate().formate();
+            return getInitDate('',GetTodayDate()).formate();
         }
         return theCurrentDate3.year + '-' + FormateDateNum(theCurrentDate3.month) + '-' + FormateDateNum(theCurrentDate3.date);//
     }
@@ -143,7 +143,7 @@ $(function () {
     var formateDate1 = function () {
         //debugger;
         if (!theCurrentDate1) {
-            var theDate = GetFromDate();
+            var theDate = getInitDate('',GetFromDate());
             var theBeginDay = theDate.getDay();
             var theBeginDate = theDate.addDays(-7);
             var theEndDate = theBeginDate.addDays(7);
