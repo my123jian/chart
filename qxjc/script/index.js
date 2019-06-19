@@ -21,7 +21,7 @@ $(function () {
     };
     var formateDate = function () {
         if (!theCurrentDate) {
-            var theDate = new Date();// GetYesterdayDate();
+            var theDate =getInitDate('', new Date());// GetYesterdayDate();
             //theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "-" + FormateDateNum(theDate.getMonth() + 1) + "-" + FormateDateNum(theDate.getDate());
         }
@@ -29,7 +29,7 @@ $(function () {
     }
     var formateDate1 = function () {
         if (!theCurrentDate) {
-            var theDate = GetTodayDate();
+            var theDate =getInitDate('', GetTodayDate());
             // theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "年" + FormateDateNum(theDate.getMonth() + 1) + "月" + FormateDateNum(theDate.getDate()) + '日';
         }

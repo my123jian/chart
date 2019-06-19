@@ -80,13 +80,13 @@ $(function () {
     //获取当前的日期数据
     var formateDate = function () {
         if (!theCurrentDate) {
-            return GetTodayDate().before(3).formate();
+            return getInitDate('', GetTodayDate().before(3)).formate();
         }
         return theCurrentDate.year + '-' + FormateDateNum(theCurrentDate.month) + '-' + FormateDateNum(theCurrentDate.date);//
     }
     var formateDate1 = function () {
         if (!theCurrentDate) {
-            var theDate = GetTodayDate().before(3);// GetFromDate();
+            var theDate = getInitDate('',GetTodayDate().before(3));// GetFromDate();
             //theDate.setDate(theDate.getDate()-1);
             return theDate.getFullYear() + "年" + FormateDateNum(theDate.getMonth() + 1) + "月" + FormateDateNum(theDate.getDate()) + '日';
         }
@@ -655,8 +655,8 @@ $(function () {
                         var theItem = theDataList[i];
                         if (theCharts[theItem.outChannel || theItem.inType || theItem.migChannel]) {
                             theTotalNum += (theItem.migNum || 0);
-                         // debugger;
-                          theCharts[theItem.outChannel || theItem.inType || theItem.migChannel].refresh('', (theItem.outPercentage || theItem.inPercentage || theItem.oPercentage));
+                            // debugger;
+                            theCharts[theItem.outChannel || theItem.inType || theItem.migChannel].refresh('', (theItem.outPercentage || theItem.inPercentage || theItem.oPercentage));
                         }
                     }
                     //debugger;
@@ -757,12 +757,12 @@ $(function () {
                     "5": "qita",
                 };
 
-                var theRowMap={};
+                var theRowMap = {};
                 for (var i = 0; i < theData.length; i++) {
                     var theDataItem = theData[i];
                     var theRow = {
                         "gonglu": 0.00,
-                        "minhang":0.00,
+                        "minhang": 0.00,
                         "shuilu": 0.00,
                         "tielu": 0.00,
                         "qita": 0.00,
@@ -803,26 +803,26 @@ toCity: "深圳"
                     for (var j = 0; j < theDataItem.list.length; j++) {
                         var theCellItem = theDataItem.list[j];
 
-                        theRow[theChannelMap[theCellItem.outChannel || theCellItem.inChannel || theCellItem.migChannel]] = ((theCellItem.outPercentage || theCellItem.inPercentage || theCellItem.oPercentage||0.00)*100).toFixed(2);
+                        theRow[theChannelMap[theCellItem.outChannel || theCellItem.inChannel || theCellItem.migChannel]] = ((theCellItem.outPercentage || theCellItem.inPercentage || theCellItem.oPercentage || 0.00) * 100).toFixed(2);
 
 
                     }
                     theTableList.push(theRow);
                 }
                 var theIndex = seeType;
-               // debugger;
+                // debugger;
                 me.currentTable = theTableList;
                 if (seeType == ViewType.PROVINCE) {
                     me.refreshPage(me.currentTable, theCurrentView, me.selectItem);
                 }
                 else {
                     //debugger;
-                    if(sourceType==DirectionType.JW&&me.currentTable){
-                        for(var i=0;i<me.currentTable.length;i++){
-                            me.currentTable[i]['minhang']=100;
+                    if (sourceType == DirectionType.JW && me.currentTable) {
+                        for (var i = 0; i < me.currentTable.length; i++) {
+                            me.currentTable[i]['minhang'] = 100;
                         }
                     }
-                    me.refreshPage(me.currentTable, theCurrentView,null);
+                    me.refreshPage(me.currentTable, theCurrentView, null);
                 }
 
                 me.loadTemplateTable('table-' + theIndex, theTableList);
