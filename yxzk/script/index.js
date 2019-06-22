@@ -58,6 +58,10 @@ $(function () {
         var formateDate = function () {
             if (!theCurrentDate) {
                 var theDate = GetYesterdayDate();// GetYesterdayDate();
+                var theMaxDate = new Date('2019-03-02');
+                if(theMaxDate.getTime()<theDate){
+                    theDate=theMaxDate;
+                }
                 //theDate.setDate(theDate.getDate()-1);
                 if (theDate.getHours() < 12) {
                     theDate = theDate.addDays(-1);
@@ -69,6 +73,10 @@ $(function () {
         var formateDate1 = function () {
             if (!theCurrentDate) {
                 var theDate = GetYesterdayDate();
+                var theMaxDate = new Date('2019-03-02');
+                if(theMaxDate.getTime()<theDate){
+                    theDate=theMaxDate;
+                }
                 //var theCurrentDate = new Date();
                 if (theDate.getHours() < 12) {
                     theDate = theDate.addDays(-1);
@@ -118,7 +126,7 @@ $(function () {
                 trigger: 'click',
                 format: 'yyyy年MM月dd日',
                 value: formateDate1(),
-                max: GetTodayDate().formate(),
+                max:'2019-03-01',// GetTodayDate().formate(),
                 done: function (value, date, endDate) {
                     //debugger;
                     formateDateNumText('.date1-num', date);

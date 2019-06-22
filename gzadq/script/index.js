@@ -67,7 +67,7 @@ $(function () {
     var formateDate = function () {
         //debugger;
         if (!theCurrentDate) {
-            var theDate = GetYesterdayDate();
+            var theDate = getInitDate('', GetYesterdayDate());
             //var theBeginDay = theCurrentDate;// theDate.getDay();
             //var theBeginDate = theDate.addDays(theBeginDay);
             //var theEndDate = theBeginDate.addDays(6);
@@ -81,7 +81,7 @@ $(function () {
     var formateDate1 = function () {
         //debugger;
         if (!theCurrentDate1) {
-            var theDate1 = GetFromDate();
+            var theDate1 = getInitDate('',GetFromDate());
             var theBeginDay1 = theDate1.getDay();
             var theBeginDate1 = theDate1.addDays(-7);
             var theEndDate1 = theBeginDate1.addDays(7);
