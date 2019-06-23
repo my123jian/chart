@@ -1,11 +1,11 @@
 <template>
     <div id="app">
         <div class="left-part">
-            <iframe :src="mapurl" class="mapview" frameborder="no" style="overflow: hidden;"></iframe>
+            <iframe :src="mapurl" class="mapview" frameborder="no" style="overflow: hidden;" ref="mapview"></iframe>
             <div class="query-bar">
                 <select v-model="queryRegionCode">
-                    <option value="gz">广州市</option>
-                    <option value="sz">深圳市</option>
+                    <option value="广州">广州市</option>
+                    <option value="深圳">深圳市</option>
                 </select>
                 <Datepicker v-on:input="dateChange" name="queryDate" :value="queryDate"></Datepicker>
                 <!--<input placeholder="请输入日期"/>-->
@@ -42,7 +42,8 @@
                     </div>
                     <div v-if="right_tab_index==2">
                         <TabTwo :queryDirection="queryDirection" :queryRegionType="queryRegionType"
-                                :queryDate="queryDate" :queryRegionCode="queryRegionCode"></TabTwo>
+                                :queryDate="queryDate" :queryRegionCode="queryRegionCode"
+                                v-on:dataChange="dataChange"></TabTwo>
                     </div>
                 </div>
 
@@ -74,13 +75,13 @@
         },
         data() {
             return {
-                queryRegionType: '',//分析的区域
-                queryRegionCode: '',//省内 具体到市  省外是全国地图
-                queryDirection: '',//查询的迁徙方向 迁入或者迁出
+                queryRegionType: '1',//分析的区域
+                queryRegionCode: '广州',//省内 具体到市  省外是全国地图
+                queryDirection: '1',//查询的迁徙方向 迁入或者迁出
                 queryDate: new Date(),//查询的日期
 
                 right_tab_index: 1,
-                mapurl: 'country.html',
+                mapurl: 'province.html',
             };
         },
         watch: {
@@ -89,7 +90,10 @@
                 this.loadData1();
             },
             queryRegionType: function (newValue, oldValue) {
-                if (newValue == 1) {
+                if(newValue==oldValue){
+                    return;
+                }
+                if (newValue == 2) {
                     this.mapurl = "country.html";
                 }
                 else {
@@ -104,8 +108,14 @@
             //切换URL地址
             changePage: function (url) {
                 location.href = url;
-            }
-            ,
+            },
+            dataChange(data) {
+                var theWindow = this.$ref.mapview;
+                //刷新子窗口数据  同时 刷新 球状图数据
+                debugger;
+                theWindow.contentWindow.refresh(data);
+               // console.log(theWindow,data);
+            },
             loadData1() {
                 // this.$refs.child1.handleParentClick("ssss"); 调用组件的方法
                 axios.get('/user?ID=12345')

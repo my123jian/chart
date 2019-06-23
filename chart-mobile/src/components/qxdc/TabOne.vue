@@ -31,25 +31,25 @@
                 <tbody>
                 <tr v-for="item in items" :key="item.id">
                     <td>
-                        {{item.no}}
+                        {{item.order}}
                     </td>
                     <td>
-                        {{item.no}}
+                        {{item.desc}}
                     </td>
                     <td>
-                        {{item.no}}
+                        {{item.total}}
                     </td>
                     <td>
-                        {{item.no}}
+                        {{item.bus}}
                     </td>
                     <td>
-                        {{item.no}}
+                        {{item.train}}
                     </td>
                     <td>
-                        {{item.no}}
+                        {{item.fly}}
                     </td>
                     <td>
-                        {{item.no}}
+                        {{item.car}}
                     </td>
                 </tr>
                 </tbody>
@@ -60,6 +60,8 @@
 </template>
 
 <script>
+    import axios from "axios";
+
     export default {
         name: "TabOne",
         props: ["queryRegionType", "queryRegionCode", "queryDirection", "queryDate"],
@@ -115,38 +117,128 @@
                 };
                 this.chart1.setOption(theOptions1);
             },
-            notifyParent(){
-                this.$emit('dataChange',data);
+            notifyParent(data) {
+                this.$emit('dataChange', data);
+            },
+            loadChartData() {
+                //今日热门迁徙路线
+                var theUrl1 = "/citymigrate/migrateHistory";
+                //近期热门迁徙路线
+                var theUrl = window.baseUrl + theUrl1;
+                var theQueryObj = {
+                    startTime: '2019-06-15',
+                    endTime: '2019-06-21',
+                    migType: this.queryDirection,
+                    migSource: this.queryRegionType,
+                    startArea: this.queryRegionCode
+                };
+                axios.post(theUrl, window.toQuery(theQueryObj))
+                    .then(function (response) {
+                        // handle success
+                        var theData = response.data;
+                        console.log(response, theData);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+            },
+            loadTableData() {
+                //今日热门迁徙路线
+                var theUrl1 = "/citymigrate/migrateAmount";
+                //近期热门迁徙路线
+                var theUrl2 = "/citymigrate/migrateDurationAmount";
+                console.log(theUrl2);
+                if(this.tabindex==1){
+                    var theUrl = window.baseUrl + theUrl1;
+                }
+                else{
+                    var theUrl = window.baseUrl + theUrl2;
+                }
+                var theQueryObj = {
+                    dateTime: this.queryDate.formate(),
+                    migType: this.queryDirection,
+                    migSource: this.queryRegionType,
+                    startArea: this.queryRegionCode
+                };
+                var me=this;
+                axios.post(theUrl, window.toQuery(theQueryObj))
+                    .then(function (response) {
+                        // handle success
+                        var theData = response.data;
+                      var theNewDatas=[];
+                        if (theData.code == 200) {
+                         for(var i=0;i<theData.data.length;i++){
+                             var theItem=theData.data[i];
+                             var theNewData={
+                                 order:i+1,
+                                 startArea:theItem['startArea'],
+                                 endArea:theItem['endArea'],
+                                 from:theItem['startArea'],
+                                 to:theItem['endArea'],
+                                 desc:theItem['startArea']+'->'+theItem['endArea'],
+                                 id:theItem['id'],
+                                 total:theItem['num'],
+                                 bus:theItem['busRatio'],
+                                 train:theItem['trainRatio'],
+                                 fly:theItem['flyRatio'],
+                                 car:theItem['selfRatio'],
+                             };
+                             theNewDatas.push(theNewData);
+                         }
+
+                        }
+                        me.items=theNewDatas;
+                        me.notifyParent(theNewData);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
             }
         },
         created: function () {
         },
         mounted: function () {
-            this.items = [];
-            for (var i = 0; i < 10; i++) {
-                this.items.push({id: '1' + i, no: '1' + i});
-            }
             this.initChart();
-            console.log("加载数据!");
+            this.loadChartData();
+            this.loadTableData();
         },
         watch: {
             queryDate: function (newValue, oldValue) {
                 console.log("queryDate！", newValue, oldValue);
+                this.loadChartData();
+                this.loadTableData();
             },
             queryDirection: function (newValue, oldValue) {
                 console.log("queryDirection！", newValue, oldValue);
+                this.loadChartData();
+                this.loadTableData();
             },
             queryRegionCode: function (newValue, oldValue) {
                 console.log("queryRegionCode！", newValue, oldValue);
+                this.loadChartData();
+                this.loadTableData();
             },
             queryRegionType: function (newValue, oldValue) {
                 console.log("queryRegionType！", newValue, oldValue);
+                this.loadChartData();
+                this.loadTableData();
             },
             lineDate: function (newValue, oldValue) {
                 console.log("值发生了变化！", newValue, oldValue);
+                this.loadChartData();
+                this.loadTableData();
             },
             tabIndex: function (newValue, oldValue) {
                 console.log("值发生了变化！", newValue, oldValue);
+                this.loadTableData();
             }
         }
     }
