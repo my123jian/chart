@@ -115,6 +115,9 @@
                 };
                 this.chart1.setOption(theOptions1);
             },
+            notifyParent(){
+                this.$emit('dataChange',data);
+            }
         },
         created: function () {
         },
