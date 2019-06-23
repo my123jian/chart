@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div class="left-part">
-            kkkkkkk
+            <iframe :src="mapurl" class="mapview" frameborder="0"></iframe>
         </div>
         <div class="right-part">
             <div class="tab-view">
@@ -36,7 +36,8 @@
         },
         data: function () {
             return {
-                right_tab_index: 1
+                right_tab_index: 1,
+                mapurl:'http://www.baidu.com',
             };
         }, methods: {
             //切换URL地址
@@ -49,6 +50,10 @@
 
 <style scoped>
 
+    .mapview{
+        width: 100%;
+        height: 100%;
+    }
     #app {
         width: 100%;
         height: 100%;
