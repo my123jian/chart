@@ -1,5 +1,6 @@
 module.exports = {
 
+    /*在这里配置多页面*/
     pages: {
         qxdc: {
 // entry for the page
