@@ -1,6 +1,63 @@
-html,body{
+html, body {
     margin: 0px;
     padding: 0px;
     width: 100%;
     height: 100%;
+}
+
+/**通用输入框样式*/
+.base-city-input {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 223px;
+    height: 50px;
+    background-image: url('../images/内容区_地市选择背景框.png')
+}
+
+/**通用数字样式*/
+
+.tab-title {
+    width: 680px;
+    height: 42px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/大标题背景框.png");
+}
+
+.tab-title >div {
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    color: black;
+}
+
+.tab-title2 > div {
+    width: 50%;
+}
+
+.tab-title3 > div {
+    width: 33.33%;
+}
+
+.tab-title >div.select {
+    color: white;
+    border-bottom: 2px solid white;
+}
+
+.tab-view {
+    width: 682px;
+    height: 883px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/数据背景框.png");
+}
+
+/*地图样式**/
+.map-full {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    left: 0px;
+    top: 0px;
+    position: absolute;
 }

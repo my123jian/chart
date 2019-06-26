@@ -52,7 +52,7 @@
         </div>
         <div class="nav-bottom-bar">
             <div>迁徙洞察</div>
-            <div>跨市同期</div>
+            <div>跨市通勤</div>
         </div>
     </div>
 

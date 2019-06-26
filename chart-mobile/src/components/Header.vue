@@ -41,7 +41,7 @@
 </template>
 
 <script>
-    import {utils} from '../common'
+    //import {utils} from '../common'
 
     export default {
         data () {
@@ -85,7 +85,7 @@
         created () {},
 
         mounted () {
-            utils.hasSetRem(this.sendHeight)
+           // utils.hasSetRem(this.sendHeight)
             this.handleTime()
             let me = this
             this.timer = setInterval(me.handleTime, 1000)
@@ -97,7 +97,7 @@
     }
 </script>
 
-<style lang='scss' scoped>
+<style  scoped>
   .header {
     width: 100%;
     height: 78px;
@@ -119,7 +119,7 @@
   .logo-img {
     width: 28px;
     height: 31px;
-    background: url("../assets/LOGO.png") no-repeat;
+    background: url("../assets/logo.png") no-repeat;
     background-size: contain;
     margin-right: 20px;
   }
