@@ -30,6 +30,8 @@
 </template>
 
 <script>
+    import axios from "axios";
+
     export default {
         name: "TabTwo",
         props: ["queryRegionType", "queryRegionCode", "queryDirection", "queryDate"],
@@ -41,26 +43,20 @@
             };
         },
         methods: {
-            //画线段
-            drawPie() {
-
-            },
-            drawBar() {
-
-            },
-            drawBigBar() {
-
-            },
-            initChart() {
-                this.chart1 = window.echarts.init(this.$refs.sex);
-                this.chart2 = window.echarts.init(this.$refs.age);
-                this.chart3 = window.echarts.init(this.$refs.interest);
-                this.chart4 = window.echarts.init(this.$refs.consumption);
-                this.chart5 = window.echarts.init(this.$refs.birthplace);
-
-                // 把配置和数据放这里
-
-
+            //性别饼图
+            drawSexChar(datas) {
+                // {value: 335, name: '直接访问'},
+                var theShowDatas = [];
+                if (datas && datas.length > 0) {
+                    var theItem = datas[0];
+                    for (var i = 0; i < datas.length; i++) {
+                        var theItem = datas[i];
+                        theShowDatas.push({
+                            value: theItem.ratio * 100,
+                            name: theSexType[theItem.sex]// == 1 ? "男" : "女"
+                        });
+                    }
+                }
                 var theOptions1 = {
                     // title : {
                     //     text: '某站点用户访问来源',
@@ -69,7 +65,7 @@
                     // },
                     tooltip: {
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        formatter: "{a} <br/>{b} :  ({d}%)"
                     },
                     grid: {
                         left: '3%',
@@ -85,7 +81,7 @@
                     // },
                     series: [
                         {
-                            name: '访问来源',
+                            name: '性别',
                             type: 'pie',
                             radius: '55%',
                             center: ['50%', '50%'],
@@ -105,13 +101,7 @@
                                     show: false
                                 }
                             },
-                            data: [
-                                {value: 335, name: '直接访问'},
-                                {value: 310, name: '邮件营销'},
-                                {value: 234, name: '联盟广告'},
-                                {value: 135, name: '视频广告'},
-                                {value: 1548, name: '搜索引擎'}
-                            ],
+                            data: theShowDatas,
 
                             itemStyle: {
                                 emphasis: {
@@ -124,43 +114,21 @@
                         }
                     ]
                 };
-                var theOptions2 =  {
-                    color: ['#3398DB'],
-                    tooltip : {
-                        trigger: 'axis',
-                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                        }
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    yAxis : [
-                        {
-                            type : 'category',
-                            data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                            axisTick: {
-                                alignWithLabel: true
-                            }
-                        }
-                    ],
-                    xAxis : [
-                        {
-                            type : 'value'
-                        }
-                    ],
-                    series : [
-                        {
-                            name:'直接访问',
-                            type:'bar',
-                            barWidth: '60%',
-                            data:[10, 52, 200, 334, 390, 330, 220]
-                        }
-                    ]
-                };
+                this.chart1.setOption(theOptions1);
+            },
+            //爱好
+            drawInstertChar(datas) {
+                var theShowDatas = [];
+                if (datas && datas.length > 0) {
+                    var theItem = datas[0];
+                    for (var i = 0; i < datas.length; i++) {
+                        var theItem = datas[i];
+                        theShowDatas.push({
+                            value: theItem.ratio * 100,
+                            name: theItem.hobby
+                        });
+                    }
+                }
                 var theOptions3 = {
                     // title: {
                     //     text: '某站点用户访问来源',
@@ -169,7 +137,8 @@
                     // },
                     tooltip: {
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        // formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        formatter: "{a} <br/>{b} :  ({d}%)"
                     },
                     // legend: {
                     //     orient: 'vertical',
@@ -178,7 +147,7 @@
                     // },
                     series: [
                         {
-                            name: '访问来源',
+                            name: '爱好',
                             type: 'pie',
                             radius: '55%',
                             center: ['50%', '50%'],
@@ -198,13 +167,7 @@
                                     show: false
                                 }
                             },
-                            data: [
-                                {value: 335, name: '直接访问'},
-                                {value: 310, name: '邮件营销'},
-                                {value: 234, name: '联盟广告'},
-                                {value: 135, name: '视频广告'},
-                                {value: 1548, name: '搜索引擎'}
-                            ],
+                            data: theShowDatas,
                             itemStyle: {
                                 emphasis: {
                                     shadowBlur: 10,
@@ -215,86 +178,345 @@
                         }
                     ]
                 };
-                var theOptions4 =  {
-                    color: ['#3398DB'],
-                    tooltip : {
-                        trigger: 'axis',
-                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                        }
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    yAxis : [
-                        {
-                            type : 'category',
-                            data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                            axisTick: {
-                                alignWithLabel: true
-                            }
-                        }
-                    ],
-                    xAxis : [
-                        {
-                            type : 'value'
-                        }
-                    ],
-                    series : [
-                        {
-                            name:'直接访问',
-                            type:'bar',
-                            barWidth: '60%',
-                            data:[10, 52, 200, 334, 390, 330, 220]
-                        }
-                    ]
-                };
-                var theOptions5 =  {
-                    color: ['#3398DB'],
-                    tooltip : {
-                        trigger: 'axis',
-                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                        }
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    xAxis : [
-                        {
-                            type : 'category',
-                            data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                            axisTick: {
-                                alignWithLabel: true
-                            }
-                        }
-                    ],
-                    yAxis : [
-                        {
-                            type : 'value'
-                        }
-                    ],
-                    series : [
-                        {
-                            name:'直接访问',
-                            type:'bar',
-                            barWidth: '60%',
-                            data:[10, 52, 200, 334, 390, 330, 220]
-                        }
-                    ]
-                };
-
-                this.chart1.setOption(theOptions1);
-                this.chart2.setOption(theOptions2);
                 this.chart3.setOption(theOptions3);
+            },
+            //年龄
+            drawAgeChar(datas) {
+                var theShowDatas = [];
+                /**
+                 * ageGroup: 1
+                 city: "广州"
+                 dateTime: "2019-06-21"
+                 id: 10
+                 migSource: 1
+                 migType: 1
+                 num: 10000
+                 * */
+                var theX=[];
+                var theY=[];
+                if(datas){
+                    for(var i=0;i<datas.length;i++){
+                        var theItem=datas[i];
+                        theY.push(theItem.num);
+                        theX.push(theAgeGroups[theItem.ageGroup]);
+                    }
+                }
+                var theOptions2 = {
+                    color: ['#3398DB'],
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    yAxis: [
+                        {
+                            type: 'category',
+                            data: theX,//['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            axisTick: {
+                                alignWithLabel: true
+                            }
+                        }
+                    ],
+                    xAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '年龄',
+                            type: 'bar',
+                            barWidth: '60%',
+                            data: theY,//[10, 52, 200, 334, 390, 330, 220]
+                        }
+                    ]
+                };
+                this.chart2.setOption(theOptions2);
+            },
+            //消费
+            drawConsumChar(datas) {
+                var theShowDatas = [];
+                /**
+                 *city: "广州"
+                 consume: 1
+                 dateTime: "2019-06-21"
+                 id: 10
+                 migSource: 1
+                 migType: 1
+                 num: 10000
+                 * */
+                var theX=[];
+                var theY=[];
+                if(datas){
+                    for(var i=0;i<datas.length;i++){
+                        var theItem=datas[i];
+                        theY.push(theItem.num);
+                        theX.push(theConsumDegree[theItem.consume]);
+                    }
+                }
+                var theOptions4 = {
+                    color: ['#3398DB'],
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    yAxis: [
+                        {
+                            type: 'category',
+                            data:theX,// ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            axisTick: {
+                                alignWithLabel: true
+                            }
+                        }
+                    ],
+                    xAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '消费能力',
+                            type: 'bar',
+                            barWidth: '60%',
+                            data:theY,// [10, 52, 200, 334, 390, 330, 220]
+                        }
+                    ]
+                };
                 this.chart4.setOption(theOptions4);
+            },
+            //籍贯
+            drawLocaionChar(datas) {
+                var theShowDatas = [];
+                /**
+                 *city: "广州"
+                 dateTime: "2019-06-21"
+                 id: 10
+                 migSource: 1
+                 migType: 1
+                 nativePlace: "湖南长沙"
+                 num: 10000
+                 * */
+                var theX=[];
+                var theY=[];
+                if(datas){
+                    for(var i=0;i<datas.length;i++){
+                        var theItem=datas[i];
+                        theY.push(theItem.num);
+                        theX.push(theItem.nativePlace);
+                    }
+                }
+                var theOptions5 = {
+                    color: ['#3398DB'],
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: theX,//['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            axisTick: {
+                                alignWithLabel: true
+                            }
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '籍贯',
+                            type: 'bar',
+                            barWidth: '60%',
+                            data:theY,// [10, 52, 200, 334, 390, 330, 220]
+                        }
+                    ]
+                };
                 this.chart5.setOption(theOptions5);
+            },
+
+            //迁徙人群画像分析-年龄
+            loadMigrateAge() {
+                //迁徙人群画像分析-年龄
+                var theUrl1 = "/citymigrate/migrateAge";
+                //近期热门迁徙路线
+                var theUrl = window.baseUrl + theUrl1;
+                var theQueryObj = {
+                    dateTime: this.queryDate.formate(),
+                    migType: this.queryDirection,
+                    migSource: this.queryRegionType,
+                    city: this.queryRegionCode
+                };
+                var me=this;
+                axios.post(theUrl, window.toQuery(theQueryObj))
+                    .then(function (response) {
+                        // handle success
+                        var theData = response.data;
+                        me.drawAgeChar(theData.data);
+                        console.log(response, theData);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+            },
+            //迁徙人群画像分析-性别
+            loadMigrateSex() {
+                var me = this;
+                //迁徙人群画像分析-年龄
+                var theUrl1 = "/citymigrate/migrateSex";
+                //近期热门迁徙路线
+                var theUrl = window.baseUrl + theUrl1;
+                var theQueryObj = {
+                    dateTime: this.queryDate.formate(),
+                    migType: this.queryDirection,
+                    migSource: this.queryRegionType,
+                    city: this.queryRegionCode
+                };
+                axios.post(theUrl, window.toQuery(theQueryObj))
+                    .then(function (response) {
+                        // handle success
+                        var theData = response.data;
+                        me.drawSexChar(theData.data);
+                        console.log(response, theData);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+            },
+            //迁徙人群画像分析-籍贯
+            loadMigrateNativePlace() {
+                //迁徙人群画像分析-年龄
+                var me=this;
+                var theUrl1 = "/citymigrate/migrateNativePlace";
+                //近期热门迁徙路线
+                var theUrl = window.baseUrl + theUrl1;
+                var theQueryObj = {
+                    dateTime: this.queryDate.formate(),
+                    migType: this.queryDirection,
+                    migSource: this.queryRegionType,
+                    city: this.queryRegionCode
+                };
+                axios.post(theUrl, window.toQuery(theQueryObj))
+                    .then(function (response) {
+                        // handle success
+                        var theData = response.data;
+                        me.drawLocaionChar(theData.data);
+                        console.log(response, theData);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+            },
+            //8.迁徙人群画像分析-爱好
+            loadMigrateHobby() {
+                //迁徙人群画像分析-年龄
+                var me = this;
+                var theUrl1 = "/citymigrate/migrateHobby";
+                //近期热门迁徙路线
+                var theUrl = window.baseUrl + theUrl1;
+                var theQueryObj = {
+                    dateTime: this.queryDate.formate(),
+                    migType: this.queryDirection,
+                    migSource: this.queryRegionType,
+                    city: this.queryRegionCode
+                };
+                axios.post(theUrl, window.toQuery(theQueryObj))
+                    .then(function (response) {
+                        // handle success
+                        var theData = response.data;
+                        me.drawInstertChar(theData.data);
+                        console.log(response, theData);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+            },
+            //9.迁徙人群画像分析-消费能力
+            loadMigrateconsume() {
+                //迁徙人群画像分析-年龄
+                var theUrl1 = "/citymigrate/migrateconsume";
+                //近期热门迁徙路线
+                var theUrl = window.baseUrl + theUrl1;
+                var theQueryObj = {
+                    dateTime: this.queryDate.formate(),
+                    migType: this.queryDirection,
+                    migSource: this.queryRegionType,
+                    city: this.queryRegionCode
+                };
+                var me=this;
+                axios.post(theUrl, window.toQuery(theQueryObj))
+                    .then(function (response) {
+                        // handle success
+                        var theData = response.data;
+                        me.drawConsumChar(theData.data);
+                        console.log(response, theData);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+            },
+
+            initChart() {
+                this.chart1 = window.echarts.init(this.$refs.sex);
+                this.chart2 = window.echarts.init(this.$refs.age);
+                this.chart3 = window.echarts.init(this.$refs.interest);
+                this.chart4 = window.echarts.init(this.$refs.consumption);
+                this.chart5 = window.echarts.init(this.$refs.birthplace);
+            },
+
+            loadData() {
+                this.loadMigrateAge();
+                this.loadMigrateSex();
+                this.loadMigrateNativePlace();
+                this.loadMigrateHobby();
+                this.loadMigrateconsume();
+
             }
         },
         created: function () {
@@ -304,27 +526,25 @@
                 {id: '11', no: '11'}
             ];
             this.initChart();
+            this.loadData();
             console.log("加载数据!");
         },
         watch: {
             queryDate: function (newValue, oldValue) {
-                debugger;
-                console.log("queryDate！", newValue, oldValue);
+                this.loadData();
+                // console.log("queryDate！", newValue, oldValue);
             },
             queryDirection: function (newValue, oldValue) {
-                console.log("queryDirection！", newValue, oldValue);
+                this.loadData();
+                //console.log("queryDirection！", newValue, oldValue);
             },
             queryRegionCode: function (newValue, oldValue) {
-                console.log("queryRegionCode！", newValue, oldValue);
+                this.loadData();
+                //console.log("queryRegionCode！", newValue, oldValue);
             },
             queryRegionType: function (newValue, oldValue) {
-                console.log("queryRegionType！", newValue, oldValue);
-            },
-            lineDate: function (newValue, oldValue) {
-                console.log("值发生了变化！", newValue, oldValue);
-            },
-            tabIndex: function (newValue, oldValue) {
-                console.log("值发生了变化！", newValue, oldValue);
+                this.loadData();
+                // console.log("queryRegionType！", newValue, oldValue);
             }
         }
     }

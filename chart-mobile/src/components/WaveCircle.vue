@@ -29,23 +29,26 @@
             height: function (newValue, oldValue) {
                 this.baseStyles = 'height:' + newValue + 'px;width:' + this.height + 'px';
             },
+            value: function (newValue, oldValue) {
+                this.drawChart(newValue);
+            },
         },
         methods: {
-            initChart() {
-                var theValue = this.value;
+            drawChart(value) {
+                var theValue = value||0;
                 var theColor = this.color;
-                this.chart = window.echarts.init(this.$refs.myEchart);
+
                 var theOptions = {
                     backgroundColor: '',
 
                     series: [{
                         type: 'liquidFill',
                         data: [theValue],
-                        radius:'80%',
-                        shape:'circle',
+                        radius: '80%',
+                        shape: 'circle',
                         color: theColor,
                         outLine: {
-                            show:false,
+                            show: false,
                             borderDistance: 1, //边框距离
                             //
                         },
@@ -61,6 +64,11 @@
                 };
                 // 把配置和数据放这里
                 this.chart.setOption(theOptions);
+            },
+            initChart() {
+
+                this.chart = window.echarts.init(this.$refs.myEchart);
+                this.drawChart();
             }
         }
     }

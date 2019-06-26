@@ -73,3 +73,34 @@ Date.daysBetween = function (date1, date2) {
     // Convert back to days and return
     return Math.round(difference_ms / one_day);
 }
+
+//年龄组分段
+var theAgeGroups={};
+theAgeGroups[0]="未知";
+theAgeGroups[1]="[0-20)岁";
+theAgeGroups[2]="[20-30)岁";
+theAgeGroups[3]="[30-40)岁";
+theAgeGroups[4]="[40-50)岁";
+theAgeGroups[5]="[50-60)岁";
+theAgeGroups[6]="60岁以上";
+
+//性别
+var theSexType={};
+theSexType[0]="未知";
+theSexType[1]="男";
+theSexType[2]="女";
+
+//消费能力
+var theConsumDegree={};
+theConsumDegree[0]="低";
+theConsumDegree[1]="中低";
+theConsumDegree[2]="中等";
+theConsumDegree[3]="中高";
+theConsumDegree[4]="高";
+
+//迁徙渠道类型
+var theChannelType={};
+theChannelType[1]='汽车';
+theChannelType[2]='火车';
+theChannelType[3]='飞机';
+theChannelType[4]='自驾';

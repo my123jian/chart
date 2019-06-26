@@ -77,65 +77,96 @@
             //画线段
             initChart() {
                 this.chart1 = window.echarts.init(this.$refs.linechart);
-                var theOptions1 = {
-                    // title: {
-                    //     text: '折线图堆叠'
-                    // },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    // legend: {
-                    //     data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
-                    // },
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    // toolbox: {
-                    //     feature: {
-                    //         saveAsImage: {}
-                    //     }
-                    // },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [
-                        {
-                            name: '邮件营销',
-                            type: 'line',
-                            stack: '总量',
-                            data: [120, 132, 101, 134, 90, 230, 210]
-                        }
-                    ]
-                };
-                this.chart1.setOption(theOptions1);
+
             },
             notifyParent(data) {
                 this.$emit('dataChange', data);
             },
-            loadChartData() {
+            drawLine(data) {
+            /**
+             * dateTime: "2019-06-20"
+             endArea: "长沙"
+             id: 14
+             migSource: 1
+             migType: 1
+             num: 10000
+             startArea: "广州"*/
+            var theX=[];
+            var theY=[];
+            if(data){
+                for(var i=0;i<data.length;i++){
+                    var theItem=data[i];
+                    theX.push(theItem.dateTime);
+                    theY.push(theItem.num);
+                }
+            }
+            var theOptions1 = {
+                // title: {
+                //     text: '折线图堆叠'
+                // },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                // legend: {
+                //     data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+                // },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                // toolbox: {
+                //     feature: {
+                //         saveAsImage: {}
+                //     }
+                // },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data:theX,// ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        name: '趋势分析',
+                        type: 'line',
+                        stack: '总量',
+                        data: theY,// [120, 132, 101, 134, 90, 230, 210]
+                    }
+                ]
+            };
+                this.chart1.setOption(theOptions1);
+            },
+            loadMigrateHistory() {
                 //今日热门迁徙路线
                 var theUrl1 = "/citymigrate/migrateHistory";
                 //近期热门迁徙路线
                 var theUrl = window.baseUrl + theUrl1;
+                var theBeginDate=new Date(this.queryDate).before(14);
+                var theEndDate=this.queryDate;
+                if(this.lineDate==1){
+                    theBeginDate=new Date(this.queryDate).before(14);
+                }
+                else{
+                    theBeginDate=new Date(this.queryDate).before(29);
+                }
                 var theQueryObj = {
-                    startTime: '2019-06-15',
-                    endTime: '2019-06-21',
+                    startTime: theBeginDate.formate(),
+                    endTime:theEndDate.formate(),
                     migType: this.queryDirection,
                     migSource: this.queryRegionType,
                     startArea: this.queryRegionCode
                 };
+                var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
                         // handle success
+                        // debugger;
                         var theData = response.data;
+                        me.drawLine(theData.data);
                         console.log(response, theData);
                     })
                     .catch(function (error) {
@@ -146,16 +177,18 @@
                         // always executed
                     });
             },
+            //今日迁徙/近期迁徙
             loadTableData() {
                 //今日热门迁徙路线
                 var theUrl1 = "/citymigrate/migrateAmount";
                 //近期热门迁徙路线
                 var theUrl2 = "/citymigrate/migrateDurationAmount";
                 console.log(theUrl2);
-                if(this.tabindex==1){
+                //debugger;
+                if (this.tabIndex == 1) {
                     var theUrl = window.baseUrl + theUrl1;
                 }
-                else{
+                else {
                     var theUrl = window.baseUrl + theUrl2;
                 }
                 var theQueryObj = {
@@ -164,34 +197,34 @@
                     migSource: this.queryRegionType,
                     startArea: this.queryRegionCode
                 };
-                var me=this;
+                var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
                         // handle success
                         var theData = response.data;
-                      var theNewDatas=[];
+                        var theNewDatas = [];
                         if (theData.code == 200) {
-                         for(var i=0;i<theData.data.length;i++){
-                             var theItem=theData.data[i];
-                             var theNewData={
-                                 order:i+1,
-                                 startArea:theItem['startArea'],
-                                 endArea:theItem['endArea'],
-                                 from:theItem['startArea'],
-                                 to:theItem['endArea'],
-                                 desc:theItem['startArea']+'->'+theItem['endArea'],
-                                 id:theItem['id'],
-                                 total:theItem['num'],
-                                 bus:theItem['busRatio'],
-                                 train:theItem['trainRatio'],
-                                 fly:theItem['flyRatio'],
-                                 car:theItem['selfRatio'],
-                             };
-                             theNewDatas.push(theNewData);
-                         }
+                            for (var i = 0; i < theData.data.length; i++) {
+                                var theItem = theData.data[i];
+                                var theNewData = {
+                                    order: i + 1,
+                                    startArea: theItem['startArea'],
+                                    endArea: theItem['endArea'],
+                                    from: theItem['startArea'],
+                                    to: theItem['endArea'],
+                                    desc: theItem['startArea'] + '->' + theItem['endArea'],
+                                    id: theItem['id'],
+                                    total: theItem['num'],
+                                    bus: theItem['busRatio'],
+                                    train: theItem['trainRadio'],
+                                    fly: theItem['flyRatio'],
+                                    car: theItem['selfRatio'],
+                                };
+                                theNewDatas.push(theNewData);
+                            }
 
                         }
-                        me.items=theNewDatas;
+                        me.items = theNewDatas;
                         me.notifyParent(theNewData);
                     })
                     .catch(function (error) {
@@ -201,40 +234,41 @@
                     .finally(function () {
                         // always executed
                     });
-            }
+            },
+
+
         },
         created: function () {
         },
         mounted: function () {
             this.initChart();
-            this.loadChartData();
+            this.loadMigrateHistory();
             this.loadTableData();
         },
         watch: {
             queryDate: function (newValue, oldValue) {
                 console.log("queryDate！", newValue, oldValue);
-                this.loadChartData();
+                this.loadMigrateHistory();
                 this.loadTableData();
             },
             queryDirection: function (newValue, oldValue) {
                 console.log("queryDirection！", newValue, oldValue);
-                this.loadChartData();
+                this.loadMigrateHistory();
                 this.loadTableData();
             },
             queryRegionCode: function (newValue, oldValue) {
                 console.log("queryRegionCode！", newValue, oldValue);
-                this.loadChartData();
+                this.loadMigrateHistory();
                 this.loadTableData();
             },
             queryRegionType: function (newValue, oldValue) {
                 console.log("queryRegionType！", newValue, oldValue);
-                this.loadChartData();
+                this.loadMigrateHistory();
                 this.loadTableData();
             },
             lineDate: function (newValue, oldValue) {
                 console.log("值发生了变化！", newValue, oldValue);
-                this.loadChartData();
-                this.loadTableData();
+                this.loadMigrateHistory();
             },
             tabIndex: function (newValue, oldValue) {
                 console.log("值发生了变化！", newValue, oldValue);

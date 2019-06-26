@@ -23,10 +23,10 @@
                 <div>308.15万</div>
             </div>
             <div class="wave-content">
-                <WaveCircle style="width: 200px;height: 200px;" width=200 height=200></WaveCircle>
-                <WaveCircle style="width: 200px;height: 200px;" width=200 height=200></WaveCircle>
-                <WaveCircle style="width: 200px;height: 200px;" width=200 height=200></WaveCircle>
-                <WaveCircle style="width: 200px;height: 200px;" width=200 height=200></WaveCircle>
+                <WaveCircle style="width: 200px;height: 200px;" :value="Channel1Radio" width=200 height=200></WaveCircle>
+                <WaveCircle style="width: 200px;height: 200px;" :value="Channel2Radio" width=200 height=200></WaveCircle>
+                <WaveCircle style="width: 200px;height: 200px;" :value="Channel3Radio" width=200 height=200></WaveCircle>
+                <WaveCircle style="width: 200px;height: 200px;" :value="Channel4Radio" width=200 height=200></WaveCircle>
             </div>
         </div>
         <div class="right-part">
@@ -79,18 +79,36 @@
                 queryRegionCode: '广州',//省内 具体到市  省外是全国地图
                 queryDirection: '1',//查询的迁徙方向 迁入或者迁出
                 queryDate: new Date(),//查询的日期
-
                 right_tab_index: 1,
                 mapurl: 'province.html',
+
+                Channel1Radio:0,
+                Channel2Radio:0,
+                Channel3Radio:0,
+                Channel4Radio:0
             };
         },
         watch: {
             queryDate: function (newDate) {
                 console.log('日期选择变化!', newDate);
-                this.loadData1();
+                this.loadData();
             },
+            queryDate: function (newValue, oldValue) {
+                console.log("queryDate！", newValue, oldValue);
+                this.loadData();
+            },
+            queryDirection: function (newValue, oldValue) {
+                console.log("queryDirection！", newValue, oldValue);
+                this.loadData();
+            },
+            queryRegionCode: function (newValue, oldValue) {
+                console.log("queryRegionCode！", newValue, oldValue);
+
+                this.loadData();
+            },
+
             queryRegionType: function (newValue, oldValue) {
-                if(newValue==oldValue){
+                if (newValue == oldValue) {
                     return;
                 }
                 if (newValue == 2) {
@@ -99,29 +117,45 @@
                 else {
                     this.mapurl = "province.html";
                 }
+                this.loadData();
             }
         },
         mounted() {
-
+            this.loadData();
         },
         methods: {
             //切换URL地址
             changePage: function (url) {
                 location.href = url;
             },
+            loadData() {
+                this.loadMigrateChannel();
+                this.loadMigrateCount();
+            },
             dataChange(data) {
                 var theWindow = this.$ref.mapview;
                 //刷新子窗口数据  同时 刷新 球状图数据
                 debugger;
                 theWindow.contentWindow.refresh(data);
-               // console.log(theWindow,data);
+                // console.log(theWindow,data);
             },
-            loadData1() {
-                // this.$refs.child1.handleParentClick("ssss"); 调用组件的方法
-                axios.get('/user?ID=12345')
+            //10.统计省内/省外总人数
+            loadMigrateCount() {
+                //迁徙人群画像分析-年龄
+                var theUrl1 = " /citymigrate/migrateCount";
+                //近期热门迁徙路线
+                var theUrl = window.baseUrl + theUrl1;
+                var theQueryObj = {
+                    dateTime: this.queryDate.formate(),
+                    migType: this.queryDirection,
+                    migSource: this.queryRegionType,
+                    startArea: this.queryRegionCode
+                };
+                axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
                         // handle success
-                        console.log(response);
+                        var theData = response.data;
+                        console.log(response, theData);
                     })
                     .catch(function (error) {
                         // handle error
@@ -130,7 +164,59 @@
                     .finally(function () {
                         // always executed
                     });
-
+            },
+            drawChannel(datas){
+                /**
+                 * area: "广州"
+                 channel: 1
+                 dateTime: "2019-06-21"
+                 id: 10
+                 migSource: 1
+                 migType: 1
+                 num: 300000
+                 ratio: 0.34
+                 * */
+                this.Channel1Radio=0;
+                this.Channel2Radio=0;
+                this.Channel3Radio=0;
+                this.Channel4Radio=0;
+                for(var i=0;i<datas.length;i++){
+                    var theIem=datas[i];
+                    switch (theIem.channel){
+                        case 1:this.Channel1Radio=theIem.ratio; break;
+                        case 2:this.Channel2Radio=theIem.ratio; break;
+                        case 3:this.Channel3Radio=theIem.ratio; break;
+                        case 4:this.Channel4Radio=theIem.ratio; break;
+                    }
+                }
+            },
+            //迁徙渠道分析
+            loadMigrateChannel() {
+                //今日热门迁徙路线
+                var me=this;
+                var theUrl1 = "/citymigrate/migrateChannel";
+                //近期热门迁徙路线
+                var theUrl = window.baseUrl + theUrl1;
+                var theQueryObj = {
+                    dateTime: this.queryDate.formate(),
+                    migType: this.queryDirection,
+                    migSource: this.queryRegionType,
+                    area: this.queryRegionCode
+                };
+                axios.post(theUrl, window.toQuery(theQueryObj))
+                    .then(function (response) {
+                        // handle success
+                        var theData = response.data;
+                        me.drawChannel(theData.data);
+                        console.log(response, theData);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
             },
             dateChange(value) {
                 this.queryDate = value;
