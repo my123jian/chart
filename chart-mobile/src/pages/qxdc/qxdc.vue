@@ -20,7 +20,7 @@
             </div>
             <div class="count-view">
                 <div class="title">省内迁出总人数</div>
-                <div>308.15万</div>
+                <div>{{totalNum/10000}}万</div>
             </div>
             <div class="wave-content">
                 <WaveCircle style="width: 200px;height: 200px;" :value="Channel1Radio" width=200 height=200></WaveCircle>
@@ -85,7 +85,9 @@
                 Channel1Radio:0,
                 Channel2Radio:0,
                 Channel3Radio:0,
-                Channel4Radio:0
+                Channel4Radio:0,
+
+                totalNum:0,
             };
         },
         watch: {
@@ -142,7 +144,7 @@
             //10.统计省内/省外总人数
             loadMigrateCount() {
                 //迁徙人群画像分析-年龄
-                var theUrl1 = " /citymigrate/migrateCount";
+                var theUrl1 = "/citymigrate/migrateCount";
                 //近期热门迁徙路线
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
@@ -151,10 +153,12 @@
                     migSource: this.queryRegionType,
                     startArea: this.queryRegionCode
                 };
+                var me=this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
                         // handle success
                         var theData = response.data;
+                        me.totalNum=theData.data||0;
                         console.log(response, theData);
                     })
                     .catch(function (error) {
