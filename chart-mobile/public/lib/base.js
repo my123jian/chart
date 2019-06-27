@@ -1,5 +1,4 @@
-console.log("hello world!");
-window.baseUrl="http://localhost:9000";
+window.baseUrl = "http://localhost:9000";
 
 /**
  * 视图的基类添加定时刷新和数据获取的支持
@@ -16,16 +15,20 @@ function FormateDateNum(num) {
     return num;
 }
 
-function toQuery(obj){
-   var theItems=[];
-    for(var key in obj){
-        theItems.push(key+"="+(obj[key]||''));
+function toQuery(obj) {
+    var theItems = [];
+    for (var key in obj) {
+        theItems.push(key + "=" + (obj[key] || ''));
     }
     return theItems.join("&");
 }
+
 /*格式化年月日日期*/
 Date.prototype.formate = function () {
     return this.getFullYear() + "-" + FormateDateNum(this.getMonth() + 1) + "-" + FormateDateNum(this.getDate());
+}
+Date.prototype.formateYearMonth = function () {
+    return this.getFullYear() + "-" + FormateDateNum(this.getMonth() + 1) ;
 }
 /*格式化年月日日期中文*/
 Date.prototype.formateCN = function () {
@@ -73,34 +76,86 @@ Date.daysBetween = function (date1, date2) {
     // Convert back to days and return
     return Math.round(difference_ms / one_day);
 }
+/***
+ * 格式化为数字显示格式
+ * @param value
+ */
+Number.prototype.fromateDataString = function () {
+
+    var theNumber = (this / 10000).toFixed(2);
+    var theNumberStr = theNumber + "";
+    var theResultStr = "";
+    for (var i = 0; i < theNumberStr.length; i++) {
+        var theItem = theNumberStr[i];
+        if (theItem == ".") {
+            theResultStr += "<div class='dian'>" + theItem + "</div>";
+        }
+        else {
+            theResultStr += "<div class='numitem'>" + theItem + "</div>";
+        }
+    }
+    theResultStr += "<div class='last'>万</div>";
+    return theResultStr;
+}
+
 
 //年龄组分段
-var theAgeGroups={};
-theAgeGroups[0]="未知";
-theAgeGroups[1]="[0-20)岁";
-theAgeGroups[2]="[20-30)岁";
-theAgeGroups[3]="[30-40)岁";
-theAgeGroups[4]="[40-50)岁";
-theAgeGroups[5]="[50-60)岁";
-theAgeGroups[6]="60岁以上";
+var theAgeGroups = {};
+theAgeGroups[0] = "未知";
+theAgeGroups[1] = "[0-20)岁";
+theAgeGroups[2] = "[20-30)岁";
+theAgeGroups[3] = "[30-40)岁";
+theAgeGroups[4] = "[40-50)岁";
+theAgeGroups[5] = "[50-60)岁";
+theAgeGroups[6] = "60岁以上";
 
 //性别
-var theSexType={};
-theSexType[0]="未知";
-theSexType[1]="男";
-theSexType[2]="女";
+var theSexType = {};
+theSexType[0] = "未知";
+theSexType[1] = "男";
+theSexType[2] = "女";
 
 //消费能力
-var theConsumDegree={};
-theConsumDegree[0]="低";
-theConsumDegree[1]="中低";
-theConsumDegree[2]="中等";
-theConsumDegree[3]="中高";
-theConsumDegree[4]="高";
+var theConsumDegree = {};
+theConsumDegree[0] = "低";
+theConsumDegree[1] = "中低";
+theConsumDegree[2] = "中等";
+theConsumDegree[3] = "中高";
+theConsumDegree[4] = "高";
 
 //迁徙渠道类型
-var theChannelType={};
-theChannelType[1]='汽车';
-theChannelType[2]='火车';
-theChannelType[3]='飞机';
-theChannelType[4]='自驾';
+var theChannelType = {};
+theChannelType[1] = '汽车';
+theChannelType[2] = '火车';
+theChannelType[3] = '飞机';
+theChannelType[4] = '自驾';
+
+//通勤距离段
+var theTqDistinceType={};
+theTqDistinceType[0] = '<2km';
+theTqDistinceType[1] = '2-4km';
+theTqDistinceType[2] = '4-6km';
+theTqDistinceType[3] = '6-8km';
+theTqDistinceType[4] = '8-10km';
+theTqDistinceType[5] = '10-15km';
+theTqDistinceType[6] = '15-20km';
+theTqDistinceType[7] = '20-25km';
+theTqDistinceType[8] = '<25km';
+
+//通勤距离段
+var theTqTimeType={};
+theTqTimeType[0] = '<20min';
+theTqTimeType[1] = '20-30min';
+theTqTimeType[2] = '30-40min';
+theTqTimeType[3] = '40-50min';
+theTqTimeType[4] = '50-60min';
+theTqTimeType[5] = '>60min';
+
+
+//通勤时点分布
+var theTqPlace={};
+theTqPlace[0] = '<6h';
+theTqPlace[1] = '6-7h';
+theTqPlace[2] = '7-8h';
+theTqPlace[3] = '8-9h';
+theTqPlace[4] = '>9h';

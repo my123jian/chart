@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div title="通勤成本排行">
+        <div title="通勤成本排行" class="part-item">
             <div class="title onecloumn">
                 通勤成本排行
             </div>
@@ -26,14 +26,23 @@
 
                     </tr>
                     </thead>
+                    <tbody>
+                    <tr v-for="item in items" :key="item.id">
+                        <th>{{item.order}}</th>
+                        <th>{{item.line}}</th>
+                        <th>{{item.num}}</th>
+                        <th>{{item.avgTime}}</th>
+                        <th>{{item.avgDistance}}</th>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
-        <div title="平均通勤距离">
+        <div title="平均通勤距离" class="part-item part-item2">
             <div class="title onecloumn">
                 平均通勤距离
             </div>
-            <div class="content chart">
+            <div class="content chart" ref="chart1">
 
             </div>
         </div>
@@ -42,13 +51,235 @@
 </template>
 
 <script>
+    import DataConvert from '../../utils/DataConvert'
+    import axios from "axios";
+
     export default {
         name: "TabTwo",
         props: ["queryRegionCode", "queryDate"],
         data() {
-            return {};
+            return {items: []};
         },
-        methods: {},
+        mounted() {
+            this.initChart();
+            this.loadData();
+        },
+        methods: {
+            initChart() {
+                this.chart1 = window.echarts.init(this.$refs.chart1);
+            },
+            //平均通勤距离
+            drawLine(datas) {
+                /***
+                 * area: "天河"
+                 city: "广州"
+                 dateTime: "2019-06"
+                 distance: 500000
+                 id: 10
+                 liveDistance: 1000000
+                 wordDistance: 200000
+                 * */
+                var theLiveLine=DataConvert.convertData(datas,"area","1000000");
+                var theWorkLine=DataConvert.convertData(datas,"area","wordDistance");
+                var theDistanceLine=DataConvert.convertData(datas,"area","distance");
+                var option = {
+                    // title: {
+                    //     text: '未来一周气温变化',
+                    //     subtext: '纯属虚构'
+                    // },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    // legend: {
+                    //     data: ['最高气温', '最低气温']
+                    // },
+                    // toolbox: {
+                    //     show: true,
+                    //     feature: {
+                    //         dataZoom: {
+                    //             yAxisIndex: 'none'
+                    //         },
+                    //         dataView: {readOnly: false},
+                    //         magicType: {type: ['line', 'bar']},
+                    //         restore: {},
+                    //         saveAsImage: {}
+                    //     }
+                    // },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: theLiveLine.x//['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: '{value} km'
+                        }
+                    },
+                    series: [
+                        {
+                            name: '工作',
+                            type: 'line',
+                            data: theWorkLine.y,//[11, 11, 15, 13, 12, 13, 10],
+                            // markPoint: {
+                            //     data: [
+                            //         {type: 'max', name: '最大值'},
+                            //         {type: 'min', name: '最小值'}
+                            //     ]
+                            // },
+                            // markLine: {
+                            //     data: [
+                            //         {type: 'average', name: '平均值'}
+                            //     ]
+                            // }
+                        },
+                        {
+                            name: '居住',
+                            type: 'line',
+                            data: theWorkLine.y,//[1, -2, 2, 5, 3, 2, 0],
+                            // markPoint: {
+                            //     data: [
+                            //         {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
+                            //     ]
+                            // },
+                            // markLine: {
+                            //     data: [
+                            //         {type: 'average', name: '平均值'},
+                            //         [{
+                            //             symbol: 'none',
+                            //             x: '90%',
+                            //             yAxis: 'max'
+                            //         }, {
+                            //             symbol: 'circle',
+                            //             label: {
+                            //                 normal: {
+                            //                     position: 'start',
+                            //                     formatter: '最大值'
+                            //                 }
+                            //             },
+                            //             type: 'max',
+                            //             name: '最高点'
+                            //         }]
+                            //     ]
+                            // }
+                        },
+                        {
+                            name: '平均值',
+                            type: 'line',
+                            data: theDistanceLine.y,//[1, -2, 2, 5, 3, 2, 0],
+                            // markPoint: {
+                            //     data: [
+                            //         {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
+                            //     ]
+                            // },
+                            // markLine: {
+                            //     data: [
+                            //         {type: 'average', name: '平均值'},
+                            //         [{
+                            //             symbol: 'none',
+                            //             x: '90%',
+                            //             yAxis: 'max'
+                            //         }, {
+                            //             symbol: 'circle',
+                            //             label: {
+                            //                 normal: {
+                            //                     position: 'start',
+                            //                     formatter: '最大值'
+                            //                 }
+                            //             },
+                            //             type: 'max',
+                            //             name: '最高点'
+                            //         }]
+                            //     ]
+                            // }
+                        }
+                    ]
+                };
+                this.chart1.setOption(option);
+            },
+            loadData() {
+                this.loadTripAnalysis();
+                this.loadTripDetail();
+            },
+
+            //5.通勤排行详情
+            loadTripDetail() {
+                var theUrl1 = "/citytransport/tripDetail";
+                var theUrl = window.baseUrl + theUrl1;
+                var theQueryObj = {
+                    dateTime: this.queryDate.formateYearMonth(),
+                    city: this.queryRegionCode
+                };
+                var me = this;
+                axios.post(theUrl, window.toQuery(theQueryObj))
+                    .then(function (response) {
+                        // handle success
+                        // debugger;
+                        var theData = response.data;
+                        /**
+                         * avgDistance: 400000
+                         avgTime: 50
+                         city: "广州"
+                         dateTime: "2019-06"
+                         endArea: "番禺"
+                         id: 10
+                         num: 1000000
+                         startArea: "天河
+                         * */
+                        var theResult = [];
+                        for (var i = 0; i < theData.data.length; i++) {
+                            var theItem = theData.data[i];
+                            theItem.order = i + 1;
+                            theItem.line = theItem.startArea + "->" + theItem.endArea;
+                            theResult.push(theItem);
+                        }
+                        me.items = theResult;
+                        // debugger;
+                        console.log(response, theData);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+            },
+            //6.通勤平均距离对比
+            loadTripAnalysis() {
+                var theUrl1 = "/citytransport/tripAnalysis";
+                var theUrl = window.baseUrl + theUrl1;
+                var theQueryObj = {
+                    dateTime: this.queryDate.formateYearMonth(),
+                    city: this.queryRegionCode
+                };
+                var me = this;
+                axios.post(theUrl, window.toQuery(theQueryObj))
+                    .then(function (response) {
+                        // handle success
+                        // debugger;
+                        var theData = response.data;
+                        /***
+                         * area: "天河"
+                         city: "广州"
+                         dateTime: "2019-06"
+                         distance: 500000
+                         id: 10
+                         liveDistance: 1000000
+                         wordDistance: 200000
+                         * */
+                        me.drawLine(theData.data);
+                        console.log(response, theData);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+            },
+        },
         watch: {
             queryRegionCode(newValue, oldValue) {
                 if (newValue != oldValue) {
@@ -70,5 +301,25 @@
         height: 140px;
         writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
         writing-mode: tb-lr; /*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
+    }
+
+    .part-item > * {
+        display: inline-block;
+        position: relative;
+    }
+    .part-item .content{
+        width:578px;
+        vertical-align: top;
+    }
+    part-item2{
+        height: 230px;
+        position: relative;
+    }
+
+    .chart {
+        height: 230px;
+        width: 578px;
+        left: 0px;
+        top: 0px;
     }
 </style>

@@ -4,7 +4,11 @@ html, body {
     width: 100%;
     height: 100%;
 }
-
+body{
+    background-image: url("../images/bg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
 /**通用输入框样式*/
 .base-city-input {
     background-repeat: no-repeat;
@@ -22,13 +26,28 @@ html, body {
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-image: url("../images/大标题背景框.png");
+    pointer-events: visible;
 }
 
-.tab-title >div {
+.tab-content {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    top: 42px;
+}
+
+.tab-title > div {
     display: inline-block;
     cursor: pointer;
     text-align: center;
-    color: black;
+    color: #b0d2f9;
+    font-size: 22px;
+    line-height: 42px;
+}
+
+.tab-title > div > span {
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .tab-title2 > div {
@@ -39,7 +58,7 @@ html, body {
     width: 33.33%;
 }
 
-.tab-title >div.select {
+.tab-title > div.select > span {
     color: white;
     border-bottom: 2px solid white;
 }
@@ -47,9 +66,12 @@ html, body {
 .tab-view {
     width: 682px;
     height: 883px;
+    margin-right: 20px;
+    margin-top: 34px;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-image: url("../images/数据背景框.png");
+    position: relative;
 }
 
 /*地图样式**/
@@ -60,4 +82,158 @@ html, body {
     left: 0px;
     top: 0px;
     position: absolute;
+}
+
+/*查询搜索框*/
+.query-bar {
+    position: absolute;
+    top: 34px;
+    left: 11px;
+    height: 40px;
+    pointer-events: visible;
+}
+
+.query-bar > .field {
+    display: inline-block;
+    height: 100%;
+    margin: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.query-bar input, .query-bar select {
+    background: transparent;
+    -webkit-appearance: none;
+    border: none !important;
+    color: white !important;
+    height: 100%;
+}
+
+.query-bar .city {
+    background-image: url("../images/内容区_地市选择背景框.png");
+    width: 223px;
+    height: 50px;
+    font-size: 22px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.query-bar .city .icon {
+    background-image: url("../images/内容区_地市选择icon.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+
+.query-bar .date {
+    background-image: url("../images/内容区_地市选择背景框.png");
+    width: 223px;
+    height: 50px;
+    font-size: 22px;
+    background-repeat: no-repeat;
+}
+
+.count-view {
+    position: absolute;
+    left: 21px;
+    top: 101px;
+    color: white;
+}
+
+.count-view .title {
+    background-image: url("../images/内容区_枢纽总人数icon.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 25px;
+    pointer-events: visible;
+    font-size: 22px;
+
+}
+.count-view .num {
+    padding-top: 24px;
+    pointer-events: visible;
+}
+.count-view .num >*{
+    display: inline-block;
+}
+.count-view .last{
+    /*font-size: 22px;*/
+}
+.count-view .numitem{
+    background-image: url("../images/内容区_总人数背景色.icon.png");
+    background-repeat: no-repeat;
+    width: 42px;
+    height: 57px;
+    font-size: 50px;
+    line-height: 57px;
+    text-align: center;
+    margin-right: 11px;
+}
+.count-view .dian{
+    font-size: 50px;
+    margin-left: -5px;
+    margin-right: 1px;
+}
+/**主页下方切换按钮*/
+.nav-bottom-bar {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    /*height: 2em;*/
+    left: 0px;
+    text-align: center;
+    z-index: 10000
+}
+
+.nav-bottom-bar > div {
+    font-size: 18px;
+    color: #c3e1ff;
+    background-image: url("../images/底部导航栏_正常.png");
+    width: 131px;
+    height: 48px;
+    line-height: 48px;
+    display: inline-block;
+    cursor: pointer;
+    margin: 5px;
+    pointer-events: visible;
+}
+
+.nav-bottom-bar > div.select {
+    font-weight: bolder;
+    color: #ffffff;
+    background-image: url("../images/底部导航栏_选中.png");
+    width: 128px;
+    height: 48px;
+}
+
+.chart-title {
+    background-image: url("../images/内容区_标题背景.png");
+    min-width: 181px;
+    height: 32px;
+    font-size: 18px;
+    color: white;
+    line-height: 32px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.chart-title * {
+    display: inline-block;
+}
+
+.chart-title .content-icon {
+    background-image: url("../images/内容区_标题通用icon.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 5px;
+    margin-left: 5px;
+}
+
+.chart-title .content-icon .content {
+    background-image: url("../images/内容区_分析通用icon.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
 }

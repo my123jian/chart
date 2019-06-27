@@ -364,13 +364,11 @@
             //迁徙人群画像分析-年龄
             loadMigrateAge() {
                 //迁徙人群画像分析-年龄
-                var theUrl1 = "/citymigrate/migrateAge";
+                var theUrl1 = "/citytransport/tripAge";
                 //近期热门迁徙路线
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
-                    dateTime: this.queryDate.formate(),
-                    migType: this.queryDirection,
-                    migSource: this.queryRegionType,
+                    dateTime: this.queryDate.formateYearMonth(),
                     city: this.queryRegionCode
                 };
                 var me=this;
@@ -393,13 +391,11 @@
             loadMigrateSex() {
                 var me = this;
                 //迁徙人群画像分析-年龄
-                var theUrl1 = "/citymigrate/migrateSex";
+                var theUrl1 = "/citytransport/tripSex";
                 //近期热门迁徙路线
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
-                    dateTime: this.queryDate.formate(),
-                    migType: this.queryDirection,
-                    migSource: this.queryRegionType,
+                    dateTime: this.queryDate.formateYearMonth(),
                     city: this.queryRegionCode
                 };
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -421,13 +417,11 @@
             loadMigrateNativePlace() {
                 //迁徙人群画像分析-年龄
                 var me=this;
-                var theUrl1 = "/citymigrate/migrateNativePlace";
+                var theUrl1 = "/citytransport/tripNativePlace";
                 //近期热门迁徙路线
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
-                    dateTime: this.queryDate.formate(),
-                    migType: this.queryDirection,
-                    migSource: this.queryRegionType,
+                    dateTime: this.queryDate.formateYearMonth(),
                     city: this.queryRegionCode
                 };
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -449,13 +443,11 @@
             loadMigrateHobby() {
                 //迁徙人群画像分析-年龄
                 var me = this;
-                var theUrl1 = "/citymigrate/migrateHobby";
+                var theUrl1 = "/citytransport/tripHobby";
                 //近期热门迁徙路线
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
-                    dateTime: this.queryDate.formate(),
-                    migType: this.queryDirection,
-                    migSource: this.queryRegionType,
+                    dateTime: this.queryDate.formateYearMonth(),
                     city: this.queryRegionCode
                 };
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -476,13 +468,11 @@
             //9.迁徙人群画像分析-消费能力
             loadMigrateconsume() {
                 //迁徙人群画像分析-年龄
-                var theUrl1 = "/citymigrate/migrateconsume";
+                var theUrl1 = "/citytransport/tripConsume";
                 //近期热门迁徙路线
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
-                    dateTime: this.queryDate.formate(),
-                    migType: this.queryDirection,
-                    migSource: this.queryRegionType,
+                    dateTime: this.queryDate.formateYearMonth(),
                     city: this.queryRegionCode
                 };
                 var me=this;

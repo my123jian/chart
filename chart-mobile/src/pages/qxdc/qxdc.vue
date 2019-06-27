@@ -1,22 +1,33 @@
 <template>
     <div id="app">
+        <Header customActiveId="3"></Header>
         <div class="left-part">
             <iframe :src="mapurl" class="mapview" frameborder="no" style="overflow: hidden;" ref="mapview"></iframe>
             <div class="query-bar">
-                <select v-model="queryRegionCode">
-                    <option value="广州">广州市</option>
-                    <option value="深圳">深圳市</option>
-                </select>
-                <Datepicker v-on:input="dateChange" name="queryDate" :value="queryDate"></Datepicker>
-                <!--<input placeholder="请输入日期"/>-->
-                <div class="radio-grp">
-                    <span :class="queryDirection==1?'select':''" v-on:click="queryDirection=1">迁入</span>
-                    <span :class="queryDirection==2?'select':''" v-on:click="queryDirection=2">迁出</span>
+                <div class="field">
+                    <select v-model="queryRegionCode">
+                        <option value="广州">广州市</option>
+                        <option value="深圳">深圳市</option>
+                    </select>
                 </div>
-                <div class="radio-grp">
-                    <span :class="queryRegionType==1?'select':''" v-on:click="queryRegionType=1">省内</span>
-                    <span :class="queryRegionType==2?'select':''" v-on:click="queryRegionType=2">省外</span>
+               <div class="field">
+                   <Datepicker v-on:input="dateChange" name="queryDate" :value="queryDate"></Datepicker>
+               </div>
+              <div class="field">
+                  <!--<input placeholder="请输入日期"/>-->
+                  <div class="radio-grp">
+                      <span :class="queryDirection==1?'select':''" v-on:click="queryDirection=1">迁入</span>
+                      <span :class="queryDirection==2?'select':''" v-on:click="queryDirection=2">迁出</span>
+                  </div>
+              </div>
+                <div class="field">
+                    <div class="radio-grp">
+                        <span :class="queryRegionType==1?'select':''" v-on:click="queryRegionType=1">省内</span>
+                        <span :class="queryRegionType==2?'select':''" v-on:click="queryRegionType=2">省外</span>
+                    </div>
                 </div>
+
+
             </div>
             <div class="count-view">
                 <div class="title">省内迁出总人数</div>
@@ -31,7 +42,7 @@
         </div>
         <div class="right-part">
             <div class="tab-view">
-                <div class="tab-title">
+                <div class="tab-title tab-title2s">
                     <div v-on:click="right_tab_index= 1">迁入分析</div>
                     <div v-on:click="right_tab_index= 2">人群画像</div>
                 </div>
@@ -59,6 +70,7 @@
 </template>
 
 <script>
+    import Header from "../../components/Header";
     import TabOne from "../../components/qxdc/TabOne";
     import TabTwo from "../../components/qxdc/TabTwo";
     import WaveCircle from "../../components/WaveCircle";
@@ -71,7 +83,8 @@
             TabTwo,
             TabOne,
             WaveCircle,
-            Datepicker
+            Datepicker,
+            Header
         },
         data() {
             return {
@@ -230,20 +243,20 @@
 </script>
 
 <style scoped>
-    .tab-title {
-        background: gray;
-    }
+    /*.tab-title {*/
+        /*background: gray;*/
+    /*}*/
 
-    .tab-title div {
-        display: inline-block;
-        cursor: pointer;
-        width: 50%;
-        text-align: center;
-    }
+    /*.tab-title div {*/
+        /*display: inline-block;*/
+        /*cursor: pointer;*/
+        /*width: 50%;*/
+        /*text-align: center;*/
+    /*}*/
 
-    .tab-title div.select {
-        color: red;
-    }
+    /*.tab-title div.select {*/
+        /*color: red;*/
+    /*}*/
 
     .tab-content > div {
         height: 100%;
@@ -304,25 +317,6 @@
         top: 1.5em;
     }
 
-    .query-bar {
-        position: absolute;
-        top: 1px;
-        left: 5px;
-        padding: 5px;
-    }
-
-    .query-bar > * {
-        display: inline-block;
-        height: 100%;
-        margin: 2px;
-        height: 34px;
-    }
-
-    .count-view {
-        position: absolute;
-        left: 5px;
-        top: 100px;
-    }
 
     #app {
         position: relative;
@@ -338,11 +332,7 @@
         z-index: 10000
     }
 
-    .nav-bottom-bar > * {
-        display: inline-block;
-        cursor: pointer;
-        margin: 5px;
-    }
+
 
     .radio-grp {
 
