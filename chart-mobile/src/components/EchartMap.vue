@@ -1,46 +1,107 @@
 <template>
-    <div ref="chartMap" style="    width: 1200px;
-    height: 1040px;
-    margin-top: 40px;
-    position: absolute;
-    left: 0px;
-    top: 0px;">
+    <div ref="chartMap" class="mapview">
     </div>
 </template>
 
 <script>
+    import CityMap from '../utils/CityMap';
+    import ProvinceMap from '../utils/ProvinceMap';
+    import GeoUtil from '../utils/GeoUtil';
+    import axios from "axios";
+
     export default {
         name: "EchartMap",
-        props: ['data'],
+        props: {
+            data: Object,
+            level: {type: [String, Number], default: 1}
+        },
+        data() {
+            return {
+                provinceCode: '440000',
+                provinceName: '广东省',
+                cityName: '广州市',
+                cityCode: '',
+                colors: ['#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb']
+            }
+        },
         mounted() {
             this.initMap();
-           this.colors = ['#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb']
-
         },
         methods: {
             initMap() {
                 this.chartMap = window.echarts.init(this.$refs.chartMap);
+                this.refresh(this.data);
             },
+            /*得到国家地图*/
+            getCountryPath() {
+                var thePath = "map/china.json";
+                return thePath;
+            },
+            /**得到省地图*/
+            getProvincePath(name) {
+                var theCityCode = this.provinceCode;// ProvinceMap.getByName(name);
+                if (theCityCode) {
+                    var thePath = "map/amap/" + theCityCode + ".json";
+                    return thePath;
+                }
+                this.provinceName = name;
+            },
+            /**得到市地图*/
+            getCityPath(name) {
+                var theCityCode = CityMap.getByName(name);
+                if (theCityCode) {
+                    var thePath = "map/amap/" + theCityCode + ".json";
+                    return thePath;
+                }
+                this.cityName = name;
+            },
+            /*得到地图的路径信息*/
+            getMapPath(name) {
+                if (this.level == 1) {
+                    return this.getCountryPath();
+                }
+                if (this.level == 2) {
+                    return this.getProvincePath(name);
+                }
+                if (this.level == 3) {
+                    return this.getCityPath(name);
+                }
+            },
+            /**城市编码和名称的对照*/
             getCityNameByCode(name) {
                 return name;
             },
+            /**加载地图成功后返回*/
             loadMap(name, path, callback) {
-                $.get(path, function (chinaJson) {
-                    window.echarts.registerMap('name', chinaJson);
-                    callback && callback();
-                });
-            },
-            geoCoordMap(name){
-              return [0,0];
-            },
-            convertData(data){
+                axios.get(path)
+                    .then(function (response) {
+                        // handle success
+                        var theData = response.data;
+                        //debugger;
+                        window.echarts.registerMap(name, GeoUtil.convertData(theData));
+                        callback && callback();
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
 
+            },
+            /*根据名字得到经纬度**/
+            geoCoordMap(name) {
+                return [0, 0];
+            },
+            /**根据名称转换经纬度*/
+            convertData(data) {
                 var res = [];
+                var theValidPoints = [];
                 for (var i = 0; i < data.length; i++) {
                     var dataItem = data[i];
                     var fromCoord = this.geoCoordMap[dataItem[0].name];
                     var toCoord = this.geoCoordMap[dataItem[1].name];
-
                     if (fromCoord && toCoord) {
                         var theLine = {
                             fromName: dataItem[0].name,
@@ -55,20 +116,38 @@
                                 }
                             }
                         };
-
+                        theValidPoints.push(dataItem);
                         res.push(theLine);
                     }
                 }
-                return res;
+                return {
+                    lines: res,
+                    points: theValidPoints
+                };
             },
+            /**根据数据进行呈现*/
             refresh(data) {
                 var theMapName = data.name;
-                var option = null;
-                var theColors = ['#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb']
+                var theMapPath = this.getMapPath(theMapName);
+                var me = this;
+                if (this.mapName != theMapName) {
+                    this.loadMap(theMapName, theMapPath, function () {
+                        me.drawMap(data);
+                    });
+                }
+                this.mapName = theMapName;
 
+            },
+            /**根据数据呈现到地图上*/
+            drawMap(data) {
+                // name
+                // from to value
+                debugger;
+                var theMapName = data.name;
                 var theItems = data.items || [];
-
                 var theMapHash = {};
+                var theDatas = [];
+
                 for (var i = 0; i < theItems.length; i++) {
                     var theItem = theItems[i];
                     var theKey = theItem.from + '_' + theItem.to;
@@ -76,8 +155,7 @@
                     if (!theItem.from || !theItem.to) {
                         continue;
                     }
-
-                    data.push(
+                    theDatas.push(
                         [
                             {name: this.getCityNameByCode(theItem.from)},
                             {
@@ -89,7 +167,10 @@
 
                 var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
 
-                var theValidData = [];
+                var theConvertResult = this.convertData(data);
+
+                var thePoints = theConvertResult.points;
+                var theLines = theConvertResult.lines;
 
                 //var color = ['#a6c84c', '#ffa022', '#46bee9'];
                 var color = ['#49ffff'];//
@@ -114,7 +195,7 @@
                                 curveness: 0.2
                             }
                         },
-                        data: convertData(data),
+                        data: theLines,
                     },
                     {
                         //name: item[0] + ' Top10',
@@ -159,7 +240,7 @@
                         // },
                         symbol: ['none', 'arrow'],
                         symbolSize: 10,
-                        data: convertData(data),
+                        data: theLines,
 
                     },
                     {
@@ -205,10 +286,10 @@
                                 shadowColor: '#333'
                             }
                         },
-                        data: theValidData.map(function (dataItem) {
+                        data: thePoints.map(function (dataItem) {
                             return {
                                 name: dataItem[1].name,
-                                value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
+                                value: this.geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
                             };
                         }),
                     }
@@ -238,7 +319,7 @@
                     },*/
                     geo: {
                         selectedMode: false,// 'single',
-                        map: 'gd',
+                        map: theMapName,
                         top: 82,
                         scaleLimit: {
                             //min: 1,
@@ -340,5 +421,12 @@
 </script>
 
 <style scoped>
-
+    .mapview {
+        width: 1200px;
+        height: 1040px;
+        margin-top: 40px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
 </style>

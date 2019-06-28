@@ -39,31 +39,54 @@
                 var theColor = this.color;
 
                 var theOptions = {
-                    backgroundColor: '',
+                    // backgroundColor: 'transparent',
 
                     series: [{
                         type: 'liquidFill',
-                        data: [theValue],
+                        data: [{
+                            value:theValue,
+                            itemStyle:{
+                                normal:{
+                                    color:theColor
+                                }
+                            }
+                        }],
                         radius: '80%',
                         shape: 'circle',
-                        color: theColor,
-                        outLine: {
-                            show: false,
-                            borderDistance: 1, //边框距离
-                            //
+                        waveAnimation: true,
+                        // borderColor: theColor,
+                         color:'rgba(255, 255, 255, 0.15)',
+                         color: theColor,
+                        backgroundStyle:{
+                          color:'transparent'
+                        },
+                        itemStyle: {
+                            opacity: 0.5,
+                        },
+                        outline: {
+                            show: true,
+                            borderDistance: 1,
+                            itemStyle: {
+                                // color: theColor,
+                                borderColor:theColor,
+                                borderWidth: 1,
+                            }
                         },
                         label: {
                             normal: {
                                 //fontSize:80    //这里也可以设置
                                 textStyle: {
+                                    color:theColor,
+                                    insideColor:'white', //水波背景下的文字颜色
                                     fontSize: 20  //修改字体大小
                                 }
                             }
                         }
                     }]
                 };
-                // 把配置和数据放这里
-                this.chart.setOption(theOptions);
+                // debugger;
+                // 把配置和数s据放这里
+                this.chart.setOption(theOptions,true);
             },
             initChart() {
 

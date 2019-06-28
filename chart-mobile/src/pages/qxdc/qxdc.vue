@@ -10,16 +10,16 @@
                         <option value="深圳">深圳市</option>
                     </select>
                 </div>
-               <div class="field">
-                   <Datepicker v-on:input="dateChange" name="queryDate" :value="queryDate"></Datepicker>
-               </div>
-              <div class="field">
-                  <!--<input placeholder="请输入日期"/>-->
-                  <div class="radio-grp">
-                      <span :class="queryDirection==1?'select':''" v-on:click="queryDirection=1">迁入</span>
-                      <span :class="queryDirection==2?'select':''" v-on:click="queryDirection=2">迁出</span>
-                  </div>
-              </div>
+                <div class="field">
+                    <Datepicker v-on:input="dateChange" name="queryDate" :value="queryDate"></Datepicker>
+                </div>
+                <div class="field">
+                    <!--<input placeholder="请输入日期"/>-->
+                    <div class="radio-grp">
+                        <span :class="queryDirection==1?'select':''" v-on:click="queryDirection=1">迁入</span>
+                        <span :class="queryDirection==2?'select':''" v-on:click="queryDirection=2">迁出</span>
+                    </div>
+                </div>
                 <div class="field">
                     <div class="radio-grp">
                         <span :class="queryRegionType==1?'select':''" v-on:click="queryRegionType=1">省内</span>
@@ -34,17 +34,25 @@
                 <div>{{totalNum/10000}}万</div>
             </div>
             <div class="wave-content">
-                <WaveCircle style="width: 200px;height: 200px;" :value="Channel1Radio" width=200 height=200></WaveCircle>
-                <WaveCircle style="width: 200px;height: 200px;" :value="Channel2Radio" width=200 height=200></WaveCircle>
-                <WaveCircle style="width: 200px;height: 200px;" :value="Channel3Radio" width=200 height=200></WaveCircle>
-                <WaveCircle style="width: 200px;height: 200px;" :value="Channel4Radio" width=200 height=200></WaveCircle>
+                <WaveCircle color="red" style="width: 200px;height: 200px;" :value="Channel1Radio" width=200
+                            height=200></WaveCircle>
+                <WaveCircle color="blue" style="width: 200px;height: 200px;" :value="Channel2Radio" width=200
+                            height=200></WaveCircle>
+                <WaveCircle color="green" style="width: 200px;height: 200px;" :value="Channel3Radio" width=200
+                            height=200></WaveCircle>
+                <WaveCircle color="yellow" style="width: 200px;height: 200px;" :value="Channel4Radio" width=200
+                            height=200></WaveCircle>
             </div>
         </div>
         <div class="right-part">
             <div class="tab-view">
-                <div class="tab-title tab-title2s">
-                    <div v-on:click="right_tab_index= 1">迁入分析</div>
-                    <div v-on:click="right_tab_index= 2">人群画像</div>
+                <div class="tab-title tab-title2">
+                    <div v-on:click="right_tab_index= 1" :class="right_tab_index== 1?'select':''">
+                        <span>迁入分析</span>
+                    </div>
+                    <div v-on:click="right_tab_index= 2" :class="right_tab_index== 2?'select':''">
+                        <span>人群画像</span>
+                    </div>
                 </div>
                 <div class="tab-content">
                     <div v-if="right_tab_index==1">
@@ -62,7 +70,7 @@
 
         </div>
         <div class="nav-bottom-bar">
-            <div>迁徙洞察</div>
+            <div class="select">迁徙洞察</div>
             <div>跨市通勤</div>
         </div>
     </div>
@@ -95,12 +103,12 @@
                 right_tab_index: 1,
                 mapurl: 'province.html',
 
-                Channel1Radio:0,
-                Channel2Radio:0,
-                Channel3Radio:0,
-                Channel4Radio:0,
+                Channel1Radio: 0,
+                Channel2Radio: 0,
+                Channel3Radio: 0,
+                Channel4Radio: 0,
 
-                totalNum:0,
+                totalNum: 0,
             };
         },
         watch: {
@@ -166,12 +174,12 @@
                     migSource: this.queryRegionType,
                     startArea: this.queryRegionCode
                 };
-                var me=this;
+                var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
                         // handle success
                         var theData = response.data;
-                        me.totalNum=theData.data||0;
+                        me.totalNum = theData.data || 0;
                         console.log(response, theData);
                     })
                     .catch(function (error) {
@@ -182,7 +190,7 @@
                         // always executed
                     });
             },
-            drawChannel(datas){
+            drawChannel(datas) {
                 /**
                  * area: "广州"
                  channel: 1
@@ -193,24 +201,32 @@
                  num: 300000
                  ratio: 0.34
                  * */
-                this.Channel1Radio=0;
-                this.Channel2Radio=0;
-                this.Channel3Radio=0;
-                this.Channel4Radio=0;
-                for(var i=0;i<datas.length;i++){
-                    var theIem=datas[i];
-                    switch (theIem.channel){
-                        case 1:this.Channel1Radio=theIem.ratio; break;
-                        case 2:this.Channel2Radio=theIem.ratio; break;
-                        case 3:this.Channel3Radio=theIem.ratio; break;
-                        case 4:this.Channel4Radio=theIem.ratio; break;
+                this.Channel1Radio = 0;
+                this.Channel2Radio = 0;
+                this.Channel3Radio = 0;
+                this.Channel4Radio = 0;
+                for (var i = 0; i < datas.length; i++) {
+                    var theIem = datas[i];
+                    switch (theIem.channel) {
+                        case 1:
+                            this.Channel1Radio = theIem.ratio;
+                            break;
+                        case 2:
+                            this.Channel2Radio = theIem.ratio;
+                            break;
+                        case 3:
+                            this.Channel3Radio = theIem.ratio;
+                            break;
+                        case 4:
+                            this.Channel4Radio = theIem.ratio;
+                            break;
                     }
                 }
             },
             //迁徙渠道分析
             loadMigrateChannel() {
                 //今日热门迁徙路线
-                var me=this;
+                var me = this;
                 var theUrl1 = "/citymigrate/migrateChannel";
                 //近期热门迁徙路线
                 var theUrl = window.baseUrl + theUrl1;
@@ -244,26 +260,28 @@
 
 <style scoped>
     /*.tab-title {*/
-        /*background: gray;*/
+    /*background: gray;*/
     /*}*/
 
     /*.tab-title div {*/
-        /*display: inline-block;*/
-        /*cursor: pointer;*/
-        /*width: 50%;*/
-        /*text-align: center;*/
+    /*display: inline-block;*/
+    /*cursor: pointer;*/
+    /*width: 50%;*/
+    /*text-align: center;*/
     /*}*/
 
     /*.tab-title div.select {*/
-        /*color: red;*/
+    /*color: red;*/
     /*}*/
 
-    .tab-content > div {
-        height: 100%;
-    }
+    /*.tab-content > div {*/
+    /*height: 100%;*/
+    /*}*/
 
     .left-part {
         height: 100%;
+        width: 50%;
+        float: left;
         position: relative;
     }
 
@@ -271,7 +289,7 @@
         z-index: 1000;
         position: absolute;
         bottom: 0px;
-        /*height: 400px;*/
+        height: 400px;
         left: 0px;
         width: 100%;
     }
@@ -294,45 +312,40 @@
         overflow-y: hidden;
     }
 
-    .left-part {
-        width: 50%;
-        float: left;
-    }
+
 
     .right-part {
-        width: 50%;
-        float: left;
-        height: 100%;
-    }
-
-    .tab-view {
+        /*width: 50%;*/
+        float: right;
         height: 100%;
         position: relative;
     }
 
-    .tab-content {
-        position: absolute;
-        bottom: 0px;
-        width: 100%;
-        top: 1.5em;
-    }
+    /*.tab-view {*/
+        /*height: 100%;*/
+        /*position: relative;*/
+    /*}*/
 
+    /*.tab-content {*/
+    /*position: absolute;*/
+    /*bottom: 0px;*/
+    /*width: 100%;*/
+    /*top: 1.5em;*/
+    /*}*/
 
     #app {
         position: relative;
     }
 
-    .nav-bottom-bar {
-        position: absolute;
-        bottom: 0px;
-        width: 100%;
-        height: 2em;
-        left: 0px;
-        text-align: center;
-        z-index: 10000
-    }
-
-
+    /*.nav-bottom-bar {*/
+    /*position: absolute;*/
+    /*bottom: 0px;*/
+    /*width: 100%;*/
+    /*height: 2em;*/
+    /*left: 0px;*/
+    /*text-align: center;*/
+    /*z-index: 10000*/
+    /*}*/
 
     .radio-grp {
 

@@ -185,17 +185,17 @@
         line-height: 39px;
         text-align: center;
 
-    span:nth-child(2n+1) {
-        font-family: unidreamledregular;
-        font-size: 26px;
-    }
+    /*span:nth-child(2n+1) {*/
+        /*font-family: unidreamledregular;*/
+        /*font-size: 26px;*/
+    /*}*/
 
     }
     .right-box {
         width: 194px;
         height: 100%;
         position: absolute;
-        right: 20px;
+        right: 0px;
         display: flex;
         align-items: center;
     }

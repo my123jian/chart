@@ -1,7 +1,8 @@
 <template>
     <div id="app">
         <Header customActiveId="2"></Header>
-        <div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>
+        <EchartMap level="3" :data="mapData"></EchartMap>
+        <!--<div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>-->
         <div class="content">
             <div class="left-part">
 
@@ -11,6 +12,14 @@
                             <select v-model="queryRegionCode">
                                 <option value="广州">广州市</option>
                                 <option value="深圳">深圳市</option>
+                                <option value="肇庆">肇庆市</option>
+                                <option value="河源">河源市</option>
+                                <option value="云浮">云浮市</option>
+                                <option value="惠州">惠州市</option>
+                                <option value="珠海">珠海市</option>
+                                <option value="中山">中山市</option>
+                                <option value="东莞">东莞市</option>
+                                <option value="汕头">汕头市</option>
                             </select>
                         </div>
                     </div>
@@ -77,6 +86,7 @@
     import TabTwo from "../../components/tqfx/TabTwo";
     import TabThree from "../../components/tqfx/TabThree";
     import WaveCircle from "../../components/WaveCircle";
+    import EchartMap from "../../components/EchartMap";
     import Datepicker from 'vue-datepicker-local';
     import axios from "axios";
 
@@ -88,10 +98,11 @@
             TabThree,
             WaveCircle,
             Datepicker,
-            Header
+            Header,
+            EchartMap
         },
         mounted() {
-            //this.initMap();
+            // this.initMap();
             this.loadData();
         },
         methods: {
@@ -198,6 +209,11 @@
             queryRegionCode(newValue, oldValue) {
                 if (newValue != oldValue) {
                     this.loadData();
+                    var newMapData={
+                        name:newValue,
+                        items:[],
+                    }
+                    this.mapData=newMapData;
                 }
             },
             queryDate(newValue, oldValue) {
@@ -218,6 +234,7 @@
                 Channel2Radio: 0.3,
                 Channel3Radio: 0.3,
                 Channel4Radio: 0.3,
+                mapData:{name:'广州市',items:[]}
             }
         }
     }

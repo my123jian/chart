@@ -282,10 +282,15 @@
     .chart-item {
         height: 33.33%;
         /*width: 100%;*/
-        padding-top: 18px;
-        padding-left: 26px;
+        /*padding-top: 18px;*/
+        /*padding-left: 26px;*/
         pointer-events: visible;
         position: relative;
+    }
+    .chart-item .chart-title{
+        left:26px;
+        top:18px;
+        position: absolute;
     }
     .chart{
         width: 100%;

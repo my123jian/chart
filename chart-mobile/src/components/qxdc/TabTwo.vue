@@ -1,28 +1,58 @@
 <template>
     <div class="tabtwo">
         <div class="row row1">
-            <div>
-                <div class="title">性别</div>
+            <div class="chart-item">
+                <div class="chart-title">
+                    <div class="content-icon">
+                        <div class="content sex">
+                            性别
+                        </div>
+                    </div>
+                </div>
                 <div class="canvas" ref="sex"></div>
             </div>
-            <div>
-                <div class="title">年龄</div>
+            <div class="chart-item">
+                <div class="chart-title">
+                    <div class="content-icon">
+                        <div class="content age">
+                            年龄
+                        </div>
+                    </div>
+                </div>
                 <div class="canvas" ref="age"></div>
             </div>
         </div>
         <div class="row row2">
-            <div>
-                <div class="title">爱好</div>
+            <div class="chart-item">
+                <div class="chart-title">
+                    <div class="content-icon">
+                        <div class="content hobby">
+                            爱好
+                        </div>
+                    </div>
+                </div>
                 <div class="canvas" ref="interest"></div>
             </div>
-            <div>
-                <div class="title">消费能力</div>
+            <div class="chart-item">
+                <div class="chart-title">
+                    <div class="content-icon">
+                        <div class="content consume">
+                            消费能力
+                        </div>
+                    </div>
+                </div>
                 <div class="canvas" ref="consumption"></div>
             </div>
         </div>
         <div class="row row3">
-            <div>
-                <div class="title">籍贯</div>
+            <div class="chart-item">
+                <div class="chart-title">
+                    <div class="content-icon">
+                        <div class="content birth">
+                            籍贯
+                        </div>
+                    </div>
+                </div>
                 <div class="canvas" ref="birthplace"></div>
             </div>
         </div>
@@ -192,11 +222,11 @@
                  migType: 1
                  num: 10000
                  * */
-                var theX=[];
-                var theY=[];
-                if(datas){
-                    for(var i=0;i<datas.length;i++){
-                        var theItem=datas[i];
+                var theX = [];
+                var theY = [];
+                if (datas) {
+                    for (var i = 0; i < datas.length; i++) {
+                        var theItem = datas[i];
                         theY.push(theItem.num);
                         theX.push(theAgeGroups[theItem.ageGroup]);
                     }
@@ -252,11 +282,11 @@
                  migType: 1
                  num: 10000
                  * */
-                var theX=[];
-                var theY=[];
-                if(datas){
-                    for(var i=0;i<datas.length;i++){
-                        var theItem=datas[i];
+                var theX = [];
+                var theY = [];
+                if (datas) {
+                    for (var i = 0; i < datas.length; i++) {
+                        var theItem = datas[i];
                         theY.push(theItem.num);
                         theX.push(theConsumDegree[theItem.consume]);
                     }
@@ -278,7 +308,7 @@
                     yAxis: [
                         {
                             type: 'category',
-                            data:theX,// ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            data: theX,// ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                             axisTick: {
                                 alignWithLabel: true
                             }
@@ -294,7 +324,7 @@
                             name: '消费能力',
                             type: 'bar',
                             barWidth: '60%',
-                            data:theY,// [10, 52, 200, 334, 390, 330, 220]
+                            data: theY,// [10, 52, 200, 334, 390, 330, 220]
                         }
                     ]
                 };
@@ -312,11 +342,11 @@
                  nativePlace: "湖南长沙"
                  num: 10000
                  * */
-                var theX=[];
-                var theY=[];
-                if(datas){
-                    for(var i=0;i<datas.length;i++){
-                        var theItem=datas[i];
+                var theX = [];
+                var theY = [];
+                if (datas) {
+                    for (var i = 0; i < datas.length; i++) {
+                        var theItem = datas[i];
                         theY.push(theItem.num);
                         theX.push(theItem.nativePlace);
                     }
@@ -354,7 +384,7 @@
                             name: '籍贯',
                             type: 'bar',
                             barWidth: '60%',
-                            data:theY,// [10, 52, 200, 334, 390, 330, 220]
+                            data: theY,// [10, 52, 200, 334, 390, 330, 220]
                         }
                     ]
                 };
@@ -373,7 +403,7 @@
                     migSource: this.queryRegionType,
                     city: this.queryRegionCode
                 };
-                var me=this;
+                var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
                         // handle success
@@ -420,7 +450,7 @@
             //迁徙人群画像分析-籍贯
             loadMigrateNativePlace() {
                 //迁徙人群画像分析-年龄
-                var me=this;
+                var me = this;
                 var theUrl1 = "/citymigrate/migrateNativePlace";
                 //近期热门迁徙路线
                 var theUrl = window.baseUrl + theUrl1;
@@ -485,7 +515,7 @@
                     migSource: this.queryRegionType,
                     city: this.queryRegionCode
                 };
-                var me=this;
+                var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
                         // handle success
@@ -553,8 +583,22 @@
 <style scoped>
     .tabtwo {
         height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
     }
 
+    .chart-item {
+        position: relative;
+    }
+
+    .chart-item .chart-title{
+        position: absolute;
+        left:16px;
+        top:19px;
+    }
     .title {
         position: absolute;
         left: 0px;

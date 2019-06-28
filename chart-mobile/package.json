@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
+    "echarts-amap": "^1.0.0-rc.6",
     "vue": "^2.6.10",
     "vue-datepicker-local": "^1.0.19",
     "vuejs-datepicker": "^1.5.4"

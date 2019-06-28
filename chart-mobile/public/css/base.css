@@ -237,3 +237,19 @@ body{
     background-position: left center;
     padding-left: 20px;
 }
+
+.chart-title .content-icon .content.age {
+    background-image: url("../images/内容区_年龄icon.png");
+}
+.chart-title .content-icon .content.sex {
+    background-image: url("../images/内容区_性别icon.png");
+}
+.chart-title .content-icon .content.hobby {
+    background-image: url("../images/内容区_APP爱好icon.png");
+}
+.chart-title .content-icon .content.consume {
+    background-image: url("../images/内容区_消费能力icon.png");
+}
+.chart-title .content-icon .content.birth {
+    background-image: url("../images/内容区_籍贯icon.png");
+}
