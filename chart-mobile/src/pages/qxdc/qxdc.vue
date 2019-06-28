@@ -30,25 +30,36 @@
 
             </div>
             <div class="count-view">
-                <div class="title">省内迁出总人数</div>
-                <div>{{totalNum/10000}}万</div>
+                <div class="title">{{queryRegionType==1?'省内':'省外'}}{{queryDirection==1?'迁入':'迁出'}}总人数</div>
+                <div class="num" v-html="totalNum.fromateDataString()"></div>
             </div>
-            <div class="wave-content">
-                <WaveCircle color="red" style="width: 200px;height: 200px;" :value="Channel1Radio" width=200
-                            height=200></WaveCircle>
-                <WaveCircle color="blue" style="width: 200px;height: 200px;" :value="Channel2Radio" width=200
-                            height=200></WaveCircle>
-                <WaveCircle color="green" style="width: 200px;height: 200px;" :value="Channel3Radio" width=200
-                            height=200></WaveCircle>
-                <WaveCircle color="yellow" style="width: 200px;height: 200px;" :value="Channel4Radio" width=200
-                            height=200></WaveCircle>
-            </div>
+
+        </div>
+        <div class="wave-content">
+            <table>
+                <tr>
+                    <td style="vertical-align: center">
+                        <div class="onecloumn onecloumn-bg">
+                            通勤方式
+                        </div>
+                    </td>
+                    <td>
+
+                        <WaveCircle color="#63efe0" :value="Channel1Radio"></WaveCircle>
+                        <WaveCircle color="#67f782" :value="Channel2Radio"></WaveCircle>
+                        <WaveCircle color="#faff64" :value="Channel3Radio"></WaveCircle>
+                        <WaveCircle color="#64ceff" :value="Channel4Radio"></WaveCircle>
+                    </td>
+                </tr>
+            </table>
+
+
         </div>
         <div class="right-part">
             <div class="tab-view">
                 <div class="tab-title tab-title2">
                     <div v-on:click="right_tab_index= 1" :class="right_tab_index== 1?'select':''">
-                        <span>迁入分析</span>
+                        <span>{{queryDirection==1?'迁入':'迁出'}}分析</span>
                     </div>
                     <div v-on:click="right_tab_index= 2" :class="right_tab_index== 2?'select':''">
                         <span>人群画像</span>
@@ -288,15 +299,20 @@
     .wave-content {
         z-index: 1000;
         position: absolute;
-        bottom: 0px;
-        height: 400px;
-        left: 0px;
+        left: 59px;
+        height: 120px;
+        bottom: 108px;
         width: 100%;
     }
 
-    .wave-content > * {
-        width: 25%;
+    .wave-content > table {
+        width: 100%;
+    }
+
+    .wave-circle {
+        /*width: 25%;*/
         float: left;
+        margin-right: 100px;
     }
 
     .mapview {
@@ -312,8 +328,6 @@
         overflow-y: hidden;
     }
 
-
-
     .right-part {
         /*width: 50%;*/
         float: right;
@@ -322,8 +336,8 @@
     }
 
     /*.tab-view {*/
-        /*height: 100%;*/
-        /*position: relative;*/
+    /*height: 100%;*/
+    /*position: relative;*/
     /*}*/
 
     /*.tab-content {*/
@@ -353,9 +367,18 @@
 
     .radio-grp > span {
         cursor: pointer;
+        /*display: inline-block;*/
+        width: 110px;
+        text-align: center;
+        margin: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
 
     .radio-grp > span.select {
-        background: red;
+        background: #152d61;
+        border-radius: 5px;
     }
 </style>

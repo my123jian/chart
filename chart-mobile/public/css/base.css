@@ -110,7 +110,16 @@ body{
     color: white !important;
     height: 100%;
 }
-
+.field{
+    background-image: url("../images/内容区_地市选择背景框.png");
+    width: 223px;
+    height: 50px;
+    font-size: 22px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    text-align: center;
+    color: white;
+}
 .query-bar .city {
     background-image: url("../images/内容区_地市选择背景框.png");
     width: 223px;
@@ -252,4 +261,54 @@ body{
 }
 .chart-title .content-icon .content.birth {
     background-image: url("../images/内容区_籍贯icon.png");
+}
+
+
+.onecloumn {
+    margin: 0 auto;
+    height: 140px;
+    writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
+    writing-mode: tb-lr; /*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
+}
+.onecloumn-bg{
+    background-image: url("../images/迁出渠道底框.png");
+    width: 34px;
+    height: 118px;
+    color: white;
+    background-repeat: no-repeat;
+    font-size: 18px;
+    text-align: center;
+    padding-left: 4px;
+}
+.table{
+    border-collapse: collapse;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.table >thead {
+    text-align: center;
+    color: #10ffd9;
+}
+.table >tbody{
+    text-align: center;
+    color: white;
+}
+.table tbody tr{
+    height: 30px;
+}
+.table tbody tr:nth-of-type(even){
+background: #0e4e95;
+}
+
+.bus-color{
+    color:#63efe0;
+}
+.train-color{
+    color:#67f782;
+}
+.fly-color{
+    color:#faff64;
+}
+.car-color{
+    color:#64ceff;
 }

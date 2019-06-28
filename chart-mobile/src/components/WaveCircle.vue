@@ -1,5 +1,5 @@
 <template>
-    <div :id="id" ref="myEchart"></div>
+    <div class="wave-circle" :style="baseStyles" :id="id" ref="myEchart"></div>
 </template>
 
 <script>
@@ -8,14 +8,14 @@
         props: {
             id: String,
             color: String,
-            width: {type: [String, Number], default: 400},
-            height: {type: [String, Number], default: 400},
+            width: {type: [String, Number], default: 120},
+            height: {type: [String, Number], default: 120},
             name: String,
             value: {type: Number, default: 0.6}
         },
         data: function () {
             return {
-                baseStyles: 'width:200px;height:200px'
+                baseStyles: 'width:120px;height:120px'
             };
         },
         mounted() {
