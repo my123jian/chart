@@ -2,7 +2,7 @@ export default {
     getProvinceCode(name) {
         var theProvinces = this.data['100000'];
         for (var key in theProvinces) {
-            if (theProvinces[key] == name || theProvinces[key] + '省' == name || theProvinces[key] + '市' == name) {
+            if ((theProvinces[key] == name || theProvinces[key] + '省' == name || theProvinces[key] + '市' == name)||(theProvinces[key] == name+ '省'  || theProvinces[key]  == name+ '市')) {
                 return key;
             }
         }
@@ -12,7 +12,7 @@ export default {
         if (theCode) {
             var theCityData = this.data[theCode];
             for (var key in theCityData) {
-                if (theCityData[key] == name || theCityData[key] + '市' == name) {
+                if (theCityData[key] == cityName || theCityData[key] + '市' == cityName||theCityData[key]  == cityName+ '市') {
                     return key;
                 }
             }
@@ -23,7 +23,8 @@ export default {
         if(theCityCode){
             var theCityData = this.data[theCityCode];
             for (var key in theCityData) {
-                if (theCityData[key] == countyName || theCityData[key] + '市' == countyName || theCityData[key] + '区' == countyName || theCityData[key] + '县' == countyName) {
+                if (theCityData[key] == countyName || theCityData[key] + '市' == countyName || theCityData[key] + '区' == countyName || theCityData[key] + '县' == countyName
+                     || theCityData[key]  == countyName + '市'|| theCityData[key] == countyName + '区' || theCityData[key] == countyName + '县') {
                     return key;
                 }
             }

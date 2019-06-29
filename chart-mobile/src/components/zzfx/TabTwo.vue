@@ -1,28 +1,58 @@
 <template>
-    <div class="tabTwo">
+    <div class="tabtwo">
         <div class="row row1">
-            <div>
-                <div class="title">性别</div>
+            <div class="chart-item">
+                <div class="chart-title">
+                    <div class="content-icon">
+                        <div class="content sex">
+                            性别
+                        </div>
+                    </div>
+                </div>
                 <div class="canvas" ref="sex"></div>
             </div>
-            <div>
-                <div class="title">年龄</div>
+            <div class="chart-item">
+                <div class="chart-title">
+                    <div class="content-icon">
+                        <div class="content age">
+                            年龄
+                        </div>
+                    </div>
+                </div>
                 <div class="canvas" ref="age"></div>
             </div>
         </div>
         <div class="row row2">
-            <div>
-                <div class="title">爱好</div>
+            <div class="chart-item">
+                <div class="chart-title">
+                    <div class="content-icon">
+                        <div class="content hobby">
+                            爱好
+                        </div>
+                    </div>
+                </div>
                 <div class="canvas" ref="interest"></div>
             </div>
-            <div>
-                <div class="title">消费能力</div>
+            <div class="chart-item">
+                <div class="chart-title">
+                    <div class="content-icon">
+                        <div class="content consume">
+                            消费能力
+                        </div>
+                    </div>
+                </div>
                 <div class="canvas" ref="consumption"></div>
             </div>
         </div>
         <div class="row row3">
-            <div>
-                <div class="title">籍贯</div>
+            <div class="chart-item">
+                <div class="chart-title">
+                    <div class="content-icon">
+                        <div class="content birth">
+                            籍贯
+                        </div>
+                    </div>
+                </div>
                 <div class="canvas" ref="birthplace"></div>
             </div>
         </div>
@@ -43,6 +73,323 @@
             };
         },
         methods: {
+            // //性别饼图
+            // drawSexChar(datas) {
+            //     // {value: 335, name: '直接访问'},
+            //     var theShowDatas = [];
+            //     if (datas && datas.length > 0) {
+            //         var theItem = datas[0];
+            //         for (var i = 0; i < datas.length; i++) {
+            //             var theItem = datas[i];
+            //             theShowDatas.push({
+            //                 value: theItem.ratio * 100,
+            //                 name: theSexType[theItem.sex]// == 1 ? "男" : "女"
+            //             });
+            //         }
+            //     }
+            //     var theOptions1 = {
+            //         // title : {
+            //         //     text: '某站点用户访问来源',
+            //         //     subtext: '纯属虚构',
+            //         //     x:'center'
+            //         // },
+            //         tooltip: {
+            //             trigger: 'item',
+            //             formatter: "{a} <br/>{b} :  ({d}%)"
+            //         },
+            //         grid: {
+            //             left: '3%',
+            //             right: '4%',
+            //             bottom: '3%',
+            //             containLabel: true
+            //         },
+            //
+            //         // legend: {
+            //         //     orient: 'vertical',
+            //         //     left: 'left',
+            //         //     data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+            //         // },
+            //         series: [
+            //             {
+            //                 name: '性别',
+            //                 type: 'pie',
+            //                 radius: '55%',
+            //                 center: ['50%', '50%'],
+            //                 labelLine: {
+            //                     normal: {
+            //                         show: false
+            //                     },
+            //                     emphasis: {
+            //                         show: false
+            //                     }
+            //                 },
+            //                 label: {
+            //                     normal: {
+            //                         show: false
+            //                     },
+            //                     emphasis: {
+            //                         show: false
+            //                     }
+            //                 },
+            //                 data: theShowDatas,
+            //
+            //                 itemStyle: {
+            //                     emphasis: {
+            //                         shadowBlur: 10,
+            //                         shadowOffsetX: 0,
+            //                         shadowColor: 'rgba(0, 0, 0, 0.5)'
+            //                     },
+            //
+            //                 }
+            //             }
+            //         ]
+            //     };
+            //     this.chart1.setOption(theOptions1);
+            // },
+            // //爱好
+            // drawInstertChar(datas) {
+            //     var theShowDatas = [];
+            //     if (datas && datas.length > 0) {
+            //         var theItem = datas[0];
+            //         for (var i = 0; i < datas.length; i++) {
+            //             var theItem = datas[i];
+            //             theShowDatas.push({
+            //                 value: theItem.ratio * 100,
+            //                 name: theItem.hobby
+            //             });
+            //         }
+            //     }
+            //     var theOptions3 = {
+            //         // title: {
+            //         //     text: '某站点用户访问来源',
+            //         //     subtext: '纯属虚构',
+            //         //     x: 'center'
+            //         // },
+            //         tooltip: {
+            //             trigger: 'item',
+            //             // formatter: "{a} <br/>{b} : {c} ({d}%)"
+            //             formatter: "{a} <br/>{b} :  ({d}%)"
+            //         },
+            //         // legend: {
+            //         //     orient: 'vertical',
+            //         //     left: 'left',
+            //         //     data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+            //         // },
+            //         series: [
+            //             {
+            //                 name: '爱好',
+            //                 type: 'pie',
+            //                 radius: '55%',
+            //                 center: ['50%', '50%'],
+            //                 labelLine: {
+            //                     normal: {
+            //                         show: false
+            //                     },
+            //                     emphasis: {
+            //                         show: false
+            //                     }
+            //                 },
+            //                 label: {
+            //                     normal: {
+            //                         show: false
+            //                     },
+            //                     emphasis: {
+            //                         show: false
+            //                     }
+            //                 },
+            //                 data: theShowDatas,
+            //                 itemStyle: {
+            //                     emphasis: {
+            //                         shadowBlur: 10,
+            //                         shadowOffsetX: 0,
+            //                         shadowColor: 'rgba(0, 0, 0, 0.5)'
+            //                     }
+            //                 }
+            //             }
+            //         ]
+            //     };
+            //     this.chart3.setOption(theOptions3);
+            // },
+            // //年龄
+            // drawAgeChar(datas) {
+            //     var theShowDatas = [];
+            //     /**
+            //      * ageGroup: 1
+            //      city: "广州"
+            //      dateTime: "2019-06-21"
+            //      id: 10
+            //      migSource: 1
+            //      migType: 1
+            //      num: 10000
+            //      * */
+            //     var theX=[];
+            //     var theY=[];
+            //     if(datas){
+            //         for(var i=0;i<datas.length;i++){
+            //             var theItem=datas[i];
+            //             theY.push(theItem.num);
+            //             theX.push(theAgeGroups[theItem.ageGroup]);
+            //         }
+            //     }
+            //     var theOptions2 = {
+            //         color: ['#3398DB'],
+            //         tooltip: {
+            //             trigger: 'axis',
+            //             axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+            //                 type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            //             }
+            //         },
+            //         grid: {
+            //             left: '3%',
+            //             right: '4%',
+            //             bottom: '3%',
+            //             containLabel: true
+            //         },
+            //         yAxis: [
+            //             {
+            //                 type: 'category',
+            //                 data: theX,//['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            //                 axisTick: {
+            //                     alignWithLabel: true
+            //                 }
+            //             }
+            //         ],
+            //         xAxis: [
+            //             {
+            //                 type: 'value'
+            //             }
+            //         ],
+            //         series: [
+            //             {
+            //                 name: '年龄',
+            //                 type: 'bar',
+            //                 barWidth: '60%',
+            //                 data: theY,//[10, 52, 200, 334, 390, 330, 220]
+            //             }
+            //         ]
+            //     };
+            //     this.chart2.setOption(theOptions2);
+            // },
+            // //消费
+            // drawConsumChar(datas) {
+            //     var theShowDatas = [];
+            //     /**
+            //      *city: "广州"
+            //      consume: 1
+            //      dateTime: "2019-06-21"
+            //      id: 10
+            //      migSource: 1
+            //      migType: 1
+            //      num: 10000
+            //      * */
+            //     var theX=[];
+            //     var theY=[];
+            //     if(datas){
+            //         for(var i=0;i<datas.length;i++){
+            //             var theItem=datas[i];
+            //             theY.push(theItem.num);
+            //             theX.push(theConsumDegree[theItem.consume]);
+            //         }
+            //     }
+            //     var theOptions4 = {
+            //         color: ['#3398DB'],
+            //         tooltip: {
+            //             trigger: 'axis',
+            //             axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+            //                 type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            //             }
+            //         },
+            //         grid: {
+            //             left: '3%',
+            //             right: '4%',
+            //             bottom: '3%',
+            //             containLabel: true
+            //         },
+            //         yAxis: [
+            //             {
+            //                 type: 'category',
+            //                 data:theX,// ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            //                 axisTick: {
+            //                     alignWithLabel: true
+            //                 }
+            //             }
+            //         ],
+            //         xAxis: [
+            //             {
+            //                 type: 'value'
+            //             }
+            //         ],
+            //         series: [
+            //             {
+            //                 name: '消费能力',
+            //                 type: 'bar',
+            //                 barWidth: '60%',
+            //                 data:theY,// [10, 52, 200, 334, 390, 330, 220]
+            //             }
+            //         ]
+            //     };
+            //     this.chart4.setOption(theOptions4);
+            // },
+            // //籍贯
+            // drawLocaionChar(datas) {
+            //     var theShowDatas = [];
+            //     /**
+            //      *city: "广州"
+            //      dateTime: "2019-06-21"
+            //      id: 10
+            //      migSource: 1
+            //      migType: 1
+            //      nativePlace: "湖南长沙"
+            //      num: 10000
+            //      * */
+            //     var theX=[];
+            //     var theY=[];
+            //     if(datas){
+            //         for(var i=0;i<datas.length;i++){
+            //             var theItem=datas[i];
+            //             theY.push(theItem.num);
+            //             theX.push(theItem.nativePlace);
+            //         }
+            //     }
+            //     var theOptions5 = {
+            //         color: ['#3398DB'],
+            //         tooltip: {
+            //             trigger: 'axis',
+            //             axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+            //                 type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            //             }
+            //         },
+            //         grid: {
+            //             left: '3%',
+            //             right: '4%',
+            //             bottom: '3%',
+            //             containLabel: true
+            //         },
+            //         xAxis: [
+            //             {
+            //                 type: 'category',
+            //                 data: theX,//['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            //                 axisTick: {
+            //                     alignWithLabel: true
+            //                 }
+            //             }
+            //         ],
+            //         yAxis: [
+            //             {
+            //                 type: 'value'
+            //             }
+            //         ],
+            //         series: [
+            //             {
+            //                 name: '籍贯',
+            //                 type: 'bar',
+            //                 barWidth: '60%',
+            //                 data:theY,// [10, 52, 200, 334, 390, 330, 220]
+            //             }
+            //         ]
+            //     };
+            //     this.chart5.setOption(theOptions5);
+            // },
             //性别饼图
             drawSexChar(datas) {
                 // {value: 335, name: '直接访问'},
@@ -63,6 +410,7 @@
                     //     subtext: '纯属虚构',
                     //     x:'center'
                     // },
+                    color:['#63efe0','#67f782','#faff64','#64ceff','#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb'],
                     tooltip: {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} :  ({d}%)"
@@ -135,6 +483,7 @@
                     //     subtext: '纯属虚构',
                     //     x: 'center'
                     // },
+                    color:['#63efe0','#67f782','#faff64','#64ceff','#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb'],
                     tooltip: {
                         trigger: 'item',
                         // formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -192,17 +541,17 @@
                  migType: 1
                  num: 10000
                  * */
-                var theX=[];
-                var theY=[];
-                if(datas){
-                    for(var i=0;i<datas.length;i++){
-                        var theItem=datas[i];
+                var theX = [];
+                var theY = [];
+                if (datas) {
+                    for (var i = 0; i < datas.length; i++) {
+                        var theItem = datas[i];
                         theY.push(theItem.num);
                         theX.push(theAgeGroups[theItem.ageGroup]);
                     }
                 }
                 var theOptions2 = {
-                    color: ['#3398DB'],
+                    color: ['#63efe0'],
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -219,22 +568,43 @@
                         {
                             type: 'category',
                             data: theX,//['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                             axisTick: {
-                                alignWithLabel: true
+                                alignWithLabel: false
                             }
                         }
                     ],
                     xAxis: [
                         {
-                            type: 'value'
+                            type: 'value',
+                            axisLine: {
+                                show:false,
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
+                            axisTick: {show: false},
+                            splitLine: {
+                                show: false
+                            }
+                            ,
                         }
                     ],
                     series: [
                         {
                             name: '年龄',
                             type: 'bar',
-                            barWidth: '60%',
+                            barWidth: 30,
                             data: theY,//[10, 52, 200, 334, 390, 330, 220]
+                            itemStyle:{
+                                normal:{
+                                    barBorderRadius: 10
+                                }
+                            }
                         }
                     ]
                 };
@@ -252,17 +622,17 @@
                  migType: 1
                  num: 10000
                  * */
-                var theX=[];
-                var theY=[];
-                if(datas){
-                    for(var i=0;i<datas.length;i++){
-                        var theItem=datas[i];
+                var theX = [];
+                var theY = [];
+                if (datas) {
+                    for (var i = 0; i < datas.length; i++) {
+                        var theItem = datas[i];
                         theY.push(theItem.num);
                         theX.push(theConsumDegree[theItem.consume]);
                     }
                 }
                 var theOptions4 = {
-                    color: ['#3398DB'],
+                    color: ['#63efe0'],
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -278,7 +648,12 @@
                     yAxis: [
                         {
                             type: 'category',
-                            data:theX,// ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            data: theX,// ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                             axisTick: {
                                 alignWithLabel: true
                             }
@@ -286,15 +661,25 @@
                     ],
                     xAxis: [
                         {
-                            type: 'value'
+                            type: 'value',
+                            splitLine: {
+                                show: false
+                            },
+                            axisTick: {show: false},
+                            axisLine: {
+                                show: false,
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                         }
                     ],
                     series: [
                         {
                             name: '消费能力',
                             type: 'bar',
-                            barWidth: '60%',
-                            data:theY,// [10, 52, 200, 334, 390, 330, 220]
+                            barWidth: 30,
+                            data: theY,// [10, 52, 200, 334, 390, 330, 220]
                         }
                     ]
                 };
@@ -312,17 +697,17 @@
                  nativePlace: "湖南长沙"
                  num: 10000
                  * */
-                var theX=[];
-                var theY=[];
-                if(datas){
-                    for(var i=0;i<datas.length;i++){
-                        var theItem=datas[i];
+                var theX = [];
+                var theY = [];
+                if (datas) {
+                    for (var i = 0; i < datas.length; i++) {
+                        var theItem = datas[i];
                         theY.push(theItem.num);
                         theX.push(theItem.nativePlace);
                     }
                 }
                 var theOptions5 = {
-                    color: ['#3398DB'],
+                    color: ['#faff64'],
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -339,6 +724,14 @@
                         {
                             type: 'category',
                             data: theX,//['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
+                            splitLine: {
+                                show: false
+                            },
                             axisTick: {
                                 alignWithLabel: true
                             }
@@ -346,21 +739,28 @@
                     ],
                     yAxis: [
                         {
-                            type: 'value'
+                            type: 'value',
+                            splitLine: {
+                                show: false
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                         }
                     ],
                     series: [
                         {
                             name: '籍贯',
                             type: 'bar',
-                            barWidth: '60%',
-                            data:theY,// [10, 52, 200, 334, 390, 330, 220]
+                            barWidth: 30,
+                            data: theY,// [10, 52, 200, 334, 390, 330, 220]
                         }
                     ]
                 };
                 this.chart5.setOption(theOptions5);
             },
-
             //迁徙人群画像分析-年龄
             loadMigrateAge() {
                 //迁徙人群画像分析-年龄
@@ -541,10 +941,24 @@
 </script>
 
 <style scoped>
-    .tabTwo {
+    .tabtwo {
         height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
     }
 
+    .chart-item {
+        position: relative;
+    }
+
+    .chart-item .chart-title{
+        position: absolute;
+        left:16px;
+        top:19px;
+    }
     .title {
         position: absolute;
         left: 0px;

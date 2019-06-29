@@ -93,6 +93,7 @@
                     //     subtext: '纯属虚构',
                     //     x:'center'
                     // },
+                    color:['#63efe0','#67f782','#faff64','#64ceff','#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb'],
                     tooltip: {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} :  ({d}%)"
@@ -165,6 +166,7 @@
                     //     subtext: '纯属虚构',
                     //     x: 'center'
                     // },
+                    color:['#63efe0','#67f782','#faff64','#64ceff','#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb'],
                     tooltip: {
                         trigger: 'item',
                         // formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -226,7 +228,7 @@
                     }
                 }
                 var theOptions2 = {
-                    color: ['#3398DB'],
+                    color: ['#63efe0'],
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -257,15 +259,16 @@
                         {
                             type: 'value',
                             axisLine: {
+                                show:false,
                                 lineStyle: {
                                     color: 'white'//'#557398'
                                 }
                             },
-                            axisLine: {
-                                lineStyle: {
-                                    color: 'white'//'#557398'
-                                }
-                            },
+                            axisTick: {show: false},
+                            splitLine: {
+                                show: false
+                            }
+                           ,
                         }
                     ],
                     series: [
@@ -274,6 +277,11 @@
                             type: 'bar',
                             barWidth: 30,
                             data: theY,//[10, 52, 200, 334, 390, 330, 220]
+                            itemStyle:{
+                                normal:{
+                                    barBorderRadius: 10
+                                }
+                            }
                         }
                     ]
                 };
@@ -295,7 +303,7 @@
                     }
                 }
                 var theOptions4 = {
-                    color: ['#3398DB'],
+                    color: ['#63efe0'],
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -325,7 +333,12 @@
                     xAxis: [
                         {
                             type: 'value',
+                            splitLine: {
+                                show: false
+                            },
+                            axisTick: {show: false},
                             axisLine: {
+                                show: false,
                                 lineStyle: {
                                     color: 'white'//'#557398'
                                 }
@@ -365,7 +378,7 @@
                     }
                 }
                 var theOptions5 = {
-                    color: ['#3398DB'],
+                    color: ['#faff64'],
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -387,6 +400,9 @@
                                     color: 'white'//'#557398'
                                 }
                             },
+                            splitLine: {
+                                show: false
+                            },
                             axisTick: {
                                 alignWithLabel: true
                             }
@@ -395,6 +411,9 @@
                     yAxis: [
                         {
                             type: 'value',
+                            splitLine: {
+                                show: false
+                            },
                             axisLine: {
                                 lineStyle: {
                                     color: 'white'//'#557398'

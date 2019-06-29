@@ -1,18 +1,20 @@
 <template>
     <div>
-        <div class="row row1">
+        <div class="row row1 chart-item">
             <div class="chart-title">
-                <div class="content-icon">
+                <span class="content-icon">
                     <span>趋势分析</span>
-                </div>
+                </span>
             </div>
             <div class="canvas" ref="linechart"></div>
         </div>
-        <div class="row row2">
+        <div class="row row2 chart-item">
             <div class="chart-title">
-                <div>通勤路线</div>
+                <span class="content-icon">
+                    <span>通勤路线</span>
+                </span>
             </div>
-            <table class="table">
+            <table class="table table-view">
                 <thead>
                 <tr>
                     <th>排名</th>
@@ -95,6 +97,7 @@
                         bottom: '3%',
                         containLabel: true
                     },
+                    color:['#479fc1'],
                     // toolbox: {
                     //     feature: {
                     //         saveAsImage: {}
@@ -112,6 +115,10 @@
                     },
                     yAxis: {
                         type: 'value',
+                        splitLine: {
+                            show: false
+                        },
+                        axisTick: {show: false},
                         axisLine: {
                             lineStyle: {
                                 color: 'white'//'#557398'
@@ -123,6 +130,7 @@
                             name: '趋势分析',
                             type: 'line',
                             stack: '总量',
+                            smooth: true,
                             data: theY,// [120, 132, 101, 134, 90, 230, 210]
                         }
                     ]
@@ -305,12 +313,7 @@
         height: 200px;
     }
 
-    .row .chart-title {
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        z-index: 10000;
-    }
+
 
     .row2 {
         padding-left: 15px;
@@ -323,5 +326,21 @@
         top: 0px;
         width: 100%;
         height: 100%;
+    }
+
+    .chart-item .chart-title{
+        left:26px;
+        top:18px;
+        position: absolute;
+    }
+    .chart{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+    }
+    .table-view{
+        top:50px;
+        position: absolute;
     }
 </style>

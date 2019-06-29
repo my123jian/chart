@@ -1,50 +1,70 @@
 <template>
-    <div>
-        <div title="通勤成本排行" class="part-item">
-            <div class="title onecloumn">
-                通勤成本排行
-            </div>
-            <div class="content">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>
-                            排名
-                        </th>
-                        <th>
-                            通勤路线
-                        </th>
-                        <th>
-                            通勤人数
-                        </th>
-                        <th>
-                            单程平均通行时间(min)
-                        </th>
-                        <th>
-                            单程平均通行距离(km)
-                        </th>
+    <div class="chart-view">
+        <div title="通勤成本排行" class="part-item part-item1">
+            <table>
+                <tr>
+                    <td>
+                        <div class="title onecloumn onecloumn-bg">
+                            通勤成本排行
+                        </div>
+                    </td>
+                    <td style="vertical-align: top;width: 100%;">
+                        <div class="content">
+                            <table class="table" style="width: 100%;">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        排名
+                                    </th>
+                                    <th>
+                                        通勤路线
+                                    </th>
+                                    <th>
+                                        通勤人数
+                                    </th>
+                                    <th>
+                                        单程平均通行时间(min)
+                                    </th>
+                                    <th>
+                                        单程平均通行距离(km)
+                                    </th>
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="item in items" :key="item.id">
-                        <th>{{item.order}}</th>
-                        <th>{{item.line}}</th>
-                        <th>{{item.num}}</th>
-                        <th>{{item.avgTime}}</th>
-                        <th>{{item.avgDistance}}</th>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="item in items" :key="item.id">
+                                    <th>{{item.order}}</th>
+                                    <th>{{item.line}}</th>
+                                    <th>{{item.num}}</th>
+                                    <th>{{item.avgTime}}</th>
+                                    <th>{{item.avgDistance}}</th>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
         </div>
         <div title="平均通勤距离" class="part-item part-item2">
-            <div class="title onecloumn">
-                平均通勤距离
-            </div>
-            <div class="content chart" ref="chart1">
+            <table>
+                <tr>
+                    <td>
+                        <div class="title onecloumn onecloumn-bg">
+                            平均通勤距离
+                        </div>
+                    </td>
+                    <td style="width: 100%">
+                        <div class="content chart" ref="chart1">
 
-            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
         </div>
     </div>
 
@@ -79,9 +99,9 @@
                  liveDistance: 1000000
                  wordDistance: 200000
                  * */
-                var theLiveLine=DataConvert.convertData(datas,"area","1000000");
-                var theWorkLine=DataConvert.convertData(datas,"area","wordDistance");
-                var theDistanceLine=DataConvert.convertData(datas,"area","distance");
+                var theLiveLine = DataConvert.convertData(datas, "area", "1000000");
+                var theWorkLine = DataConvert.convertData(datas, "area", "wordDistance");
+                var theDistanceLine = DataConvert.convertData(datas, "area", "distance");
                 var option = {
                     // title: {
                     //     text: '未来一周气温变化',
@@ -108,10 +128,23 @@
                     xAxis: {
                         type: 'category',
                         boundaryGap: false,
+                        axisLine: {
+                            lineStyle: {
+                                color: 'white'//'#557398'
+                            }
+                        },
                         data: theLiveLine.x//['周一', '周二', '周三', '周四', '周五', '周六', '周日']
                     },
                     yAxis: {
                         type: 'value',
+                        splitLine: {
+                            show: false
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: 'white'//'#557398'
+                            }
+                        },
                         axisLabel: {
                             formatter: '{value} km'
                         }
@@ -296,19 +329,34 @@
 </script>
 
 <style scoped>
-
+    .chart-view {
+        position: relative;
+    }
 
     .part-item > * {
         display: inline-block;
         position: relative;
     }
-    .part-item .content{
-        width:578px;
+
+    .part-item .content {
+        width: 578px;
         vertical-align: top;
     }
-    part-item2{
+
+    .part-item1 {
+        bottom: 230px;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+        position:absolute;
+    }
+
+    .part-item2 {
         height: 230px;
-        position: relative;
+        bottom: 0px;
+        left: 0px;
+        top: 626px;
+        position: absolute;
     }
 
     .chart {

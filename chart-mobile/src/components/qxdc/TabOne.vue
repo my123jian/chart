@@ -1,6 +1,11 @@
 <template>
     <div>
-        <div class="row row1">
+        <div class="row row1 chart-item">
+            <div class="chart-title">
+                <span class="content-icon">
+                    <span>趋势分析</span>
+                </span>
+            </div>
             <div class="chart-title-btns">
                 <div v-on:click="lineDate=1" :class="lineDate==1?'select':''">近半月</div>
                 <div v-on:click="lineDate=2" :class="lineDate==2?'select':''">近一月</div>
@@ -116,6 +121,7 @@
                         bottom: '3%',
                         containLabel: true
                     },
+                    color:['#479fc1'],
                     // toolbox: {
                     //     feature: {
                     //         saveAsImage: {}
@@ -133,6 +139,9 @@
                     },
                     yAxis: {
                         type: 'value',
+                        splitLine: {
+                            show: false
+                        },
                         axisLine: {
                             lineStyle: {
                                 color: 'white'//'#557398'
@@ -144,6 +153,7 @@
                             name: '趋势分析',
                             type: 'line',
                             stack: '总量',
+                            smooth: true,
                             data: theY,// [120, 132, 101, 134, 90, 230, 210]
                         }
                     ]
@@ -344,12 +354,7 @@
         height: 200px;
     }
 
-    .row .chart-title {
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        z-index: 10000;
-    }
+
 
     .row2 {
         padding-left: 15px;

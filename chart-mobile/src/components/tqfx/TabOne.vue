@@ -53,7 +53,7 @@
             drawChart1(datas) {
                 var theResult = DataConvert.convertData(datas, 'distance', 'num',theTqDistinceType);
                 var theOptions = {
-                    color: ['#3398DB'],
+                    color: ['#63efe0'],
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -72,12 +72,26 @@
                             data: theResult.x,//['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                             axisTick: {
                                 alignWithLabel: true
-                            }
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                         }
+
                     ],
                     yAxis: [
                         {
-                            type: 'value'
+                            type: 'value',
+                            splitLine: {
+                                show: false
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                         }
                     ],
                     series: [
@@ -85,6 +99,7 @@
                             // name: '籍贯',
                             type: 'bar',
                             barWidth: '60%',
+                            barWidth: 30,
                             data: theResult.y,// [10, 52, 200, 334, 390, 330, 220]
                         }
                     ]
@@ -94,7 +109,7 @@
             drawChart2(datas) {
                 var theResult = DataConvert.convertData(datas, 'timeDuration', 'num',theTqTimeType);
                 var theOptions = {
-                    color: ['#3398DB'],
+                    color: ['#63efe0'],
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -110,6 +125,11 @@
                     xAxis: [
                         {
                             type: 'category',
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                             data: theResult.x,//['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                             axisTick: {
                                 alignWithLabel: true
@@ -118,7 +138,15 @@
                     ],
                     yAxis: [
                         {
-                            type: 'value'
+                            type: 'value',
+                            splitLine: {
+                                show: false
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            }
                         }
                     ],
                     series: [
@@ -126,6 +154,7 @@
                             // name: '籍贯',
                             type: 'bar',
                             barWidth: '60%',
+                            barWidth: 30,
                             data: theResult.y,// [10, 52, 200, 334, 390, 330, 220]
                         }
                     ]
@@ -135,7 +164,8 @@
             drawChart3(datas) {
                 var theResult = DataConvert.convertData(datas, 'timePoint', 'num',theTqPlace);
                 var theOptions = {
-                    color: ['#3398DB'],
+                    // color: ['#3398DB'],
+                    color: ['#63efe0'],
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -151,6 +181,11 @@
                     xAxis: [
                         {
                             type: 'category',
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                             data: theResult.x,//['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                             axisTick: {
                                 alignWithLabel: true
@@ -159,7 +194,15 @@
                     ],
                     yAxis: [
                         {
-                            type: 'value'
+                            type: 'value',
+                            splitLine: {
+                                show: false
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            }
                         }
                     ],
                     series: [
@@ -167,6 +210,7 @@
                             // name: '籍贯',
                             type: 'bar',
                             barWidth: '60%',
+                            barWidth: 30,
                             data: theResult.y,// [10, 52, 200, 334, 390, 330, 220]
                         }
                     ]

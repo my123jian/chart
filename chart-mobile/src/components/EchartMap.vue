@@ -6,6 +6,7 @@
 <script>
     import CityMap from '../utils/CityMap';
     import ProvinceMap from '../utils/ProvinceMap';
+    import CityCodeMap from '../utils/CityCodeMap';
     import GeoUtil from '../utils/GeoUtil';
     import GpsUtil from '../utils/GpsUtil';
     import axios from "axios";
@@ -14,7 +15,8 @@
         name: "EchartMap",
         props: {
             data: Object,
-            queryDirection:String,//1 入 2 迁出
+            areaMod: {type: [Number], default: 0},
+            queryDirection: String,//1 入 2 迁出
             level: {type: [String, Number], default: 1}
         },
         data() {
@@ -41,7 +43,7 @@
             },
             /**得到省地图*/
             getProvincePath(name) {
-                var theCityCode ='guangdong';// this.provinceCode;// ProvinceMap.getByName(name);
+                var theCityCode = 'guangdong';// this.provinceCode;// ProvinceMap.getByName(name);
                 if (theCityCode) {
                     var thePath = "map/province/" + theCityCode + ".json";
                     return thePath;
@@ -80,7 +82,7 @@
                         // handle success
                         var theData = response.data;
                         //debugger;
-                        window.echarts.registerMap(name,theData);
+                        window.echarts.registerMap(name, theData);
                         callback && callback();
                     })
                     .catch(function (error) {
@@ -94,12 +96,21 @@
             },
             /*根据名字得到经纬度**/
             geoCoordMap(name) {
-                return GpsUtil.getByCityName(name);
+
+                if (this.areaMod == 1) {
+                    var theCityCode = CityCodeMap.getCountyCode("广东省", this.cityName, name);
+                    debugger;
+                    return GpsUtil.getByAreaCode(theCityCode);
+                }
+                else {
+                    return GpsUtil.getByCityName(name);
+                }
+
             },
             /**根据名称转换经纬度*/
             convertData(data) {
                 var res = [];
-                if(!data){
+                if (!data) {
                     return {
                         lines: [],
                         points: []
@@ -144,7 +155,7 @@
                         me.drawMap(data);
                     });
                 }
-                else{
+                else {
                     me.drawMap(data);
                 }
                 this.mapName = theMapName;
@@ -154,7 +165,7 @@
             drawMap(data) {
                 // name
                 // from to value
-                var me=this;
+                var me = this;
                 var theMapName = data.name;
                 var theItems = data.items || [];
                 var theMapHash = {};
@@ -282,8 +293,8 @@
                         },
                         data: thePoints.map(function (dataItem) {
                             return {
-                                name: me.queryDirection==1?dataItem.from:dataItem.to,
-                                value: me.geoCoordMap(me.queryDirection==1?dataItem.from:dataItem.to).concat([dataItem.value])
+                                name: me.queryDirection == 1 ? dataItem.from : dataItem.to,
+                                value: me.geoCoordMap(me.queryDirection == 1 ? dataItem.from : dataItem.to).concat([dataItem.value])
                             };
                         }),
                     }

@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <Header customActiveId="2"></Header>
-        <EchartMap level="3" :data="mapData"></EchartMap>
+        <EchartMap level="3" :data="mapData" :areaMod="1"></EchartMap>
         <!--<div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>-->
         <div class="content">
             <div class="left-part">
@@ -24,7 +24,8 @@
                         <div class="down-icon"></div>
                     </div>
                     <div class="date field">
-                        <Datepicker v-on:input="dateChange"  format="YYYY-MM" name="queryDate" :value="queryDate"></Datepicker>
+                        <Datepicker v-on:input="dateChange" format="YYYY-MM" name="queryDate"
+                                    :value="queryDate"></Datepicker>
                         <div class="date-icon"></div>
                     </div>
                     <!--<input placeholder="请输入日期"/>-->
@@ -91,6 +92,7 @@
     import Datepicker from 'vue-datepicker-local';
     import axios from "axios";
     import PageUtil from "../../utils/PageUtil";
+
     export default {
         name: "tqfx",
         components: {
@@ -107,7 +109,7 @@
             this.loadData();
         },
         methods: {
-            gotoPage(){
+            gotoPage() {
                 window.gotoPage('zzfx.html')
             },
             dateChange(value) {
@@ -153,7 +155,6 @@
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
                         // handle success
-                        // debugger;
                         var theData = response.data;
                         /**
                          * avgDistance: 400000
@@ -170,9 +171,18 @@
                             var theItem = theData.data[i];
                             theItem.order = i + 1;
                             theItem.line = theItem.startArea + "->" + theItem.endArea;
+                            theItem.from = theItem.startArea;
+                            theItem.to = theItem.endArea;
+                            theItem.value = theItem.num;
+
                             theResult.push(theItem);
                         }
                         me.items = theResult;
+                        var mapData = {
+                            name: me.queryRegionCode,
+                            items: me.items
+                        };
+                        me.mapData = mapData;
                         // debugger;
                         console.log(response, theData);
                     })
@@ -213,11 +223,11 @@
             queryRegionCode(newValue, oldValue) {
                 if (newValue != oldValue) {
                     this.loadData();
-                    var newMapData={
-                        name:newValue,
-                        items:[],
-                    }
-                    this.mapData=newMapData;
+                    // var newMapData = {
+                    //     name: newValue,
+                    //     items: [],
+                    // }
+                    // this.mapData = newMapData;
                 }
             },
             queryDate(newValue, oldValue) {
@@ -238,7 +248,7 @@
                 Channel2Radio: 0.3,
                 Channel3Radio: 0.3,
                 Channel4Radio: 0.3,
-                mapData:{name:'广州市',items:[]}
+                mapData: {name: '广州市', items: []}
             }
         }
     }
