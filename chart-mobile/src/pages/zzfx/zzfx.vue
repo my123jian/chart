@@ -2,6 +2,74 @@
     <div id="app">
         <Header customActiveId="2"></Header>
         <div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>
+        <!--<div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>-->
+        <div class="content">
+            <div class="left-part">
+
+                <div class="query-bar">
+                    <div class="city field">
+                        <div class="icon">
+                            <select v-model="queryRegionCode">
+                                <option value="广州">广州市</option>
+                                <option value="深圳">深圳市</option>
+                                <option value="肇庆">肇庆市</option>
+                                <option value="河源">河源市</option>
+                                <option value="云浮">云浮市</option>
+                                <option value="惠州">惠州市</option>
+                                <option value="珠海">珠海市</option>
+                                <option value="中山">中山市</option>
+                                <option value="东莞">东莞市</option>
+                                <option value="汕头">汕头市</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="date field">
+                        <Datepicker v-on:input="dateChange" name="queryDate" :value="queryDate"></Datepicker>
+                    </div>
+                    <!--<input placeholder="请输入日期"/>-->
+
+                </div>
+                <div class="count-view">
+                    <div class="title">通勤人数</div>
+                    <div class="num" v-html="totalNum.fromateDataString()"></div>
+                </div>
+                <!--<div class="wave-content">-->
+                <!--<WaveCircle style="width: 200px;height: 200px;" :value="Channel1Radio" width=200-->
+                <!--height=200></WaveCircle>-->
+                <!--<WaveCircle style="width: 200px;height: 200px;" :value="Channel2Radio" width=200-->
+                <!--height=200></WaveCircle>-->
+                <!--<WaveCircle style="width: 200px;height: 200px;" :value="Channel3Radio" width=200-->
+                <!--height=200></WaveCircle>-->
+                <!--<WaveCircle style="width: 200px;height: 200px;" :value="Channel4Radio" width=200-->
+                <!--height=200></WaveCircle>-->
+                <!--</div>-->
+            </div>
+            <div class="right-part">
+                <div class="tab-view">
+                    <div class="tab-title tab-title2">
+                        <div v-on:click="right_tab_index= 1" :class="right_tab_index==1?'select':''">
+                            <span>人口分析</span></div>
+                        <div v-on:click="right_tab_index= 2" :class="right_tab_index==2?'select':''">
+                            <span>人群画像</span>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div v-if="right_tab_index==1">
+                            <TabOne :queryDate="queryDate" :queryRegionCode="queryRegionCode"></TabOne>
+                        </div>
+                        <div v-if="right_tab_index==2">
+                            <TabTwo :queryDate="queryDate" :queryRegionCode="queryRegionCode"></TabTwo>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="nav-bottom-bar">
+                <div @click="gotoPage" >通勤分析</div>
+                <div class="select">职住分析</div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -9,11 +77,27 @@
     import Header from "../../components/Header";
     import TabOne from "../../components/zzfx/TabOne";
     import TabTwo from "../../components/zzfx/TabTwo";
+    import PageUtil from "../../utils/PageUtil";
     import Datepicker from 'vue-datepicker-local';
     import axios from "axios";
 
     export default {
         name: "zzfx",
+        data() {
+            return {
+                queryRegionCode: '广州',//省内 具体到市  省外是全国地图
+                queryDate: new Date(),//查询的日期
+                right_tab_index: 1,
+                defaultFeatures: ['bg', 'building', 'point'], // 地图默认特征
+                totalNum: 0,
+
+                Channel1Radio: 0.3,
+                Channel2Radio: 0.3,
+                Channel3Radio: 0.3,
+                Channel4Radio: 0.3,
+                mapData:{name:'广州市',items:[]}
+            }
+        },
         components: {
             TabTwo,
             TabOne,
@@ -21,10 +105,17 @@
             Header
         },
         mounted() {
+            this.queryDate = new Date();
             this.initMap();
             this.loadSpace();
         },
         methods: {
+            gotoPage(){
+                window.gotoPage('tqfx.html')
+            },
+            dateChange(value) {
+                this.queryDate = value;
+            },
             //1. 职住地热力分布
             loadSpace() {
                 var theUrl1 = "/citytransport/space";
@@ -79,27 +170,14 @@
 </script>
 
 <style scoped>
-    .tab-title {
-        background: gray;
-    }
-
-    .tab-title div {
-        display: inline-block;
-        cursor: pointer;
-        width: 50%;
-        text-align: center;
-    }
-
-    .tab-title div.select {
-        color: red;
-    }
-
     .tab-content > div {
         height: 100%;
+        pointer-events: visible;
     }
 
     .left-part {
         height: 100%;
+        width: 50%;
         position: relative;
     }
 
@@ -117,17 +195,13 @@
         float: left;
     }
 
-    .mapview {
-        width: 100%;
-        height: 100%;
-    }
-
     #app {
         width: 100%;
         height: 100%;
         margin: 0px;
         padding: 0px;
         overflow-y: hidden;
+        position: relative;
     }
 
     .left-part {
@@ -136,61 +210,12 @@
     }
 
     .right-part {
-        width: 50%;
-        float: left;
+        float: right;
         height: 100%;
-    }
-
-    .tab-view {
-        height: 100%;
-        position: relative;
-    }
-
-    .tab-content {
-        position: absolute;
-        bottom: 0px;
-        width: 100%;
-        top: 1.5em;
-    }
-
-    .query-bar {
-        position: absolute;
-        top: 1px;
-        left: 5px;
-        padding: 5px;
-    }
-
-    .query-bar > * {
-        display: inline-block;
-        height: 100%;
-        margin: 2px;
-        height: 34px;
-    }
-
-    .count-view {
-        position: absolute;
-        left: 5px;
-        top: 100px;
     }
 
     #app {
         position: relative;
-    }
-
-    .nav-bottom-bar {
-        position: absolute;
-        bottom: 0px;
-        width: 100%;
-        height: 2em;
-        left: 0px;
-        text-align: center;
-        z-index: 10000
-    }
-
-    .nav-bottom-bar > * {
-        display: inline-block;
-        cursor: pointer;
-        margin: 5px;
     }
 
     .radio-grp {
@@ -203,5 +228,16 @@
 
     .radio-grp > span.select {
         background: red;
+    }
+
+    .content {
+        top: 78px;
+        left: 0px;
+        z-index: 10000;
+        bottom: 0px;
+        right: 0px;
+        pointer-events: none;
+        position: absolute;
+        background: transparent;
     }
 </style>

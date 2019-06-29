@@ -7,12 +7,14 @@
     import CityMap from '../utils/CityMap';
     import ProvinceMap from '../utils/ProvinceMap';
     import GeoUtil from '../utils/GeoUtil';
+    import GpsUtil from '../utils/GpsUtil';
     import axios from "axios";
 
     export default {
         name: "EchartMap",
         props: {
             data: Object,
+            queryDirection:String,//1 入 2 迁出
             level: {type: [String, Number], default: 1}
         },
         data() {
@@ -39,9 +41,9 @@
             },
             /**得到省地图*/
             getProvincePath(name) {
-                var theCityCode = this.provinceCode;// ProvinceMap.getByName(name);
+                var theCityCode ='guangdong';// this.provinceCode;// ProvinceMap.getByName(name);
                 if (theCityCode) {
-                    var thePath = "map/amap/" + theCityCode + ".json";
+                    var thePath = "map/province/" + theCityCode + ".json";
                     return thePath;
                 }
                 this.provinceName = name;
@@ -50,7 +52,7 @@
             getCityPath(name) {
                 var theCityCode = CityMap.getByName(name);
                 if (theCityCode) {
-                    var thePath = "map/amap/" + theCityCode + ".json";
+                    var thePath = "map/city/" + theCityCode + ".json";
                     return thePath;
                 }
                 this.cityName = name;
@@ -78,7 +80,7 @@
                         // handle success
                         var theData = response.data;
                         //debugger;
-                        window.echarts.registerMap(name, GeoUtil.convertData(theData));
+                        window.echarts.registerMap(name,theData);
                         callback && callback();
                     })
                     .catch(function (error) {
@@ -92,20 +94,27 @@
             },
             /*根据名字得到经纬度**/
             geoCoordMap(name) {
-                return [0, 0];
+                return GpsUtil.getByCityName(name);
             },
             /**根据名称转换经纬度*/
             convertData(data) {
                 var res = [];
+                if(!data){
+                    return {
+                        lines: [],
+                        points: []
+                    };
+                }
                 var theValidPoints = [];
                 for (var i = 0; i < data.length; i++) {
                     var dataItem = data[i];
-                    var fromCoord = this.geoCoordMap[dataItem[0].name];
-                    var toCoord = this.geoCoordMap[dataItem[1].name];
+
+                    var fromCoord = this.geoCoordMap(dataItem.from);
+                    var toCoord = this.geoCoordMap(dataItem.to);
                     if (fromCoord && toCoord) {
                         var theLine = {
-                            fromName: dataItem[0].name,
-                            toName: dataItem[1].name,
+                            fromName: dataItem.from,
+                            toName: dataItem.to,
                             coords: [fromCoord, toCoord],
                             //设置线段颜色
                             lineStyle: {
@@ -135,6 +144,9 @@
                         me.drawMap(data);
                     });
                 }
+                else{
+                    me.drawMap(data);
+                }
                 this.mapName = theMapName;
 
             },
@@ -142,32 +154,14 @@
             drawMap(data) {
                 // name
                 // from to value
-                debugger;
+                var me=this;
                 var theMapName = data.name;
                 var theItems = data.items || [];
                 var theMapHash = {};
-                var theDatas = [];
-
-                for (var i = 0; i < theItems.length; i++) {
-                    var theItem = theItems[i];
-                    var theKey = theItem.from + '_' + theItem.to;
-                    theMapHash[theKey] = true;
-                    if (!theItem.from || !theItem.to) {
-                        continue;
-                    }
-                    theDatas.push(
-                        [
-                            {name: this.getCityNameByCode(theItem.from)},
-                            {
-                                name: this.getCityNameByCode(theItem.to),
-                                value: theItem.value
-                            }
-                        ]);
-                }
 
                 var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
 
-                var theConvertResult = this.convertData(data);
+                var theConvertResult = this.convertData(data.items);
 
                 var thePoints = theConvertResult.points;
                 var theLines = theConvertResult.lines;
@@ -288,8 +282,8 @@
                         },
                         data: thePoints.map(function (dataItem) {
                             return {
-                                name: dataItem[1].name,
-                                value: this.geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
+                                name: me.queryDirection==1?dataItem.from:dataItem.to,
+                                value: me.geoCoordMap(me.queryDirection==1?dataItem.from:dataItem.to).concat([dataItem.value])
                             };
                         }),
                     }

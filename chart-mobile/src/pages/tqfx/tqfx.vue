@@ -30,7 +30,7 @@
 
                 </div>
                 <div class="count-view">
-                    <div class="title">省内迁出总人数</div>
+                    <div class="title">通勤人数</div>
                     <div class="num" v-html="totalNum.fromateDataString()"></div>
                 </div>
                 <!--<div class="wave-content">-->
@@ -58,7 +58,7 @@
                     </div>
                     <div class="tab-content">
                         <div v-if="right_tab_index==1">
-                            <tab-one :queryDate="queryDate" :queryRegionCode="queryRegionCode"></tab-one>
+                            <TabOne :queryDate="queryDate" :queryRegionCode="queryRegionCode"></TabOne>
                         </div>
                         <div v-if="right_tab_index==2">
                             <TabTwo :queryDate="queryDate" :queryRegionCode="queryRegionCode"></TabTwo>
@@ -73,7 +73,7 @@
             </div>
             <div class="nav-bottom-bar">
                 <div class="select">通勤分析</div>
-                <div class="">职住分析</div>
+                <div class="" @click="gotoPage">职住分析</div>
             </div>
         </div>
 
@@ -89,7 +89,7 @@
     import EchartMap from "../../components/EchartMap";
     import Datepicker from 'vue-datepicker-local';
     import axios from "axios";
-
+    import PageUtil from "../../utils/PageUtil";
     export default {
         name: "tqfx",
         components: {
@@ -106,6 +106,9 @@
             this.loadData();
         },
         methods: {
+            gotoPage(){
+                window.gotoPage('zzfx.html')
+            },
             dateChange(value) {
                 this.queryDate = value;
             },

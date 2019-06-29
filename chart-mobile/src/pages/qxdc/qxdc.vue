@@ -2,7 +2,8 @@
     <div id="app">
         <Header customActiveId="3"></Header>
         <div class="left-part">
-            <iframe :src="mapurl" class="mapview" frameborder="no" style="overflow: hidden;" ref="mapview"></iframe>
+            <!--<iframe :src="mapurl" class="mapview" frameborder="no" style="overflow: hidden;" ref="mapview"></iframe>-->
+            <EchartMap :level="mapLevel" :data="mapData" :queryDirection="queryDirection"></EchartMap>
             <div class="query-bar">
                 <div class="field">
                     <select v-model="queryRegionCode">
@@ -68,12 +69,13 @@
                 <div class="tab-content">
                     <div v-if="right_tab_index==1">
                         <tab-one :queryDirection="queryDirection" :queryRegionType="queryRegionType"
-                                 :queryDate="queryDate" :queryRegionCode="queryRegionCode"></tab-one>
+                                 :queryDate="queryDate" :queryRegionCode="queryRegionCode"
+                                 v-on:dataChange="dataChange"></tab-one>
                     </div>
                     <div v-if="right_tab_index==2">
                         <TabTwo :queryDirection="queryDirection" :queryRegionType="queryRegionType"
                                 :queryDate="queryDate" :queryRegionCode="queryRegionCode"
-                                v-on:dataChange="dataChange"></TabTwo>
+                        ></TabTwo>
                     </div>
                 </div>
 
@@ -82,7 +84,7 @@
         </div>
         <div class="nav-bottom-bar">
             <div class="select">迁徙洞察</div>
-            <div>跨市通勤</div>
+            <div @click="gotoPage">跨市通勤</div>
         </div>
     </div>
 
@@ -95,7 +97,8 @@
     import WaveCircle from "../../components/WaveCircle";
     import Datepicker from 'vue-datepicker-local';
     import axios from "axios";
-
+    import EchartMap from "../../components/EchartMap";
+    import PageUtil from "../../utils/PageUtil";
     export default {
         name: 'app',
         components: {
@@ -103,7 +106,8 @@
             TabOne,
             WaveCircle,
             Datepicker,
-            Header
+            Header,
+            EchartMap
         },
         data() {
             return {
@@ -120,6 +124,8 @@
                 Channel4Radio: 0,
 
                 totalNum: 0,
+                mapLevel: 2,
+                mapData: {name: '广东省', level: 2}
             };
         },
         watch: {
@@ -146,10 +152,12 @@
                     return;
                 }
                 if (newValue == 2) {
-                    this.mapurl = "country.html";
+                    this.mapLevel = 1;
+                    //this.mapurl = "country.html";
                 }
                 else {
-                    this.mapurl = "province.html";
+                    this.mapLevel = 2;
+                    // this.mapurl = "province.html";
                 }
                 this.loadData();
             }
@@ -158,6 +166,9 @@
             this.loadData();
         },
         methods: {
+            gotoPage(){
+                window.gotoPage('kstq.html')
+            },
             //切换URL地址
             changePage: function (url) {
                 location.href = url;
@@ -167,11 +178,20 @@
                 this.loadMigrateCount();
             },
             dataChange(data) {
-                var theWindow = this.$ref.mapview;
+                //var theWindow = this.$refs.mapview;
                 //刷新子窗口数据  同时 刷新 球状图数据
-                debugger;
-                theWindow.contentWindow.refresh(data);
+                // debugger;
+                //theWindow.contentWindow&& theWindow.contentWindow.refresh(data);
                 // console.log(theWindow,data);
+                if (this.queryRegionType == 2) {
+                    var theMapData = {name: '中国', items: data};
+                    this.mapData = theMapData;
+                }
+                else {
+                    var theMapData = {name: '广东省', items: data};
+                    this.mapData = theMapData;
+                }
+
             },
             //10.统计省内/省外总人数
             loadMigrateCount() {
@@ -302,7 +322,7 @@
         left: 59px;
         height: 120px;
         bottom: 108px;
-        width: 100%;
+        /*width: 100%;*/
     }
 
     .wave-content > table {

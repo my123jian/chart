@@ -28,7 +28,7 @@ Date.prototype.formate = function () {
     return this.getFullYear() + "-" + FormateDateNum(this.getMonth() + 1) + "-" + FormateDateNum(this.getDate());
 }
 Date.prototype.formateYearMonth = function () {
-    return this.getFullYear() + "-" + FormateDateNum(this.getMonth() + 1) ;
+    return this.getFullYear() + "-" + FormateDateNum(this.getMonth() + 1);
 }
 /*格式化年月日日期中文*/
 Date.prototype.formateCN = function () {
@@ -98,6 +98,9 @@ Number.prototype.fromateDataString = function () {
     return theResultStr;
 }
 
+function gotoPage(name) {
+    location.href = name;
+}
 
 //年龄组分段
 var theAgeGroups = {};
@@ -131,7 +134,7 @@ theChannelType[3] = '飞机';
 theChannelType[4] = '自驾';
 
 //通勤距离段
-var theTqDistinceType={};
+var theTqDistinceType = {};
 theTqDistinceType[0] = '<2km';
 theTqDistinceType[1] = '2-4km';
 theTqDistinceType[2] = '4-6km';
@@ -143,7 +146,7 @@ theTqDistinceType[7] = '20-25km';
 theTqDistinceType[8] = '<25km';
 
 //通勤距离段
-var theTqTimeType={};
+var theTqTimeType = {};
 theTqTimeType[0] = '<20min';
 theTqTimeType[1] = '20-30min';
 theTqTimeType[2] = '30-40min';
@@ -153,7 +156,7 @@ theTqTimeType[5] = '>60min';
 
 
 //通勤时点分布
-var theTqPlace={};
+var theTqPlace = {};
 theTqPlace[0] = '<6h';
 theTqPlace[1] = '6-7h';
 theTqPlace[2] = '7-8h';

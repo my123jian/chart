@@ -297,7 +297,7 @@ body{
     height: 30px;
 }
 .table tbody tr:nth-of-type(even){
-background: #0e4e95;
+background: rgba(12, 27, 60, 0.5);
 }
 
 .bus-color{

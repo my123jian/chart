@@ -42,7 +42,7 @@
 
 <script>
     // import {utils} from '../common'
-
+    import PageUtil from "../utils/PageUtil";
     export default {
         props: {customActiveId: {type: [String, Number], default: 1}},
         data() {
@@ -69,7 +69,18 @@
         },
         methods: {
             clickTab(id) {
-                this.activeId = id
+                this.activeId = id;
+                if (id == 1) {
+
+                }
+                if (id == 2) {
+                    window.gotoPage('tqfx.html');
+                }
+                if (id == 3) {
+
+                    window.gotoPage('qxdc.html');
+                }
+
             },
             /**
              * 发送高度
@@ -94,7 +105,7 @@
         },
 
         mounted() {
-            this.activeId=this.customActiveId;
+            this.activeId = this.customActiveId;
             // utils.hasSetRem(this.sendHeight)
             // this.handleTime()
             // let me = this
@@ -185,12 +196,13 @@
         line-height: 39px;
         text-align: center;
 
-    /*span:nth-child(2n+1) {*/
+        /*span:nth-child(2n+1) {*/
         /*font-family: unidreamledregular;*/
         /*font-size: 26px;*/
-    /*}*/
+        /*}*/
 
     }
+
     .right-box {
         width: 194px;
         height: 100%;

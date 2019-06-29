@@ -249,21 +249,36 @@
                         {
                             type: 'category',
                             data: theX,//['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                             axisTick: {
-                                alignWithLabel: true
+                                alignWithLabel: false
                             }
                         }
                     ],
                     xAxis: [
                         {
-                            type: 'value'
+                            type: 'value',
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                         }
                     ],
                     series: [
                         {
                             name: '年龄',
                             type: 'bar',
-                            barWidth: '60%',
+                            barWidth : 30,
                             data: theY,//[10, 52, 200, 334, 390, 330, 220]
                         }
                     ]
@@ -309,6 +324,11 @@
                         {
                             type: 'category',
                             data: theX,// ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                             axisTick: {
                                 alignWithLabel: true
                             }
@@ -316,14 +336,19 @@
                     ],
                     xAxis: [
                         {
-                            type: 'value'
+                            type: 'value',
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                         }
                     ],
                     series: [
                         {
                             name: '消费能力',
                             type: 'bar',
-                            barWidth: '60%',
+                            barWidth : 30,
                             data: theY,// [10, 52, 200, 334, 390, 330, 220]
                         }
                     ]
@@ -369,6 +394,11 @@
                         {
                             type: 'category',
                             data: theX,//['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                             axisTick: {
                                 alignWithLabel: true
                             }
@@ -376,14 +406,19 @@
                     ],
                     yAxis: [
                         {
-                            type: 'value'
+                            type: 'value',
+                            axisLine: {
+                                lineStyle: {
+                                    color: 'white'//'#557398'
+                                }
+                            },
                         }
                     ],
                     series: [
                         {
                             name: '籍贯',
                             type: 'bar',
-                            barWidth: '60%',
+                            barWidth : 30,
                             data: theY,// [10, 52, 200, 334, 390, 330, 220]
                         }
                     ]

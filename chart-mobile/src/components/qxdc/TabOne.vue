@@ -124,10 +124,20 @@
                     xAxis: {
                         type: 'category',
                         boundaryGap: false,
+                        axisLine: {
+                            lineStyle: {
+                                color: 'white'//'#557398'
+                            }
+                        },
                         data: theX,// ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
                     },
                     yAxis: {
-                        type: 'value'
+                        type: 'value',
+                        axisLine: {
+                            lineStyle: {
+                                color: 'white'//'#557398'
+                            }
+                        },
                     },
                     series: [
                         {
@@ -212,6 +222,7 @@
                                     endArea: theItem['endArea'],
                                     from: theItem['startArea'],
                                     to: theItem['endArea'],
+                                    value:theItem['num'],
                                     desc: theItem['startArea'] + '->' + theItem['endArea'],
                                     id: theItem['id'],
                                     total: theItem['num'],
@@ -225,7 +236,7 @@
 
                         }
                         me.items = theNewDatas;
-                        me.notifyParent(theNewData);
+                        me.notifyParent(theNewDatas);
                     })
                     .catch(function (error) {
                         // handle error
@@ -295,15 +306,16 @@
         border-radius: 10px;
         margin-left: 10px;
         padding: 5px;
+        color: #b0d2f9;
     }
 
     .chart-title-btns div.select {
-        color: red;
+        color: white;
     }
 
     .n-tab-title {
         color: white;
-        border-bottom: solid 1px blue;
+        border-bottom: solid 1px #b0d2f9;
     }
 
     .n-tab-title div {
@@ -314,7 +326,8 @@
     }
 
     .n-tab-title div.select {
-        color: red;
+        color: white;
+        font-weight: bolder;
     }
 
     table {

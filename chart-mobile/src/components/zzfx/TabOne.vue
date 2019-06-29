@@ -374,11 +374,9 @@
             },
 
             loadData() {
-                this.loadMigrateAge();
-                this.loadMigrateSex();
-                this.loadMigrateNativePlace();
-                this.loadMigrateHobby();
-                this.loadMigrateconsume();
+          this.loadPopulationtype();
+                this.loadPopulationHistory();
+                this.loadPopulation();
 
             }
         },
