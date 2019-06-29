@@ -4187,5 +4187,6 @@ export default {
              return [theArea.longitude,theArea.latitude];//"latitude":"39.929986","longitude":"116.395645"]
          }
      }
-    }
+    },
+
 }
