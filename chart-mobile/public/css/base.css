@@ -4,11 +4,13 @@ html, body {
     width: 100%;
     height: 100%;
 }
-body{
+
+body {
     background-image: url("../images/bg.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
+
 /**通用输入框样式*/
 .base-city-input {
     background-repeat: no-repeat;
@@ -89,7 +91,7 @@ body{
     position: absolute;
     top: 34px;
     left: 11px;
-    height: 40px;
+    height: 50px;
     pointer-events: visible;
 }
 
@@ -100,17 +102,58 @@ body{
     padding-left: 2px;
     padding-right: 2px;
     height: 50px;
+    font-size: 22px;
+    line-height: 50px;
+    position: relative;
+    top: 0px;
+}
+
+.query-bar > .date-field {
+    display: inline-block;
+    height: 100%;
+    margin: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    height: 50px;
+    font-size: 22px;
+
+    position: relative;
+    top: 0px;
+}
+
+.date-field > input {
     line-height: 50px;
 }
 
-.query-bar input, .query-bar select {
+.query-bar select {
     background: transparent;
     -webkit-appearance: none;
     border: none !important;
     color: white !important;
     height: 100%;
+    width: 223px;
+    font-size: 22px;
+    padding-left: 30px;
+    /*position: absolute;*/
+    /*left: 0px;*/
+    /*top:0px;*/
 }
-.field{
+
+.query-bar select option {
+    background-color: rgba(47, 165, 255, 0.3);
+}
+
+.query-bar input {
+    background: transparent;
+    -webkit-appearance: none;
+    border: none !important;
+    color: white !important;
+    height: 100%;
+    width: 100%;
+    font-size: 22px !important;
+}
+
+.field, .date-field {
     background-image: url("../images/内容区_地市选择背景框.png");
     width: 223px;
     height: 50px;
@@ -118,30 +161,65 @@ body{
     background-repeat: no-repeat;
     cursor: pointer;
     text-align: center;
-    color: white;
+    /*color: white;*/
+    background-size: 100% 100%;
+    margin-right: 20px !important;
+    line-height: 50px;
+}
+
+
+.query-bar .field:first-child {
+    margin-left: 0px;
+}
+.datepicker-popup{
+    line-height: 27px;
 }
 .query-bar .city {
     background-image: url("../images/内容区_地市选择背景框.png");
     width: 223px;
     height: 50px;
     font-size: 22px;
+    left: 10px;
     background-repeat: no-repeat;
     cursor: pointer;
 }
 
-.query-bar .city .icon {
+.location-icon {
+
     background-image: url("../images/内容区_地市选择icon.png");
     background-position: left center;
+    width: 13px;
+    height: 100%;
+    position: absolute;
+    left: 10px;
     background-repeat: no-repeat;
-    padding-left: 20px;
 }
 
-.query-bar .date {
-    background-image: url("../images/内容区_地市选择背景框.png");
-    width: 223px;
-    height: 50px;
-    font-size: 22px;
+.down-icon {
+
+    background-image: url("../images/内容区_地市选择下拉icon.png");
+    background-position: right center;
+    width: 16px;
+    height: 100%;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    pointer-events: none;
     background-repeat: no-repeat;
+}
+
+.date-icon {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    background-image: url("../images/date.png");
+    width: 18px;
+    height: 50px;
+    background-position: right center;
+    background-repeat: no-repeat;
+    pointer-events: none;
 }
 
 .count-view {
@@ -160,17 +238,21 @@ body{
     font-size: 22px;
 
 }
+
 .count-view .num {
     padding-top: 24px;
     pointer-events: visible;
 }
-.count-view .num >*{
+
+.count-view .num > * {
     display: inline-block;
 }
-.count-view .last{
+
+.count-view .last {
     /*font-size: 22px;*/
 }
-.count-view .numitem{
+
+.count-view .numitem {
     background-image: url("../images/内容区_总人数背景色.icon.png");
     background-repeat: no-repeat;
     width: 42px;
@@ -180,11 +262,13 @@ body{
     text-align: center;
     margin-right: 11px;
 }
-.count-view .dian{
+
+.count-view .dian {
     font-size: 50px;
     margin-left: -5px;
     margin-right: 1px;
 }
+
 /**主页下方切换按钮*/
 .nav-bottom-bar {
     position: absolute;
@@ -250,19 +334,22 @@ body{
 .chart-title .content-icon .content.age {
     background-image: url("../images/内容区_年龄icon.png");
 }
+
 .chart-title .content-icon .content.sex {
     background-image: url("../images/内容区_性别icon.png");
 }
+
 .chart-title .content-icon .content.hobby {
     background-image: url("../images/内容区_APP爱好icon.png");
 }
+
 .chart-title .content-icon .content.consume {
     background-image: url("../images/内容区_消费能力icon.png");
 }
+
 .chart-title .content-icon .content.birth {
     background-image: url("../images/内容区_籍贯icon.png");
 }
-
 
 .onecloumn {
     margin: 0 auto;
@@ -270,7 +357,8 @@ body{
     writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
     writing-mode: tb-lr; /*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
 }
-.onecloumn-bg{
+
+.onecloumn-bg {
     background-image: url("../images/迁出渠道底框.png");
     width: 34px;
     height: 118px;
@@ -280,35 +368,43 @@ body{
     text-align: center;
     padding-left: 4px;
 }
-.table{
+
+.table {
     border-collapse: collapse;
     padding-left: 15px;
     padding-right: 15px;
 }
-.table >thead {
+
+.table > thead {
     text-align: center;
     color: #10ffd9;
 }
-.table >tbody{
+
+.table > tbody {
     text-align: center;
     color: white;
 }
-.table tbody tr{
+
+.table tbody tr {
     height: 30px;
 }
-.table tbody tr:nth-of-type(even){
-background: rgba(12, 27, 60, 0.5);
+
+.table tbody tr:nth-of-type(even) {
+    background: rgba(12, 27, 60, 0.5);
 }
 
-.bus-color{
-    color:#63efe0;
+.bus-color {
+    color: #63efe0;
 }
-.train-color{
-    color:#67f782;
+
+.train-color {
+    color: #67f782;
 }
-.fly-color{
-    color:#faff64;
+
+.fly-color {
+    color: #faff64;
 }
-.car-color{
-    color:#64ceff;
+
+.car-color {
+    color: #64ceff;
 }

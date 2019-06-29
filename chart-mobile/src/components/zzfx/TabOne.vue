@@ -3,18 +3,20 @@
         <div class="row">
 
             <div>
+                <div class="title">工作/居住人口</div>
                 <div ref="chart1"></div>
             </div>
             <div>
+                <div class="title">常驻/流动人口</div>
                 <div ref="chart2"></div>
             </div>
         </div>
         <div class="row">
-            <div class="title"></div>
+            <div class="title">职住人口分析</div>
             <div ref="chart3"></div>
         </div>
         <div class="row">
-            <div class="title"></div>
+            <div class="title">人口类型分析</div>
             <div ref="chart4"></div>
         </div>
     </div>
@@ -36,6 +38,7 @@
         methods: {
             //爱好
             drawChart1(datas) {
+                debugger;
                 var theShowDatas = [];
                 if (datas && datas.length > 0) {
                     var theItem = datas[0];
@@ -99,6 +102,7 @@
                 this.chart3.setOption(theOptions3);
             },
             drawChart2(datas) {
+                debugger;
                 var theShowDatas = [];
                 if (datas && datas.length > 0) {
                     var theItem = datas[0];
@@ -162,6 +166,7 @@
                 this.chart3.setOption(theOptions3);
             },
             drawChart3(datas) {
+                debugger;
                 var theShowDatas = [];
                 if (datas && datas.length > 0) {
                     var theItem = datas[0];
@@ -225,6 +230,7 @@
                 this.chart3.setOption(theOptions3);
             },
             drawChart4(datas) {
+                debugger;
                 var theShowDatas = [];
                 if (datas && datas.length > 0) {
                     var theItem = datas[0];
@@ -303,7 +309,8 @@
                     .then(function (response) {
                         // handle success
                         var theData = response.data;
-                        // me.drawAgeChar(theData.data);
+                         me.drawChart1(theData.data);
+                        me.drawChart2(theData.data);
                         console.log(response, theData);
                     })
                     .catch(function (error) {
@@ -328,7 +335,7 @@
                     .then(function (response) {
                         // handle success
                         var theData = response.data;
-                        // me.drawAgeChar(theData.data);
+                        me.drawChart3(theData.data);
                         console.log(response, theData);
                     })
                     .catch(function (error) {
@@ -354,7 +361,7 @@
                     .then(function (response) {
                         // handle success
                         var theData = response.data;
-                        // me.drawAgeChar(theData.data);
+                        me.drawChart4(theData.data);
                         console.log(response, theData);
                     })
                     .catch(function (error) {
@@ -374,7 +381,7 @@
             },
 
             loadData() {
-          this.loadPopulationtype();
+                this.loadPopulationtype();
                 this.loadPopulationHistory();
                 this.loadPopulation();
 
@@ -383,28 +390,34 @@
         created: function () {
         },
         mounted: function () {
-            this.items = [
-                {id: '11', no: '11'}
-            ];
+            this.items = [];
             this.initChart();
             this.loadData();
             console.log("加载数据!");
         },
         watch: {
             queryDate: function (newValue, oldValue) {
-                this.loadData();
+                if(newValue!=oldValue){
+                    this.loadData();
+                }
                 // console.log("queryDate！", newValue, oldValue);
             },
             queryDirection: function (newValue, oldValue) {
-                this.loadData();
+                if(newValue!=oldValue){
+                    this.loadData();
+                }
                 //console.log("queryDirection！", newValue, oldValue);
             },
             queryRegionCode: function (newValue, oldValue) {
-                this.loadData();
+                if(newValue!=oldValue){
+                    this.loadData();
+                }
                 //console.log("queryRegionCode！", newValue, oldValue);
             },
             queryRegionType: function (newValue, oldValue) {
-                this.loadData();
+                if(newValue!=oldValue){
+                    this.loadData();
+                }
                 // console.log("queryRegionType！", newValue, oldValue);
             }
         }

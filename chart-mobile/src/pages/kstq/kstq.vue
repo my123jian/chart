@@ -6,15 +6,19 @@
             <EchartMap :level="mapLevel" :data="mapData"></EchartMap>
             <div class="query-bar">
                 <div class="field">
+                    <div class="location-icon"></div>
                     <select v-model="queryRegionCode">
                         <option value="广州">广州市</option>
                         <option value="深圳">深圳市</option>
                     </select>
+                    <div class="down-icon"></div>
                 </div>
                 <div class="field">
-                    <Datepicker v-on:input="dateChange" name="queryDate" :value="queryDate"></Datepicker>
+                    <Datepicker v-on:input="dateChange" format="YYYY-MM" name="queryDate"
+                                :value="queryDate"></Datepicker>
+                    <div class="date-icon"></div>
                 </div>
-                <div class="field">
+                <div class="field big-field">
                     <div class="radio-grp">
                         <span :class="sumType==1?'select':''" v-on:click="sumType=1">按日跨市通勤</span>
                         <span :class="sumType==2?'select':''" v-on:click="sumType=2">按周跨市通勤</span>
@@ -70,6 +74,7 @@
     import axios from "axios";
     import EchartMap from "../../components/EchartMap";
     import PageUtil from "../../utils/PageUtil";
+
     export default {
         name: 'kstq',
         components: {
@@ -87,7 +92,7 @@
                 queryDate: new Date(),//查询的日期
                 right_tab_index: 1,
                 mapurl: 'province.html',
-                sumType:1,//1 日统计 2 周统计
+                sumType: 1,//1 日统计 2 周统计
 
                 Channel1Radio: 0,
                 Channel2Radio: 0,
@@ -117,8 +122,8 @@
 
                 this.loadData();
             },
-            sumType(newValue, oldValue){
-                if(newValue!=oldValue){
+            sumType(newValue, oldValue) {
+                if (newValue != oldValue) {
                     this.loadData();
                 }
             },
@@ -141,7 +146,7 @@
             this.loadData();
         },
         methods: {
-            gotoPage(){
+            gotoPage() {
                 window.gotoPage('qxdc.html')
             },
             //切换URL地址
@@ -167,7 +172,7 @@
                 }
 
             },
-           //1--获取跨市通勤总人数（type：0按日跨市，1按周跨市）
+            //1--获取跨市通勤总人数（type：0按日跨市，1按周跨市）
             loadCommutingNum() {
                 //迁徙人群画像分析-年龄
                 var theUrl1 = "/cityCommuting/getCommutingNum";
@@ -175,7 +180,7 @@
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     month: this.queryDate.formateYearMonth(),
-                    type: this.sumType==1?0:1,
+                    type: this.sumType == 1 ? 0 : 1,
                     city: this.queryRegionCode
                 };
                 var me = this;
@@ -183,7 +188,7 @@
                     .then(function (response) {
                         // handle success
                         var theData = response.data;
-                        me.totalNum = theData.data.data.num || 0;
+                        me.totalNum = theData.data && theData.data.num || 0;
                         console.log(response, theData);
                     })
                     .catch(function (error) {
@@ -226,6 +231,10 @@
         width: 50%;
         float: left;
         position: relative;
+    }
+
+    .big-field {
+        width: 290px;
     }
 
     .wave-content {
@@ -294,7 +303,7 @@
     /*}*/
 
     .radio-grp {
-
+        color: white;
     }
 
     .radio-grp > span {
@@ -302,15 +311,14 @@
         /*display: inline-block;*/
         width: 110px;
         text-align: center;
-        margin: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-top: 5px;
-        padding-bottom: 5px;
+        /*margin: 10px;*/
+        /*padding-top: 5px;*/
+        /*padding-bottom: 5px;*/
+        padding: 5px;
     }
 
     .radio-grp > span.select {
-        background: #152d61;
-        border-radius: 5px;
+        background: #054881;
+        border-radius: 4px;
     }
 </style>

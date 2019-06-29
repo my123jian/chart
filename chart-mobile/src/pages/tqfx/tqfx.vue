@@ -8,23 +8,24 @@
 
                 <div class="query-bar">
                     <div class="city field">
-                        <div class="icon">
-                            <select v-model="queryRegionCode">
-                                <option value="广州">广州市</option>
-                                <option value="深圳">深圳市</option>
-                                <option value="肇庆">肇庆市</option>
-                                <option value="河源">河源市</option>
-                                <option value="云浮">云浮市</option>
-                                <option value="惠州">惠州市</option>
-                                <option value="珠海">珠海市</option>
-                                <option value="中山">中山市</option>
-                                <option value="东莞">东莞市</option>
-                                <option value="汕头">汕头市</option>
-                            </select>
-                        </div>
+                        <div class="location-icon"></div>
+                        <select v-model="queryRegionCode">
+                            <option value="广州">广州市</option>
+                            <option value="深圳">深圳市</option>
+                            <option value="肇庆">肇庆市</option>
+                            <option value="河源">河源市</option>
+                            <option value="云浮">云浮市</option>
+                            <option value="惠州">惠州市</option>
+                            <option value="珠海">珠海市</option>
+                            <option value="中山">中山市</option>
+                            <option value="东莞">东莞市</option>
+                            <option value="汕头">汕头市</option>
+                        </select>
+                        <div class="down-icon"></div>
                     </div>
                     <div class="date field">
-                        <Datepicker v-on:input="dateChange" name="queryDate" :value="queryDate"></Datepicker>
+                        <Datepicker v-on:input="dateChange"  format="YYYY-MM" name="queryDate" :value="queryDate"></Datepicker>
+                        <div class="date-icon"></div>
                     </div>
                     <!--<input placeholder="请输入日期"/>-->
 

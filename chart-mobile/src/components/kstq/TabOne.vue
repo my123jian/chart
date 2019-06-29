@@ -2,7 +2,9 @@
     <div>
         <div class="row row1">
             <div class="chart-title">
-                <div>趋势分析</div>
+                <div class="content-icon">
+                    <span>趋势分析</span>
+                </div>
             </div>
             <div class="canvas" ref="linechart"></div>
         </div>
@@ -30,7 +32,7 @@
                     <td>
                         {{item.endArea}}
                     </td>
-                    <td >
+                    <td>
                         {{item.value}}
                     </td>
 
@@ -47,7 +49,7 @@
 
     export default {
         name: "TabOne",
-        props: ["queryRegionType", "queryRegionCode", "queryDirection", "queryDate","sumType"],
+        props: ["queryRegionType", "queryRegionCode", "queryDirection", "queryDate", "sumType"],
         data: function () {
             return {
                 tabIndex: 1,
@@ -127,14 +129,14 @@
                 };
                 this.chart1.setOption(theOptions1);
             },
-           //2--获取跨市通勤趋势分析（type：0按日跨市，1按周跨市）
+            //2--获取跨市通勤趋势分析（type：0按日跨市，1按周跨市）
             loadCommutingTrend() {
                 //2--获取跨市通勤趋势分析（type：0按日跨市，1按周跨市）
-                var theUrl1 = "/cityCommuting/getCommutingTrend";
+                var theUrl =window.baseUrl+ "/cityCommuting/getCommutingTrend";
 
                 var theQueryObj = {
                     month: this.queryDate.formateYearMonth(),
-                    type: this.sumType==1?0:1,
+                    type: this.sumType == 1 ? 0 : 1,
                     city: this.queryRegionCode
                 };
                 var me = this;
@@ -162,10 +164,11 @@
 
                 var theQueryObj = {
                     month: this.queryDate.formateYearMonth(),
-                    type: this.sumType==1?0:1,
+                    type: this.sumType == 1 ? 0 : 1,
                     city: this.queryRegionCode
                 };
                 var me = this;
+                // debugger;
                 //{id: null, workType: 0, month: "2019-05", workCity: "佛山", liveCity: "广州", num: 9800}
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
@@ -181,7 +184,7 @@
                                     endArea: theItem['workCity'],
                                     from: theItem['liveCity'],
                                     to: theItem['workCity'],
-                                    value:theItem['num'],
+                                    value: theItem['num'],
                                     desc: theItem['liveCity'] + '->' + theItem['workCity'],
                                     id: theItem['id']
                                 };
@@ -200,8 +203,9 @@
                         // always executed
                     });
             },
-            loadData(){
-
+            loadData() {
+                this.loadCommutingTrend();
+                this.loadTableData();
             }
 
 
@@ -231,14 +235,14 @@
             },
             lineDate: function (newValue, oldValue) {
                 console.log("值发生了变化！", newValue, oldValue);
-          ;
+                ;
             },
             tabIndex: function (newValue, oldValue) {
                 console.log("值发生了变化！", newValue, oldValue);
 
             },
-            sumType(newValue,oldValue){
-                if(newValue!=oldValue){
+            sumType(newValue, oldValue) {
+                if (newValue != oldValue) {
                     this.loadData();
                 }
             }

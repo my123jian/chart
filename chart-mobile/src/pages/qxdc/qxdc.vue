@@ -6,13 +6,16 @@
             <EchartMap :level="mapLevel" :data="mapData" :queryDirection="queryDirection"></EchartMap>
             <div class="query-bar">
                 <div class="field">
+                    <div class="location-icon"></div>
                     <select v-model="queryRegionCode">
                         <option value="广州">广州市</option>
                         <option value="深圳">深圳市</option>
                     </select>
+                    <div class="down-icon"></div>
                 </div>
-                <div class="field">
+                <div class="date-field">
                     <Datepicker v-on:input="dateChange" name="queryDate" :value="queryDate"></Datepicker>
+                    <div class="date-icon"></div>
                 </div>
                 <div class="field">
                     <!--<input placeholder="请输入日期"/>-->
@@ -99,6 +102,7 @@
     import axios from "axios";
     import EchartMap from "../../components/EchartMap";
     import PageUtil from "../../utils/PageUtil";
+
     export default {
         name: 'app',
         components: {
@@ -166,7 +170,7 @@
             this.loadData();
         },
         methods: {
-            gotoPage(){
+            gotoPage() {
                 window.gotoPage('kstq.html')
             },
             //切换URL地址
@@ -382,7 +386,7 @@
     /*}*/
 
     .radio-grp {
-
+        color: white;
     }
 
     .radio-grp > span {

@@ -18,7 +18,13 @@ function FormateDateNum(num) {
 function toQuery(obj) {
     var theItems = [];
     for (var key in obj) {
-        theItems.push(key + "=" + (obj[key] || ''));
+        if(obj[key]==undefined||obj[key]==null){
+            theItems.push(key + "=" + (obj[key]||''));
+        }
+        else{
+            theItems.push(key + "=" + (obj[key]));
+        }
+
     }
     return theItems.join("&");
 }
