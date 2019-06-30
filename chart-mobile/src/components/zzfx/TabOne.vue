@@ -1,23 +1,40 @@
 <template>
-    <div>
-        <div class="row">
+    <div class="chart-group">
+        <div class="row chart-item">
 
-            <div>
-                <div class="title">工作/居住人口</div>
-                <div ref="chart1"></div>
+            <div style="width: 50%;float: left;position: relative;height: 100%;">
+                <div class="chart-title">
+                <span class="content-icon">
+                    <span>工作/居住人口</span>
+                </span>
+                </div>
+                <div class="canvas" ref="chart1"></div>
             </div>
-            <div>
-                <div class="title">常驻/流动人口</div>
-                <div ref="chart2"></div>
+            <div style="width: 50%;float: left;position: relative;height: 100%;">
+                <div class="chart-title">
+                <span class="content-icon">
+                    <span>常驻/流动人口</span>
+                </span>
+                </div>
+                <div  class="canvas" ref="chart2"></div>
             </div>
         </div>
-        <div class="row">
-            <div class="title">职住人口分析</div>
-            <div ref="chart3"></div>
+        <div class="row chart-item">
+            <div class="chart-title">
+                <span class="content-icon">
+                    <span>职住人口分析</span>
+                </span>
+            </div>
+
+            <div  class="canvas" ref="chart3"></div>
         </div>
-        <div class="row">
-            <div class="title">人口类型分析</div>
-            <div ref="chart4"></div>
+        <div class="row chart-item">
+            <div class="chart-title">
+                <span class="content-icon">
+                    <span>人口类型分析</span>
+                </span>
+            </div>
+            <div  class="canvas" ref="chart4"></div>
         </div>
     </div>
 </template>
@@ -393,6 +410,7 @@
             this.items = [];
             this.initChart();
             this.loadData();
+            // debugger;
             console.log("加载数据!");
         },
         watch: {
@@ -425,5 +443,29 @@
 </script>
 
 <style scoped>
+    .chart-group {
+        width: 100%;
+        height: 100%;
+    }
 
+    .chart-item {
+        height: 33.33%;
+        /*width: 100%;*/
+        /*padding-top: 18px;*/
+        /*padding-left: 26px;*/
+        pointer-events: visible;
+        position: relative;
+    }
+    .chart-title{
+        left:26px;
+        top:18px;
+        position: absolute;
+    }
+    .canvas {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+    }
 </style>
