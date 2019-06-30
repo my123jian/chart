@@ -26,36 +26,36 @@
             }
         },
         mounted() {
-            this.initMap();
-            GeoUtil.queryRegion("province","广东省",'',function () {
-                var theResult=GeoUtil.getRegion();
-                console.log("区域数据结果",theResult);
-            });
-
-
+            this.initChart();
 
         },
         methods: {
-            initMap() {
-                const theDefaultMapStyle = 'amap://styles/785cdb67af60cfce35e24e8d6c56ed75' // 默认地图样式
-                const theCenterPoint = [113.275824, 22.994826] // 默认地图中心
-                let theMap = new AMap.Map('mapview', {
-                    pitch: 45,
-                    mapStyle: theDefaultMapStyle,
-                    viewMode: '3D', // 地图模式
-                    center: theCenterPoint,
-                    features: this.defaultFeatures,
-                    zoom: 7.5,
-                    expandZoomRange: true, // 改变最大缩放等级
-                    zooms: [7.5, 20], // 改变最大缩放等级
-                    keyboardEnable: false,
-                    layers: [
-                        //satellite,
-                        // building,
-                        //roadNet
-                    ]
-                })
-                window.theMap = theMap
+            initChart() {
+                var me = this;
+                this.chartMap = window.echarts.init(this.$refs.chartMap);
+                this.chartMap.setOption({
+                    amap: {
+                        maxPitch: 60,
+                        pitch: 10, //45 俯仰角
+                        viewMode: '3D',
+                        zoom: 7.5,
+                        expandZoomRange: true,
+                        zooms: [3, 20],
+                        mapStyle: 'amap://styles/785cdb67af60cfce35e24e8d6c56ed75', //地图主题
+                        center: [113.275824, 22.994826], //中心点
+                        rotation: 0,  //顺时针旋转角度
+                        resizeEnable: true,
+                    },
+                    animation: false,
+                    series: []
+                });
+                var layer = this.chartMap.getModel().getComponent('amap').getLayer();
+                layer.render = function () {
+                    var theOptions = me.chartMap.getOption();
+                    me.setOption({
+                        series: theOptions.series
+                    });
+                }
             }
         },
         watch: {
