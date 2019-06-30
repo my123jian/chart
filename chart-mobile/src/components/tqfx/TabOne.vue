@@ -51,7 +51,7 @@
                 this.chart3 = window.echarts.init(this.$refs.chart3);
             },
             drawChart1(datas) {
-                var theResult = DataConvert.convertData(datas, 'distance', 'num',theTqDistinceType);
+                var theResult = DataConvert.convertData(datas, 'distance', 'num',datas);
                 var theOptions = {
                     color: ['#63efe0'],
                     tooltip: {
@@ -98,7 +98,6 @@
                         {
                             // name: '籍贯',
                             type: 'bar',
-                            barWidth: '60%',
                             barWidth: 30,
                             data: theResult.y,// [10, 52, 200, 334, 390, 330, 220]
                         }
@@ -107,7 +106,7 @@
                 this.chart1.setOption(theOptions);
             },
             drawChart2(datas) {
-                var theResult = DataConvert.convertData(datas, 'timeDuration', 'num',theTqTimeType);
+                var theResult = DataConvert.convertData(datas, 'timeDuration', 'num',datas);
                 var theOptions = {
                     color: ['#63efe0'],
                     tooltip: {
@@ -153,7 +152,6 @@
                         {
                             // name: '籍贯',
                             type: 'bar',
-                            barWidth: '60%',
                             barWidth: 30,
                             data: theResult.y,// [10, 52, 200, 334, 390, 330, 220]
                         }
@@ -162,7 +160,7 @@
                 this.chart2.setOption(theOptions);
             },
             drawChart3(datas) {
-                var theResult = DataConvert.convertData(datas, 'timePoint', 'num',theTqPlace);
+                var theResult = DataConvert.convertData(datas, 'timePoint', 'num',datas);
                 var theOptions = {
                     // color: ['#3398DB'],
                     color: ['#63efe0'],
@@ -209,7 +207,6 @@
                         {
                             // name: '籍贯',
                             type: 'bar',
-                            barWidth: '60%',
                             barWidth: 30,
                             data: theResult.y,// [10, 52, 200, 334, 390, 330, 220]
                         }

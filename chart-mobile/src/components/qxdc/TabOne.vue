@@ -368,4 +368,9 @@
         width: 100%;
         height: 100%;
     }
+    .chart-item .chart-title{
+        left:26px;
+        top:18px;
+        position: absolute;
+    }
 </style>
