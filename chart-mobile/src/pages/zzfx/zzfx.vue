@@ -1,7 +1,8 @@
 <template>
     <div id="app">
         <Header customActiveId="2"></Header>
-        <div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>
+        <!--<div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>-->
+        <EchartMap  :data="mapData" ></EchartMap>
         <!--<div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>-->
         <div class="content">
             <div class="left-part">
@@ -80,6 +81,7 @@
     import TabTwo from "../../components/zzfx/TabTwo";
     import PageUtil from "../../utils/PageUtil";
     import Datepicker from 'vue-datepicker-local';
+    import EchartMap from "../../components/EchartMapPoint";
     import axios from "axios";
 
     export default {

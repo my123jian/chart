@@ -4,6 +4,7 @@
 </template>
 
 <script>
+    /**动态绘点实现*/
     import CityMap from '../utils/CityMap';
     import ProvinceMap from '../utils/ProvinceMap';
     import CityCodeMap from '../utils/CityCodeMap';
@@ -12,7 +13,7 @@
     import axios from "axios";
 
     export default {
-        name: "EchartMap",
+        name: "EchartMapPoint",
         props: {
             data: Object,
             showLine: {type: [Number], default: 1},
