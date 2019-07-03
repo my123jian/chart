@@ -22,6 +22,8 @@
                 provinceName: '广东省',
                 cityName: '广州市',
                 cityCode: '',
+                district:null,
+                polygons:[],
                 colors: ['#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb'],
                 defaultFeatures: ['bg', 'building', 'point'], // 地图默认特征
             }
@@ -79,7 +81,7 @@
 
                 if (this.areaMod == 1) {
                     var theCityCode = CityCodeMap.getCountyCode("广东省", this.cityName, name);
-                    debugger;
+                    //debugger;
                     return GpsUtil.getByAreaCode(theCityCode);
                 }
                 else {
@@ -124,6 +126,40 @@
                     lines: res,
                     points: theValidPoints
                 };
+            },
+            navigateAddress(map,mapName){
+                if(!this.district){
+                    //实例化DistrictSearch
+                    var opts = {
+                        subdistrict: 0,   //获取边界不需要返回下级行政区
+                        extensions: 'all',  //返回行政区边界坐标组等具体信息
+                        level: 'district'  //查询行政级别为 市
+                    };
+                    this.district = new AMap.DistrictSearch(opts);
+                }
+                //行政区查询
+                this.district.setLevel(this.level)
+                this.district.search(mapName, function(status, result) {
+                    map.remove(this.polygons)//清除上次结果
+                    polygons = [];
+                    var bounds = result.districtList[0].boundaries;
+                    if (bounds) {
+                        for (var i = 0, l = bounds.length; i < l; i++) {
+                            //生成行政区划polygon
+                            var polygon = new AMap.Polygon({
+                                strokeWeight: 1,
+                                path: bounds[i],
+                                fillOpacity: 0.4,
+                                fillColor: '#80d8ff',
+                                strokeColor: '#0091ea'
+                            });
+                            this.polygons.push(polygon);
+                        }
+                    }
+                    map.add(this.polygons)
+                    map.setFitView(this.polygons);//视口自适应
+                });
+            }
             },
             /**根据数据进行呈现*/
             refresh(data) {
