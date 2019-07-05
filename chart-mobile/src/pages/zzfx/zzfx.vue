@@ -24,6 +24,13 @@
                         </select>
                         <div class="down-icon"></div>
                     </div>
+                    <div class="city field">
+                        <div class="location-icon"></div>
+                        <select v-model="queryAreaCode">
+                            <option value="" selected>全部区域</option>
+                        </select>
+                        <div class="down-icon"></div>
+                    </div>
                     <div class="date field">
                         <Datepicker v-on:input="dateChange"  format="YYYY-MM" name="queryDate" :value="queryDate"></Datepicker>
                         <div class="date-icon"></div>
@@ -31,10 +38,10 @@
                     <!--<input placeholder="请输入日期"/>-->
 
                 </div>
-                <div class="count-view">
-                    <div class="title">通勤人数</div>
-                    <div class="num" v-html="totalNum.fromateDataString()"></div>
-                </div>
+                <!--<div class="count-view">-->
+                    <!--<div class="title">通勤人数</div>-->
+                    <!--<div class="num" v-html="totalNum.fromateDataString()"></div>-->
+                <!--</div>-->
                 <!--<div class="wave-content">-->
                 <!--<WaveCircle style="width: 200px;height: 200px;" :value="Channel1Radio" width=200-->
                 <!--height=200></WaveCircle>-->
@@ -52,15 +59,15 @@
                         <div v-on:click="right_tab_index= 1" :class="right_tab_index==1?'select':''">
                             <span>人口分析</span></div>
                         <div v-on:click="right_tab_index= 2" :class="right_tab_index==2?'select':''">
-                            <span>人群画像</span>
+                            <span>常驻人口画像</span>
                         </div>
                     </div>
                     <div class="tab-content">
                         <div v-if="right_tab_index==1">
-                            <TabOne :queryDate="queryDate" :queryRegionCode="queryRegionCode"></TabOne>
+                            <TabOne :queryDate="queryDate" :queryRegionCode="queryRegionCode" :queryAreaCode="queryAreaCode"></TabOne>
                         </div>
                         <div v-if="right_tab_index==2">
-                            <TabTwo :queryDate="queryDate" :queryRegionCode="queryRegionCode"></TabTwo>
+                            <TabTwo :queryDate="queryDate" :queryRegionCode="queryRegionCode" :queryAreaCode="queryAreaCode"></TabTwo>
                         </div>
                     </div>
 
@@ -68,8 +75,9 @@
 
             </div>
             <div class="nav-bottom-bar">
-                <div @click="gotoPage" >通勤分析</div>
                 <div class="select">职住分析</div>
+                <div @click="gotoPage" >通勤分析</div>
+
             </div>
         </div>
     </div>

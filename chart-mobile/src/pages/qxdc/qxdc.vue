@@ -17,19 +17,19 @@
                     <Datepicker v-on:input="dateChange" name="queryDate" :value="queryDate"></Datepicker>
                     <div class="date-icon"></div>
                 </div>
-                <div class="field">
-                    <!--<input placeholder="请输入日期"/>-->
-                    <div class="radio-grp">
-                        <span :class="queryDirection==1?'select':''" v-on:click="queryDirection=1">迁入</span>
-                        <span :class="queryDirection==2?'select':''" v-on:click="queryDirection=2">迁出</span>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="radio-grp">
-                        <span :class="queryRegionType==1?'select':''" v-on:click="queryRegionType=1">省内</span>
-                        <span :class="queryRegionType==2?'select':''" v-on:click="queryRegionType=2">省外</span>
-                    </div>
-                </div>
+                <!--<div class="field">-->
+                <!--&lt;!&ndash;<input placeholder="请输入日期"/>&ndash;&gt;-->
+                <!--<div class="radio-grp">-->
+                <!--<span :class="queryDirection==1?'select':''" v-on:click="queryDirection=1">迁入</span>-->
+                <!--<span :class="queryDirection==2?'select':''" v-on:click="queryDirection=2">迁出</span>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="field">-->
+                <!--<div class="radio-grp">-->
+                <!--<span :class="queryRegionType==1?'select':''" v-on:click="queryRegionType=1">省内</span>-->
+                <!--<span :class="queryRegionType==2?'select':''" v-on:click="queryRegionType=2">省外</span>-->
+                <!--</div>-->
+                <!--</div>-->
 
 
             </div>
@@ -61,15 +61,31 @@
         </div>
         <div class="right-part">
             <div class="tab-view">
-                <div class="tab-title tab-title2">
-                    <div v-on:click="right_tab_index= 1" :class="right_tab_index== 1?'select':''">
-                        <span>{{queryDirection==1?'迁入':'迁出'}}分析</span>
+                <div class="tab-title tab-title4">
+                    <div v-on:click="top_tab_index= 1" :class="top_tab_index== 1?'select':''">
+                        <span>省内迁入</span>
                     </div>
-                    <div v-on:click="right_tab_index= 2" :class="right_tab_index== 2?'select':''">
+                    <div v-on:click="top_tab_index= 2" :class="top_tab_index== 2?'select':''">
+                        <span>省外迁入</span>
+                    </div>
+                    <div v-on:click="top_tab_index= 3" :class="top_tab_index== 3?'select':''">
+                        <span>省内迁出</span>
+                    </div>
+                    <div v-on:click="top_tab_index= 4" :class="top_tab_index== 4?'select':''">
+                        <span>省外迁出</span>
+                    </div>
+                    <!--<div v-on:click="right_tab_index= 2" :class="right_tab_index== 2?'select':''">-->
+                    <!--<span>人群画像</span>-->
+                    <!--</div>-->
+                </div>
+                <div class="tab-subtitle tab-title2">
+                    <div v-on:click="right_tab_index= 1" :class="right_tab_index==1?'select':''">
+                        <span>迁徙规模</span></div>
+                    <div v-on:click="right_tab_index= 2" :class="right_tab_index==2?'select':''">
                         <span>人群画像</span>
                     </div>
                 </div>
-                <div class="tab-content">
+                <div class="tab-content tab-sub-content">
                     <div v-if="right_tab_index==1">
                         <tab-one :queryDirection="queryDirection" :queryRegionType="queryRegionType"
                                  :queryDate="queryDate" :queryRegionCode="queryRegionCode"
@@ -120,6 +136,7 @@
                 queryDirection: '1',//查询的迁徙方向 迁入或者迁出
                 queryDate: new Date(),//查询的日期
                 right_tab_index: 1,
+                top_tab_index: 1,
                 mapurl: 'province.html',
 
                 Channel1Radio: 0,
@@ -140,6 +157,28 @@
             queryDate: function (newValue, oldValue) {
                 console.log("queryDate！", newValue, oldValue);
                 this.loadData();
+            },
+            top_tab_index(newValue, oldValue) {
+                if (newValue != oldValue) {
+                    switch (newValue) {
+                        case 1:
+                            this.queryDirection = 1;
+                            this.queryRegionType = 1;
+                            break;
+                        case 2:
+                            this.queryDirection = 1;
+                            this.queryRegionType = 2;
+                            break;
+                        case 3:
+                            this.queryDirection = 2;
+                            this.queryRegionType = 1;
+                            break;
+                        case 4:
+                            this.queryDirection = 2;
+                            this.queryRegionType = 2;
+                            break;
+                    }
+                }
             },
             queryDirection: function (newValue, oldValue) {
                 console.log("queryDirection！", newValue, oldValue);

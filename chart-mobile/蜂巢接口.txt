@@ -1,0 +1,183 @@
+本地测试ip: 192.168.10.154:23206
+外网地址: http://183.6.114.219:23206
+
+1.跨市迁徙 --迁徙洞察模块
+1.今日热门迁徙路线   /citymigrate/migrateAmount
+dateTime : 2019-06-21
+migType : 1
+migSource : 1
+startArea : 广州
+
+2.近期热门迁徙路线  /citymigrate/migrateDurationAmount
+dateTime : 2019-06-21
+migType : 1
+migSource : 1
+startArea : 广州
+
+3.迁徙渠道分析 /citymigrate/migrateChannel
+dateTime : 2019-06-21
+migType : 1
+migSource : 1
+area : 广州
+
+4.迁徙趋势  /citymigrate/migrateHistory
+startTime : 2019-06-15
+endTime : 2019-06-21
+migType : 1
+migSource : 1
+startArea : 广州
+
+5.迁徙人群画像分析-年龄 /citymigrate/migrateAge
+dateTime : 2019-06-21
+migType : 1
+migSource : 1
+city : 广州
+
+6.迁徙人群画像分析-性别 /citymigrate/migrateSex
+dateTime : 2019-06-21
+migType : 1
+migSource : 1
+city : 广州
+
+
+7.迁徙人群画像分析-籍贯 /citymigrate/migrateNativePlace
+dateTime : 2019-06-21
+migType : 1
+migSource : 1
+city : 广州
+
+8.迁徙人群画像分析-爱好 /citymigrate/migrateHobby
+dateTime : 2019-06-21
+migType : 1
+migSource : 1
+city : 广州
+
+9.迁徙人群画像分析-消费能力 /citymigrate/migrateconsume
+dateTime : 2019-06-21
+migType : 1
+migSource : 1
+city : 广州
+
+10.统计省内/省外总人数 /citymigrate/migrateCount
+dateTime : 2019-06-21
+migType : 1
+migSource : 1
+startArea : 广州
+
+----市内迁徙 职住分析模块----
+1. 职住地热力分布  /citytransport/space
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+2.人口分析 /citytransport/analyPopulation
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+3.职住分析趋势  /citytransport/populationHistory
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+4.区域人口画像分析-年龄  /citytransport/regionAge
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+5.区域人口画像分析-性别   /citytransport/regionSex
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+6.区域人口画像分析-籍贯   /citytransport/regionNativePlace
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+7.区域人口画像分析-爱好   /citytransport/regionNativePlace
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+8.区域人口画像分析-消费能力   /citytransport/regionConsume
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+----市内迁徙 通勤分析模块----
+1.通勤总人数   /citytransport/tripDistanceCount
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+2.平均通勤距离  /citytransport/tripDistance
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+3.平均通勤时长  /citytransport/tripDuration
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+4.平均出行时点  /citytransport/tripTime
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+5.通勤排行详情 /citytransport/tripDetail
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+6.通勤平均距离对比  /citytransport/tripAnalysis
+dateTime : 2019-06
+city : 广州
+area: 天河
+
+7.人群画像分析-年龄  /citytransport/tripAge
+dateTime : 2019-06
+city : 广州
+startArea : 天河
+endArea : 番禺
+
+8.人群画像分析-性别  /citytransport/tripSex
+dateTime : 2019-06
+city : 广州
+startArea : 天河
+endArea : 番禺
+
+9.人群画像分析-籍贯  /citytransport/tripNativePlace
+dateTime : 2019-06
+city : 广州
+startArea : 天河
+endArea : 番禺
+
+10.人群画像分析-爱好  /citytransport/tripHobby
+dateTime : 2019-06
+city : 广州
+startArea : 天河
+endArea : 番禺
+
+11.人群画像分析-消费能力  /citytransport/tripConsume
+dateTime : 2019-06
+city : 广州
+startArea : 天河
+endArea : 番禺
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

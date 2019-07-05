@@ -36,7 +36,7 @@
 
     export default {
         name: "TabOne",
-        props: ["queryRegionCode", "queryDate"],
+        props: ["queryRegionCode", "queryDate","queryAreaCode"],
         data() {
             return {};
         },
@@ -300,6 +300,11 @@
             }
         },
         watch: {
+            queryAreaCode(newValue, oldValue) {
+                if (newValue != oldValue) {
+                    this.loadData();
+                }
+            },
             queryRegionCode(newValue, oldValue) {
                 if (newValue != oldValue) {
                     this.loadData();

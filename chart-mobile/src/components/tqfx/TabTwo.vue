@@ -76,7 +76,7 @@
 
     export default {
         name: "TabTwo",
-        props: ["queryRegionCode", "queryDate"],
+        props: ["queryRegionCode", "queryDate", "queryAreaCode"],
         data() {
             return {items: []};
         },
@@ -314,14 +314,19 @@
             },
         },
         watch: {
+            queryAreaCode(newValue, oldValue) {
+                if (newValue != oldValue) {
+                    this.loadData();
+                }
+            },
             queryRegionCode(newValue, oldValue) {
                 if (newValue != oldValue) {
-
+                    this.loadData();
                 }
             },
             queryDate(newValue, oldValue) {
                 if (newValue != oldValue) {
-
+                    this.loadData();
                 }
             }
         }
@@ -348,7 +353,7 @@
         left: 0px;
         top: 0px;
         right: 0px;
-        position:absolute;
+        position: absolute;
     }
 
     .part-item2 {

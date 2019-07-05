@@ -23,6 +23,13 @@
                         </select>
                         <div class="down-icon"></div>
                     </div>
+                    <div class="city field">
+                        <div class="location-icon"></div>
+                        <select v-model="queryAreaCode">
+                            <option value="" selected>全部区域</option>
+                        </select>
+                        <div class="down-icon"></div>
+                    </div>
                     <div class="date field">
                         <Datepicker v-on:input="dateChange" format="YYYY-MM" name="queryDate"
                                     :value="queryDate"></Datepicker>
@@ -48,25 +55,26 @@
             </div>
             <div class="right-part">
                 <div class="tab-view">
-                    <div class="tab-title tab-title3">
+                    <div class="tab-title tab-title2">
                         <div v-on:click="right_tab_index= 1" :class="right_tab_index==1?'select':''">
                             <span>通勤洞察</span></div>
                         <div v-on:click="right_tab_index= 2" :class="right_tab_index==2?'select':''">
                             <span>通勤排行</span>
                         </div>
-                        <div v-on:click="right_tab_index= 3" :class="right_tab_index==3?'select':''">
-                            <span>人群画像</span>
-                        </div>
+                        <!--<div v-on:click="right_tab_index= 3" :class="right_tab_index==3?'select':''">-->
+                            <!--<span>人群画像</span>-->
+                        <!--</div>-->
                     </div>
+
                     <div class="tab-content">
                         <div v-if="right_tab_index==1">
-                            <TabOne :queryDate="queryDate" :queryRegionCode="queryRegionCode"></TabOne>
+                            <TabOne :queryDate="queryDate" :queryRegionCode="queryRegionCode"  :queryAreaCode="queryAreaCode"></TabOne>
                         </div>
                         <div v-if="right_tab_index==2">
-                            <TabTwo :queryDate="queryDate" :queryRegionCode="queryRegionCode"></TabTwo>
+                            <TabTwo :queryDate="queryDate" :queryRegionCode="queryRegionCode" :queryAreaCode="queryAreaCode"></TabTwo>
                         </div>
                         <div v-if="right_tab_index==3">
-                            <TabThree :queryDate="queryDate" :queryRegionCode="queryRegionCode"></TabThree>
+                            <TabThree :queryDate="queryDate" :queryRegionCode="queryRegionCode"  :queryAreaCode="queryAreaCode"></TabThree>
                         </div>
                     </div>
 
@@ -74,8 +82,9 @@
 
             </div>
             <div class="nav-bottom-bar">
-                <div class="select">通勤分析</div>
                 <div class="" @click="gotoPage">职住分析</div>
+                <div class="select">通勤分析</div>
+
             </div>
         </div>
 
@@ -239,6 +248,7 @@
         data() {
             return {
                 queryRegionCode: '广州',//省内 具体到市  省外是全国地图
+                queryAreaCode:'',//所在区域信息
                 queryDate: new Date(),//查询的日期
                 right_tab_index: 1,
                 defaultFeatures: ['bg', 'building', 'point'], // 地图默认特征
