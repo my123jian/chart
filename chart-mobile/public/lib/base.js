@@ -103,7 +103,9 @@ Number.prototype.fromateDataString = function () {
     theResultStr += "<div class='last'>万</div>";
     return theResultStr;
 }
-
+Number.prototype.fromateNum=function () {
+    return this;
+}
 function gotoPage(name) {
     location.href = name;
 }

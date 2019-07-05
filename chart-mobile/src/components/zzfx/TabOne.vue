@@ -4,20 +4,20 @@
             <div class="work-chart">
                 <div>
                     <div class="work-chart-title">工作人口数</div>
-                    <div class="num-value">22222</div>
+                    <div class="num-value">{{workCount}}</div>
                 </div>
 
             </div>
             <div class="live-chart">
                 <div>
                     <div class="live-chart-title">居住人口数</div>
-                    <div class="num-value">2222</div>
+                    <div class="num-value">{{liveCount}}</div>
                 </div>
             </div>
             <div class="local-chart">
                 <div>
                     <div class="local-chart-title"> 常驻人口数</div>
-                    <div class="num-value">222</div>
+                    <div class="num-value">{{residentCount}}</div>
                 </div>
 
             </div>
@@ -60,12 +60,15 @@
 
     export default {
         name: "tabOne",
-        props: ["queryRegionType", "queryRegionCode", "queryDirection", "queryDate","queryAreaCode"],
+        props: ["queryRegionType", "queryRegionCode", "queryDirection", "queryDate", "queryAreaCode"],
         data: function () {
             return {
                 tabIndex: 1,
                 items: [],
-                lineDate: ''//近半个月，近一个月
+                lineDate: '',//近半个月，近一个月
+                liveCount: "",
+                residentCount: "",
+                workCount: ""
             };
         },
         methods: {
@@ -83,15 +86,17 @@
                  * */
                 var theX = [];
                 var theY = [];
-                if (datas) {
-                    for (var i = 0; i < datas.length; i++) {
-                        var theItem = datas[i];
-                        theY.push(theItem.num);
-                        theX.push(theItem.nativePlace);
+                var theDatas = datas.populationData;
+                // debugger;
+                if (theDatas) {
+                    for (var i = 0; i < theDatas.length; i++) {
+                        var theItem = theDatas[i];
+                        theY.push(theItem.workNum);
+                        theX.push(theItem.area);
                     }
                 }
                 var theOptions = {
-                    color: ['#faff64'],
+                    color: ['#33eace'],
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -158,15 +163,16 @@
                  * */
                 var theX = [];
                 var theY = [];
-                if (datas) {
-                    for (var i = 0; i < datas.length; i++) {
-                        var theItem = datas[i];
-                        theY.push(theItem.num);
-                        theX.push(theItem.nativePlace);
+                var theDatas = datas.populationData;
+                if (theDatas) {
+                    for (var i = 0; i < theDatas.length; i++) {
+                        var theItem = theDatas[i];
+                        theY.push(theItem.liveNum);
+                        theX.push(theItem.area);
                     }
                 }
                 var theOptions = {
-                    color: ['#faff64'],
+                    color: ['#33a7ea'],
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -230,12 +236,14 @@
                  num: 10000
                  startArea: "广州"*/
                 var theX = [];
-                var theY = [];
-                if (data) {
-                    for (var i = 0; i < data.length; i++) {
-                        var theItem = data[i];
-                        theX.push(theItem.dateTime);
-                        theY.push(theItem.num);
+                var theY1 = [];
+                var theY2 = [];
+                if (datas) {
+                    for (var i = 0; i < datas.length; i++) {
+                        var theItem = datas[i];
+                        theY1.push(theItem.liveNum);
+                        theY2.push(theItem.workNum);
+                        theX.push(theItem.area);
                     }
                 }
                 var theOptions = {
@@ -245,16 +253,18 @@
                     tooltip: {
                         trigger: 'axis'
                     },
-                    // legend: {
-                    //     data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
-                    // },
+                    legend: {
+                        x: 'right',
+                        data: [{name: '工作人口', textStyle: {color: "#6bff75", fontSize: 16}},
+                            {name: '居住人口', textStyle: {color: "#fff36b", fontSize: 16}}]
+                    },
                     grid: {
                         left: '3%',
                         right: '4%',
                         bottom: '3%',
                         containLabel: true
                     },
-                    color:['#479fc1'],
+                    color: ['#479fc1'],
                     // toolbox: {
                     //     feature: {
                     //         saveAsImage: {}
@@ -283,17 +293,25 @@
                     },
                     series: [
                         {
-                            name: '趋势分析',
+                            name: '工作人口',
                             type: 'line',
                             stack: '总量',
+                            color: '#6bff75',
                             smooth: true,
-                            data: theY,// [120, 132, 101, 134, 90, 230, 210]
+                            data: theY1,// [120, 132, 101, 134, 90, 230, 210]
+                        },
+                        {
+                            name: '居住人口',
+                            type: 'line',
+                            stack: '总量',
+                            color: '#fff36b',
+                            smooth: true,
+                            data: theY2,// [120, 132, 101, 134, 90, 230, 210]
                         }
                     ]
                 };
                 this.chart3.setOption(theOptions);
             },
-
 
 
             //2.人口分析
@@ -304,13 +322,18 @@
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
                     city: this.queryRegionCode,
-                    area:this.queryAreaCode
+                    area: this.queryAreaCode
                 };
                 var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
                         // handle success
                         var theData = response.data;
+
+                        me.liveCount = (theData.data.liveCount || 0).toLocaleString('en-US');
+                        me.residentCount = (theData.data.residentCount || 0).toLocaleString('en-US');
+                        me.workCount = (theData.data.workCount || 0).toLocaleString('en-US');
+
                         me.drawChart1(theData.data);
                         me.drawChart2(theData.data);
                         console.log(response, theData);
@@ -331,7 +354,7 @@
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
                     city: this.queryRegionCode,
-                    area:this.queryAreaCode
+                    area: this.queryAreaCode
                 };
                 var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -358,7 +381,7 @@
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
                     city: this.queryRegionCode,
-                    area:this.queryAreaCode
+                    area: this.queryAreaCode
                 };
                 var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -500,7 +523,6 @@
         text-align: center;
     }
 
-
     .num-value {
         color: white;
         font-size: 20px;
@@ -515,7 +537,7 @@
 
     .sub-chart-group {
         position: absolute;
-        top:85px;
+        top: 85px;
         left: 0px;
         right: 0px;
         bottom: 0px;
