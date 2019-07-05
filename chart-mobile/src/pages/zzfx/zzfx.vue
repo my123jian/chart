@@ -1,8 +1,8 @@
 <template>
     <div id="app">
         <Header customActiveId="2"></Header>
-        <!--<div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>-->
-        <EchartMap  :data="mapData" ></EchartMap>
+        <div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>
+        <!--<EchartMap  :data="mapData" ></EchartMap>-->
         <!--<div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>-->
         <div class="content">
             <div class="left-part">
