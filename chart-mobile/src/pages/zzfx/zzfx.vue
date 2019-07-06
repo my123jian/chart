@@ -32,15 +32,16 @@
                         <div class="down-icon"></div>
                     </div>
                     <div class="date field">
-                        <Datepicker v-on:input="dateChange"  format="YYYY-MM" name="queryDate" :value="queryDate"></Datepicker>
+                        <Datepicker v-on:input="dateChange" format="YYYY-MM" name="queryDate"
+                                    :value="queryDate"></Datepicker>
                         <div class="date-icon"></div>
                     </div>
                     <!--<input placeholder="请输入日期"/>-->
 
                 </div>
                 <!--<div class="count-view">-->
-                    <!--<div class="title">通勤人数</div>-->
-                    <!--<div class="num" v-html="totalNum.fromateDataString()"></div>-->
+                <!--<div class="title">通勤人数</div>-->
+                <!--<div class="num" v-html="totalNum.fromateDataString()"></div>-->
                 <!--</div>-->
                 <!--<div class="wave-content">-->
                 <!--<WaveCircle style="width: 200px;height: 200px;" :value="Channel1Radio" width=200-->
@@ -64,10 +65,12 @@
                     </div>
                     <div class="tab-content">
                         <div v-if="right_tab_index==1">
-                            <TabOne :queryDate="queryDate" :queryRegionCode="queryRegionCode" :queryAreaCode="queryAreaCode"></TabOne>
+                            <TabOne :queryDate="queryDate" :queryRegionCode="queryRegionCode"
+                                    :queryAreaCode="queryAreaCode"></TabOne>
                         </div>
                         <div v-if="right_tab_index==2">
-                            <TabTwo :queryDate="queryDate" :queryRegionCode="queryRegionCode" :queryAreaCode="queryAreaCode"></TabTwo>
+                            <TabTwo :queryDate="queryDate" :queryRegionCode="queryRegionCode"
+                                    :queryAreaCode="queryAreaCode"></TabTwo>
                         </div>
                     </div>
 
@@ -76,7 +79,7 @@
             </div>
             <div class="nav-bottom-bar">
                 <div class="select">职住分析</div>
-                <div @click="gotoPage" >通勤分析</div>
+                <div @click="gotoPage">通勤分析</div>
 
             </div>
         </div>
@@ -89,6 +92,10 @@
     import TabTwo from "../../components/zzfx/TabTwo";
     import PageUtil from "../../utils/PageUtil";
     import Datepicker from 'vue-datepicker-local';
+    import GpsUtil from "../../utils/GpsUtil"
+    import {PointPath} from "../../utils/PointPath"
+
+    import CityCodeMap from "../../utils/CityCodeMap"
     import EchartMap from "../../components/EchartMapPoint";
     import axios from "axios";
 
@@ -98,6 +105,7 @@
             return {
                 queryRegionCode: '广州',//省内 具体到市  省外是全国地图
                 queryDate: new Date(),//查询的日期
+                queryAreaCode: '',
                 right_tab_index: 1,
                 defaultFeatures: ['bg', 'building', 'point'], // 地图默认特征
                 totalNum: 0,
@@ -106,7 +114,12 @@
                 Channel2Radio: 0.3,
                 Channel3Radio: 0.3,
                 Channel4Radio: 0.3,
-                mapData:{name:'广州市',items:[]}
+                mapData: {name: '广州市', items: []},
+                mapView: null,
+                pointPath: null,
+                marks: [],
+                paths: [],
+                timer:null
             }
         },
         components: {
@@ -119,9 +132,22 @@
             this.queryDate = new Date();
             this.initMap();
             this.loadSpace();
+            this.initTimer();
+
         },
         methods: {
-            gotoPage(){
+            initTimer(){
+              if(!this.timer){
+                  var me=this;
+                  this.timer = window.setInterval(function () {
+                     for(var i=0;i< me.paths.length;i++){
+                         var thePath=me.paths[i];
+                         thePath.run();
+                     }
+                  }, 500);
+              }
+            },
+            gotoPage() {
                 window.gotoPage('tqfx.html')
             },
             dateChange(value) {
@@ -134,7 +160,8 @@
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    area: this.queryAreaCode
                 };
                 var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -142,6 +169,7 @@
                         // handle success
                         var theData = response.data;
                         // me.drawAgeChar(theData.data);
+                        me.drawSpace(theData.data);
                         console.log(response, theData);
                     })
                     .catch(function (error) {
@@ -158,7 +186,7 @@
             initMap() {
                 const theDefaultMapStyle = 'amap://styles/785cdb67af60cfce35e24e8d6c56ed75' // 默认地图样式
                 const theCenterPoint = [113.275824, 22.994826] // 默认地图中心
-                let theMap = new AMap.Map('container', {
+                this.mapView = new AMap.Map('container', {
                     pitch: 45,
                     mapStyle: theDefaultMapStyle,
                     viewMode: '3D', // 地图模式
@@ -166,7 +194,7 @@
                     features: this.defaultFeatures,
                     zoom: 7.5,
                     expandZoomRange: true, // 改变最大缩放等级
-                    zooms: [7.5, 20], // 改变最大缩放等级
+                    zooms: [7.5, 15], // 改变最大缩放等级
                     keyboardEnable: false,
                     layers: [
                         //satellite,
@@ -174,7 +202,114 @@
                         //roadNet
                     ]
                 })
-                window.theMap = theMap
+                // window.theMap = theMap
+            },
+            drawSpace(datas) {
+                if (this.paths != null && this.paths.length > 0) {
+                    for (var i = 0; i < this.paths.length; i++) {
+                        var thePath = this.paths[i];
+                        thePath.stop();
+                    }
+
+                }
+                this.paths = [];
+                for (var i = 0; i < datas.length; i += 1) {
+                    var theItem = datas[i];
+                    var theStartArea = theItem.startArea;
+                    var theEndArea = theItem.endArea;
+
+                    var theStartCityCode = CityCodeMap.getCountyCode("广东省", this.queryRegionCode, theStartArea);
+                    var theEndCityCode = CityCodeMap.getCountyCode("广东省", this.queryRegionCode, theEndArea);
+
+                    var theStartPosition = GpsUtil.getByAreaCode(theStartCityCode);
+                    var theEndPosition = GpsUtil.getByAreaCode(theEndCityCode);
+
+                    var theNum = theItem.num;
+                    if (!theStartPosition || !theEndPosition) {
+                        console.log("未找到坐标信息",theStartArea,theEndArea);
+                        continue;
+                    }
+                    var me = this;
+                    var theNewPath = new PointPath(theStartPosition[0], theStartPosition[1], theEndPosition[0], theEndPosition[1], theNum, function (path,points) {
+                        // for(var i=0;i<me.marks.length;i++){
+                        //     var theMark=me.marks[i];
+                        //
+                        // }
+                        me.marks = [];
+                        var theEndValue=0;
+                        for (var i = 0; i < points.length; i++) {
+                            // var center = capitals[i].center;
+                            var thePoint = points[i];
+                            if (thePoint.mark) {
+                                me.mapView.remove(thePoint.mark);
+                            }
+                            if(thePoint.isOver()){
+                                theEndValue+=thePoint.value;
+                                continue;
+                            }
+                            var theRaido = Math.min(thePoint.value / 10000, 60);
+                            var circleMarker = new AMap.CircleMarker({
+                                center: [thePoint.x, thePoint.y],
+                                radius: theRaido,//3D视图下，CircleMarker半径不要超过64px
+                                strokeColor: 'white',
+                                strokeWeight: 2,
+                                strokeOpacity: 0.5,
+                                fillColor: '#d8d73f',
+                                fillOpacity: 0.5,
+                                zIndex: 10,
+                                // bubble: true,
+                                cursor: 'pointer',
+                                // clickable: true
+                            });
+                            thePoint.mark = circleMarker;
+                            // me.marks.push(circleMarker);
+                            circleMarker.setMap(me.mapView);
+                            console.log("开始花点");
+                        }
+                        if(path.endMark){
+                            me.mapView.remove(path.endMark);
+                        }
+                        if(theEndValue>0){
+                            var theEndRaido = Math.min(theEndValue / 10000, 60);
+                            var circleEndMarker = new AMap.CircleMarker({
+                                center: [thePoint.x, thePoint.y],
+                                radius: theEndRaido,//3D视图下，CircleMarker半径不要超过64px
+                                strokeColor: 'white',
+                                strokeWeight: 2,
+                                strokeOpacity: 0.5,
+                                fillColor: '#d8d73f',
+                                fillOpacity: 0.5,
+                                zIndex: 10,
+                                // bubble: true,
+                                cursor: 'pointer',
+                                // clickable: true
+                            });
+                            path.endMark=circleEndMarker;
+                            circleEndMarker.setMap(me.mapView);
+                        }
+
+                    });
+                    theNewPath.start();
+                    this.paths.push(theNewPath);
+
+                }
+            }
+        },
+        watch: {
+            queryAreaCode(newValue, oldValue) {
+                if (newValue != oldValue) {
+                    this.loadSpace();
+                }
+            },
+            queryRegionCode(newValue, oldValue) {
+                if (newValue != oldValue) {
+                    this.loadSpace();
+                }
+            },
+            queryDate(newValue, oldValue) {
+                if (newValue != oldValue) {
+                    this.loadSpace();
+                }
             }
         }
     }

@@ -100,7 +100,7 @@
 
                 if (this.areaMod == 1) {
                     var theCityCode = CityCodeMap.getCountyCode("广东省", this.cityName, name);
-                    debugger;
+                    //debugger;
                     return GpsUtil.getByAreaCode(theCityCode);
                 }
                 else {

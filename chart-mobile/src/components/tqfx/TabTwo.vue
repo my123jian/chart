@@ -1,58 +1,102 @@
 <template>
-    <div class="chart-view">
-        <div title="通勤成本排行" class="part-item part-item1">
-            <table>
+    <div class="chart-view chart-group">
+        <div class="chart-item">
+            <div class="title chart-title">
+                <span class="content-icon">
+                    <span class="content">
+通勤成本排行
+                    </span>
+                </span>
+            </div>
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>
-                        <div class="title onecloumn onecloumn-bg">
-                            通勤成本排行
-                        </div>
-                    </td>
-                    <td style="vertical-align: top;width: 100%;">
-                        <div class="content">
-                            <table class="table" style="width: 100%;">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        排名
-                                    </th>
-                                    <th>
-                                        通勤路线
-                                    </th>
-                                    <th>
-                                        通勤人数
-                                    </th>
-                                    <th>
-                                        单程平均通行时间(min)
-                                    </th>
-                                    <th>
-                                        单程平均通行距离(km)
-                                    </th>
+                    <th>
+                        排名
+                    </th>
+                    <th>
+                        通勤路线
+                    </th>
+                    <th>
+                        通勤人数
+                    </th>
+                    <th>
+                        单程平均通行时间(min)
+                    </th>
+                    <th>
+                        单程平均通行距离(km)
+                    </th>
 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="item in items" :key="item.id">
-                                    <th>{{item.order}}</th>
-                                    <th>{{item.line}}</th>
-                                    <th>{{item.num}}</th>
-                                    <th>{{item.avgTime}}</th>
-                                    <th>{{item.avgDistance}}</th>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </td>
+
                 </tr>
+                </thead>
+                <tbody>
+                <tr v-for="item in items" :key="item.id">
+                    <th>{{item.order}}</th>
+                    <th>{{item.line}}</th>
+                    <th>{{item.num}}</th>
+                    <th>{{item.avgTime}}</th>
+                    <th>{{item.avgDistance}}
+                        <div class="table-btn" @click="notifyChange(item)">画像分析</div>
+                    </th>
+
+                </tr>
+                </tbody>
             </table>
-
-
         </div>
+        <!--<div title="通勤成本排行" class="part-item part-item1">-->
+        <!--<table>-->
+        <!--<tr>-->
+        <!--<td>-->
+        <!--<div class="title onecloumn onecloumn-bg">-->
+        <!--通勤成本排行-->
+        <!--</div>-->
+        <!--</td>-->
+        <!--<td style="vertical-align: top;width: 100%;">-->
+        <!--<div class="content">-->
+        <!--<table class="table" style="width: 100%;">-->
+        <!--<thead>-->
+        <!--<tr>-->
+        <!--<th>-->
+        <!--排名-->
+        <!--</th>-->
+        <!--<th>-->
+        <!--通勤路线-->
+        <!--</th>-->
+        <!--<th>-->
+        <!--通勤人数-->
+        <!--</th>-->
+        <!--<th>-->
+        <!--单程平均通行时间(min)-->
+        <!--</th>-->
+        <!--<th>-->
+        <!--单程平均通行距离(km)-->
+        <!--</th>-->
+
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr v-for="item in items" :key="item.id">-->
+        <!--<th>{{item.order}}</th>-->
+        <!--<th>{{item.line}}</th>-->
+        <!--<th>{{item.num}}</th>-->
+        <!--<th>{{item.avgTime}}</th>-->
+        <!--<th>{{item.avgDistance}}</th>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+        <!--</table>-->
+        <!--</div>-->
+        <!--</td>-->
+        <!--</tr>-->
+        <!--</table>-->
+
+
+        <!--</div>-->
         <div title="平均通勤距离" class="part-item part-item2">
             <table>
                 <tr>
                     <td>
-                        <div class="title onecloumn onecloumn-bg">
+                        <div class="title onecloumn">
                             平均通勤距离
                         </div>
                     </td>
@@ -110,9 +154,12 @@
                     tooltip: {
                         trigger: 'axis'
                     },
-                    // legend: {
-                    //     data: ['最高气温', '最低气温']
-                    // },
+
+                    legend: {
+                        x: 'right',
+                        data: [{name: '工作', textStyle: {color: "#6bff75", fontSize: 16}},
+                            {name: '居住', textStyle: {color: "#fff36b", fontSize: 16}}]
+                    },
                     // toolbox: {
                     //     show: true,
                     //     feature: {
@@ -153,6 +200,8 @@
                         {
                             name: '工作',
                             type: 'line',
+                            color: '#6bff75',
+                            smooth: true,
                             data: theWorkLine.y,//[11, 11, 15, 13, 12, 13, 10],
                             // markPoint: {
                             //     data: [
@@ -169,6 +218,8 @@
                         {
                             name: '居住',
                             type: 'line',
+                            color: '#fff36b',
+                            smooth: true,
                             data: theWorkLine.y,//[1, -2, 2, 5, 3, 2, 0],
                             // markPoint: {
                             //     data: [
@@ -241,7 +292,8 @@
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    area: this.queryAreaCode
                 };
                 var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -284,7 +336,8 @@
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    area: this.queryAreaCode
                 };
                 var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -312,6 +365,9 @@
                         // always executed
                     });
             },
+            notifyChange(item) {
+                this.$emit('select', item);
+            }
         },
         watch: {
             queryAreaCode(newValue, oldValue) {
@@ -334,6 +390,32 @@
 </script>
 
 <style scoped>
+    .table-btn {
+        background-image: url("../../assets/hxfx_bg.png");
+        height: 22px;
+        width: 88px;
+        line-height: 22px;
+        cursor: pointer;
+        color: #001532;
+        font-size: 14px;
+        display: inline-block;
+    }
+
+    .table {
+        position: absolute;
+        top: 60px;
+        left: 16px;
+        right: 16px;
+        bottom: 10px;
+        width: 650px;
+    }
+
+    .chart-title {
+        position: absolute;
+        left: 26px;
+        top: 18px;
+    }
+
     .chart-view {
         position: relative;
     }
@@ -343,10 +425,10 @@
         position: relative;
     }
 
-    .part-item .content {
-        width: 578px;
-        vertical-align: top;
-    }
+    /*.part-item .content {*/
+        /*width: 578px;*/
+        /*vertical-align: top;*/
+    /*}*/
 
     .part-item1 {
         bottom: 230px;
@@ -360,13 +442,13 @@
         height: 230px;
         bottom: 0px;
         left: 0px;
-        top: 626px;
+        top: 610px;
         position: absolute;
     }
 
     .chart {
         height: 230px;
-        width: 578px;
+        width: 100%;/*578px;*/
         left: 0px;
         top: 0px;
     }

@@ -1,62 +1,69 @@
 <template>
-    <div class="tabtwo">
-        <div class="row row1">
-            <div class="chart-item">
-                <div class="chart-title">
-                    <div class="content-icon">
-                        <div class="content sex">
-                            性别
-                        </div>
-                    </div>
-                </div>
-                <div class="canvas" ref="sex"></div>
-            </div>
-            <div class="chart-item">
-                <div class="chart-title">
-                    <div class="content-icon">
-                        <div class="content age">
-                            年龄
-                        </div>
-                    </div>
-                </div>
-                <div class="canvas" ref="age"></div>
-            </div>
+    <div class="chart-with-title">
+        <div class="title">
+            <span style="margin-left:16px ">通勤人群画像</span>
+            <div @click="notifyChange" class="return-btn">返回</div>
         </div>
-        <div class="row row2">
-            <div class="chart-item">
-                <div class="chart-title">
-                    <div class="content-icon">
-                        <div class="content hobby">
-                            爱好
+        <div class="tabtwo">
+            <div class="row row1">
+                <div class="chart-item">
+                    <div class="chart-title">
+                        <div class="content-icon">
+                            <div class="content sex">
+                                性别
+                            </div>
                         </div>
                     </div>
+                    <div class="canvas" ref="sex"></div>
                 </div>
-                <div class="canvas" ref="interest"></div>
+                <div class="chart-item">
+                    <div class="chart-title">
+                        <div class="content-icon">
+                            <div class="content age">
+                                年龄
+                            </div>
+                        </div>
+                    </div>
+                    <div class="canvas" ref="age"></div>
+                </div>
             </div>
-            <div class="chart-item">
-                <div class="chart-title">
-                    <div class="content-icon">
-                        <div class="content consume">
-                            消费能力
+            <div class="row row2">
+                <div class="chart-item">
+                    <div class="chart-title">
+                        <div class="content-icon">
+                            <div class="content hobby">
+                                爱好
+                            </div>
                         </div>
                     </div>
+                    <div class="canvas" ref="interest"></div>
                 </div>
-                <div class="canvas" ref="consumption"></div>
+                <div class="chart-item">
+                    <div class="chart-title">
+                        <div class="content-icon">
+                            <div class="content consume">
+                                消费能力
+                            </div>
+                        </div>
+                    </div>
+                    <div class="canvas" ref="consumption"></div>
+                </div>
             </div>
-        </div>
-        <div class="row row3">
-            <div class="chart-item">
-                <div class="chart-title">
-                    <div class="content-icon">
-                        <div class="content birth">
-                            籍贯
+            <div class="row row3">
+                <div class="chart-item">
+                    <div class="chart-title">
+                        <div class="content-icon">
+                            <div class="content birth">
+                                籍贯
+                            </div>
                         </div>
                     </div>
+                    <div class="canvas" ref="birthplace"></div>
                 </div>
-                <div class="canvas" ref="birthplace"></div>
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -64,12 +71,14 @@
 
     export default {
         name: "tabThree",
-        props: ["queryRegionType", "queryRegionCode", "queryDirection", "queryDate","queryAreaCode"],
+        props: ["queryRegionType", "queryRegionCode", "queryDirection", "queryDate", "queryAreaCode", "areas"],
         data: function () {
             return {
                 tabIndex: 1,
                 items: [],
-                lineDate: ''//近半个月，近一个月
+                lineDate: '',//近半个月，近一个月
+                startArea: '',//开始区域
+                endArea: ''//结束区域
             };
         },
         methods: {
@@ -92,7 +101,7 @@
                     //     subtext: '纯属虚构',
                     //     x:'center'
                     // },
-                    color:['#63efe0','#67f782','#faff64','#64ceff','#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb'],
+                    color: ['#63efe0', '#67f782', '#faff64', '#64ceff', '#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb'],
                     tooltip: {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} :  ({d}%)"
@@ -165,7 +174,7 @@
                     //     subtext: '纯属虚构',
                     //     x: 'center'
                     // },
-                    color:['#63efe0','#67f782','#faff64','#64ceff','#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb'],
+                    color: ['#63efe0', '#67f782', '#faff64', '#64ceff', '#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb'],
                     tooltip: {
                         trigger: 'item',
                         // formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -264,7 +273,7 @@
                         {
                             type: 'value',
                             axisLine: {
-                                show:false,
+                                show: false,
                                 lineStyle: {
                                     color: 'white'//'#557398'
                                 }
@@ -281,8 +290,8 @@
                             type: 'bar',
                             barWidth: 30,
                             data: theY,//[10, 52, 200, 334, 390, 330, 220]
-                            itemStyle:{
-                                normal:{
+                            itemStyle: {
+                                normal: {
                                     barBorderRadius: 10
                                 }
                             }
@@ -450,9 +459,11 @@
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    startArea: this.startArea,
+                    endArea: this.endArea
                 };
-                var me=this;
+                var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
                         // handle success
@@ -477,7 +488,9 @@
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    startArea: this.startArea,
+                    endArea: this.endArea
                 };
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
@@ -497,13 +510,15 @@
             //迁徙人群画像分析-籍贯
             loadMigrateNativePlace() {
                 //迁徙人群画像分析-年龄
-                var me=this;
+                var me = this;
                 var theUrl1 = "/citytransport/tripNativePlace";
                 //近期热门迁徙路线
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    startArea: this.startArea,
+                    endArea: this.endArea
                 };
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
@@ -529,7 +544,9 @@
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    startArea: this.startArea,
+                    endArea: this.endArea
                 };
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
@@ -554,9 +571,11 @@
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    startArea: this.startArea,
+                    endArea: this.endArea
                 };
-                var me=this;
+                var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
                     .then(function (response) {
                         // handle success
@@ -588,6 +607,9 @@
                 this.loadMigrateHobby();
                 this.loadMigrateconsume();
 
+            },
+            notifyChange() {
+                this.$emit('return');
             }
         },
         created: function () {
@@ -601,6 +623,10 @@
             console.log("加载数据!");
         },
         watch: {
+            areas(newValue, oldValue) {
+                this.startArea = newValue[0];
+                this.endArea = newValue[0];
+            },
             queryDate: function (newValue, oldValue) {
                 this.loadData();
                 // console.log("queryDate！", newValue, oldValue);
@@ -627,10 +653,46 @@
 </script>
 
 <style scoped>
-    .tabtwo {
+    .chart-with-title {
+        position: absolute;
         height: 100%;
+        width: 100%;
+    }
+
+    .return-btn {
         position: absolute;
         top: 0px;
+        right: 13px;
+        width: 100px;
+        height: 40px;
+        color: #f0ffff;
+        font-size: 18px;
+        display: flex;
+        justify-content: space-around;
+        border-radius: 19px;
+        /*background-color: #2470c2;*/
+        align-items: center;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 0 8px;
+        cursor: pointer;
+    }
+
+    .chart-with-title > .title {
+        height: 40px;
+        color: #b0d2f9;
+        font-size: 18px;
+        background-image: url("../../assets/tytitle_bg.png");
+        height: 38px;
+        width: 100%;
+        line-height: 40px;
+    }
+
+    .tabtwo {
+        /*height: 100%;*/
+        position: absolute;
+        top: 40px;
         left: 0px;
         right: 0px;
         bottom: 0px;
@@ -640,11 +702,12 @@
         position: relative;
     }
 
-    .chart-item .chart-title{
+    .chart-item .chart-title {
         position: absolute;
-        left:16px;
-        top:19px;
+        left: 16px;
+        top: 19px;
     }
+
     .title {
         position: absolute;
         left: 0px;

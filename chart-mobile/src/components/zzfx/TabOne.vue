@@ -374,31 +374,31 @@
             },
 
             //1. 职住地热力分布
-            loadSpace() {
-                var theUrl1 = "/citytransport/space";
-                //近期热门迁徙路线
-                var theUrl = window.baseUrl + theUrl1;
-                var theQueryObj = {
-                    dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode,
-                    area: this.queryAreaCode
-                };
-                var me = this;
-                axios.post(theUrl, window.toQuery(theQueryObj))
-                    .then(function (response) {
-                        // handle success
-                        var theData = response.data;
-                        me.drawChart4(theData.data);
-                        console.log(response, theData);
-                    })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-                    .finally(function () {
-                        // always executed
-                    });
-            },
+            // loadSpace() {
+            //     var theUrl1 = "/citytransport/space";
+            //     //近期热门迁徙路线
+            //     var theUrl = window.baseUrl + theUrl1;
+            //     var theQueryObj = {
+            //         dateTime: this.queryDate.formateYearMonth(),
+            //         city: this.queryRegionCode,
+            //         area: this.queryAreaCode
+            //     };
+            //     var me = this;
+            //     axios.post(theUrl, window.toQuery(theQueryObj))
+            //         .then(function (response) {
+            //             // handle success
+            //             var theData = response.data;
+            //             me.drawChart4(theData.data);
+            //             console.log(response, theData);
+            //         })
+            //         .catch(function (error) {
+            //             // handle error
+            //             console.log(error);
+            //         })
+            //         .finally(function () {
+            //             // always executed
+            //         });
+            // },
 
             initChart() {
                 this.chart1 = window.echarts.init(this.$refs.chart1);
@@ -409,7 +409,7 @@
             loadData() {
                 this.loadAnalyPopulation();
                 this.loadPopulationHistory();
-                this.loadSpace();
+                // this.loadSpace();
 
             }
         },

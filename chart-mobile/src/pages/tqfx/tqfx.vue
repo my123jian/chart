@@ -56,25 +56,28 @@
             <div class="right-part">
                 <div class="tab-view">
                     <div class="tab-title tab-title2">
-                        <div v-on:click="right_tab_index= 1" :class="right_tab_index==1?'select':''">
+                        <div v-on:click="right_tab_index= 1;tab_three_index=0" :class="right_tab_index==1?'select':''">
                             <span>通勤洞察</span></div>
                         <div v-on:click="right_tab_index= 2" :class="right_tab_index==2?'select':''">
                             <span>通勤排行</span>
                         </div>
                         <!--<div v-on:click="right_tab_index= 3" :class="right_tab_index==3?'select':''">-->
-                            <!--<span>人群画像</span>-->
+                        <!--<span>人群画像</span>-->
                         <!--</div>-->
                     </div>
 
                     <div class="tab-content">
                         <div v-if="right_tab_index==1">
-                            <TabOne :queryDate="queryDate" :queryRegionCode="queryRegionCode"  :queryAreaCode="queryAreaCode"></TabOne>
+                            <TabOne :queryDate="queryDate" :queryRegionCode="queryRegionCode"
+                                    :queryAreaCode="queryAreaCode"></TabOne>
                         </div>
-                        <div v-if="right_tab_index==2">
-                            <TabTwo :queryDate="queryDate" :queryRegionCode="queryRegionCode" :queryAreaCode="queryAreaCode"></TabTwo>
+                        <div v-if="right_tab_index==2&&tab_three_index==0">
+                            <TabTwo v-on:select="onTabTwoSelect" :queryDate="queryDate"
+                                    :queryRegionCode="queryRegionCode" :queryAreaCode="queryAreaCode"></TabTwo>
                         </div>
-                        <div v-if="right_tab_index==3">
-                            <TabThree :queryDate="queryDate" :queryRegionCode="queryRegionCode"  :queryAreaCode="queryAreaCode"></TabThree>
+                        <div v-if="tab_three_index==1">
+                            <TabThree v-on:return="onTabThreeReturn" :queryDate="queryDate" :queryRegionCode="queryRegionCode"
+                                      :queryAreaCode="queryAreaCode" :areas="areas"></TabThree>
                         </div>
                     </div>
 
@@ -128,12 +131,20 @@
                 this.loadTripDistance();
                 this.loadTripDetail();
             },
+            onTabTwoSelect(item) {
+                this.areas=[item.startArea,item.endArea];
+                this.tab_three_index=1;
+            },
+            onTabThreeReturn() {
+                this.tab_three_index=0;
+            },
             loadTripDistance() {
                 var theUrl1 = "/citytransport/tripDistanceCount";
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    area: this.queryAreaCode
                 };
                 var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -158,7 +169,8 @@
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    area: this.queryAreaCode
                 };
                 var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -229,14 +241,14 @@
             }
         },
         watch: {
+            queryAreaCode(newValue, oldValue) {
+                if (newValue != oldValue) {
+                    this.loadData();
+                }
+            },
             queryRegionCode(newValue, oldValue) {
                 if (newValue != oldValue) {
                     this.loadData();
-                    // var newMapData = {
-                    //     name: newValue,
-                    //     items: [],
-                    // }
-                    // this.mapData = newMapData;
                 }
             },
             queryDate(newValue, oldValue) {
@@ -248,7 +260,7 @@
         data() {
             return {
                 queryRegionCode: '广州',//省内 具体到市  省外是全国地图
-                queryAreaCode:'',//所在区域信息
+                queryAreaCode: '',//所在区域信息
                 queryDate: new Date(),//查询的日期
                 right_tab_index: 1,
                 defaultFeatures: ['bg', 'building', 'point'], // 地图默认特征
@@ -258,7 +270,9 @@
                 Channel2Radio: 0.3,
                 Channel3Radio: 0.3,
                 Channel4Radio: 0.3,
-                mapData: {name: '广州市', items: []}
+                mapData: {name: '广州市', items: []},
+                areas: [],//当前的区域信息
+                tab_three_index:0,//是否显示
             }
         }
     }

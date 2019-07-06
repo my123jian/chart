@@ -51,7 +51,7 @@
                 this.chart3 = window.echarts.init(this.$refs.chart3);
             },
             drawChart1(datas) {
-                var theResult = DataConvert.convertData(datas, 'distance', 'num',datas);
+                var theResult = DataConvert.convertData(datas, 'distance', 'num',theTqDistinceType);
                 var theOptions = {
                     color: ['#63efe0'],
                     tooltip: {
@@ -106,7 +106,7 @@
                 this.chart1.setOption(theOptions);
             },
             drawChart2(datas) {
-                var theResult = DataConvert.convertData(datas, 'timeDuration', 'num',datas);
+                var theResult = DataConvert.convertData(datas, 'timeDuration', 'num',theTqTimeType);
                 var theOptions = {
                     color: ['#63efe0'],
                     tooltip: {
@@ -160,7 +160,7 @@
                 this.chart2.setOption(theOptions);
             },
             drawChart3(datas) {
-                var theResult = DataConvert.convertData(datas, 'timePoint', 'num',datas);
+                var theResult = DataConvert.convertData(datas, 'timePoint', 'num',theTqPlace);
                 var theOptions = {
                     // color: ['#3398DB'],
                     color: ['#63efe0'],
@@ -220,7 +220,8 @@
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    area:this.queryAreaCode
                 };
                 var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -247,7 +248,8 @@
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    area:this.queryAreaCode
                 };
                 var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -274,7 +276,8 @@
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     dateTime: this.queryDate.formateYearMonth(),
-                    city: this.queryRegionCode
+                    city: this.queryRegionCode,
+                    area:this.queryAreaCode
                 };
                 var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
