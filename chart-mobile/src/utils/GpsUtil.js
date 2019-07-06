@@ -15980,7 +15980,7 @@ export default {
             "longitude": "113.573742"
         },
         {
-            "code": "440183",
+            "code": "440118",
             "parentCode": "440100",
             "level": "3",
             "name": "增城市",
@@ -15988,7 +15988,7 @@ export default {
             "longitude": "113.767687"
         },
         {
-            "code": "440184",
+            "code": "440117",
             "parentCode": "440100",
             "level": "3",
             "name": "从化市",

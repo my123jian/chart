@@ -205,14 +205,30 @@
                 // window.theMap = theMap
             },
             drawSpace(datas) {
-                if (this.paths != null && this.paths.length > 0) {
-                    for (var i = 0; i < this.paths.length; i++) {
-                        var thePath = this.paths[i];
+                var theOldPaths=this.paths;
+                this.paths = [];
+                // debugger;
+                if (theOldPaths!= null && theOldPaths.length > 0) {
+                    for (var i = 0; i < theOldPaths.length; i++) {
+                        var thePath = theOldPaths[i];
                         thePath.stop();
+                        if(thePath.startMark){
+                            this.mapView.remove(thePath.startMark);
+                        }
+                        if(thePath.endMark){
+                            this.mapView.remove(thePath.endMark);
+                        }
+
+                        for(var j=0;j<thePath.points.length;j++){
+                            var thePoint=thePath.points[j];
+                            if(thePoint.mark){
+                                this.mapView.remove(thePoint.mark);
+                            }
+                        }
                     }
 
                 }
-                this.paths = [];
+
                 for (var i = 0; i < datas.length; i += 1) {
                     var theItem = datas[i];
                     var theStartArea = theItem.startArea;
@@ -240,11 +256,22 @@
                         for (var i = 0; i < points.length; i++) {
                             // var center = capitals[i].center;
                             var thePoint = points[i];
-                            if (thePoint.mark) {
-                                me.mapView.remove(thePoint.mark);
-                            }
+                            // if (thePoint.mark) {
+                            //     me.mapView.remove(thePoint.mark);
+                            // }
+
                             if(thePoint.isOver()){
                                 theEndValue+=thePoint.value;
+                                if (thePoint.mark){
+                                    me.mapView.remove(thePoint.mark);
+                                    thePoint.mark=null;
+                                }
+
+                                continue;
+                            }
+                            if(thePoint.mark){
+                                // debugger;
+                                thePoint.mark.setCenter([thePoint.x, thePoint.y]);
                                 continue;
                             }
                             var theRaido = Math.min(thePoint.value / 10000, 60);
@@ -264,6 +291,7 @@
                             thePoint.mark = circleMarker;
                             // me.marks.push(circleMarker);
                             circleMarker.setMap(me.mapView);
+
                             console.log("开始花点");
                         }
                         if(path.endMark){

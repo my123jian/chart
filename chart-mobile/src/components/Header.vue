@@ -71,7 +71,7 @@
             clickTab(id) {
                 this.activeId = id;
                 if (id == 1) {
-
+                    window.gotoPage('index.html');
                 }
                 if (id == 2) {
                     window.gotoPage('tqfx.html');

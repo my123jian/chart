@@ -4,7 +4,10 @@
     <meta charset="utf-8">
     <title>html5 echarts地图分布动画特效</title>
     <style>
-        html,body{margin:0;padding:0;}
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
     </style>
 </head>
 
@@ -28,14 +31,14 @@
 
 <script type="text/javascript">
 
-    $(function(){
+    $(function () {
         var myChart = echarts.init(document.getElementById('main'));
         myChart.setOption({
-            title : {
+            title: {
                 text: '模拟迁徙',
                 subtext: '数据纯属虚构',
                 left: 'center',
-                textStyle : {
+                textStyle: {
                     color: '#fff'
                 }
             },
@@ -47,7 +50,7 @@
                 expandZoomRange: true,
                 zooms: [3, 20],
                 mapStyle: 'amap://styles/darkblue', //地图主题
-                center: [110,33], //中心点
+                center: [110, 33], //中心点
                 rotation: 0,  //顺时针旋转角度
                 resizeEnable: true,
             },
@@ -61,22 +64,22 @@
         var map = myChart.getModel().getComponent('amap').getAMap();
         var layer = myChart.getModel().getComponent('amap').getLayer();
 
-        AMap.plugin(["AMap.ControlBar"], function() {
+        AMap.plugin(["AMap.ControlBar"], function () {
             var bar = new AMap.ControlBar();
             map.addControl(bar);
         })
 
-        AMap.plugin(["AMap.ToolBar"], function() {
+        AMap.plugin(["AMap.ToolBar"], function () {
             map.addControl(new AMap.ToolBar());
         });
 
-        AMap.event.addListener(map,'zoomend',function(){
+        AMap.event.addListener(map, 'zoomend', function () {
             console.log('当前缩放级别：' + map.getZoom());
             console.log('俯视视角' + map.getPitch());
             console.log('俯视视角' + map.getPitch());
         });
 
-        var series =   [
+        var series = [
             {
                 "name": "上海 Top10",
                 "coordinateSystem": "amap",
@@ -106,7 +109,7 @@
                                 31.2891
                             ],
                             [
-                                109.853634,40.651412
+                                109.853634, 40.651412
                             ]
                         ],
                         "value": 95
@@ -141,7 +144,7 @@
                                 31.2891
                             ],
                             [
-                                109.853634,40.651412
+                                109.853634, 40.651412
                             ]
                         ],
                         "value": 95
@@ -172,20 +175,163 @@
                     {
                         "name": "包头",
                         "value": [
-                            109.853634,40.651412,
+                            109.853634, 40.651412,
                             95
                         ]
                     }
                 ]
             }
         ];
-
+        series = [{
+            "type": "lines",
+            "zlevel": 1,
+            "coordinateSystem": "amap",
+            "effect": {"show": false, "period": 6, "trailLength": 0.7, "color": "#49ffff", "symbolSize": 3},
+            "lineStyle": {"normal": {"color": "#49ffff", "width": 1, "curveness": 0.2}},
+            "data": [{
+                "fromName": "越秀",
+                "toName": "番禺",
+                "coords": [[113.287833, 23.139278], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#ff5555", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "番禺",
+                "toName": "番禺",
+                "coords": [[113.4168, 22.937244], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#ff8155", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "花都",
+                "toName": "番禺",
+                "coords": [[113.220176, 23.446661], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#ffc955", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "南沙",
+                "toName": "番禺",
+                "coords": [[113.525165, 22.801624], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#4ffdca", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "荔湾",
+                "toName": "番禺",
+                "coords": [[113.234423, 23.093666], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#4fe2fd", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "黄埔",
+                "toName": "番禺",
+                "coords": [[113.492885, 23.108712], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#4f99fd", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "海珠",
+                "toName": "番禺",
+                "coords": [[113.333841, 23.087629], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#3b4dff", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "白云",
+                "toName": "番禺",
+                "coords": [[113.331306, 23.294514], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#644cdb", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "天河",
+                "toName": "番禺",
+                "coords": [[113.385643, 23.166129], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"width": 2, "curveness": 0.2}}
+            }]
+        }, {
+            "type": "lines",
+            "zlevel": 2,
+            "coordinateSystem": "amap",
+            "effect": {
+                "show": true,
+                "period": 6,
+                "trailLength": 0.7,
+                "color": "#fff",
+                "symbol": "arrow",
+                "symbolSize": 5
+            },
+            "lineStyle": {
+                "normal": {
+                    "color": "#49ffff",
+                    "width": 1,
+                    "opacity": 0.5,
+                    "curveness": 0.2,
+                    "type": "solid"
+                }
+            },
+            "symbol": ["none", "arrow"],
+            "symbolSize": 10,
+            "data": [{
+                "fromName": "越秀",
+                "toName": "番禺",
+                "coords": [[113.287833, 23.139278], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#ff5555", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "番禺",
+                "toName": "番禺",
+                "coords": [[113.4168, 22.937244], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#ff8155", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "花都",
+                "toName": "番禺",
+                "coords": [[113.220176, 23.446661], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#ffc955", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "南沙",
+                "toName": "番禺",
+                "coords": [[113.525165, 22.801624], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#4ffdca", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "荔湾",
+                "toName": "番禺",
+                "coords": [[113.234423, 23.093666], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#4fe2fd", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "黄埔",
+                "toName": "番禺",
+                "coords": [[113.492885, 23.108712], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#4f99fd", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "海珠",
+                "toName": "番禺",
+                "coords": [[113.333841, 23.087629], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#3b4dff", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "白云",
+                "toName": "番禺",
+                "coords": [[113.331306, 23.294514], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"color": "#644cdb", "width": 2, "curveness": 0.2}}
+            }, {
+                "fromName": "天河",
+                "toName": "番禺",
+                "coords": [[113.385643, 23.166129], [113.4168, 22.937244]],
+                "lineStyle": {"normal": {"width": 2, "curveness": 0.2}}
+            }]
+        }, {
+            "type": "effectScatter",
+            "coordinateSystem": "amap",
+            "effectType": "ripple",
+            "hoverAnimation": true,
+            "zlevel": 2,
+            "rippleEffect": {"brushType": "stroke"},
+            "label": {"normal": {"show": true, "position": "right", "formatter": "{b}"}},
+            "itemStyle": {"normal": {"color": "#49ffff", "shadowBlur": 10, "shadowColor": "#333"}},
+            "data": [{"name": "番禺", "value": [113.4168, 22.937244, 1000010]}, {
+                "name": "番禺",
+                "value": [113.4168, 22.937244, 1000009]
+            }, {"name": "番禺", "value": [113.4168, 22.937244, 1000008]}, {
+                "name": "番禺",
+                "value": [113.4168, 22.937244, 1000005]
+            }, {"name": "番禺", "value": [113.4168, 22.937244, 1000004]}, {
+                "name": "番禺",
+                "value": [113.4168, 22.937244, 1000003]
+            }, {"name": "番禺", "value": [113.4168, 22.937244, 1000002]}, {
+                "name": "番禺",
+                "value": [113.4168, 22.937244, 1000001]
+            }, {"name": "番禺", "value": [113.4168, 22.937244, 1000000]}]
+        }];
         myChart.setOption({
             series: series
         });
 
         //下面是确保高德地图渲染的时候，echarts同时也需要再次渲染一次，保持位置的同步
-        layer.render = function() {
+        layer.render = function () {
             // let series = myChart.getOption().seriesIndexes;
             // myChart.setOption({
             //     series: []

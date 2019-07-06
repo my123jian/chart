@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <Header customActiveId="2"></Header>
-        <EchartMap level="3" :data="mapData" :areaMod="1"></EchartMap>
+        <EchartAMap level="3" :data="mapData" :areaMod="1"></EchartAMap>
         <!--<div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>-->
         <div class="content">
             <div class="left-part">
@@ -100,10 +100,10 @@
     import TabTwo from "../../components/tqfx/TabTwo";
     import TabThree from "../../components/tqfx/TabThree";
     import WaveCircle from "../../components/WaveCircle";
-    import EchartMap from "../../components/EchartMap";
+    import EchartAMap from "../../components/EchartAMap";
     import Datepicker from 'vue-datepicker-local';
     import axios from "axios";
-    import PageUtil from "../../utils/PageUtil";
+
 
     export default {
         name: "tqfx",
@@ -114,7 +114,7 @@
             WaveCircle,
             Datepicker,
             Header,
-            EchartMap
+            EchartAMap
         },
         mounted() {
             // this.initMap();

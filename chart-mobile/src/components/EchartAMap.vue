@@ -14,7 +14,9 @@
         name: "EchartAMap",
         props: {
             data: Object,
-            level: {type: [String, Number], default: 1}
+            level: {type: [String, Number], default: 1},
+            areaMod: {type: [String, Number], default: 1},
+
         },
         data() {
             return {
@@ -22,8 +24,9 @@
                 provinceName: '广东省',
                 cityName: '广州市',
                 cityCode: '',
-                district:null,
-                polygons:[],
+                district: null,
+                polygons: [],
+                amap:null,
                 colors: ['#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb'],
                 defaultFeatures: ['bg', 'building', 'point'], // 地图默认特征
             }
@@ -60,14 +63,23 @@
                         center: [113.275824, 22.994826], //中心点
                         rotation: 0,  //顺时针旋转角度
                         resizeEnable: true,
+                        zooms: [7.5, 15], // 改变最大缩放等级
+                        keyboardEnable: false,
+                        layers: [
+                            //satellite,
+                            // building,
+                            //roadNet
+                        ],
+                        defaultFeatures: ['bg', 'building', 'point']
                     },
                     animation: false,
                     series: []
                 });
+                this.amap=this.chartMap.getModel().getComponent('amap').getAMap();
                 var layer = this.chartMap.getModel().getComponent('amap').getLayer();
                 layer.render = function () {
                     var theOptions = me.chartMap.getOption();
-                    me.setOption({
+                    me.chartMap.setOption({
                         series: theOptions.series
                     });
                 }
@@ -101,12 +113,14 @@
                 var theValidPoints = [];
                 for (var i = 0; i < data.length; i++) {
                     var dataItem = data[i];
-
+// debugger;
                     var fromCoord = this.geoCoordMap(dataItem.from);
                     var toCoord = this.geoCoordMap(dataItem.to);
                     if (fromCoord && toCoord) {
+                        fromCoord=[parseFloat(fromCoord[0]),parseFloat(fromCoord[1])];
+                        toCoord=[parseFloat(toCoord[0]),parseFloat(toCoord[1])];
                         var theLine = {
-                            fromName: dataItem.from,
+                            fromName:  dataItem.from,
                             toName: dataItem.to,
                             coords: [fromCoord, toCoord],
                             //设置线段颜色
@@ -127,8 +141,10 @@
                     points: theValidPoints
                 };
             },
-            navigateAddress(map,mapName){
-                if(!this.district){
+            /*导航地址**/
+            navigateAddress(map, mapName) {
+                var me=this;
+                if (!this.district) {
                     //实例化DistrictSearch
                     var opts = {
                         subdistrict: 0,   //获取边界不需要返回下级行政区
@@ -139,9 +155,9 @@
                 }
                 //行政区查询
                 this.district.setLevel(this.level)
-                this.district.search(mapName, function(status, result) {
-                    map.remove(this.polygons)//清除上次结果
-                    polygons = [];
+                this.district.search(mapName, function (status, result) {
+                    map.remove(me.polygons)//清除上次结果
+                    me.polygons = [];
                     var bounds = result.districtList[0].boundaries;
                     if (bounds) {
                         for (var i = 0, l = bounds.length; i < l; i++) {
@@ -153,22 +169,24 @@
                                 fillColor: '#80d8ff',
                                 strokeColor: '#0091ea'
                             });
-                            this.polygons.push(polygon);
+                            me.polygons.push(polygon);
                         }
                     }
-                    map.add(this.polygons)
-                    map.setFitView(this.polygons);//视口自适应
+                    map.add( me.polygons)
+                    map.setFitView( me.polygons);//视口自适应
                 });
-            }
             },
             /**根据数据进行呈现*/
             refresh(data) {
+
                 var theMapName = data.name;
-                var theMapPath = this.getMapPath(theMapName);
+                // var theMapPath = this.getMapPath(theMapName);
                 var me = this;
                 if (this.mapName != theMapName) {
-
+                    this.mapName=theMapName;
+                    this.navigateAddress(this.amap,this.mapName);
                 }
+                // debugger;
                 me.drawMap(data);
 
             },
@@ -197,6 +215,7 @@
                         // name: item[0] + ' Top10',
                         type: 'lines',  //静态线
                         zlevel: 1,
+                        "coordinateSystem": "amap",
                         effect: {
                             show: false,
                             period: 6,
@@ -217,6 +236,7 @@
                         //name: item[0] + ' Top10',
                         type: 'lines',  //动态线
                         zlevel: 2,
+                        "coordinateSystem": "amap",
                         effect: {
                             show: true,
                             period: 6,
@@ -262,6 +282,7 @@
                     {
                         //name: item[0] + ' Top10',
                         type: 'effectScatter',
+                        "coordinateSystem": "amap",
                         // symbol:'emptyCircle',
                         // markPoint: {
                         //   symbol: 'circle',
@@ -280,7 +301,7 @@
                         effectType: 'ripple',
 
                         hoverAnimation: true,
-                        coordinateSystem: 'geo',
+                        // coordinateSystem: 'geo',
                         zlevel: 2,
                         rippleEffect: {
                             brushType: 'stroke'
@@ -303,9 +324,11 @@
                             }
                         },
                         data: thePoints.map(function (dataItem) {
+                            var theLngLatPoints=me.geoCoordMap(me.queryDirection == 1 ? dataItem.from : dataItem.to);
+                            var thePoss=[parseFloat(theLngLatPoints[0]),parseFloat(theLngLatPoints[1])];
                             return {
                                 name: me.queryDirection == 1 ? dataItem.from : dataItem.to,
-                                value: me.geoCoordMap(me.queryDirection == 1 ? dataItem.from : dataItem.to).concat([dataItem.value])
+                                value: thePoss.concat([dataItem.value])
                             };
                         }),
                     }
@@ -315,14 +338,16 @@
 
                 };
 
-                this.chartMap.clear();
-                this.chartMap.setOption(option, true);
+                // this.chartMap.clear();
+                this.chartMap.setOption(option);
 
             }
         },
         watch: {
-            data(newValue, oldValue) {
+            data(newValue, oldValue)
+            {
                 if (newValue != oldValue) {
+
                     this.refresh(newValue);
                 }
             }
