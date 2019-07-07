@@ -615,6 +615,13 @@
                 this.loadData();
                 //console.log("queryDirection！", newValue, oldValue);
             },
+            queryAreaCode: function (newValue, oldValue) {
+                if(newValue!=oldValue){
+                    this.loadData();
+                }
+
+                //console.log("queryRegionCode！", newValue, oldValue);
+            },
             queryRegionCode: function (newValue, oldValue) {
                 this.loadData();
                 //console.log("queryRegionCode！", newValue, oldValue);

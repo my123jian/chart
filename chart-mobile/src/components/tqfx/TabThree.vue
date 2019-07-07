@@ -1,7 +1,7 @@
 <template>
     <div class="chart-with-title">
         <div class="title">
-            <span style="margin-left:16px ">通勤人群画像</span>
+            <span style="margin-left:16px ">{{data.line}}通勤人群画像</span>
             <div @click="notifyChange" class="return-btn">返回</div>
         </div>
         <div class="tabtwo">
@@ -71,7 +71,7 @@
 
     export default {
         name: "tabThree",
-        props: ["queryRegionType", "queryRegionCode", "queryDirection", "queryDate", "queryAreaCode", "areas"],
+        props: ["queryRegionType", "queryRegionCode", "queryDirection", "queryDate", "queryAreaCode", "areas","data"],
         data: function () {
             return {
                 tabIndex: 1,

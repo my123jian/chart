@@ -3,7 +3,7 @@
         <div class="row row1 chart-item">
             <div class="chart-title">
                 <span class="content-icon">
-                    <span>趋势分析</span>
+                    <span class="content thread">趋势分析</span>
                 </span>
             </div>
             <div class="chart-title-btns">
@@ -15,10 +15,10 @@
         <div class="row row2">
             <div class="n-tab-title">
                 <div v-on:click="tabIndex=1" :class="tabIndex==1?'select':''">
-                    今日热门迁入路线
+                    <span>今日热门迁入路线</span>
                 </div>
                 <div v-on:click="tabIndex=2" :class="tabIndex==2?'select':''">
-                    近期热门迁入路线
+                    <span>近期热门迁入路线</span>
                 </div>
             </div>
             <table class="table">
@@ -332,14 +332,20 @@
         display: inline-block;
         cursor: pointer;
         width: 50%;
+        font-size: 22px;
         text-align: center;
     }
 
     .n-tab-title div.select {
         color: white;
         font-weight: bolder;
+        display: inline-block;
+        border-bottom: solid 2px white;
     }
+    .n-tab-title div.select span {
 
+        padding: 1px;
+    }
     table {
 
         width: 100%;

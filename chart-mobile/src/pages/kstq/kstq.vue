@@ -1,9 +1,10 @@
 <template>
     <div id="app">
         <Header customActiveId="3"></Header>
+        <EchartAMap :level="mapLevel" :data="mapData"></EchartAMap>
         <div class="left-part">
             <!--<iframe :src="mapurl" class="mapview" frameborder="no" style="overflow: hidden;" ref="mapview"></iframe>-->
-            <EchartMap :level="mapLevel" :data="mapData"></EchartMap>
+
             <div class="query-bar">
                 <div class="field">
                     <div class="location-icon"></div>
@@ -77,7 +78,7 @@
     import TabTwo from "../../components/kstq/TabTwo";
     import Datepicker from 'vue-datepicker-local';
     import axios from "axios";
-    import EchartMap from "../../components/EchartMap";
+    import EchartAMap from "../../components/EchartAMap";
     import CityCodeMap from "../../utils/CityCodeMap"
     import PageUtil from "../../utils/PageUtil";
 
@@ -88,7 +89,7 @@
             TabOne,
             Datepicker,
             Header,
-            EchartMap
+            EchartAMap
         },
         data() {
             return {
@@ -158,6 +159,53 @@
             initCity() {
                 this.citys = CityCodeMap.getGdCityList();
             },
+            loadTableData() {
+                //3--获取跨市通勤路线排名（type：0按日跨市，1按周跨市）
+                var theUrl1 = "/cityCommuting/getCommutingRank";
+                var theUrl = window.baseUrl + theUrl1;
+
+                var theQueryObj = {
+                    month: this.queryDate.formateYearMonth(),
+                    type: this.sumType == 1 ? 0 : 1,
+                    city: this.queryRegionCode
+                };
+                var me = this;
+                // debugger;
+                //{id: null, workType: 0, month: "2019-05", workCity: "佛山", liveCity: "广州", num: 9800}
+                axios.post(theUrl, window.toQuery(theQueryObj))
+                    .then(function (response) {
+                        // handle success
+                        var theData = response.data;
+                        var theNewDatas = [];
+                        if (theData.code == 200) {
+                            for (var i = 0; i < theData.data.length; i++) {
+                                var theItem = theData.data[i];
+                                var theNewData = {
+                                    order: i + 1,
+                                    startArea: theItem['liveCity'],
+                                    endArea: theItem['workCity'],
+                                    from: theItem['liveCity'],
+                                    to: theItem['workCity'],
+                                    value: theItem['num'],
+                                    desc: theItem['liveCity'] + '->' + theItem['workCity'],
+                                    id: theItem['id']
+                                };
+                                theNewDatas.push(theNewData);
+                            }
+
+                        }
+                        var theMapData = {name: '广东省', items: theNewDatas};
+                        me.mapData = theMapData;
+                     //theNewDatas
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+            },
             initArea() {
                 var theCode = CityCodeMap.getCityCode("广东省", this.queryRegionCode);
                 this.areas = CityCodeMap.getGdAreaList(theCode);
@@ -171,6 +219,7 @@
             },
             loadData() {
                 this.loadCommutingNum();
+                this.loadTableData();
             },
             dataChange(data) {
                 //var theWindow = this.$refs.mapview;
@@ -178,14 +227,14 @@
                 // debugger;
                 //theWindow.contentWindow&& theWindow.contentWindow.refresh(data);
                 // console.log(theWindow,data);
-                if (this.queryRegionType == 2) {
-                    var theMapData = {name: '中国', items: data};
-                    this.mapData = theMapData;
-                }
-                else {
-                    var theMapData = {name: '广东省', items: data};
-                    this.mapData = theMapData;
-                }
+                // if (this.queryRegionType == 2) {
+                //     var theMapData = {name: '中国', items: data};
+                //     this.mapData = theMapData;
+                // }
+                // else {
+                //     var theMapData = {name: '广东省', items: data};
+                //     this.mapData = theMapData;
+                // }
 
             },
             //1--获取跨市通勤总人数（type：0按日跨市，1按周跨市）
@@ -247,6 +296,7 @@
         width: 50%;
         float: left;
         position: relative;
+        pointer-events: none;
     }
 
     .big-field {

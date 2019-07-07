@@ -323,6 +323,8 @@ body {
     line-height: 32px;
     background-repeat: no-repeat;
     display: inline-block;
+    background-size: 100% 100%;
+    padding-right: 10px;
 }
 
 .chart-title * {
@@ -333,15 +335,16 @@ body {
     background-image: url("../images/内容区_标题通用icon.png");
     background-repeat: no-repeat;
     background-position: left center;
-    padding-left: 5px;
-    margin-left: 5px;
+    padding-left: 10px;
+    margin-left: 10px;
 }
 
 .chart-title .content-icon .content {
     background-image: url("../images/内容区_分析通用icon.png");
     background-repeat: no-repeat;
     background-position: left center;
-    padding-left: 20px;
+    /*padding-left: 20px;*/
+    padding-left: 25px;
 }
 
 .chart-title .content-icon .content.age {
@@ -364,6 +367,15 @@ body {
     background-image: url("../images/内容区_籍贯icon.png");
 }
 
+.chart-title .content-icon .content.work {
+    background-image: url("../images/居住区域分布icon.png");
+}
+.chart-title .content-icon .content.live {
+    background-image: url("../images/工作区域分布icon.png");
+}
+.chart-title .content-icon .content.thread {
+    background-image: url("../images/迁出趋势分析icon.png");
+}
 .onecloumn {
     margin: 0 auto;
     height: 140px;
@@ -389,11 +401,14 @@ body {
     border-collapse: collapse;
     padding-left: 15px;
     padding-right: 15px;
+    font-size: 18px;
 }
 
 .table > thead {
     text-align: center;
     color: #10ffd9;
+    height: 30px;
+    line-height: 30px;
 }
 
 .table > tbody {
@@ -403,6 +418,7 @@ body {
 
 .table tbody tr {
     height: 30px;
+    line-height: 30px;
 }
 
 .table tbody tr:nth-of-type(even) {

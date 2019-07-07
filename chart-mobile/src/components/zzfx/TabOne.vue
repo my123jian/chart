@@ -26,7 +26,7 @@
             <div class="row chart-item">
                 <div class="chart-title">
                 <span class="content-icon">
-                    <span>工作区域分布</span>
+                    <span  class="content work">工作区域分布</span>
                 </span>
                 </div>
 
@@ -35,7 +35,7 @@
             <div class="row chart-item">
                 <div class="chart-title">
                 <span class="content-icon">
-                    <span>居住区域分布</span>
+                    <span class="content live">居住区域分布</span>
                 </span>
                 </div>
 
@@ -44,7 +44,7 @@
             <div class="row chart-item">
                 <div class="chart-title">
                 <span class="content-icon">
-                    <span>职住人口趋势</span>
+                    <span  class="content thread">职住人口趋势</span>
                 </span>
                 </div>
 

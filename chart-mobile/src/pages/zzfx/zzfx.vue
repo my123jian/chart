@@ -1,7 +1,9 @@
 <template>
     <div id="app">
         <Header customActiveId="2"></Header>
-        <div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>
+        <div id="container" class="map-full"
+             style="position: absolute;left: 0px;top: 0px; width: 100%; height: 100%;"
+             ref="mapview"></div>
         <!--<EchartMap  :data="mapData" ></EchartMap>-->
         <!--<div id="container" class="map-full" style="overflow: hidden;" ref="mapview"></div>-->
         <div class="content">
@@ -21,7 +23,7 @@
                         <div class="location-icon"></div>
                         <select v-model="queryAreaCode">
                             <option value="" selected>全部区域</option>
-                            <option v-for="item in areas"  :value="item.value">
+                            <option v-for="item in areas" :value="item.value">
                                 {{ item.name }}
                             </option>
                         </select>
@@ -194,21 +196,31 @@
                 const theDefaultMapStyle = 'amap://styles/785cdb67af60cfce35e24e8d6c56ed75' // 默认地图样式
                 const theCenterPoint = [113.275824, 22.994826] // 默认地图中心
                 this.mapView = new AMap.Map('container', {
-                    pitch: 45,
+                    maxPitch: 60,
+                    pitch: 10, //45 俯仰角
                     mapStyle: theDefaultMapStyle,
                     viewMode: '3D', // 地图模式
                     center: theCenterPoint,
                     features: this.defaultFeatures,
                     zoom: 7.5,
                     expandZoomRange: true, // 改变最大缩放等级
-                    zooms: [7.5, 15], // 改变最大缩放等级
+                    zooms: [3, 20], // 改变最大缩放等级
                     keyboardEnable: false,
                     layers: [
                         //satellite,
                         // building,
                         //roadNet
                     ]
-                })
+                });
+                var me = this;
+                AMapUI && AMapUI.load(['ui/geo/DistrictExplorer', 'lib/$'], function (DistrictExplorer, $) {
+                    window.districtExplorer = new DistrictExplorer({
+                        eventSupport: true, //打开事件支持
+                        map: me.amap
+                    });
+                    me.navigateTo(me.mapView, me.queryRegionCode);
+                    // debugger;
+                });
                 // window.theMap = theMap
             },
             drawSpace(datas) {
@@ -328,7 +340,72 @@
                     this.paths.push(theNewPath);
 
                 }
-            }
+            },
+            navigateTo(map, mapName) {
+                var currentAreaNode = null;
+                var me = this;
+                var districtExplorer = window.districtExplorer;
+                if (!districtExplorer) {
+                    return;
+                }
+                var adcode = CityCodeMap.getProvinceCode("广东省");
+                if (mapName) {
+                    var tadcode = CityCodeMap.getCityCode("广东省", mapName);
+                    if (tadcode) {
+                        adcode = tadcode;
+                    }
+                }
+                // debugger;
+                districtExplorer.loadAreaNode(adcode, function (error, areaNode) {
+                    if (error) {
+                        return;
+                    }
+                    currentAreaNode = window.currentAreaNode = areaNode;
+                    //设置当前使用的定位用节点
+                    districtExplorer.setAreaNodesForLocating([currentAreaNode]);
+                    me.renderAreaPolygons(map, areaNode);
+                });
+            },
+            renderAreaPolygons(map, areaNode) {
+                var colors = [
+                    "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00",
+                    "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707",
+                    "#651067", "#329262", "#5574a6", "#3b3eac"
+                ];
+                //更新地图视野
+                map.setBounds(areaNode.getBounds(), null, null, true);
+
+                //清除已有的绘制内容
+                districtExplorer.clearFeaturePolygons();
+
+                //绘制子区域
+                districtExplorer.renderSubFeatures(areaNode, function (feature, i) {
+
+                    var fillColor = colors[i % colors.length];
+                    var strokeColor = colors[colors.length - 1 - i % colors.length];
+
+                    return {
+                        cursor: 'default',
+                        bubble: true,
+                        strokeColor: strokeColor, //线颜色
+                        strokeOpacity: 1, //线透明度
+                        strokeWeight: 1, //线宽
+                        fillColor: fillColor, //填充色
+                        fillOpacity: 0.35, //填充透明度
+                    };
+                });
+
+                //绘制父区域
+                districtExplorer.renderParentFeature(areaNode, {
+                    cursor: 'default',
+                    bubble: true,
+                    strokeColor: 'black', //线颜色
+                    strokeOpacity: 1, //线透明度
+                    strokeWeight: 1, //线宽
+                    fillColor: null, //填充色
+                    fillOpacity: 0.35, //填充透明度
+                });
+            },
         },
         watch: {
             queryAreaCode(newValue, oldValue) {
@@ -339,8 +416,10 @@
             },
             queryRegionCode(newValue, oldValue) {
                 if (newValue != oldValue) {
+                    this.queryAreaCode = "";
                     this.initArea();
                     this.loadSpace();
+                    this.navigateTo(this.mapView, this.queryRegionCode);
                 }
             },
             queryDate(newValue, oldValue) {

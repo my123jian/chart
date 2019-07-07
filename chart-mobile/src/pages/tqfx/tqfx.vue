@@ -73,7 +73,7 @@
                         </div>
                         <div v-if="tab_three_index==1">
                             <TabThree v-on:return="onTabThreeReturn" :queryDate="queryDate" :queryRegionCode="queryRegionCode"
-                                      :queryAreaCode="queryAreaCode" :areas="areas"></TabThree>
+                                      :queryAreaCode="queryAreaCode" :data="selectItem"></TabThree>
                         </div>
                     </div>
 
@@ -117,6 +117,7 @@
             // this.initMap();
             this.loadData();
             this.initCity();
+            this.initArea();
         },
         methods: {
             initCity() {
@@ -137,7 +138,7 @@
                 this.loadTripDetail();
             },
             onTabTwoSelect(item) {
-                this.areas=[item.startArea,item.endArea];
+                this.selectItem=item;
                 this.tab_three_index=1;
             },
             onTabThreeReturn() {
@@ -253,6 +254,7 @@
             },
             queryRegionCode(newValue, oldValue) {
                 if (newValue != oldValue) {
+                    this.queryAreaCode="";
                     this.loadData();
                     this.initArea();
                 }
@@ -277,7 +279,7 @@
                 Channel3Radio: 0.3,
                 Channel4Radio: 0.3,
                 mapData: {name: '广州市', items: []},
-                areas: [],//当前的区域信息
+                selectItem:null,
                 tab_three_index:0,//是否显示
                 citys: [],
                 areas: []

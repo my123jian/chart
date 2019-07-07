@@ -1,9 +1,9 @@
 <template>
     <div id="app">
         <Header customActiveId="3"></Header>
+        <EchartAMap :level="mapLevel" :data="mapData" :queryDirection="queryDirection"></EchartAMap>
         <div class="left-part">
             <!--<iframe :src="mapurl" class="mapview" frameborder="no" style="overflow: hidden;" ref="mapview"></iframe>-->
-            <EchartMap :level="mapLevel" :data="mapData" :queryDirection="queryDirection"></EchartMap>
             <div class="query-bar">
                 <div class="field">
                     <div class="location-icon"></div>
@@ -121,7 +121,7 @@
     import WaveCircle from "../../components/WaveCircle";
     import Datepicker from 'vue-datepicker-local';
     import axios from "axios";
-    import EchartMap from "../../components/EchartMap";
+    import EchartAMap from "../../components/EchartAMap";
     import CityCodeMap from "../../utils/CityCodeMap"
     import PageUtil from "../../utils/PageUtil";
 
@@ -133,7 +133,7 @@
             WaveCircle,
             Datepicker,
             Header,
-            EchartMap
+            EchartAMap
         },
         data() {
             return {
@@ -245,10 +245,12 @@
                 if (this.queryRegionType == 2) {
                     var theMapData = {name: '中国', items: data};
                     this.mapData = theMapData;
+                    this.mapLevel=1;
                 }
                 else {
                     var theMapData = {name: '广东省', items: data};
                     this.mapData = theMapData;
+                    this.mapLevel=2;
                 }
 
             },
@@ -373,6 +375,7 @@
         width: 50%;
         float: left;
         position: relative;
+        pointer-events: none;
     }
 
     .wave-content {
