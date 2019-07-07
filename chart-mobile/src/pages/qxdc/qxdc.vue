@@ -7,10 +7,15 @@
             <div class="query-bar">
                 <div class="field">
                     <div class="location-icon"></div>
-                    <select v-model="queryRegionCode">
-                        <option value="广州">广州市</option>
-                        <option value="深圳">深圳市</option>
-                    </select>
+                    <div class="city field">
+                        <div class="location-icon"></div>
+                        <select v-model="queryRegionCode">
+                            <option v-for="item in citys" :key="item.id" :value="item.value">
+                                {{ item.name }}
+                            </option>
+                        </select>
+                        <div class="down-icon"></div>
+                    </div>
                     <div class="down-icon"></div>
                 </div>
                 <div class="date-field">
@@ -117,6 +122,7 @@
     import Datepicker from 'vue-datepicker-local';
     import axios from "axios";
     import EchartMap from "../../components/EchartMap";
+    import CityCodeMap from "../../utils/CityCodeMap"
     import PageUtil from "../../utils/PageUtil";
 
     export default {
@@ -146,7 +152,9 @@
 
                 totalNum: 0,
                 mapLevel: 2,
-                mapData: {name: '广东省', level: 2}
+                mapData: {name: '广东省', level: 2},
+                citys: [],
+                areas: []
             };
         },
         watch: {
@@ -207,8 +215,16 @@
         },
         mounted() {
             this.loadData();
+            this.initCity();
         },
         methods: {
+            initCity() {
+                this.citys = CityCodeMap.getGdCityList();
+            },
+            initArea() {
+                var theCode = CityCodeMap.getCityCode("广东省", this.queryRegionCode);
+                this.areas = CityCodeMap.getGdAreaList(theCode);
+            },
             gotoPage() {
                 window.gotoPage('kstq.html')
             },

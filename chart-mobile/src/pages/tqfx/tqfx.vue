@@ -10,16 +10,9 @@
                     <div class="city field">
                         <div class="location-icon"></div>
                         <select v-model="queryRegionCode">
-                            <option value="广州">广州市</option>
-                            <option value="深圳">深圳市</option>
-                            <option value="肇庆">肇庆市</option>
-                            <option value="河源">河源市</option>
-                            <option value="云浮">云浮市</option>
-                            <option value="惠州">惠州市</option>
-                            <option value="珠海">珠海市</option>
-                            <option value="中山">中山市</option>
-                            <option value="东莞">东莞市</option>
-                            <option value="汕头">汕头市</option>
+                            <option v-for="item in citys" :key="item.id" :value="item.value">
+                                {{ item.name }}
+                            </option>
                         </select>
                         <div class="down-icon"></div>
                     </div>
@@ -27,6 +20,9 @@
                         <div class="location-icon"></div>
                         <select v-model="queryAreaCode">
                             <option value="" selected>全部区域</option>
+                            <option v-for="item in areas"  :value="item.value">
+                                {{ item.name }}
+                            </option>
                         </select>
                         <div class="down-icon"></div>
                     </div>
@@ -102,6 +98,7 @@
     import WaveCircle from "../../components/WaveCircle";
     import EchartAMap from "../../components/EchartAMap";
     import Datepicker from 'vue-datepicker-local';
+    import CityCodeMap from "../../utils/CityCodeMap"
     import axios from "axios";
 
 
@@ -119,8 +116,16 @@
         mounted() {
             // this.initMap();
             this.loadData();
+            this.initCity();
         },
         methods: {
+            initCity() {
+                this.citys = CityCodeMap.getGdCityList();
+            },
+            initArea() {
+                var theCode = CityCodeMap.getCityCode("广东省", this.queryRegionCode);
+                this.areas = CityCodeMap.getGdAreaList(theCode);
+            },
             gotoPage() {
                 window.gotoPage('zzfx.html')
             },
@@ -249,6 +254,7 @@
             queryRegionCode(newValue, oldValue) {
                 if (newValue != oldValue) {
                     this.loadData();
+                    this.initArea();
                 }
             },
             queryDate(newValue, oldValue) {
@@ -273,6 +279,8 @@
                 mapData: {name: '广州市', items: []},
                 areas: [],//当前的区域信息
                 tab_three_index:0,//是否显示
+                citys: [],
+                areas: []
             }
         }
     }

@@ -11,16 +11,9 @@
                     <div class="city field">
                         <div class="location-icon"></div>
                         <select v-model="queryRegionCode">
-                            <option value="广州">广州市</option>
-                            <option value="深圳">深圳市</option>
-                            <option value="肇庆">肇庆市</option>
-                            <option value="河源">河源市</option>
-                            <option value="云浮">云浮市</option>
-                            <option value="惠州">惠州市</option>
-                            <option value="珠海">珠海市</option>
-                            <option value="中山">中山市</option>
-                            <option value="东莞">东莞市</option>
-                            <option value="汕头">汕头市</option>
+                            <option v-for="item in citys" :key="item.id" :value="item.value">
+                                {{ item.name }}
+                            </option>
                         </select>
                         <div class="down-icon"></div>
                     </div>
@@ -28,6 +21,9 @@
                         <div class="location-icon"></div>
                         <select v-model="queryAreaCode">
                             <option value="" selected>全部区域</option>
+                            <option v-for="item in areas"  :value="item.value">
+                                {{ item.name }}
+                            </option>
                         </select>
                         <div class="down-icon"></div>
                     </div>
@@ -119,7 +115,9 @@
                 pointPath: null,
                 marks: [],
                 paths: [],
-                timer:null
+                timer: null,
+                citys: [],
+                areas: []
             }
         },
         components: {
@@ -133,19 +131,28 @@
             this.initMap();
             this.loadSpace();
             this.initTimer();
+            this.initCity();
+            this.initArea();
 
         },
         methods: {
-            initTimer(){
-              if(!this.timer){
-                  var me=this;
-                  this.timer = window.setInterval(function () {
-                     for(var i=0;i< me.paths.length;i++){
-                         var thePath=me.paths[i];
-                         thePath.run();
-                     }
-                  }, 500);
-              }
+            initCity() {
+                this.citys = CityCodeMap.getGdCityList();
+            },
+            initArea() {
+                var theCode = CityCodeMap.getCityCode("广东省", this.queryRegionCode);
+                this.areas = CityCodeMap.getGdAreaList(theCode);
+            },
+            initTimer() {
+                if (!this.timer) {
+                    var me = this;
+                    this.timer = window.setInterval(function () {
+                        for (var i = 0; i < me.paths.length; i++) {
+                            var thePath = me.paths[i];
+                            thePath.run();
+                        }
+                    }, 500);
+                }
             },
             gotoPage() {
                 window.gotoPage('tqfx.html')
@@ -205,23 +212,23 @@
                 // window.theMap = theMap
             },
             drawSpace(datas) {
-                var theOldPaths=this.paths;
+                var theOldPaths = this.paths;
                 this.paths = [];
                 // debugger;
-                if (theOldPaths!= null && theOldPaths.length > 0) {
+                if (theOldPaths != null && theOldPaths.length > 0) {
                     for (var i = 0; i < theOldPaths.length; i++) {
                         var thePath = theOldPaths[i];
                         thePath.stop();
-                        if(thePath.startMark){
+                        if (thePath.startMark) {
                             this.mapView.remove(thePath.startMark);
                         }
-                        if(thePath.endMark){
+                        if (thePath.endMark) {
                             this.mapView.remove(thePath.endMark);
                         }
 
-                        for(var j=0;j<thePath.points.length;j++){
-                            var thePoint=thePath.points[j];
-                            if(thePoint.mark){
+                        for (var j = 0; j < thePath.points.length; j++) {
+                            var thePoint = thePath.points[j];
+                            if (thePoint.mark) {
                                 this.mapView.remove(thePoint.mark);
                             }
                         }
@@ -242,17 +249,17 @@
 
                     var theNum = theItem.num;
                     if (!theStartPosition || !theEndPosition) {
-                        console.log("未找到坐标信息",theStartArea,theEndArea);
+                        console.log("未找到坐标信息", theStartArea, theEndArea);
                         continue;
                     }
                     var me = this;
-                    var theNewPath = new PointPath(theStartPosition[0], theStartPosition[1], theEndPosition[0], theEndPosition[1], theNum, function (path,points) {
+                    var theNewPath = new PointPath(theStartPosition[0], theStartPosition[1], theEndPosition[0], theEndPosition[1], theNum, function (path, points) {
                         // for(var i=0;i<me.marks.length;i++){
                         //     var theMark=me.marks[i];
                         //
                         // }
                         me.marks = [];
-                        var theEndValue=0;
+                        var theEndValue = 0;
                         for (var i = 0; i < points.length; i++) {
                             // var center = capitals[i].center;
                             var thePoint = points[i];
@@ -260,16 +267,16 @@
                             //     me.mapView.remove(thePoint.mark);
                             // }
 
-                            if(thePoint.isOver()){
-                                theEndValue+=thePoint.value;
-                                if (thePoint.mark){
+                            if (thePoint.isOver()) {
+                                theEndValue += thePoint.value;
+                                if (thePoint.mark) {
                                     me.mapView.remove(thePoint.mark);
-                                    thePoint.mark=null;
+                                    thePoint.mark = null;
                                 }
 
                                 continue;
                             }
-                            if(thePoint.mark){
+                            if (thePoint.mark) {
                                 // debugger;
                                 thePoint.mark.setCenter([thePoint.x, thePoint.y]);
                                 continue;
@@ -294,10 +301,10 @@
 
                             console.log("开始花点");
                         }
-                        if(path.endMark){
+                        if (path.endMark) {
                             me.mapView.remove(path.endMark);
                         }
-                        if(theEndValue>0){
+                        if (theEndValue > 0) {
                             var theEndRaido = Math.min(theEndValue / 10000, 60);
                             var circleEndMarker = new AMap.CircleMarker({
                                 center: [thePoint.x, thePoint.y],
@@ -312,7 +319,7 @@
                                 cursor: 'pointer',
                                 // clickable: true
                             });
-                            path.endMark=circleEndMarker;
+                            path.endMark = circleEndMarker;
                             circleEndMarker.setMap(me.mapView);
                         }
 
@@ -326,11 +333,13 @@
         watch: {
             queryAreaCode(newValue, oldValue) {
                 if (newValue != oldValue) {
+
                     this.loadSpace();
                 }
             },
             queryRegionCode(newValue, oldValue) {
                 if (newValue != oldValue) {
+                    this.initArea();
                     this.loadSpace();
                 }
             },
