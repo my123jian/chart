@@ -478,10 +478,10 @@
                 map.setBounds(areaNode.getBounds(), null, null, true);
 
                 //清除已有的绘制内容
-                districtExplorer.clearFeaturePolygons();
+                window.districtExplorer.clearFeaturePolygons();
 
                 //绘制子区域
-                districtExplorer.renderSubFeatures(areaNode, function (feature, i) {
+                window.districtExplorer.renderSubFeatures(areaNode, function (feature, i) {
 
                     var fillColor = colors[i % colors.length];
                     var strokeColor = colors[colors.length - 1 - i % colors.length];

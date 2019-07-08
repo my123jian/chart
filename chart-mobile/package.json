@@ -12,6 +12,8 @@
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
     "echarts-amap": "^1.0.0-rc.6",
+    "lib-flexible": "^0.3.2",
+    "postcss-pxtorem": "^4.0.1",
     "vue": "^2.6.10",
     "vue-datepicker-local": "^1.0.19",
     "vuejs-datepicker": "^1.5.4"
@@ -23,6 +25,16 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "px2rem-loader": "^0.1.9",
     "vue-template-compiler": "^2.6.10"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {},
+      "postcss-pxtorem": {
+        "rootValue": 75,
+        "propList":["*"]
+      }
+    }
   }
 }

@@ -3,7 +3,7 @@
         <div class="row row1 chart-item">
             <div class="chart-title">
                 <span class="content-icon">
-                    <span>趋势分析</span>
+                    <span class="content thread">趋势分析</span>
                 </span>
             </div>
             <div class="canvas" ref="linechart"></div>
@@ -11,7 +11,7 @@
         <div class="row row2 chart-item">
             <div class="chart-title">
                 <span class="content-icon">
-                    <span>通勤路线</span>
+                    <span class="content">通勤路线</span>
                 </span>
             </div>
             <table class="table table-view">
@@ -342,5 +342,7 @@
     .table-view{
         top:50px;
         position: absolute;
+        /*left:16px;*/
+        right: 0px;
     }
 </style>

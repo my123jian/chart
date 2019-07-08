@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import App from './kstq.vue'
+import 'lib-flexible/flexible.js'
+import '../../styles/base.css'
 
 Vue.config.productionTip = false
 

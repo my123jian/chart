@@ -90,8 +90,8 @@ html, body {
           animation: backOpacity 2s ease-in-out infinite; }
 
 html, body {
-  width: 1920px;
-  height: 1080px;
+  /*width: 1920px;*/
+  /*height: 1080px;*/
   background: url("../img/bg_1.png") no-repeat;
   background-size: 100% 100%;
   position: relative; }

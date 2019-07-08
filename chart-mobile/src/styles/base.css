@@ -1,0 +1,450 @@
+
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-image: url("../images/bg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+/**通用输入框样式*/
+.base-city-input {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 223px;
+    height: 50px;
+    background-image: url('../images/内容区_地市选择背景框.png')
+}
+
+/**通用数字样式*/
+
+.tab-title {
+    width: 680px;
+    height: 42px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/大标题背景框.png");
+    pointer-events: visible;
+}
+.tab-subtitle{
+    width: 680px;
+    height: 42px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    /*background-image: url("../images/迁出分析底框.png");*/
+    background-color: rgba(16, 85, 152, 0.5);
+    pointer-events: visible;
+}
+.tab-sub-content{
+    top: 84px!important;
+}
+.tab-content {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    top: 42px;
+}
+
+.tab-title > div,.tab-subtitle>div{
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    color: #b0d2f9;
+    font-size: 22px;
+    line-height: 42px;
+}
+
+.tab-title > div > span ,.tab-subtitle>div>span{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.tab-title2 > div {
+    width: 50%;
+}
+
+.tab-title3 > div {
+    width: 33.33%;
+}
+.tab-title4 > div {
+    width: 25%;
+}
+.tab-title > div.select > span ,.tab-subtitle> div.select > span {
+    color: white;
+    border-bottom: 2px solid white;
+}
+
+.tab-view {
+    width: 682px;
+    height: 883px;
+    margin-right: 20px;
+    margin-top: 34px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url("../images/数据背景框.png");
+    position: relative;
+}
+
+/*地图样式**/
+.map-full {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+}
+
+/*查询搜索框*/
+.query-bar {
+    position: absolute;
+    top: 34px;
+    left: 11px;
+    height: 50px;
+    pointer-events: visible;
+}
+
+.query-bar > .field {
+    display: inline-block;
+    height: 100%;
+    margin: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    height: 50px;
+    font-size: 22px;
+    line-height: 50px;
+    position: relative;
+    top: 0px;
+}
+
+.query-bar > .date-field {
+    display: inline-block;
+    height: 100%;
+    margin: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    height: 50px;
+    font-size: 22px;
+
+    position: relative;
+    top: 0px;
+}
+
+.date-field > input {
+    line-height: 50px;
+}
+
+.query-bar select {
+    background: transparent;
+    -webkit-appearance: none;
+    border: none !important;
+    color: white !important;
+    height: 100%;
+    width: 223px;
+    font-size: 22px;
+    padding-left: 30px;
+    /*position: absolute;*/
+    /*left: 0px;*/
+    /*top:0px;*/
+}
+
+.query-bar select option {
+    background-color: rgba(47, 165, 255, 0.3);
+}
+
+.query-bar input {
+    background: transparent;
+    -webkit-appearance: none;
+    border: none !important;
+    color: white !important;
+    height: 100%;
+    width: 100%;
+    font-size: 22px !important;
+}
+
+.field, .date-field {
+    background-image: url("../images/内容区_地市选择背景框.png");
+    width: 223px;
+    height: 50px;
+    font-size: 22px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    text-align: center;
+    /*color: white;*/
+    background-size: 100% 100%;
+    margin-right: 20px !important;
+    line-height: 50px;
+}
+
+
+.query-bar .field:first-child {
+    margin-left: 0px;
+}
+.datepicker-popup{
+    line-height: 27px;
+}
+.query-bar .city {
+    background-image: url("../images/内容区_地市选择背景框.png");
+    width: 223px;
+    height: 50px;
+    font-size: 22px;
+    left: 10px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.location-icon {
+
+    background-image: url("../images/内容区_地市选择icon.png");
+    background-position: left center;
+    width: 13px;
+    height: 100%;
+    position: absolute;
+    left: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+}
+
+.down-icon {
+
+    background-image: url("../images/内容区_地市选择下拉icon.png");
+    background-position: right center;
+    background-size: contain;
+    width: 16px;
+    height: 100%;
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    pointer-events: none;
+    background-repeat: no-repeat;
+}
+
+.date-icon {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    background-image: url("../images/date.png");
+    width: 18px;
+    height: 50px;
+    background-position: right center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    background-size: contain;
+}
+
+.count-view {
+    position: absolute;
+    left: 21px;
+    top: 101px;
+    color: white;
+}
+
+.count-view .title {
+    background-image: url("../images/内容区_枢纽总人数icon.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 25px;
+    pointer-events: visible;
+    font-size: 22px;
+
+}
+
+.count-view .num {
+    padding-top: 24px;
+    pointer-events: visible;
+}
+
+.count-view .num > * {
+    display: inline-block;
+}
+
+.count-view .last {
+    /*font-size: 22px;*/
+}
+
+.count-view .numitem {
+    background-image: url("../images/内容区_总人数背景色.icon.png");
+    background-repeat: no-repeat;
+    width: 42px;
+    height: 57px;
+    font-size: 50px;
+    line-height: 57px;
+    text-align: center;
+    margin-right: 11px;
+}
+
+.count-view .dian {
+    font-size: 50px;
+    margin-left: -5px;
+    margin-right: 1px;
+}
+
+/**主页下方切换按钮*/
+.nav-bottom-bar {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    /*height: 2em;*/
+    left: 0px;
+    text-align: center;
+    z-index: 10000
+}
+
+.nav-bottom-bar > div {
+    font-size: 18px;
+    color: #c3e1ff;
+    background-image: url("../images/底部导航栏_正常.png");
+    width: 131px;
+    height: 48px;
+    line-height: 48px;
+    display: inline-block;
+    cursor: pointer;
+    margin: 5px;
+    pointer-events: visible;
+    background-size: contain;
+}
+
+.nav-bottom-bar > div.select {
+    font-weight: bolder;
+    color: #ffffff;
+    background-image: url("../images/底部导航栏_选中.png");
+    width: 128px;
+    height: 48px;
+    background-size: contain;
+}
+
+.chart-title {
+    background-image: url("../images/内容区_标题背景.png");
+    min-width: 181px;
+    height: 32px;
+    font-size: 18px;
+    color: white;
+    line-height: 32px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-size: 100% 100%;
+    padding-right: 10px;
+}
+
+.chart-title * {
+    display: inline-block;
+}
+
+.chart-title .content-icon {
+    background-image: url("../images/内容区_标题通用icon.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 10px;
+    margin-left: 10px;
+}
+
+.chart-title .content-icon .content {
+    background-image: url("../images/内容区_分析通用icon.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    /*padding-left: 20px;*/
+    padding-left: 25px;
+}
+
+.chart-title .content-icon .content.age {
+    background-image: url("../images/内容区_年龄icon.png");
+}
+
+.chart-title .content-icon .content.sex {
+    background-image: url("../images/内容区_性别icon.png");
+}
+
+.chart-title .content-icon .content.hobby {
+    background-image: url("../images/内容区_APP爱好icon.png");
+}
+
+.chart-title .content-icon .content.consume {
+    background-image: url("../images/内容区_消费能力icon.png");
+}
+
+.chart-title .content-icon .content.birth {
+    background-image: url("../images/内容区_籍贯icon.png");
+}
+
+.chart-title .content-icon .content.work {
+    background-image: url("../images/居住区域分布icon.png");
+}
+.chart-title .content-icon .content.live {
+    background-image: url("../images/工作区域分布icon.png");
+}
+.chart-title .content-icon .content.thread {
+    background-image: url("../images/迁出趋势分析icon.png");
+}
+.onecloumn {
+    margin: 0 auto;
+    height: 140px;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    writing-mode: vertical-lr; /*从左向右 从右向左是 writing-mode: vertical-rl;*/
+    writing-mode: tb-lr; /*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
+}
+
+.onecloumn-bg {
+    background-image: url("../images/迁出渠道底框.png");
+    width: 34px;
+    height: 118px;
+    color: white;
+    background-repeat: no-repeat;
+    font-size: 18px;
+    text-align: center;
+    padding-left: 4px;
+}
+
+.table {
+    border-collapse: collapse;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 18px;
+}
+
+.table > thead {
+    text-align: center;
+    color: #10ffd9;
+    height: 30px;
+    line-height: 30px;
+}
+
+.table > tbody {
+    text-align: center;
+    color: white;
+}
+
+.table tbody tr {
+    height: 30px;
+    line-height: 30px;
+}
+
+.table tbody tr:nth-of-type(even) {
+    background: rgba(12, 27, 60, 0.5);
+}
+
+.bus-color {
+    color: #63efe0;
+}
+
+.train-color {
+    color: #67f782;
+}
+
+.fly-color {
+    color: #faff64;
+}
+
+.car-color {
+    color: #64ceff;
+}

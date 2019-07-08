@@ -280,7 +280,7 @@
                         {
                             name: '年龄',
                             type: 'bar',
-                            barWidth: 30,
+                            barMaxWidth: 30,
                             data: theY,//[10, 52, 200, 334, 390, 330, 220]
                             itemStyle:{
                                 normal:{
@@ -360,7 +360,7 @@
                         {
                             name: '消费能力',
                             type: 'bar',
-                            barWidth: 30,
+                            barMaxWidth: 30,
                             data: theY,// [10, 52, 200, 334, 390, 330, 220]
                         }
                     ]
@@ -436,7 +436,7 @@
                         {
                             name: '籍贯',
                             type: 'bar',
-                            barWidth: 30,
+                            barMaxWidth: 30,
                             data: theY,// [10, 52, 200, 334, 390, 330, 220]
                         }
                     ]
