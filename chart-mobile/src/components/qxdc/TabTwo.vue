@@ -78,7 +78,6 @@
                 // {value: 335, name: '直接访问'},
                 var theShowDatas = [];
                 if (datas && datas.length > 0) {
-                    var theItem = datas[0];
                     for (var i = 0; i < datas.length; i++) {
                         var theItem = datas[i];
                         theShowDatas.push({
@@ -93,7 +92,18 @@
                     //     subtext: '纯属虚构',
                     //     x:'center'
                     // },
-                    color:['#63efe0','#67f782','#faff64','#64ceff','#ff5555', '#ff8155', '#ffc955', '#cafd4f', '#4ffd5f', '#4ffdca', '#4fe2fd', '#4f99fd', '#3b4dff', '#644cdb'],
+                    color:['#63efe0',
+                        '#67f782','#faff64',
+                        '#64ceff','#ff5555',
+                        '#ff8155',
+                        '#ffc955',
+                        '#cafd4f',
+                        '#4ffd5f',
+                        '#4ffdca',
+                        '#4fe2fd',
+                        '#4f99fd',
+                        '#3b4dff',
+                        '#644cdb'],
                     tooltip: {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} :  ({d}%)"
@@ -146,6 +156,7 @@
                     ]
                 };
                 this.chart1.setOption(theOptions1);
+                // debugger;
             },
             //爱好
             drawInstertChar(datas) {

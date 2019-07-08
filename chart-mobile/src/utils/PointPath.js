@@ -13,11 +13,11 @@ class PointData {
     xstep = 0;
     ystep = 0;
     minDis = 10;
-    mark=null;
-    isStart=false;
+    mark = null;
+    isStart = false;
 
-     getRad(d){
-        return d*Math.PI/180.0;
+    getRad(d) {
+        return d * Math.PI / 180.0;
     }
 
     /**
@@ -27,7 +27,7 @@ class PointData {
      * @param {Object} lat2
      * @param {Object} lng2
      */
-    getGreatCircleDistance(lat1,lng1,lat2,lng2){
+    getGreatCircleDistance(lat1, lng1, lat2, lng2) {
         const EARTH_RADIUS = 6378137.0;    //单位M
         var radLat1 = this.getRad(lat1);
         var radLat2 = this.getRad(lat2);
@@ -35,12 +35,13 @@ class PointData {
         var a = radLat1 - radLat2;
         var b = this.getRad(lng1) - this.getRad(lng2);
 
-        var s = 2*Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) + Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
-        s = s*EARTH_RADIUS;
-        s = Math.round(s*10000)/10000.0;
+        var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+        s = s * EARTH_RADIUS;
+        s = Math.round(s * 10000) / 10000.0;
 
         return s;
     }
+
     constructor() {
 
     }
@@ -52,7 +53,7 @@ class PointData {
     reset() {
         this.x = this.x1;
         this.y = this.y1;
-        this.isStart=false;
+        this.isStart = false;
     }
 
     getNextEndPoint() {
@@ -94,7 +95,7 @@ class PointData {
     getDistince(x1, y1, x2, y2) {
         // var theValue = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
         // return Math.sqrt(theValue);
-        var theValue=this.getGreatCircleDistance(y1,x1,y2,x2);
+        var theValue = this.getGreatCircleDistance(y1, x1, y2, x2);
         return theValue;
     }
 
@@ -126,10 +127,10 @@ export class PointPath {
     max = 30;
     isRunning = false;
     drawHandler = null;
-    endMark=null;
-    startMark=null;
-    pointStep=5;
-    currentPoint=0;
+    endMark = null;
+    startMark = null;
+    pointStep = 5;
+    currentPoint = 0;
 
     constructor(x1, y1, x2, y2, value, drawHandler) {
         this.x1 = parseFloat(x1);
@@ -138,20 +139,20 @@ export class PointPath {
         this.y2 = parseFloat(y2);
         this.value = value;
         this.drawHandler = drawHandler;
-        this.max=30;
+        this.max = 30;
     }
 
     genPoints() {
         var theBaseUtil = this.value / this.max;
         var theCurrentValue = this.value;
-        var theStepBase=Math.floor(Math.RandomRange(30,100));
+        var theStepBase = Math.floor(Math.RandomRange(30, 100));
         var theXStep = Math.abs(this.x1 - this.x2) / theStepBase;
         var theYStep = Math.abs(this.y1 - this.y2) / theStepBase;
         for (var i = 0; i < this.max; i++) {
-            if(theCurrentValue<=0){
+            if (theCurrentValue <= 0) {
                 break;
             }
-            var theVlaue = Math.RandomRange(theBaseUtil,Math.min(theCurrentValue,theBaseUtil*4));
+            var theVlaue = Math.RandomRange(theBaseUtil, Math.min(theCurrentValue, theBaseUtil * 4));
             var theData = Math.min(theVlaue, theCurrentValue);
             theCurrentValue = theCurrentValue - theData;
             let theNewPoint = new PointData();
@@ -165,6 +166,8 @@ export class PointPath {
             theNewPoint.ystep = theYStep;
             theNewPoint.value = theData;
             this.points.push(theNewPoint);
+            theXStep = Math.abs(this.x1 - this.x2) / theStepBase;
+            theYStep = Math.abs(this.y1 - this.y2) / theStepBase;
         }
         if (theCurrentValue > 0) {
             let theNewPoint = new PointData();
@@ -184,27 +187,27 @@ export class PointPath {
 
     @MethodAttribute
     run() {
-        var isAllOver=true;
+        var isAllOver = true;
         for (var i = 0; i < this.points.length; i++) {
             var thePoint = this.points[i];
-            if(!thePoint.isStart){
-                thePoint.isStart=true;
+            if (!thePoint.isStart) {
+                thePoint.isStart = true;
                 break;
             }
 
         }
         for (var i = 0; i < this.points.length; i++) {
             var thePoint = this.points[i];
-            if(!thePoint.isStart){
+            if (!thePoint.isStart) {
                 continue;
             }
-            if(!thePoint.isOver()){
+            if (!thePoint.isOver()) {
                 thePoint.run();
-                isAllOver=false;
+                isAllOver = false;
             }
 
         }
-        if(isAllOver){
+        if (isAllOver) {
             for (var i = 0; i < this.points.length; i++) {
                 var thePoint = this.points[i];
                 thePoint.reset();
@@ -212,7 +215,7 @@ export class PointPath {
             }
         }
         if (this.drawHandler) {
-            this.drawHandler(this,this.points);
+            this.drawHandler(this, this.points);
         }
     }
 
