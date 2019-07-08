@@ -267,7 +267,7 @@
         },
         data() {
             return {
-                queryRegionCode: '',//省内 具体到市  省外是全国地图
+                queryRegionCode: '广州',//省内 具体到市  省外是全国地图
                 queryAreaCode: '',//所在区域信息
                 queryDate: new Date(),//查询的日期
                 right_tab_index: 1,

@@ -1,6 +1,6 @@
 //在这里设置基础地址
 window.baseUrl = "http://localhost:9000";
-
+window.adminUrl="http://serv.gdcmcc.com:23206/login";
 (function () {
 //判断是否已经登录
     var theUserSessionObj = sessionStorage.userData;

@@ -93,6 +93,7 @@ html, body {
   width: 1920px;
   height: 1080px;
   background: url("../img/bg_1.png") no-repeat;
+  background-size: 100% 100%;
   position: relative; }
 
 input:-webkit-autofill {
@@ -102,7 +103,7 @@ input:-webkit-autofill {
 .title {
   position: absolute;
   top: 150px;
-  right: 68px;
+  right: 345px;
   font-size: 53px;
   color: #b6cbff; }
 

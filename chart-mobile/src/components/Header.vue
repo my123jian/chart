@@ -33,7 +33,7 @@
                     <div class="r-btn cp"></div>
                 </div>
                 <div class="right2">
-                    <div class="people"></div>
+                    <div class="people" @click="gotoLogin"></div>
                 </div>
             </div>
         </div>
@@ -72,6 +72,9 @@
             }
         },
         methods: {
+            gotoLogin(){
+              location.href=window.adminUrl;
+            },
             loadPriv() {
                 var theMenuList = window.menuList;
                 if (theMenuList && theMenuList.length > 0) {
