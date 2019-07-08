@@ -14,6 +14,7 @@ class PointData {
     ystep = 0;
     minDis = 10;
     mark=null;
+    isStart=false;
 
      getRad(d){
         return d*Math.PI/180.0;
@@ -51,6 +52,7 @@ class PointData {
     reset() {
         this.x = this.x1;
         this.y = this.y1;
+        this.isStart=false;
     }
 
     getNextEndPoint() {
@@ -109,7 +111,7 @@ class PointData {
         var theNextPoint = this.getPointInRang(this.x, this.y, theNextEndPoint.x, theNextEndPoint.y);
         this.x = theNextPoint.x;
         this.y = theNextPoint.y;
-        console.log("节点信息:", this.x, this.y);
+        // console.log("节点信息:", this.x, this.y);
 
     }
 }
@@ -126,6 +128,8 @@ export class PointPath {
     drawHandler = null;
     endMark=null;
     startMark=null;
+    pointStep=5;
+    currentPoint=0;
 
     constructor(x1, y1, x2, y2, value, drawHandler) {
         this.x1 = parseFloat(x1);
@@ -134,14 +138,19 @@ export class PointPath {
         this.y2 = parseFloat(y2);
         this.value = value;
         this.drawHandler = drawHandler;
+        this.max=30;
     }
 
     genPoints() {
         var theBaseUtil = this.value / this.max;
         var theCurrentValue = this.value;
-        var theXStep = Math.abs(this.x1 - this.x2) / this.max;
-        var theYStep = Math.abs(this.y1 - this.y2) / this.max;
+        var theStepBase=Math.floor(Math.RandomRange(30,100));
+        var theXStep = Math.abs(this.x1 - this.x2) / theStepBase;
+        var theYStep = Math.abs(this.y1 - this.y2) / theStepBase;
         for (var i = 0; i < this.max; i++) {
+            if(theCurrentValue<=0){
+                break;
+            }
             var theVlaue = Math.RandomRange(theBaseUtil,Math.min(theCurrentValue,theBaseUtil*4));
             var theData = Math.min(theVlaue, theCurrentValue);
             theCurrentValue = theCurrentValue - theData;
@@ -178,6 +187,17 @@ export class PointPath {
         var isAllOver=true;
         for (var i = 0; i < this.points.length; i++) {
             var thePoint = this.points[i];
+            if(!thePoint.isStart){
+                thePoint.isStart=true;
+                break;
+            }
+
+        }
+        for (var i = 0; i < this.points.length; i++) {
+            var thePoint = this.points[i];
+            if(!thePoint.isStart){
+                continue;
+            }
             if(!thePoint.isOver()){
                 thePoint.run();
                 isAllOver=false;

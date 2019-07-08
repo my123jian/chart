@@ -153,7 +153,8 @@
                             var thePath = me.paths[i];
                             thePath.run();
                         }
-                    }, 500);
+                        me.drawPaths();
+                    }, 100);
                 }
             },
             gotoPage() {
@@ -178,7 +179,8 @@
                         // handle success
                         var theData = response.data;
                         // me.drawAgeChar(theData.data);
-                        me.drawSpace(theData.data);
+                        // me.drawSpace(theData.data);
+                        me.initPath(theData.data);
                         console.log(response, theData);
                     })
                     .catch(function (error) {
@@ -216,12 +218,36 @@
                 AMapUI && AMapUI.load(['ui/geo/DistrictExplorer', 'lib/$'], function (DistrictExplorer, $) {
                     window.districtExplorer = new DistrictExplorer({
                         eventSupport: true, //打开事件支持
-                        map: me.amap
+                        map: me.mapView
                     });
                     me.navigateTo(me.mapView, me.queryRegionCode);
                     // debugger;
                 });
                 // window.theMap = theMap
+            },
+            initPath(datas) {
+                this.paths = [];
+                for (var i = 0; i < datas.length; i += 1) {
+                    var theItem = datas[i];
+                    var theStartArea = theItem.startArea;
+                    var theEndArea = theItem.endArea;
+
+                    var theStartCityCode = CityCodeMap.getCountyCode("广东省", this.queryRegionCode, theStartArea);
+                    var theEndCityCode = CityCodeMap.getCountyCode("广东省", this.queryRegionCode, theEndArea);
+
+                    var theStartPosition = GpsUtil.getByAreaCode(theStartCityCode);
+                    var theEndPosition = GpsUtil.getByAreaCode(theEndCityCode);
+
+                    var theNum = theItem.num;
+                    if (!theStartPosition || !theEndPosition) {
+                        console.log("未找到坐标信息", theStartArea, theEndArea);
+                        continue;
+                    }
+                    var theNewPath = new PointPath(theStartPosition[0], theStartPosition[1], theEndPosition[0], theEndPosition[1], theNum);
+                    theNewPath.start();
+                    this.paths.push(theNewPath);
+
+                }
             },
             drawSpace(datas) {
                 var theOldPaths = this.paths;
@@ -341,6 +367,81 @@
 
                 }
             },
+            drawPaths() {
+                var thePoints = [];
+                for (var i = 0; i < this.paths.length; i++) {
+                    var thePath = this.paths[i];
+                    var theEndValue = 0;
+                    var theBeginValue=thePath.value;
+                    for (var j = 0; j < thePath.points.length; j++) {
+
+                        var thePoint = thePath.points[j];
+                        if(!thePoint.isStart){
+                            continue;
+                        }
+                        theBeginValue-=thePoint.value;
+                        if (thePoint.isOver()) {
+                            theEndValue += thePoint.value;
+                            continue;
+                        }
+                        thePoints.push(thePoint);
+                    }
+                    if (theBeginValue > 0) {
+                        thePoints.push({
+                            x: thePath.x1, y: thePath.y1,
+                            value: theBeginValue
+                        });
+                    }
+                    if (theEndValue > 0) {
+                        thePoints.push({
+                            x: thePath.x2, y: thePath.y2,
+                            value: theEndValue
+                        });
+                    }
+                }
+                this.drawPoints(thePoints);
+                // debugger;
+            },
+            drawPoints(datas) {
+                // debugger;
+                if (!this.layer) {
+                    this.layer = new Loca.RoundPointLayer({
+                        // fitView: true,
+                        map: this.mapView,
+                    });
+                }
+
+                for (var i = 0; i < datas.length; i++) {
+                    datas[i].lnglat = [datas[i].x, datas[i].y];
+                }
+                if (datas.length <= 0) {
+                    this.layer.hide();
+                    return;
+                }
+                else {
+                    this.layer.show();
+                }
+                // this.layer.render();
+                //
+                this.layer.setData(datas, {
+                    lnglat: 'lnglat'
+                });
+                this.layer.setOptions({
+                    style: {
+                        radius: function (data) {
+                            var theMinValue = 10;
+                            var theMaxValue = 100;
+                            var theCurrentValue = data.value.value / 1000;
+                            return Math.max(Math.min(theCurrentValue, theMaxValue), theMinValue);
+                        },
+                        color: '#d8d73f',
+                        opacity: 0.6,
+                        borderWidth: 1,
+                        borderColor: '#eee'
+                    }
+                });
+                this.layer.render();
+            },
             navigateTo(map, mapName) {
                 var currentAreaNode = null;
                 var me = this;
@@ -348,6 +449,7 @@
                 if (!districtExplorer) {
                     return;
                 }
+                // debugger;
                 var adcode = CityCodeMap.getProvinceCode("广东省");
                 if (mapName) {
                     var tadcode = CityCodeMap.getCityCode("广东省", mapName);
