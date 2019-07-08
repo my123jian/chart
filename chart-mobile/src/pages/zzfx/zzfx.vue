@@ -101,7 +101,7 @@
         name: "zzfx",
         data() {
             return {
-                queryRegionCode: '广州',//省内 具体到市  省外是全国地图
+                queryRegionCode: '',//省内 具体到市  省外是全国地图
                 queryDate: new Date(),//查询的日期
                 queryAreaCode: '',
                 right_tab_index: 1,

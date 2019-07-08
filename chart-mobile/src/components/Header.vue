@@ -5,17 +5,17 @@
                 <div class="logo-img"></div>
                 <span>蜂巢交通平台</span>
             </div>
-            <div :class="['tab', 'cp', {'active': activeId==1}]" @click="clickTab(1)">
+            <div :class="['tab', 'cp', {'active': activeId==1}]" @click="clickTab(1)" v-if="jiance==true">
                 实时交通监测
                 <div class="sanjiao" v-if="activeId==1"></div>
             </div>
-            <div class="tab-line"></div>
-            <div :class="['tab', 'cp', {'active': activeId==2}]" @click="clickTab(2)">
+            <div class="tab-line"  v-if="guihua==true"></div>
+            <div :class="['tab', 'cp', {'active': activeId==2}]" @click="clickTab(2)" v-if="guihua==true">
                 市内交通规划
                 <div class="sanjiao" v-if="activeId==2"></div>
             </div>
-            <div class="tab-line"></div>
-            <div :class="['tab', 'cp', {'active': activeId==3}]" @click="clickTab(3)">
+            <div class="tab-line"  v-if="fenxi==true"></div>
+            <div :class="['tab', 'cp', {'active': activeId==3}]" @click="clickTab(3)" v-if="fenxi==true">
                 跨市迁徙分析
                 <div class="sanjiao" v-if="activeId==3"></div>
             </div>
@@ -43,6 +43,7 @@
 <script>
     // import {utils} from '../common'
     import PageUtil from "../utils/PageUtil";
+
     export default {
         props: {customActiveId: {type: [String, Number], default: 1}},
         data() {
@@ -52,7 +53,10 @@
                 nowMonth: null,
                 nowDay: null,
                 nowTime: null,
-                timer: null
+                timer: null,
+                jiance: false,
+                guihua: false,
+                fenxi: false
             }
         },
 
@@ -68,6 +72,24 @@
             }
         },
         methods: {
+            loadPriv() {
+                var theMenuList = window.menuList;
+                if (theMenuList && theMenuList.length > 0) {
+                    for (var i = 0; i < theMenuList.length; i++) {
+                        var theMenu = theMenuList[i];
+                        if (theMenu.text == "实时交通监测") {
+                            this.jiance = true;
+                        }
+                        if (theMenu.text == "市内交通规划") {
+                            this.guihua = true;
+                        }
+                        if (theMenu.text == "跨市迁徙分析") {
+                            this.fenxi = true;
+                        }
+                    }
+                }
+
+            },
             clickTab(id) {
                 this.activeId = id;
                 if (id == 1) {
@@ -110,6 +132,16 @@
             // this.handleTime()
             // let me = this
             //this.timer = setInterval(me.handleTime, 1000)
+            if(this.activeId==1){
+                window.moduleNmae="实时交通监测";
+            }
+            if(this.activeId==2){
+                window.moduleNmae="市内交通规划";
+            }
+            if(this.activeId==3){
+                window.moduleNmae="跨市迁徙分析";
+            }
+            this.loadPriv();
         },
 
         beforeDestroy() {

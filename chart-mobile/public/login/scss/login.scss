@@ -1,0 +1,162 @@
+@import "../../style/common";
+@import "../../style/mixin";
+
+
+html,body {
+  width: 1920px;
+  height: 1080px;
+  background: url("../img/bg_1.png") no-repeat;
+  position: relative;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  border: 1px solid #CCC!important;
+}
+.title {
+  position: absolute;
+  top: 150px;
+  right: 68px;
+  font-size: 53px;
+  color: #b6cbff;
+}
+.login-box {
+  position: absolute;
+  top: 380px;
+  right: 156px;
+  width: 660px;
+  height: 500px;
+  background: url("../img/bg_2.png") no-repeat;
+  padding: 80px 110px 80px;
+}
+form {
+  width: 100%;
+  height: 100%;
+
+}
+.btn-box {
+  width: 440px;
+  height: 60px;
+
+  input {
+    width: 100%;
+    height: 100%;
+    //visibility: hidden;
+    background: url("../img/login_btn_pre.png");
+
+  }
+
+}
+.sel-box {
+  width: 440px;
+  height: 60px;
+  font-size: 24px;
+  color: #a3b7eb;
+  margin-top: 50px;
+  margin-bottom: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .font {
+    margin-right: 60px;
+    position: relative;
+    top: -4px;
+  }
+
+}
+.tips {
+  font-size: 18px;
+  color: #fa3a3b;
+  position: absolute;
+  left: 130px;
+  top: 45px;
+}
+input[type="submit"] {
+  color: #072a6c;
+  font-size: 24px;
+}
+input[type="radio"] + label::before {
+  content: "\a0"; /*不换行空格*/
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 18px;
+  width: 1em;
+  height: 1em;
+  margin-right: .4em;
+  margin-bottom: 5px;
+  border-radius: 50%;
+  border: 1px solid #a3b7eb;
+  text-indent: .15em;
+  line-height: 1em;
+  padding: .2em;
+
+}
+input[type="radio"]:checked + label::before {
+  background-color: #06cffa;
+  border: 1px solid #06cffa;
+  background-clip: content-box;
+  padding: .2em;
+}
+input[type="radio"] {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+.c1 {
+  margin-right: 30px;
+}
+.sbox {
+  display: flex;
+
+}
+.input-box {
+  width: 440px;
+  height: 60px;
+  background: url("../img/input.png") no-repeat;
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+
+  input {
+    margin-left: 16px;
+    flex: 1;
+    background-color: rgba(0,0,0,0);
+    height: 100%;
+    font-size: 24px;
+    color: #b6cbff;
+  }
+
+}
+input:focus {
+  outline: none;
+}
+::-webkit-input-placeholder{
+  color: #05cffa;
+}    /* 使用webkit内核的浏览器 */
+:-moz-placeholder{
+  color: #05cffa;
+
+}                  /* Firefox版本4-18 */
+::-moz-placeholder{
+  color: #05cffa;
+}                  /* Firefox版本19+ */
+.input-box.active {
+  background: url("../img/input_pre.png") no-repeat;
+}
+.icon1 {
+  width: 26px;
+  height: 30px;
+  background: url("../img/icon_1_pre.png") no-repeat;
+}
+.icon1.active {
+  background: url("../img/icon_1.png") no-repeat;
+}
+
+.icon2 {
+  width: 26px;
+  height: 30px;
+  background: url("../img/icon_2_pre.png") no-repeat;
+}
+.icon2.active {
+  background: url("../img/icon_2.png") no-repeat;
+}
+

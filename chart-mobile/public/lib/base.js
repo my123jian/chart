@@ -1,4 +1,5 @@
-window.baseUrl = "http://localhost:9000";
+
+
 
 /**
  * 视图的基类添加定时刷新和数据获取的支持
@@ -18,10 +19,10 @@ function FormateDateNum(num) {
 function toQuery(obj) {
     var theItems = [];
     for (var key in obj) {
-        if(obj[key]==undefined||obj[key]==null){
-            theItems.push(key + "=" + (obj[key]||''));
+        if (obj[key] == undefined || obj[key] == null) {
+            theItems.push(key + "=" + (obj[key] || ''));
         }
-        else{
+        else {
             theItems.push(key + "=" + (obj[key]));
         }
 
@@ -103,29 +104,30 @@ Number.prototype.fromateDataString = function () {
     theResultStr += "<div class='last'>万</div>";
     return theResultStr;
 }
-Number.prototype.fromateNum=function () {
+Number.prototype.fromateNum = function () {
     return this;
 }
+
 function gotoPage(name) {
     location.href = name;
 }
 
 Array.prototype.min = function (compare) {
     var theMinValue = null;
-    var datas=this;
+    var datas = this;
     if (datas && datas.length > 0) {
         for (var i = 0; i < datas.length; i++) {
             if (theMinValue == null) {
                 theMinValue = datas[i];
             }
-            else{
-                if(compare){
-                    if(compare(datas[i],theMinValue)){
+            else {
+                if (compare) {
+                    if (compare(datas[i], theMinValue)) {
                         theMinValue = datas[i];
                     }
                     continue;
                 }
-                if(datas[i]<theMinValue){
+                if (datas[i] < theMinValue) {
                     theMinValue = datas[i];
                 }
             }
@@ -134,15 +136,15 @@ Array.prototype.min = function (compare) {
     return theMinValue;
 }
 Array.prototype.max = function () {
-    var datas=this;
+    var datas = this;
     var theMaxValue = null;
     if (datas && datas.length > 0) {
         for (var i = 0; i < datas.length; i++) {
             if (theMaxValue == null) {
                 theMaxValue = datas[i];
             }
-            else{
-                if(datas[i]>theMaxValue){
+            else {
+                if (datas[i] > theMaxValue) {
                     theMaxValue = datas[i];
                 }
             }
@@ -150,11 +152,11 @@ Array.prototype.max = function () {
     }
     return theMaxValue;
 }
-Math.RandomRange=function(mindata,maxdata){
+Math.RandomRange = function (mindata, maxdata) {
     return Math.random() * (maxdata - mindata) + mindata;
 }
-Math.RandomPoint=function(mindata1,maxdata1,mindata2,maxdata2){
-    return [Math.RandomRange(mindata1,maxdata1),Math.RandomRange(mindata2,maxdata2)];
+Math.RandomPoint = function (mindata1, maxdata1, mindata2, maxdata2) {
+    return [Math.RandomRange(mindata1, maxdata1), Math.RandomRange(mindata2, maxdata2)];
 }
 
 //年龄组分段

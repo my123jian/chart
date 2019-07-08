@@ -33,13 +33,22 @@ export default {
     //获取市列表
     getGdCityList() {
         var theResultList = [];
-        for (var i = 0; i < this.gd.length; i++) {
-            var theItem = this.gd[i];
-            if(theItem.code.endsWith("00")){
-                theResultList.push(theItem);
-                theItem.value=theItem.name.substr(0,theItem.name.length-1);
-            }
+        var theCitys=getCitys();
+        for (var i = 0; i < theCitys.length; i++) {
+            var theItem = theCitys[i];
+            theResultList.push({
+                name:theItem,
+                value:theItem
+            });
         }
+
+        // for (var i = 0; i < this.gd.length; i++) {
+        //     var theItem = this.gd[i];
+        //     if(theItem.code.endsWith("00")){
+        //         theResultList.push(theItem);
+        //         theItem.value=theItem.name.substr(0,theItem.name.length-1);
+        //     }
+        // }
         return theResultList;
     },
     //获取区域列表
