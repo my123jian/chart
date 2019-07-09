@@ -6,17 +6,17 @@
                 <span>蜂巢交通平台</span>
             </div>
             <div :class="['tab', 'cp', {'active': activeId==1}]" @click="clickTab(1)" v-if="jiance==true">
-                实时交通监测
+                {{jiance_text}}
                 <div class="sanjiao" v-if="activeId==1"></div>
             </div>
             <div class="tab-line"  v-if="guihua==true"></div>
             <div :class="['tab', 'cp', {'active': activeId==2}]" @click="clickTab(2)" v-if="guihua==true">
-                市内交通规划
+                {{guihua_text}}
                 <div class="sanjiao" v-if="activeId==2"></div>
             </div>
             <div class="tab-line"  v-if="fenxi==true"></div>
             <div :class="['tab', 'cp', {'active': activeId==3}]" @click="clickTab(3)" v-if="fenxi==true">
-                跨市迁徙分析
+                {{fenxi_text}}
                 <div class="sanjiao" v-if="activeId==3"></div>
             </div>
             <!--<div class="time-box">-->
@@ -56,7 +56,11 @@
                 timer: null,
                 jiance: false,
                 guihua: false,
-                fenxi: false
+                fenxi: false,
+                jiance_text: "",
+                guihua_text: "",
+                fenxi_text: "",
+                appname:''
             }
         },
 
@@ -73,21 +77,25 @@
         },
         methods: {
             gotoLogin(){
-              location.href=window.adminUrl;
+              // location.href=window.adminUrl;
+                window.gotoPage('login.html');
             },
             loadPriv() {
                 var theMenuList = window.menuList;
                 if (theMenuList && theMenuList.length > 0) {
                     for (var i = 0; i < theMenuList.length; i++) {
                         var theMenu = theMenuList[i];
-                        if (theMenu.text == "实时交通监测") {
+                        if (theMenu.url == "index.html") {
                             this.jiance = true;
+                            this.jiance_text = theMenu.text;
                         }
-                        if (theMenu.text == "市内交通规划") {
+                        if (theMenu.url == "tqfx.html"||theMenu.url == "zzfx.html") {
                             this.guihua = true;
+                            this.guihua_text = theMenu.text;
                         }
-                        if (theMenu.text == "跨市迁徙分析") {
+                        if (theMenu.url == "qxdc.html"||theMenu.url == "kstq.html") {
                             this.fenxi = true;
+                            this.fenxi_text =theMenu.text;
                         }
                     }
                 }
@@ -127,24 +135,27 @@
         },
 
         created() {
+
         },
 
         mounted() {
+            this.loadPriv();
             this.activeId = this.customActiveId;
             // utils.hasSetRem(this.sendHeight)
             // this.handleTime()
             // let me = this
             //this.timer = setInterval(me.handleTime, 1000)
             if(this.activeId==1){
-                window.moduleNmae="实时交通监测";
+                window.moduleNmae=this.jiance_text;// "实时交通监测";
             }
             if(this.activeId==2){
-                window.moduleNmae="市内交通规划";
+                window.moduleNmae=this.guihua_text;// "市内交通规划";
             }
             if(this.activeId==3){
-                window.moduleNmae="跨市迁徙分析";
+                window.moduleNmae=this.fenxi_text;// "跨市迁徙分析";
             }
-            this.loadPriv();
+            this.appname=window.appname;
+
         },
 
         beforeDestroy() {

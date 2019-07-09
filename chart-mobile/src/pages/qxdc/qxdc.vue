@@ -138,7 +138,7 @@
         data() {
             return {
                 queryRegionType: '1',//分析的区域
-                queryRegionCode: '广州',//省内 具体到市  省外是全国地图
+                queryRegionCode: '',//'广州',//省内 具体到市  省外是全国地图
                 queryDirection: '1',//查询的迁徙方向 迁入或者迁出
                 queryDate: new Date(),//查询的日期
                 right_tab_index: 1,
@@ -216,6 +216,7 @@
         mounted() {
             this.loadData();
             this.initCity();
+            this.queryRegionCode=getDefaultCity();
         },
         methods: {
             initCity() {
@@ -223,6 +224,9 @@
             },
             initArea() {
                 var theCode = CityCodeMap.getCityCode("广东省", this.queryRegionCode);
+                if(!theCode){
+                    return;
+                }
                 this.areas = CityCodeMap.getGdAreaList(theCode);
             },
             gotoPage() {

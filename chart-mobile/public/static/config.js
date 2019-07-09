@@ -1,6 +1,6 @@
 //在这里设置基础地址
-window.baseUrl = "http://localhost:9000";
-window.adminUrl="http://serv.gdcmcc.com:23206/login";
+window.baseUrl = "http://localhost:9000/traffic/";
+window.adminUrl="http://serv.gdcmcc.com:23206/traffic/login";
 (function () {
 //判断是否已经登录
     var theUserSessionObj = sessionStorage.userData;
@@ -19,8 +19,9 @@ window.adminUrl="http://serv.gdcmcc.com:23206/login";
         var theMenuObj = null;
         for (var i = 0; i < theUserObj.children.length; i++) {
             var theChildItem = theUserObj.children[i];
-            if (theChildItem.text == "交通厅菜单") {
+            if ( theChildItem.id+""=="115") {
                 theMenuObj = theChildItem.children;
+                window.appname=theChildItem.text
             }
         }
         window.menuList = theMenuObj;
@@ -51,6 +52,18 @@ function getCitys(modelname) {
 }
 
 /**
+ * 返回默认值
+ * @returns {*}
+ */
+function getDefaultCity() {
+    var theCitys=getCitys();
+    if(theCitys&&theCitys.length>0){
+        return theCitys[0];
+    }
+    return "";
+}
+
+/**
  * 用户登录
  * @param userName
  * @param userPassword
@@ -64,4 +77,31 @@ function doLogin(userName, userPassword) {
  */
 function doLogoff() {
 
+}
+
+ function  GoToPage(pageName, defaultUrl, paramter) {
+    let theParamterArray = []
+    for (let key in paramter) {
+        theParamterArray.push(key + '=' + paramter[key])
+    }
+    location.href = defaultUrl + '?' + theParamterArray.join('&')
+}
+function goToPage (pageName, defaultUrl, paramter) {
+    let theParamterArray = []
+    for (let key in paramter) {
+        theParamterArray.push(key + '=' + paramter[key])
+    }
+    location.href = defaultUrl + '?' + theParamterArray.join('&')
+}
+
+function  GotoPage(pageName, defaultUrl, paramter) {
+    let theParamterArray = []
+    for (let key in paramter) {
+        theParamterArray.push(key + '=' + paramter[key])
+    }
+    location.href = defaultUrl + '?' + theParamterArray.join('&')
+}
+
+function GotoPage(name) {
+    location.href = name;
 }

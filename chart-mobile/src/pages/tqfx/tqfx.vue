@@ -122,9 +122,13 @@
         methods: {
             initCity() {
                 this.citys = CityCodeMap.getGdCityList();
+                this.queryRegionCode=getDefaultCity();
             },
             initArea() {
                 var theCode = CityCodeMap.getCityCode("广东省", this.queryRegionCode);
+                if(!theCode){
+                    return;
+                }
                 this.areas = CityCodeMap.getGdAreaList(theCode);
             },
             gotoPage() {
@@ -267,7 +271,7 @@
         },
         data() {
             return {
-                queryRegionCode: '广州',//省内 具体到市  省外是全国地图
+                queryRegionCode:  getDefaultCity(),//'广州',//省内 具体到市  省外是全国地图
                 queryAreaCode: '',//所在区域信息
                 queryDate: new Date(),//查询的日期
                 right_tab_index: 1,

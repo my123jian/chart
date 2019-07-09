@@ -86,13 +86,13 @@
                  * */
                 var theX = [];
                 var theY = [];
-                var theDatas = datas.populationData;
+                var theDatas = datas.workAreaList;//datas.populationData;
                 // debugger;
                 if (theDatas) {
                     for (var i = 0; i < theDatas.length; i++) {
                         var theItem = theDatas[i];
-                        theY.push(theItem.workNum);
-                        theX.push(theItem.area);
+                        theY.push(theItem.num);
+                        theX.push(theItem.workArea);
                     }
                 }
                 var theOptions = {
@@ -163,12 +163,12 @@
                  * */
                 var theX = [];
                 var theY = [];
-                var theDatas = datas.populationData;
+                var theDatas = datas.liveAreaList;
                 if (theDatas) {
                     for (var i = 0; i < theDatas.length; i++) {
                         var theItem = theDatas[i];
-                        theY.push(theItem.liveNum);
-                        theX.push(theItem.area);
+                        theY.push(theItem.num);
+                        theX.push(theItem.liveArea);
                     }
                 }
                 var theOptions = {
@@ -313,7 +313,37 @@
                 this.chart3.setOption(theOptions);
             },
 
+            loadReginArea() {
+                var theUrl1 = "/citytransport/reginArea";
+                //近期热门迁徙路线
+                var theUrl = window.baseUrl + theUrl1;
+                var theQueryObj = {
+                    dateTime: this.queryDate.formateYearMonth(),
+                    city: this.queryRegionCode,
+                    area: this.queryAreaCode
+                };
+                var me = this;
+                axios.post(theUrl, window.toQuery(theQueryObj))
+                    .then(function (response) {
+                        // handle success
+                        var theData = response.data;
 
+                        me.liveCount = (theData.data.liveCount || 0).toLocaleString('en-US');
+                        me.residentCount = (theData.data.residentCount || 0).toLocaleString('en-US');
+                        me.workCount = (theData.data.workCount || 0).toLocaleString('en-US');
+
+                        me.drawChart1(theData.data);
+                        me.drawChart2(theData.data);
+                        console.log(response, theData);
+                    })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+            },
             //2.人口分析
             loadAnalyPopulation() {
                 var theUrl1 = "/citytransport/analyPopulation";
@@ -334,8 +364,8 @@
                         me.residentCount = (theData.data.residentCount || 0).toLocaleString('en-US');
                         me.workCount = (theData.data.workCount || 0).toLocaleString('en-US');
 
-                        me.drawChart1(theData.data);
-                        me.drawChart2(theData.data);
+                        // me.drawChart1(theData.data);
+                        // me.drawChart2(theData.data);
                         console.log(response, theData);
                     })
                     .catch(function (error) {
@@ -407,6 +437,7 @@
             },
 
             loadData() {
+                this.loadReginArea();
                 this.loadAnalyPopulation();
                 this.loadPopulationHistory();
                 // this.loadSpace();
