@@ -2,6 +2,17 @@ module.exports = {
 
     /*在这里配置多页面*/
     pages: {
+        login: {
+// entry for the page
+            entry: 'src/pages/login/login.js',
+// the source template
+            template: 'public/login.html',
+// output as dist/index.html
+            filename: 'login.html',
+// when using title option,
+// template title tag needs to be <title><%= htmlWebpackPlugin.options.title %></title>
+            title: '登录页面'
+        },
         qxdc: {
 // entry for the page
             entry: 'src/pages/qxdc/qxdc.js',

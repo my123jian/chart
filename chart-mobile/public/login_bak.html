@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登录</title>
+    <link rel="stylesheet" href="login/css/login.css">
+    <script src="lib/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="static/config.js"></script>
+</head>
+<body>
+<div class="title">蜂巢交通平台</div>
+<div class="login-box">
+    <div class="tips">
+
+    </div>
+    <!--<form action="" method="post" id="login-form" onsubmit="return sb1()">-->
+    <div class="input-box">
+        <div class="icon1"></div>
+        <input type="text" name="name" id="username" placeholder="请输入账号" autocomplete="off">
+    </div>
+    <div class="input-box" style="margin-top: 50px;">
+        <div class="icon2"></div>
+        <input type="password" id="pwd" name="password" placeholder="请输入密码">
+    </div>
+    <div class="sel-box" style="height: 0px;">
+        <div class="font">
+            <!--登录到:-->
+        </div>
+        <!--<div class="sbox">-->
+        <!--&lt;!&ndash;<div class="c1">&ndash;&gt;-->
+        <!--&lt;!&ndash;<input name="module" checked="checked" type="radio" id="fx" value="fx">&ndash;&gt;-->
+        <!--&lt;!&ndash;<label for="fx">分析中心</label>&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;<span>分析中心</span>&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="">&ndash;&gt;-->
+        <!--&lt;!&ndash;<input name="module" type="radio" id="yj" value="yj">&ndash;&gt;-->
+        <!--&lt;!&ndash;<label for="yj">预警中心</label>&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;<span>预警中心</span>&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+    </div>
+    <div class="btn-box">
+        <input type="submit" value="登录" id="submit" onclick="doLogin()">
+    </div>
+    <!--</form>-->
+</div>
+<script>
+    //判断是否已经登录
+    function doLogin() {
+
+        var theUserName = $('#username').val();
+        var thePwd = $('#pwd').val();
+        if (!theUserName) {
+            alert("请输入用户名!");
+            return;
+        }
+        if (!thePwd) {
+            alert("请输入密码!");
+            return;
+        }
+        $.ajax(
+            {
+                url: baseUrl + "/traffic/login",
+                type: 'post',
+                data: {userName: theUserName, password: thePwd},
+                success: function (res) {
+                    if (res.code == 200) {
+                        var theData = res.data;
+                        sessionStorage.userData=JSON.stringify(res.data);
+                        location.href="index.html";
+                    }
+                    else {
+                        alert(res.message);
+                    }
+                },
+                error: function () {
+                    alert("请求错误,请稍后再试!");
+                }
+
+            }
+        );
+    }
+</script>
+
+</body>
+</html>
