@@ -263,7 +263,7 @@
         pointer-events: visible;
         top: 16px;
         right: 54px;
-        z-index: 10000;
+        z-index: 1000;
         position: absolute;
         color: white;
     }

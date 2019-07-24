@@ -1,6 +1,6 @@
 //在这里设置基础地址
 window.baseUrl = "/traffic/";
-window.adminUrl = "http://serv.gdcmcc.com:23206/traffic/login";
+window.adminUrl = "http://serv.gdcmcc.com:23206/traffic/index";
 (function () {
 //判断是否已经登录
     var theUserSessionObj = getLoginData();

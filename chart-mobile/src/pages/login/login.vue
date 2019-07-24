@@ -18,6 +18,11 @@
                             <input type="password" placeholder="请输入密码" v-model="userPwd"/>
                             <span class="login-pwd-a-icon"></span>
                         </div>
+                        <div class="login-pwd login-code">
+                            <!--<span class="login-pwd-b-icon"></span>-->
+                            <input type="text" placeholder="请输入验证码" v-model="userCode"/>
+                            <img :src="imgUrl" class="code-img" @click="changeImage"></img>
+                        </div>
                         <div>
                             <div class="login-btn" @click="login">登录</div>
                         </div>
@@ -38,13 +43,19 @@
             return {
                 userName: '',//用户名
                 userPwd: '',//用户密码
+                userCode: '',//验证码
+                imgUrl: '',
             }
         },
         components: {},
         mounted() {
-
+            this.changeImage();
         },
         methods: {
+            changeImage() {
+                var theUrl = baseUrl + "gifCode.gif?data" + new Date();
+                this.imgUrl = theUrl;
+            },
             login() {
                 if (!this.userName) {
                     alert("请输入用户名!");
@@ -54,12 +65,17 @@
                     alert("请输入用户密码!");
                     return;
                 }
+                if (!this.userCode) {
+                    alert("请输入验证码!");
+                    return;
+                }
                 var theUrl1 = "/traffic/login";
                 //近期热门迁徙路线
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {
                     userName: this.userName,
-                    password: this.userPwd
+                    password: this.userPwd,
+                    code: this.userCode
                 };
                 var me = this;
                 axios.post(theUrl, window.toQuery(theQueryObj))
@@ -69,14 +85,16 @@
                             var theData = res.data;
                             setLoginData(res.data);
                             setLoginName(me.userName);
-                            location.href = "index.html";
+                            location.href = "qxdc.html";
                         }
                         else {
+                            me.changeImage();
                             alert(res.message);
                         }
                     })
                     .catch(function (error) {
                         // handle error
+                        me.changeImage();
                         alert("登录失败");
                         console.log(error);
                     })
@@ -106,6 +124,11 @@
         position: relative;
         text-align: center;
         display: inline-block;
+    }
+
+    .code-img {
+        width: 194px;
+        /*height: 33px;*/
     }
 
     .left {
@@ -176,6 +199,7 @@
 
     .login-title {
         margin-top: 195px;
+        margin-top: 155px;
         font-size: 36px;
         font-weight: bold;
 
@@ -192,10 +216,12 @@
         padding-bottom: 15px;
         border-bottom: #c5c5c5 1px solid;
     }
-    .login-user input{
+
+    .login-user input {
         width: 354px;
     }
-    .login-user-b-icon{
+
+    .login-user-b-icon {
         width: 26px;
         height: 48px;
         margin-right: 18px;
@@ -205,7 +231,8 @@
         background-repeat: no-repeat;
         display: inline-block;
     }
-    .login-user-a-icon{
+
+    .login-user-a-icon {
         background-size: contain;
         background-image: url("../../images/login/图层 4.png");
         width: 21px;
@@ -214,7 +241,8 @@
         background-position: left bottom;
         background-repeat: no-repeat;
     }
-    .login-pwd-b-icon{
+
+    .login-pwd-b-icon {
         width: 26px;
         height: 48px;
         margin-right: 18px;
@@ -224,7 +252,8 @@
         background-position: left bottom;
         background-repeat: no-repeat;
     }
-    .login-pwd-a-icon{
+
+    .login-pwd-a-icon {
         background-size: contain;
         background-image: url("../../images/login/图层 5.png");
         width: 16px;
@@ -233,6 +262,7 @@
         background-position: left bottom;
         background-repeat: no-repeat;
     }
+
     .login-pwd {
         margin-top: 50px;
         height: 48px;
@@ -244,16 +274,27 @@
         padding-bottom: 15px;
         border-bottom: #c5c5c5 1px solid;
     }
-    .login-pwd input{
+
+    .login-pwd input {
         width: 359px;
     }
+
+    .login-code input {
+        width: 159px;
+    }
+
     .login-title > span {
         border-bottom: #3a5ddf solid 4px;
         padding-bottom: 10px;
     }
-    input{
+
+    input {
         background: transparent;
         border: none;
         outline: none;
-        -webkit-appearance: none; -moz-appearance: none; -o-appearance: none; appearance: none;}
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+    }
 </style>
