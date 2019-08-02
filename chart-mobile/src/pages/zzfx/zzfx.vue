@@ -598,7 +598,7 @@
     .content {
         top: 78px;
         left: 0px;
-        z-index: 10000;
+        z-index: 1000;
         bottom: 0px;
         right: 0px;
         pointer-events: none;

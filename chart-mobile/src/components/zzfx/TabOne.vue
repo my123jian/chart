@@ -328,9 +328,9 @@
                         // handle success
                         var theData = response.data;
 
-                        me.liveCount = (theData.data.liveCount || 0).toLocaleString('en-US');
-                        me.residentCount = (theData.data.residentCount || 0).toLocaleString('en-US');
-                        me.workCount = (theData.data.workCount || 0).toLocaleString('en-US');
+                        // me.liveCount = (theData.data.liveCount || 0).toLocaleString('en-US');
+                        // me.residentCount = (theData.data.residentCount || 0).toLocaleString('en-US');
+                        // me.workCount = (theData.data.workCount || 0).toLocaleString('en-US');
 
                         me.drawChart1(theData.data);
                         me.drawChart2(theData.data);
@@ -359,10 +359,9 @@
                     .then(function (response) {
                         // handle success
                         var theData = response.data;
-
-                        me.liveCount = (theData.data.liveCount || 0).toLocaleString('en-US');
-                        me.residentCount = (theData.data.residentCount || 0).toLocaleString('en-US');
-                        me.workCount = (theData.data.workCount || 0).toLocaleString('en-US');
+                        me.liveCount = (theData.data.liveCount ).toLocaleString('en-US');
+                        me.residentCount = (theData.data.residentCount ).toLocaleString('en-US');
+                        me.workCount = (theData.data.workCount ).toLocaleString('en-US');
 
                         // me.drawChart1(theData.data);
                         // me.drawChart2(theData.data);

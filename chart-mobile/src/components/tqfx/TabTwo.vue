@@ -44,54 +44,7 @@
                 </tbody>
             </table>
         </div>
-        <!--<div title="通勤成本排行" class="part-item part-item1">-->
-        <!--<table>-->
-        <!--<tr>-->
-        <!--<td>-->
-        <!--<div class="title onecloumn onecloumn-bg">-->
-        <!--通勤成本排行-->
-        <!--</div>-->
-        <!--</td>-->
-        <!--<td style="vertical-align: top;width: 100%;">-->
-        <!--<div class="content">-->
-        <!--<table class="table" style="width: 100%;">-->
-        <!--<thead>-->
-        <!--<tr>-->
-        <!--<th>-->
-        <!--排名-->
-        <!--</th>-->
-        <!--<th>-->
-        <!--通勤路线-->
-        <!--</th>-->
-        <!--<th>-->
-        <!--通勤人数-->
-        <!--</th>-->
-        <!--<th>-->
-        <!--单程平均通行时间(min)-->
-        <!--</th>-->
-        <!--<th>-->
-        <!--单程平均通行距离(km)-->
-        <!--</th>-->
 
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tbody>-->
-        <!--<tr v-for="item in items" :key="item.id">-->
-        <!--<th>{{item.order}}</th>-->
-        <!--<th>{{item.line}}</th>-->
-        <!--<th>{{item.num}}</th>-->
-        <!--<th>{{item.avgTime}}</th>-->
-        <!--<th>{{item.avgDistance}}</th>-->
-        <!--</tr>-->
-        <!--</tbody>-->
-        <!--</table>-->
-        <!--</div>-->
-        <!--</td>-->
-        <!--</tr>-->
-        <!--</table>-->
-
-
-        <!--</div>-->
         <div title="平均通勤距离" class="part-item part-item2">
             <table>
                 <tr>
@@ -154,7 +107,12 @@
                     tooltip: {
                         trigger: 'axis'
                     },
-
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
                     legend: {
                         x: 'right',
                         data: [{name: '工作', textStyle: {color: "#6bff75", fontSize: 16}},
@@ -439,15 +397,15 @@
     }
 
     .part-item2 {
-        height: 230px;
+        height: 330px;
         bottom: 0px;
         left: 0px;
-        top: 610px;
+        top: 510px;
         position: absolute;
     }
 
     .chart {
-        height: 230px;
+        height: 330px;
         width: 100%;/*578px;*/
         left: 0px;
         top: 0px;

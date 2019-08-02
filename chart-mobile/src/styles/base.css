@@ -296,7 +296,7 @@ body {
     /*height: 2em;*/
     left: 0px;
     text-align: center;
-    z-index: 10000
+    z-index: 1000
 }
 
 .nav-bottom-bar > div {

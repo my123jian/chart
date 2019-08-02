@@ -34,6 +34,11 @@
                 </div>
                 <div class="right2">
                     <div class="people" @click="gotoLogin"></div>
+                    <div class="menu_div" v-if="menuVisible">
+                        <div class="username">{{userName}}</div>
+                        <div class="exit_btn" @click="gotoAdmin">后台管理</div>
+                        <div class="exit_btn" @click="logout">注销</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,7 +48,7 @@
 <script>
     // import {utils} from '../common'
     import PageUtil from "../utils/PageUtil";
-
+    import axios from "axios";
     export default {
         props: {customActiveId: {type: [String, Number], default: 1}},
         data() {
@@ -61,6 +66,8 @@
                 guihua_text: "",
                 fenxi_text: "",
                 appname: '',
+                userName: '',
+                menuVisible: false,
                 isFullScreen: false
             }
         },
@@ -79,7 +86,11 @@
         methods: {
             gotoLogin() {
                 // location.href=window.adminUrl;
-                window.gotoPage('login.html');
+                // window.gotoPage('login.html');
+                this.menuVisible = !this.menuVisible;
+            },
+            gotoAdmin() {
+                location.href = window.adminUrl;
             },
             isFullscreen() {
                 return document.fullscreen ||
@@ -135,15 +146,7 @@
                 }
             },
             logout() {
-                if (!this.userName) {
-                    alert("请输入用户名!");
-                    return;
-                }
-                if (!this.userPwd) {
-                    alert("请输入用户密码!");
-                    return;
-                }
-                var theUrl1 = "/traffic/logout";
+                var theUrl1 = "/logout";
                 //近期热门迁徙路线
                 var theUrl = window.baseUrl + theUrl1;
                 var theQueryObj = {};
@@ -152,8 +155,7 @@
                     .then(function (response) {
                         var res = response.data;
                         if (res.code == 200) {
-                            doLogoff();
-                            location.href = "login.html";
+
                         }
                         else {
                             alert(res.message);
@@ -161,12 +163,15 @@
                     })
                     .catch(function (error) {
                         // handle error
-                        alert("登录失败");
+                        // alert("登出失败");
                         console.log(error);
                     })
                     .finally(function () {
                         // always executed
+
                     });
+                doLogoff();
+                location.href = "login.html";
             },
             loadPriv() {
                 var theMenuList = window.menuList;
@@ -223,12 +228,13 @@
         },
 
         created() {
-            var me=this;
+            var me = this;
 
         },
 
         mounted() {
             this.loadPriv();
+            this.userName = getLoginName();
             this.activeId = this.customActiveId;
             // utils.hasSetRem(this.sendHeight)
             // this.handleTime()
@@ -254,6 +260,37 @@
 </script>
 
 <style scoped>
+    .username{
+        border-bottom: white dotted 2px;
+        padding-bottom: 5px;
+    }
+    .exit_btn {
+        margin-top: 10px;
+        cursor: pointer;
+        padding-top: 4px;
+    }
+
+    .exit_btn:hover {
+        background: #c3c3c3;
+    }
+
+    .menu_div {
+        position: absolute;
+        bottom: 0px;
+        right: 10px;
+        background: white;
+        opacity: 80%;
+        width: 200px;
+        top: 80px;
+        padding: 10px;
+        height: 140px;
+        color: white;
+        font-size: 25px;
+        background: #418edd;
+        z-index: 99999;
+        border-radius: 10px;
+    }
+
     .header {
         width: 100%;
         height: 78px;
@@ -363,6 +400,7 @@
         position: absolute;
         top: 0;
         right: 0;
+        z-index: 99999;
     }
 
     .people {

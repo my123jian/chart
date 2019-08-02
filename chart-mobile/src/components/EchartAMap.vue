@@ -75,7 +75,7 @@
                     animation: false,
                     series: []
                 });
-                this.amap = this.chartMap.getModel().getComponent('amap').getAMap();
+                window.mapInstance=this.amap = this.chartMap.getModel().getComponent('amap').getAMap();
                 var layer = this.chartMap.getModel().getComponent('amap').getLayer();
                 layer.render = function () {
                     var theOptions = me.chartMap.getOption();
@@ -169,7 +169,6 @@
                     };
                     this.district = new AMap.DistrictSearch(opts);
                 }
-                debugger;
                 //行政区查询
                 this.district.setLevel(this.level);
                 var colors = [
@@ -205,7 +204,7 @@
                     "#651067", "#329262", "#5574a6", "#3b3eac"
                 ];
                 //更新地图视野
-                map.setBounds(areaNode.getBounds(), null, null, true);
+                // map.setBounds(areaNode.getBounds(), null, null, true);
 
                 //清除已有的绘制内容
                 districtExplorer.clearFeaturePolygons();
@@ -228,7 +227,7 @@
                 });
 
                 //绘制父区域
-                districtExplorer.renderParentFeature(areaNode, {
+               var theResult= districtExplorer.renderParentFeature(areaNode, {
                     cursor: 'default',
                     bubble: true,
                     strokeColor: 'black', //线颜色
@@ -237,6 +236,11 @@
                     fillColor: null, //填充色
                     fillOpacity: 0.35, //填充透明度
                 });
+
+
+                map.setBounds(areaNode.getBounds(), null, null, true);
+                map.setFitView(null,false,[0,0,0,100]);
+                // map.setBounds(areaNode.getBounds());
             },
             navigateTo(map, mapName) {
 
@@ -426,7 +430,7 @@
                             }
                         },
                         symbolSize: function (val) {
-                            return 8 + (val[2] / 10000);
+                            return 10;//8 + (val[2] / 10000);
                         },
                         itemStyle: {
                             normal: {
@@ -443,10 +447,11 @@
                             //     value: thePoss.concat([dataItem.value])
                             // };
                             var theLngLatPoints = me.geoCoordMap(dataItem);
-                            var thePoss = [parseFloat(theLngLatPoints[0]), parseFloat(theLngLatPoints[1])];
+                            var thePoss = [parseFloat(theLngLatPoints[0]), parseFloat(theLngLatPoints[1]),dataItem.value];
                             return {
                                 name: dataItem,
-                                value: thePoss.concat([10])
+                                value: thePoss,
+                                tooltip:{formatter: '{b}'}
                             };
                         }),
                     }
@@ -456,6 +461,7 @@
 
                 };
 
+                // debugger;
                 // this.chartMap.clear();
                 this.chartMap.setOption(option);
 
