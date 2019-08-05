@@ -3,6 +3,7 @@ window.baseUrl = "/traffic/";
 window.adminUrl = "http://serv.gdcmcc.com:23206/traffic/index";
 (function () {
 //判断是否已经登录
+//     return;
     var theUserSessionObj = getLoginData();
     if (theUserSessionObj == null || theUserSessionObj == "undefined") {
         console.log("用户未登录,请登录!");
