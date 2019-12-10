@@ -148,18 +148,20 @@
             },
             /**根据数据进行呈现*/
             refresh(data) {
-                var theMapName = data.name;
-                var theMapPath = this.getMapPath(theMapName);
-                var me = this;
-                if (this.mapName != theMapName) {
-                    this.loadMap(theMapName, theMapPath, function () {
+                if (data && data.name) {
+                    var theMapName = data.name;
+                    var theMapPath = this.getMapPath(theMapName);
+                    var me = this;
+                    if (this.mapName != theMapName) {
+                        this.loadMap(theMapName, theMapPath, function () {
+                            me.drawMap(data);
+                        });
+                    }
+                    else {
                         me.drawMap(data);
-                    });
+                    }
+                    this.mapName = theMapName;
                 }
-                else {
-                    me.drawMap(data);
-                }
-                this.mapName = theMapName;
 
             },
             /**根据数据呈现到地图上*/

@@ -109,7 +109,6 @@
             TabOne,
             TabThree,
             WaveCircle,
-            Datepicker,
             Header,
             EchartAMap
         },

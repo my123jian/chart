@@ -11,11 +11,13 @@
     "@tensorflow/tfjs": "^1.2.2",
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
+    "echarts": "^4.2.1",
     "echarts-amap": "^1.0.0-rc.6",
     "lib-flexible": "^0.3.2",
     "postcss-pxtorem": "^4.0.1",
     "vue": "^2.6.10",
     "vue-datepicker-local": "^1.0.19",
+    "vue-echarts-v3": "^2.0.1",
     "vuejs-datepicker": "^1.5.4"
   },
   "devDependencies": {
